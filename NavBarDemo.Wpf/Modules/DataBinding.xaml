@@ -1,0 +1,60 @@
+﻿<local:NavBarDemoModule x:Class="NavBarDemo.DataBinding"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="clr-namespace:NavBarDemo"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+ xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+ xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+ xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdd="clr-namespace:DevExpress.DemoData"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <local:NavBarDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NavBarDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <collections:ArrayList x:Key="navBarViews">
+                <sys:String>Explorer Bar</sys:String>
+                <sys:String>Navigation Pane</sys:String>
+                <sys:String>Side Bar</sys:String>
+            </collections:ArrayList>
+            <collections:ArrayList x:Key="scrollModes">
+                <dxn:ScrollMode>Buttons</dxn:ScrollMode>
+                <dxn:ScrollMode>ScrollBar</dxn:ScrollMode>
+            </collections:ArrayList>
+            <Style TargetType="dxn:NavBarGroup">
+                <Setter Property="ImageSource" Value="{Binding Picture}" />
+                <Setter Property="Header" Value="{Binding CategoryName}" />
+            </Style>
+            <Style TargetType="dxn:NavBarItem">
+                <Setter Property="Content" Value="{Binding ProductName}" />
+            </Style>
+            <dxdd:NWindDataLoader x:Key="NWindDataLoader" />
+        </ResourceDictionary>
+    </local:NavBarDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="200">
+                <dx:GroupFrame Header="View" MinWidth="150" Margin="{DynamicResource groupMargin}">
+                    <dxe:ListBoxEdit ItemsSource="{DynamicResource navBarViews}"
+     SelectedIndexChanged="SelectView" SelectedIndex="0" Background="{x:Null}" ShowBorder="False">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Scroll Mode">
+                    <dxe:ListBoxEdit ItemsSource="{DynamicResource scrollModes}" SelectedIndex="0" Name="lbScrollMode" SelectedItem="{Binding Path=View.(dxn:ScrollingSettings.ScrollMode), ElementName=navBar}" Background="{x:Null}" ShowBorder="False">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <local:NavBarDemoGridControl>
+            <dxn:NavBarControl Name="navBar" GroupDescription="Category" ItemsSource="{Binding Products, Source={StaticResource NWindDataLoader}}" />
+        </local:NavBarDemoGridControl>
+    </dxdb:DemoModuleControl>
+</local:NavBarDemoModule>

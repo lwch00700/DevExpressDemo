@@ -1,0 +1,123 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.SideBySideRangeBar2DControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:ChartsDemo"
+    ModuleAppear="ChartsDemoModule_ModuleAppear">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:DemoValuesProvider x:Key="DemoValuesProvider" />
+            <local:RangeBar2DKindToRangeBar2DModelConverter x:Key="RangeBar2DKindToRangeBar2DModelConverter" />
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical" MinWidth="170">
+                <dxe:CheckEdit Name="chbVisible" Content="Show Labels" Margin="0,0,0,2"/>
+                <dx:GroupFrame Header="Model" Margin="0,2,0,10">
+                    <dxe:ListBoxEdit Name="lbModel"
+                                     Background="{x:Null}"
+                                     ShowBorder="False"
+                                     ItemsSource="{Binding PredefinedRangeBar2DKinds, Source={StaticResource DemoValuesProvider}}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart" AnimationMode="OnLoad" BorderThickness="0" ToolTipEnabled="True" CrosshairEnabled="False">
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D>
+                        <dxc:XYDiagram2D.AxisY>
+                            <dxc:AxisY2D>
+                                <dxc:AxisY2D.WholeRange>
+                                    <dxc:Range dxc:AxisY2D.AlwaysShowZeroLevel="False" />
+                                </dxc:AxisY2D.WholeRange>
+                                <dxc:AxisY2D.Title>
+                                    <dxc:AxisTitle Content="$ per barrel" />
+                                </dxc:AxisY2D.Title>
+                            </dxc:AxisY2D>
+                        </dxc:XYDiagram2D.AxisY>
+                        <dxc:XYDiagram2D.AxisX>
+                            <dxc:AxisX2D GridLinesVisible="True">
+                                <dxc:AxisX2D.DateTimeScaleOptions>
+                                    <dxc:ManualDateTimeScaleOptions MeasureUnit="Month"/>
+                                </dxc:AxisX2D.DateTimeScaleOptions>
+                                <dxc:AxisX2D.Label>
+                                    <dxc:AxisLabel TextPattern="{}{A:MMMM}"/>
+                                </dxc:AxisX2D.Label>
+                            </dxc:AxisX2D>
+                        </dxc:XYDiagram2D.AxisX>
+                        <dxc:XYDiagram2D.Series>
+                            <dxc:RangeBarSideBySideSeries2D Name="series1"
+                                                            DisplayName="ANS West Coast"
+                                                            ArgumentScaleType="DateTime"
+                                                            Model="{Binding ElementName=lbModel, Path=SelectedItem, Converter={StaticResource RangeBar2DKindToRangeBar2DModelConverter}}"
+                                                            AnimationAutoStartMode="SetStartState">
+                                <dxc:RangeBarSideBySideSeries2D.Label>
+                                    <dxc:SeriesLabel ResolveOverlappingMode="Default"
+                                                     Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                                     TextPattern="{}{V:F2}"/>
+                                </dxc:RangeBarSideBySideSeries2D.Label>
+                                <dxc:RangeBarSideBySideSeries2D.Points>
+                                    <dxc:SeriesPoint Argument="01/01/2010" Value="73.39" dxc:RangeBarSeries2D.Value2="84.68"/>
+                                    <dxc:SeriesPoint Argument="02/01/2010" Value="71.19" dxc:RangeBarSeries2D.Value2="80.16"/>
+                                    <dxc:SeriesPoint Argument="03/01/2010" Value="77.1" dxc:RangeBarSeries2D.Value2="81.18"/>
+                                    <dxc:SeriesPoint Argument="04/01/2010" Value="78.2" dxc:RangeBarSeries2D.Value2="83.59"/>
+                                    <dxc:SeriesPoint Argument="05/01/2010" Value="64.91" dxc:RangeBarSeries2D.Value2="85.14"/>
+                                    <dxc:SeriesPoint Argument="06/01/2010" Value="70.94" dxc:RangeBarSeries2D.Value2="78.86"/>
+                                    <dxc:SeriesPoint Argument="07/01/2010" Value="72.33" dxc:RangeBarSeries2D.Value2="79.53"/>
+                                    <dxc:SeriesPoint Argument="08/01/2010" Value="70.2" dxc:RangeBarSeries2D.Value2="81.7"/>
+                                    <dxc:SeriesPoint Argument="09/01/2010" Value="72.51" dxc:RangeBarSeries2D.Value2="80.22"/>
+                                    <dxc:SeriesPoint Argument="10/01/2010" Value="79.74" dxc:RangeBarSeries2D.Value2="83.48"/>
+                                    <dxc:SeriesPoint Argument="11/01/2010" Value="79.84" dxc:RangeBarSeries2D.Value2="87.21"/>
+                                    <dxc:SeriesPoint Argument="12/01/2010" Value="86" dxc:RangeBarSeries2D.Value2="92.84"/>
+                                </dxc:RangeBarSideBySideSeries2D.Points>
+                            </dxc:RangeBarSideBySideSeries2D>
+                            <dxc:RangeBarSideBySideSeries2D Name="series2"
+                                                            DisplayName="West Texas Intermediate"
+                                                            ArgumentScaleType="DateTime"
+                                                            Model="{Binding ElementName=lbModel, Path=SelectedItem, Converter={StaticResource RangeBar2DKindToRangeBar2DModelConverter}}"
+                                                            AnimationAutoStartMode="SetStartState">
+                                <dxc:RangeBarSideBySideSeries2D.Label>
+                                    <dxc:SeriesLabel ResolveOverlappingMode="Default"
+                                                     Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                                     TextPattern="{}{V:F2}"/>
+                                </dxc:RangeBarSideBySideSeries2D.Label>
+                                <dxc:RangeBarSideBySideSeries2D.Points>
+                                    <dxc:SeriesPoint Argument="01/01/2010" Value="72.89" dxc:RangeBarSeries2D.Value2="83.18"/>
+                                    <dxc:SeriesPoint Argument="02/01/2010" Value="71.19" dxc:RangeBarSeries2D.Value2="80.16"/>
+                                    <dxc:SeriesPoint Argument="03/01/2010" Value="78.7" dxc:RangeBarSeries2D.Value2="83.76"/>
+                                    <dxc:SeriesPoint Argument="04/01/2010" Value="81.45" dxc:RangeBarSeries2D.Value2="86.84"/>
+                                    <dxc:SeriesPoint Argument="05/01/2010" Value="65.96" dxc:RangeBarSeries2D.Value2="86.19"/>
+                                    <dxc:SeriesPoint Argument="06/01/2010" Value="71.44" dxc:RangeBarSeries2D.Value2="79.79"/>
+                                    <dxc:SeriesPoint Argument="07/01/2010" Value="71.98" dxc:RangeBarSeries2D.Value2="79.03"/>
+                                    <dxc:SeriesPoint Argument="08/01/2010" Value="71.2" dxc:RangeBarSeries2D.Value2="82.55"/>
+                                    <dxc:SeriesPoint Argument="09/01/2010" Value="72.41" dxc:RangeBarSeries2D.Value2="79.97"/>
+                                    <dxc:SeriesPoint Argument="10/01/2010" Value="79.49" dxc:RangeBarSeries2D.Value2="83.23"/>
+                                    <dxc:SeriesPoint Argument="11/01/2010" Value="80.44" dxc:RangeBarSeries2D.Value2="87.81"/>
+                                    <dxc:SeriesPoint Argument="12/01/2010" Value="86.75" dxc:RangeBarSeries2D.Value2="92.26"/>
+                                </dxc:RangeBarSideBySideSeries2D.Points>
+                            </dxc:RangeBarSideBySideSeries2D>
+                        </dxc:XYDiagram2D.Series>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend HorizontalPosition="Right" VerticalPosition="TopOutside" Orientation="Horizontal" />
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center">Crude Oil Prices in 2010</dxc:Title>
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0">From www.tax.state.ak.us</dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

@@ -1,0 +1,90 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.RadarLineSeriesControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:local="clr-namespace:ChartsDemo"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <local:StringToRotationDirectionConverter x:Key="stringToRotationDirectionConverter"/>
+            <local:StringToCircularDiagramShapeStyleConverter x:Key="stringToCircularDiagramShapeStyleConverter"/>
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel>
+                <dx:GroupFrame Header="Shape Style"  Margin="0,0,0,10">
+                    <dxe:ListBoxEdit Name="lbShapeStyle"
+                                             Background="{x:Null}"
+                                             ShowBorder="False"
+                                     SelectedItem="Polygon">
+                        <dxe:ListBoxEdit.Items>
+                            <system:String>Circle</system:String>
+                            <system:String>Polygon</system:String>
+                        </dxe:ListBoxEdit.Items>
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Start Angle" Margin="0,2,0,0" >
+                    <StackPanel MinWidth="150">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="0" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Column="1" Text="180" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Text="360" HorizontalAlignment="Right" />
+                        </Grid>
+                        <dxe:TrackBarEdit Name="slStartAngle"
+                            Value="0"
+                            Minimum="0"
+                            Maximum="360"
+                            TickPlacement="None"/>
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                              BorderThickness="0"
+                              AnimationMode="OnLoad"
+                              ToolTipEnabled="True">
+                <dxc:RadarDiagram2D StartAngle="{Binding ElementName=slStartAngle, Path=Value}"
+                                    ShapeStyle="{Binding ElementName=lbShapeStyle, Path=SelectedItem, Converter={StaticResource ResourceKey=stringToCircularDiagramShapeStyleConverter}}"
+                                    RotationDirection="Clockwise">
+                    <dxc:RadarDiagram2D.AxisY>
+                        <dxc:RadarAxisY2D TickmarksMinorVisible="False" TickmarksVisible="False" Thickness="0"/>
+                    </dxc:RadarDiagram2D.AxisY>
+                    <dxc:RadarLineSeries2D x:Name="series" Closed="True">
+                        <dxc:SeriesPoint Argument="N" Value="2"/>
+                        <dxc:SeriesPoint Argument="NNE" Value="3"/>
+                        <dxc:SeriesPoint Argument="NE" Value="3"/>
+                        <dxc:SeriesPoint Argument="ENE" Value="4"/>
+                        <dxc:SeriesPoint Argument="E" Value="8"/>
+                        <dxc:SeriesPoint Argument="ESE" Value="8"/>
+                        <dxc:SeriesPoint Argument="SE" Value="3"/>
+                        <dxc:SeriesPoint Argument="SSE" Value="2"/>
+                        <dxc:SeriesPoint Argument="S" Value="3"/>
+                        <dxc:SeriesPoint Argument="SSW" Value="2"/>
+                        <dxc:SeriesPoint Argument="SW" Value="6"/>
+                        <dxc:SeriesPoint Argument="WSW" Value="16"/>
+                        <dxc:SeriesPoint Argument="W" Value="8"/>
+                        <dxc:SeriesPoint Argument="WNW" Value="6"/>
+                        <dxc:SeriesPoint Argument="NW" Value="6"/>
+                        <dxc:SeriesPoint Argument="NNW" Value="4"/>
+                    </dxc:RadarLineSeries2D>
+                </dxc:RadarDiagram2D>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title HorizontalAlignment="Center">Wind Rose</dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

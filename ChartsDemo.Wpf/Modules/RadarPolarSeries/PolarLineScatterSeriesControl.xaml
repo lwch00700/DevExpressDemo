@@ -1,0 +1,127 @@
+﻿<local:ChartsDemoModule
+    x:Class="ChartsDemo.PolarLineScatterSeriesControl"
+    Height="400"
+    Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:local="clr-namespace:ChartsDemo"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <local:StringToRotationDirectionConverter
+                x:Key="stringToRotationDirectionConverter" />
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel>
+                <dx:GroupFrame
+                    Header="Function"
+                    Margin="0,0,0,10">
+                    <dxe:ListBoxEdit
+                        Name="lbFunction"
+                        Background="{x:Null}"
+                        ShowBorder="False"
+                        SelectedIndexChanged="lbFunction_SelectedIndexChanged"
+                        SelectedIndex="0">
+                        <dxe:ListBoxEdit.Items>
+                            <system:String>Archimedean Spiral</system:String>
+                            <system:String>Polar Rose</system:String>
+                            <system:String>Polar Folium</system:String>
+                        </dxe:ListBoxEdit.Items>
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame
+                    Header="Rotation Direction"
+                    Margin="0,10,0,10">
+                    <dxe:ListBoxEdit
+                        Name="lbRotationDirection"
+                        Background="{x:Null}"
+                        ShowBorder="False"
+                        SelectedItem="Counterclockwise">
+                        <dxe:ListBoxEdit.Items>
+                            <system:String>Counterclockwise</system:String>
+                            <system:String>Clockwise</system:String>
+                        </dxe:ListBoxEdit.Items>
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame
+                    Header="Start Angle"
+                    Margin="0,2,0,0">
+                    <StackPanel
+                        MinWidth="150">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                Text="0"
+                                HorizontalAlignment="Left" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Text="180"
+                                HorizontalAlignment="Center" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Text="360"
+                                HorizontalAlignment="Right" />
+                        </Grid>
+                        <dxe:TrackBarEdit
+                            Name="slStartAngle"
+                            Value="270"
+                            Minimum="0"
+                            Maximum="360"
+                            TickPlacement="None" />
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl
+                Name="chart"
+                BorderThickness="0"
+                AnimationMode="OnLoad">
+                <dxc:PolarDiagram2D
+                    StartAngle="{Binding ElementName=slStartAngle, Path=Value}"
+                    RotationDirection="{Binding ElementName=lbRotationDirection, Path=SelectedItem, Converter={StaticResource ResourceKey=stringToRotationDirectionConverter}}">
+                    <dxc:PolarDiagram2D.AxisX>
+                        <dxc:PolarAxisX2D
+                            GridLinesMinorVisible="True" />
+                    </dxc:PolarDiagram2D.AxisX>
+                    <dxc:PolarDiagram2D.AxisY>
+                        <dxc:PolarAxisY2D
+                            GridLinesMinorVisible="True">
+                            <dxc:PolarAxisY2D.WholeRange>
+                                <dxc:Range
+                                    AutoSideMargins="False"
+                                    SideMarginsValue="0" />
+                            </dxc:PolarAxisY2D.WholeRange>
+                        </dxc:PolarAxisY2D>
+                    </dxc:PolarDiagram2D.AxisY>
+                    <dxc:PolarLineScatterSeries2D
+                        ArgumentDataMember="X"
+                        ValueDataMember="Y"
+                        Closed="False"
+                        ToolTipPointPattern="{}{A}: {V:N2}" />
+                </dxc:PolarDiagram2D>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title
+                        HorizontalAlignment="Center">Function in polar coordinates</dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

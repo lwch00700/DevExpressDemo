@@ -1,0 +1,1139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{50448EF7-3331-477B-937C-E61730EC4897}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <BaseIntermediateOutputPath>obj.Wpf</BaseIntermediateOutputPath>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ChartsDemo</RootNamespace>
+    <AssemblyName>ChartsDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SignManifests>false</SignManifests>
+    <ManifestCertificateThumbprint>C4A0B3465F3AEA184F308AE032C4B9F4F88E966C</ManifestCertificateThumbprint>
+    <MinFrameworkVersionRequired>3.5</MinFrameworkVersionRequired>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <PublisherName>DevExpress</PublisherName>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'ClickOnce Debug' OR '$(Configuration)' == 'ClickOnce Release' ">
+    <HostInBrowser>True</HostInBrowser>
+    <Install>false</Install>
+    <TargetZone>Internet</TargetZone>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(WINDIR)\System32\PresentationHost.exe</StartProgram>
+    <ApplicationExtension>.xbap</ApplicationExtension>
+    <BootstrapperEnabled>false</BootstrapperEnabled>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+    <StartArguments>-debug "$(MSBuildProjectDirectory)\bin\$(Configuration)\$(AssemblyName)$(ApplicationExtension)"</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <ApplicationIcon>demoicon.ico</ApplicationIcon>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WPF;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <ApplicationIcon>demoicon.ico</ApplicationIcon>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;WPF;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ClickOnce Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <IntermediateOutputPath>.\obj\ClickOnce Debug\</IntermediateOutputPath>
+    <OutputPath>.\bin\ClickOnce Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WPF;CLICKONCE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ClickOnce Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <IntermediateOutputPath>.\obj\ClickOnce Release\</IntermediateOutputPath>
+    <OutputPath>.\bin\ClickOnce Release\</OutputPath>
+    <DefineConstants>TRACE;WPF;CLICKONCE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Data\Top10LagerstCountriesInfo.xml" />
+    <Resource Include="Data\PopulationAgeStructure.xml" />
+    <Resource Include="Data\EurUsdRate.xml" />
+    <Resource Include="Data\GbpUsdRate.xml" />
+    <Resource Include="Data\HPI.xml" />
+    <Content Include="Themes.WPF.targets" />
+    <Reference Include="DevExpress.Printing.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Data.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.DemoData.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.DemoData.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Charts.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Map.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Core.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Charts.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Map.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.DemoBase.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.LayoutControl.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Mvvm.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Gauges.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' OR '$(Configuration)' == 'Release' ">
+    <Content Include="DevExpress.Build.XamlResourceProcessing.targets" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="PresentationUI"><Private>False</Private></Reference>
+    <Reference Include="System"><Private>False</Private></Reference>
+    <Reference Include="System.Configuration"><Private>False</Private></Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    <Private>False</Private></Reference>
+    <Reference Include="System.Drawing"><Private>False</Private></Reference>
+    <Reference Include="System.Xaml"><Private>False</Private></Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    <Private>False</Private></Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    <Private>False</Private></Reference>
+    <Reference Include="System.Data"><Private>False</Private></Reference>
+    <Reference Include="System.Xml"><Private>False</Private></Reference>
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    <Private>False</Private></Reference>
+    <Reference Include="UIAutomationTypes"><Private>False</Private></Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    <Private>False</Private></Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    <Private>False</Private></Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    <Private>False</Private></Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Modules\DataAnalysis\OscillatorIndicatorsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DataAnalysis\TrendIndicatorsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DataAnalysis\PriceIndicatorsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DataAnalysis\MovingAveragesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Interactivity\AnimationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DataBinding\ColorizerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Performance\LargeDataSourceControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\RadarPolarSeries\PolarLineScatterSeriesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\RadarPolarSeries\RadarLineScatterSeriesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Performance\RealtimeChartControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ResolveLabelsOverlapping\ResolveOverlappingForAxisLabels.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BarSeries\BarSideBySideFullStacked2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BarSeries\BarSideBySideStacked2DControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Interactivity\ChartClientForRangeControlModule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\ChartElements\ChartTitlesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Data\Morbidity.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Resource Include="Models\Chair\bottom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Models\Chair\center.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Models\Chair\top.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Models\Pencil\bottom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Models\Pencil\top.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Page Include="Modules\AreaSeries\FullStackedArea2DControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\AreaSeries\StackedArea2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BarSeries\BarFullStacked2DControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BarSeries\BarSideBySide2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BarSeries\ManhattanBar3DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\AreaSeries\Area2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BarSeries\BarSideBySide3DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BarSeries\BarStacked2DControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PointLineSeries\Bubble2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PointLineSeries\Bubble3DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\AreaSeries\Area3DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\AreaSeries\StackedArea3DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\AreaSeries\FullStackedArea3DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FinancialSeries\CandleStick2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DataBinding\BindingUsingSeriesTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ChartElements\ConstantLinesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\AreaSeries\StepArea2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Interactivity\CurrencyExchangeRates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Interactivity\NumericDataAggregation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\FunnelSeries\Funnel2DControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\PieDonutSeries\NestedDonut2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Interactivity\SelectionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DataAnalysis\BasicFinancialIndicatorsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\RadarPolarSeries\PolarLineSeriesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\RadarPolarSeries\PolarAreaSeriesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\RadarPolarSeries\RadarPointSeriesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\RadarPolarSeries\RadarLineSeriesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\RadarPolarSeries\RadarAreaSeriesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\RadarPolarSeries\PolarPointSeriesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ResolveLabelsOverlapping\ResolveLabelsOverlappingfor3DPieSeries.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PointLineSeries\Spline2DControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\AreaSeries\SplineArea2DControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\PointLineSeries\FullStackedSplineArea2DControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\AreaSeries\StackedSplineArea2DControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Interactivity\ToolTipControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Interactivity\CrosshairCursorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BarSeries\SideBySideRangeBar2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DataRepresentation\LogarithmicScaleControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PointLineSeries\ScatterLine2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ChartElements\PanesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\RadarPolarSeries\RangeArea2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\BarSeries\OverlappedRangeBar2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Interactivity\ScrollingZoomingControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PointLineSeries\StepLine2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PointLineSeries\FullStackedLine2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PointLineSeries\StackedLine2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Appearance\CustomFinancial2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Appearance\CustomBar2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Appearance\CustomMarker2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Appearance\CustomPie2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ChartElements\SecondaryAxesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ChartElements\CustomAxisLabelsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Appearance\CustomDrawControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ResolveLabelsOverlapping\ResolveLabelsOverlappingForXYSeries.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ChartElements\SeriesTitlesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\FinancialSeries\Stock2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PointLineSeries\Point3DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PieDonutSeries\PieDonut2DControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PointLineSeries\PointScatter2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Appearance\CustomBar3DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PointLineSeries\Line2DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DataBinding\BindingIndividualSeriesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PieDonutSeries\PieDonut3DControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DataRepresentation\EmptyPointsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DataBinding\TagPropertyControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DataRepresentation\ValueDateTimeScaleControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ChartElements\XYDiagram2DControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PaletteChooser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChartsDemoModuleControl.cs" />
+    <Compile Include="Helpers\ChartAnimationService.cs" />
+    <Compile Include="Modules\DataAnalysis\OscillatorIndicatorsControl.xaml.cs">
+      <DependentUpon>OscillatorIndicatorsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DataAnalysis\TrendIndicatorsControl.xaml.cs">
+      <DependentUpon>TrendIndicatorsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DataAnalysis\PriceIndicatorsControl.xaml.cs">
+      <DependentUpon>PriceIndicatorsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DataAnalysis\MovingAveragesControl.xaml.cs">
+      <DependentUpon>MovingAveragesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Interactivity\AnimationControl.xaml.cs">
+      <DependentUpon>AnimationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DataBinding\ColorizerControl.xaml.cs">
+      <DependentUpon>ColorizerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Performance\LargeDataSourceControl.xaml.cs">
+      <DependentUpon>LargeDataSourceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RadarPolarSeries\PolarLineScatterSeriesControl.xaml.cs">
+      <DependentUpon>PolarLineScatterSeriesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RadarPolarSeries\RadarLineScatterSeriesControl.xaml.cs">
+      <DependentUpon>RadarLineScatterSeriesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Performance\RealtimeChartControl.xaml.cs">
+      <DependentUpon>RealtimeChartControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ResolveLabelsOverlapping\ResolveOverlappingForAxisLabels.xaml.cs">
+      <DependentUpon>ResolveOverlappingForAxisLabels.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BarSeries\BarSideBySideFullStacked2DControl.xaml.cs">
+      <DependentUpon>BarSideBySideFullStacked2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BarSeries\BarSideBySideStacked2DControl.xaml.cs">
+      <DependentUpon>BarSideBySideStacked2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Interactivity\CurrencyExchangeRates.xaml.cs">
+      <DependentUpon>CurrencyExchangeRates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Interactivity\NumericDataAggregation.xaml.cs">
+      <DependentUpon>NumericDataAggregation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FunnelSeries\Funnel2DControl.xaml.cs">
+      <DependentUpon>Funnel2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PieDonutSeries\NestedDonut2DControl.xaml.cs">
+      <DependentUpon>NestedDonut2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PointLineSeries\Spline2DControl.xaml.cs">
+      <DependentUpon>Spline2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AreaSeries\SplineArea2DControl.xaml.cs">
+      <DependentUpon>SplineArea2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PointLineSeries\FullStackedSplineArea2DControl.xaml.cs">
+      <DependentUpon>FullStackedSplineArea2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AreaSeries\StackedSplineArea2DControl.xaml.cs">
+      <DependentUpon>StackedSplineArea2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AgePopulation.cs" />
+    <Compile Include="ViewModels\BindingUsingSeriesTemplateViewModel.cs" />
+    <Compile Include="Modules\Interactivity\ChartClientForRangeControlModule.xaml.cs">
+      <DependentUpon>ChartClientForRangeControlModule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ChartElements\ChartTitlesControl.xaml.cs">
+      <DependentUpon>ChartTitlesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DemoTesting\Fixtures.cs" />
+    <Compile Include="Modules\AreaSeries\FullStackedArea2DControl.xaml.cs">
+      <DependentUpon>FullStackedArea2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AreaSeries\StackedArea2DControl.xaml.cs">
+      <DependentUpon>StackedArea2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BarSeries\BarFullStacked2DControl.xaml.cs">
+      <DependentUpon>BarFullStacked2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BarSeries\BarSideBySide2DControl.xaml.cs">
+      <DependentUpon>BarSideBySide2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BarSeries\ManhattanBar3DControl.xaml.cs">
+      <DependentUpon>ManhattanBar3DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AreaSeries\Area2DControl.xaml.cs">
+      <DependentUpon>Area2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BarSeries\BarSideBySide3DControl.xaml.cs">
+      <DependentUpon>BarSideBySide3DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BarSeries\BarStacked2DControl.xaml.cs">
+      <DependentUpon>BarStacked2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PointLineSeries\Bubble2DControl.xaml.cs">
+      <DependentUpon>Bubble2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PointLineSeries\Bubble3DControl.xaml.cs">
+      <DependentUpon>Bubble3DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AreaSeries\Area3DControl.xaml.cs">
+      <DependentUpon>Area3DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AreaSeries\StackedArea3DControl.xaml.cs">
+      <DependentUpon>StackedArea3DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AreaSeries\FullStackedArea3DControl.xaml.cs">
+      <DependentUpon>FullStackedArea3DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FinancialSeries\CandleStick2DControl.xaml.cs">
+      <DependentUpon>CandleStick2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DataBinding\BindingUsingSeriesTemplate.xaml.cs">
+      <DependentUpon>BindingUsingSeriesTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ChartElements\ConstantLinesControl.xaml.cs">
+      <DependentUpon>ConstantLinesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AreaSeries\StepArea2DControl.xaml.cs">
+      <DependentUpon>StepArea2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\GSP.cs" />
+    <Compile Include="Modules\Interactivity\SelectionControl.xaml.cs">
+      <DependentUpon>SelectionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DataAnalysis\BasicFinancialIndicatorsControl.xaml.cs">
+      <DependentUpon>BasicFinancialIndicatorsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RadarPolarSeries\PolarLineSeriesControl.xaml.cs">
+      <DependentUpon>PolarLineSeriesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RadarPolarSeries\PolarAreaSeriesControl.xaml.cs">
+      <DependentUpon>PolarAreaSeriesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RadarPolarSeries\RadarPointSeriesControl.xaml.cs">
+      <DependentUpon>RadarPointSeriesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RadarPolarSeries\RadarLineSeriesControl.xaml.cs">
+      <DependentUpon>RadarLineSeriesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RadarPolarSeries\RadarAreaSeriesControl.xaml.cs">
+      <DependentUpon>RadarAreaSeriesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RadarPolarSeries\PolarPointSeriesControl.xaml.cs">
+      <DependentUpon>PolarPointSeriesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ResolveLabelsOverlapping\ResolveLabelsOverlappingfor3DPieSeries.xaml.cs">
+      <DependentUpon>ResolveLabelsOverlappingfor3DPieSeries.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Interactivity\ToolTipControl.xaml.cs">
+      <DependentUpon>ToolTipControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Interactivity\CrosshairCursorControl.xaml.cs">
+      <DependentUpon>CrosshairCursorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BarSeries\SideBySideRangeBar2DControl.xaml.cs">
+      <DependentUpon>SideBySideRangeBar2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DataRepresentation\LogarithmicScaleControl.xaml.cs">
+      <DependentUpon>LogarithmicScaleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PointLineSeries\ScatterLine2DControl.xaml.cs">
+      <DependentUpon>ScatterLine2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ChartElements\PanesControl.xaml.cs">
+      <DependentUpon>PanesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RadarPolarSeries\RangeArea2DControl.xaml.cs">
+      <DependentUpon>RangeArea2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BarSeries\OverlappedRangeBar2DControl.xaml.cs">
+      <DependentUpon>OverlappedRangeBar2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Interactivity\ScrollingZoomingControl.xaml.cs">
+      <DependentUpon>ScrollingZoomingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PointLineSeries\StepLine2DControl.xaml.cs">
+      <DependentUpon>StepLine2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PointLineSeries\FullStackedLine2DControl.xaml.cs">
+      <DependentUpon>FullStackedLine2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PointLineSeries\StackedLine2DControl.xaml.cs">
+      <DependentUpon>StackedLine2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Appearance\CustomFinancial2DControl.xaml.cs">
+      <DependentUpon>CustomFinancial2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Appearance\CustomBar2DControl.xaml.cs">
+      <DependentUpon>CustomBar2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Appearance\CustomMarker2DControl.xaml.cs">
+      <DependentUpon>CustomMarker2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Appearance\CustomPie2DControl.xaml.cs">
+      <DependentUpon>CustomPie2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ChartElements\SecondaryAxesControl.xaml.cs">
+      <DependentUpon>SecondaryAxesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ChartElements\CustomAxisLabelsControl.xaml.cs">
+      <DependentUpon>CustomAxisLabelsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Appearance\CustomDrawControl.xaml.cs">
+      <DependentUpon>CustomDrawControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ResolveLabelsOverlapping\ResolveLabelsOverlappingForXYSeries.xaml.cs">
+      <DependentUpon>ResolveLabelsOverlappingForXYSeries.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ChartElements\SeriesTitlesControl.xaml.cs">
+      <DependentUpon>SeriesTitlesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FinancialSeries\Stock2DControl.xaml.cs">
+      <DependentUpon>Stock2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PointLineSeries\Point3DControl.xaml.cs">
+      <DependentUpon>Point3DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PieDonutSeries\PieDonut2DControl.xaml.cs">
+      <DependentUpon>PieDonut2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PointLineSeries\PointScatter2DControl.xaml.cs">
+      <DependentUpon>PointScatter2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Appearance\CustomBar3DControl.xaml.cs">
+      <DependentUpon>CustomBar3DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PointLineSeries\Line2DControl.xaml.cs">
+      <DependentUpon>Line2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DataBinding\BindingIndividualSeriesControl.xaml.cs">
+      <DependentUpon>BindingIndividualSeriesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PieDonutSeries\PieDonut3DControl.xaml.cs">
+      <DependentUpon>PieDonut3DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DataRepresentation\EmptyPointsControl.xaml.cs">
+      <DependentUpon>EmptyPointsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DataBinding\TagPropertyControl.xaml.cs">
+      <DependentUpon>TagPropertyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DataRepresentation\ValueDateTimeScaleControl.xaml.cs">
+      <DependentUpon>ValueDateTimeScaleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ChartElements\XYDiagram2DControl.xaml.cs">
+      <DependentUpon>XYDiagram2DControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaletteChooser.xaml.cs">
+      <DependentUpon>PaletteChooser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaletteItem.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Utils.cs" />
+    <Compile Include="ViewModels\IChartAnimationService.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <EmbeddedResource Include="clickonce.txt" />
+    <Resource Include="Data\ShapeFiles\Top10LargestCountries.dbf" />
+    <Resource Include="Data\ShapeFiles\Top10LargestCountries.shp" />
+    <Resource Include="Data\USDJPYDaily.csv" />
+    <Resource Include="Data\AUDUSDDaily.csv" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <Resource Include="Data\Morbidity.xml" />
+    <Resource Include="Images\PipetteCursor.png" />
+    <Resource Include="Images\Palette.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DemoIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\Movies.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\Countries.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LogoUrl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DXChartsLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\GSP.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\OilPrices.xml">
+      <SubType>Designer</SubType>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\Dell.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\GoldPrices.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\GDPofG8.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\StockData.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ArrowUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ArrowDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ZeroDynamic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Volume.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\EmbeddedData.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PaletteSelected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="DevExpress.Xpf.Themes.DXStyle.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.DXStyle.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.HybridApp.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.HybridApp.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.LightGray.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.LightGray.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.MetropolisDark.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.MetropolisDark.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.MetropolisLight.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.MetropolisLight.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2007Black.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2007Black.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2007Blue.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2007Blue.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2007Silver.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2007Silver.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2010Black.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2010Black.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2010Blue.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2010Blue.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2010Silver.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2010Silver.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2013.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2013.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2013DarkGray.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2013DarkGray.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2013LightGray.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2013LightGray.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Seven.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Seven.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.TouchlineDark.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.TouchlineDark.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.VS2010.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.VS2010.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="DevExpress.Build.XamlResourceProcessing.targets" />
+  <ItemGroup><PublishFile Include="DevExpress.Xpf.Themes.LightGray.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.LightGray.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.MetropolisDark.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.MetropolisDark.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.TouchlineDark.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.TouchlineDark.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2013.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2013.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.HybridApp.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.HybridApp.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.MetropolisLight.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.MetropolisLight.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2013LightGray.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2013LightGray.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2013DarkGray.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2013DarkGray.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2007Black.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2007Black.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2007Blue.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2007Blue.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2007Silver.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2007Silver.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2010Black.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2010Black.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2010Blue.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2010Blue.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2010Silver.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2010Silver.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Seven.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Seven.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.VS2010.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.VS2010.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.DXStyle.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.DXStyle.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile></ItemGroup><ItemGroup><Reference Include="DevExpress.Xpf.Themes.LightGray.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2007Black.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2007Blue.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2007Silver.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Seven.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2010Black.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2010Blue.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2010Silver.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.MetropolisDark.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.TouchlineDark.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2013.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.HybridApp.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.MetropolisLight.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2013LightGray.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2013DarkGray.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.VS2010.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.DXStyle.v15.2"><Private>True</Private><HintPath></HintPath></Reference></ItemGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    
+  </PropertyGroup>
+</Project>

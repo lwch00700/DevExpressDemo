@@ -1,0 +1,37 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="defaultText" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="Margin" Value="16,16,16,24" />
+        <Setter Property="Opacity" Value="0.8" />
+    </Style>
+    <Style x:Key="viewText" TargetType="TextBlock" BasedOn="{StaticResource defaultText}">
+        <Setter Property="Text" Value="Use the Back button to move to the root page" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+    <dxmvvm:ObjectToObjectConverter x:Key="dockSideToDockConverter">
+        <dxmvvm:MapItem Source="Top" Target="Top" />
+        <dxmvvm:MapItem Source="Bottom" Target="Bottom" />
+    </dxmvvm:ObjectToObjectConverter>
+    <dxmvvm:ObjectToObjectConverter x:Key="dockSideToFlyoutShowDirectionConverter">
+        <dxmvvm:MapItem Source="Top" Target="Default" />
+        <dxmvvm:MapItem Source="Bottom" Target="Inverted" />
+    </dxmvvm:ObjectToObjectConverter>
+    <dxmvvm:ObjectToObjectConverter x:Key="dockToOrientationConverter">
+        <dxmvvm:MapItem Source="Left" Target="Vertical" />
+        <dxmvvm:MapItem Source="Top" Target="Horizontal" />
+        <dxmvvm:MapItem Source="Right" Target="Vertical" />
+        <dxmvvm:MapItem Source="Bottom" Target="Horizontal" />
+    </dxmvvm:ObjectToObjectConverter>
+    <dxmvvm:ObjectToObjectConverter x:Key="dockToFlyoutShowDirectionConverter">
+        <dxmvvm:MapItem Source="Left" Target="Default" />
+        <dxmvvm:MapItem Source="Top" Target="Default" />
+        <dxmvvm:MapItem Source="Right" Target="Inverted" />
+        <dxmvvm:MapItem Source="Bottom" Target="Inverted" />
+    </dxmvvm:ObjectToObjectConverter>
+</ResourceDictionary>

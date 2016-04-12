@@ -1,0 +1,171 @@
+﻿<local:CarouselDemoModule x:Class="CarouselDemo.MovingPath" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxca="http://schemas.devexpress.com/winfx/2008/xaml/carousel"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:CarouselDemo"
+    xmlns:collection="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    
+    >
+    <local:CarouselDemoModule.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="PathGeometryComboBoxTemplate">
+                <TextBlock Text="{Binding Path=Name}" />
+            </DataTemplate>
+            <Style TargetType="Label" x:Key="labelStyle">
+                <Setter Property="Margin">
+                    <Setter.Value>
+                        <Thickness Left="0" Top="30" Right="0" Bottom="0" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <dxca:ParameterCollection x:Key="parameterSet">
+                <dxca:Parameter Name="Scale" DistributionFunction="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Linear3PConvexNr}}" />
+                <dxca:Parameter Name="Opacity" DistributionFunction="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Linear3PConvexNr}}" />
+                <dxca:Parameter Name="ZIndex" DistributionFunction="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Linear3PConvexERIntMax}}" />
+            </dxca:ParameterCollection>
+            <collection:ArrayList x:Key="newPathsArray">
+                <local:PathContainer Name="Ellipse" Path="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Ellipse}}" />
+                <local:PathContainer Name="Half Ellipse" Path="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=HalfEllipse}}" />
+                <local:PathContainer Name="Line" Path="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Line}}" />
+                <local:PathContainer Name="Angle" Path="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Angle}}" />
+                <local:PathContainer Name="Arc" Path="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Arc}}" />
+                <local:PathContainer Name="Rectangle" Path="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Rectangle}}" />
+                <local:PathContainer Name="Sine" Path="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Sine}}" />
+                <local:PathContainer Name="Spiral" Path="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Spiral}}" />
+            </collection:ArrayList>
+        </ResourceDictionary>
+    </local:CarouselDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Stretch" Width="200">
+                <StackPanel>
+                    <dx:GroupFrame Header="Paths">
+                        <dxe:ListBoxEdit Background="{x:Null}"
+                        x:Name="pathList" 
+                        SelectedIndex="0" 
+                        ItemTemplate="{StaticResource PathGeometryComboBoxTemplate}"
+						ItemsSource="{StaticResource newPathsArray}"
+						HorizontalAlignment="Stretch"
+                        StyleSettings="{dxe:RadioListBoxEditStyleSettings}"
+                        ShowBorder="False"
+                        />
+                    </dx:GroupFrame>
+                    <dx:GroupFrame Header="Path Padding" Margin="0,12,0,0">
+                        <StackPanel>
+                            <StackPanel Margin="0,0,0,0">
+                                <Label Content="Top:" Margin="0,0,0,0" />
+                                <dxe:TrackBarEdit Name="paddingTopSlider"
+                                EditValue="20" 
+                                Minimum="10"
+                                Maximum="50"
+                                TickPlacement="None"
+                            />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0">
+                                <Label Content="Bottom:" Margin="0,4,0,0" />
+                                <dxe:TrackBarEdit Name="paddingBottomSlider"
+                                EditValue="20" 
+                                Minimum="10"
+                                Maximum="50"
+                                TickPlacement="None"
+                            />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0">
+                                <Label Content="Left:" Margin="0,4,0,0" />
+                                <dxe:TrackBarEdit Name="paddingLeftSlider"
+                                EditValue="20" 
+                                Minimum="10"
+                                Maximum="50"
+                                TickPlacement="None"
+                            />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0">
+                                <Label Content="Right:" Margin="0,4,0,0" />
+                                <dxe:TrackBarEdit Name="paddingRightSlider"
+                                EditValue="20" 
+                                Minimum="10"
+                                Maximum="50"
+                                TickPlacement="None"
+                            />
+                            </StackPanel>
+                        </StackPanel>
+                    </dx:GroupFrame>
+                    <dxe:CheckEdit Name="checkBoxPathVisible"
+                        Content="Draw path"
+                        IsChecked="{Binding ElementName=carousel, Path=PathVisible}"
+                        Margin="0,12,0,0"
+                        />
+                    <dxe:CheckEdit Name="checkBoxPathSizingMode"
+                        Content="Stretch"
+                        IsChecked="{Binding ElementName=carousel, Path=PathSizingMode, Converter={local:PathSizingModeConverter}}"
+                        Margin="0,4,0,0"
+                        />
+                </StackPanel>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="80" />
+            </Grid.RowDefinitions>
+            <Grid Margin="10,10,10,0">
+                <dxca:CarouselPanel RenderOptions.BitmapScalingMode="HighQuality"
+                x:Name="carousel"
+                AnimationTime="500"
+                VisibleItemCount="21"
+                AttractorPointIndex="10"
+                ClipToBounds="True"
+                PathVisible="False"
+                IsInvertedDirection="False"
+                ItemMovingPath="{Binding ElementName=pathList, Path=SelectedItem.Path}"
+                IsAutoSizeItem="False"
+                ItemSize="50,50"
+                PathSizingMode="Stretch"
+                IsRepeat="False"
+                ParameterSet="{DynamicResource parameterSet}"
+            >
+                    <dxca:CarouselPanel.Resources>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+                            <Setter Property="Opacity" Value="{Binding Path=(dxca:CarouselPanel.Parameters).Opacity, RelativeSource={RelativeSource Self}}" />
+                            <Setter Property="Panel.ZIndex" Value="{Binding Path=(dxca:CarouselPanel.Parameters).ZIndex, Converter={local:DoubleToIntConverter},RelativeSource={RelativeSource Self}}" />
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="{Binding Path=(dxca:CarouselPanel.Parameters).Scale, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type FrameworkElement}}}"
+							        ScaleY="{Binding Path=(dxca:CarouselPanel.Parameters).Scale, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type FrameworkElement}}}"
+						            />
+                                        <TranslateTransform X="{Binding Path=(dxca:CarouselPanel.Parameters).OffsetX, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type FrameworkElement}}}" 
+							            Y="{Binding Path=(dxca:CarouselPanel.Parameters).OffsetY, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type FrameworkElement}}}" 
+						            />
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </dxca:CarouselPanel.Resources>
+                    <dxca:CarouselPanel.PathPadding>
+                        <MultiBinding Converter="{local:PaddingConverter}">
+                            <Binding ElementName="paddingLeftSlider" Path="Value" />
+                            <Binding ElementName="paddingTopSlider" Path="Value" />
+                            <Binding ElementName="paddingRightSlider" Path="Value" />
+                            <Binding ElementName="paddingBottomSlider" Path="Value" />
+                        </MultiBinding>
+                    </dxca:CarouselPanel.PathPadding>
+                </dxca:CarouselPanel>
+                <local:LineVisualizer x:Name="paddingLineVisualizer" Carousel="{Binding ElementName=carousel}" />
+            </Grid>
+            <dxca:CarouselNavigator
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                MinHeight="24"
+                MinWidth="300"            
+                Grid.Row="1"
+                Carousel="{Binding ElementName=carousel}"
+        />
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:CarouselDemoModule>

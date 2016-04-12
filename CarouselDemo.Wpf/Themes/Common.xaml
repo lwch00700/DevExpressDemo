@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxca="http://schemas.devexpress.com/winfx/2008/xaml/carousel">
+
+    <Style TargetType="{x:Type dxca:CarouselPanel}" x:Key="carouselStyle">
+        <Setter Property="FirstVisibleItemIndex" Value="0"/>
+    </Style>
+    <Style TargetType="{x:Type dxca:CarouselPanel}" BasedOn="{StaticResource carouselStyle}">
+        <Setter Property="FirstVisibleItemIndex" Value="0"/>
+    </Style>
+</ResourceDictionary>

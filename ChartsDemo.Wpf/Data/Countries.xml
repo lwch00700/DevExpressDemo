@@ -1,0 +1,33 @@
+<?xml version="1.0" standalone="yes"?>
+<Countries>
+  <Country>
+    <Name>Russian Federation</Name>
+    <OfficialName>Russian Federation</OfficialName>
+    <Area>17075.4</Area>
+  </Country>
+  <Country>
+    <Name>Canada</Name>
+    <OfficialName>Canada</OfficialName>
+    <Area>9970.6</Area>
+  </Country>
+  <Country>
+    <Name>United States</Name>
+    <OfficialName>United States of America</OfficialName>
+    <Area>9629.1</Area>
+  </Country>
+  <Country>
+    <Name>China</Name>
+    <OfficialName>People's Republic of China</OfficialName>
+    <Area>9598.1</Area>
+  </Country>
+  <Country>
+    <Name>Brazil</Name>
+    <OfficialName>Federative Republic of Brazil</OfficialName>
+    <Area>8514.9</Area>
+  </Country>
+  <Country>
+    <Name>Australia</Name>
+    <OfficialName>Commonwealth of Australia</OfficialName>
+    <Area>7741.2</Area>
+  </Country>
+</Countries>

@@ -1,0 +1,83 @@
+﻿<local:PrintViewGridDemoModule x:Class="GridDemo.CardViewPrinting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:GridDemo"
+    xmlns:dxdemo="clr-namespace:GridDemo"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="800">
+    <local:GridDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/GridDemo;component/Themes/generic.xaml" />
+                <ResourceDictionary Source="/GridDemo;component/ModuleResources/CardViewTemplates.xaml" />
+                <ResourceDictionary Source="/GridDemo;component/ModuleResources/CardViewPrintingTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <dxdb:EmployeesWithPhotoData x:Key="employeesData" />
+        </ResourceDictionary>
+    </local:GridDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical">
+                <dx:GroupFrame Header="Print Options" Margin="0,0,0,12">
+                    <StackPanel Orientation="Vertical">
+                        <dxe:CheckEdit IsChecked="{Binding Path=View.PrintSelectedRowsOnly, Mode=TwoWay}" Content="Print Selected Rows Only" Margin="0,0,6,4" />
+                        <dxe:CheckEdit IsChecked="{Binding Path=View.PrintFixedTotalSummary, Mode=TwoWay}" Content="Print Fixed Total Summary" Margin="0,0,6,4" />
+                        <dxe:CheckEdit IsChecked="{Binding Path=View.PrintAllGroups, Mode=TwoWay}" Content="Expand All Groups" Margin="0,0,6,4" />
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Print Styles" Margin="0,0,0,12">
+                    <dxe:ListBoxEdit x:Name="printStyleChooser" ShowBorder="False" SelectedIndex="0" EditValueChanged="printStyleChooser_SelectionChanged" Background="{x:Null}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                        <dxe:ListBoxEdit.Items>
+                            <sys:String>Default</sys:String>
+                            <sys:String>Uniform Cards Size</sys:String>
+                        </dxe:ListBoxEdit.Items>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Default Print Style Options" Margin="0,0,0,12">
+                    <StackPanel Orientation="Vertical">
+                        <dxe:CheckEdit IsEnabled="{Binding Path=SelectedIndex, ElementName=printStyleChooser, Converter={StaticResource SelectedIndexToBoolConverter}}" IsChecked="False" IsThreeState="False" x:Name="cePrintAutoCardWidth" Content="Print Auto Card Width" Margin="0,0,6,4" />
+                        <TextBlock Text="Print Maximum Card Columns:" Margin="0,0,6,2"/>
+                        <dxe:SpinEdit IsEnabled="{Binding Path=SelectedIndex, ElementName=printStyleChooser, Converter={StaticResource SelectedIndexToBoolConverter}}" x:Name="sePrintMaximumCardColumns" EditValueType="{x:Type sys:Int32}" Margin="0,0,6,4" MinValue="0" MaxValue="3"/>
+                    </StackPanel>
+                </dx:GroupFrame>
+                <Button Name="newTabButton" Click="newTabButton_Click" Margin="0,0,0,12" Content="Preview in New Tab"/>
+                <Button Name="newWindowButton" Click="newWindowButton_Click" Content="Preview in New Window"/>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dx:DXTabControl Name="tabControl" Margin="-1,2,-1,-1" Padding="1" TabHidden="tabControl_TabHidden">
+            <dx:DXTabItem Padding="12,4,12,4">
+                <dx:DXTabItem.Header>
+                    <TextBlock FontWeight="Bold">Card View</TextBlock>
+                </dx:DXTabItem.Header>
+                <dxg:GridControl x:Name="grid" ItemsSource="{Binding Path=DataSource, Source={StaticResource employeesData}}" AutoExpandAllGroups="True" SelectionMode="Row">
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn FieldName="ImageData" Width="60" FixedWidth="True" Header="Photo" AllowResizing="False" AllowColumnFiltering="False" CellTemplate="{StaticResource iconTemplate_Picture}"/>
+                        <dxg:GridColumn FieldName="JobTitle" />
+                        <dxg:GridColumn FieldName="FullName" UnboundType="String" AllowEditing="False" UnboundExpression="[FirstName] + ' ' + [LastName]" />
+                        <dxg:GridColumn FieldName="City" Visible="False"/>
+                        <dxg:GridColumn FieldName="AddressLine1" Header="Address" Visible="False"/>
+                        <dxg:GridColumn FieldName="Phone" Visible="False"/>
+                        <dxg:GridColumn FieldName="GroupName" GroupIndex="0"/>
+                        <dxg:GridColumn FieldName="EmailAddress" Visible="False"/>
+                    </dxg:GridControl.Columns>
+                    <dxg:GridControl.TotalSummary>
+                        <dxg:GridSummaryItem SummaryType="Count" Alignment="Right"/>
+                    </dxg:GridControl.TotalSummary>
+                    <dxg:GridControl.View>
+                        <dxg:CardView x:Name="cardView" CardHeaderBinding="{Binding Path=Data.FullName, RelativeSource={RelativeSource Self}}" ScrollingMode="Smart" NavigationStyle="Row" ShowFixedTotalSummary="True"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+
+    </dxdb:DemoModuleControl>
+</local:PrintViewGridDemoModule>

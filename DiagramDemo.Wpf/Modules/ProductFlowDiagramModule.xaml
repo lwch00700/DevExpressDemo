@@ -1,0 +1,53 @@
+﻿<local:DiagramDemoModule
+    x:Class="DiagramDemo.ProductFlowDiagramModule"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:local="clr-namespace:DiagramDemo"
+        xmlns:localdata="clr-namespace:DiagramDemo.Data"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:demodata="clr-namespace:DevExpress.DemoData.Models"
+        xmlns:dxdiagcore="clr-namespace:DevExpress.Diagram.Core;assembly=DevExpress.Diagram.v15.2.Core"
+        xmlns:dxdiag="clr-namespace:DevExpress.Xpf.Diagram;assembly=DevExpress.Xpf.Diagram.v15.2">
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.Resources>
+            <local:FontSizeConverter x:Key="fontSizeConverter" FontSizeFactor="0.8" />
+            <dxe:BytesToImageSourceConverter x:Key="imageConverter" />
+            <DataTemplate DataType="{x:Type localdata:CategoryData}">
+                <StackPanel Margin="12" VerticalAlignment="Center">
+                    <Image Source="{Binding Picture, Converter={StaticResource imageConverter}}" Stretch="None" />
+                    <TextBlock x:Name="categoryHeader" Text="{Binding Name}" TextWrapping="WrapWithOverflow" TextAlignment="Center" VerticalAlignment="Center" Margin="0,4,0,0" />
+                    <TextBlock Text="{Binding Description}" TextAlignment="Center" TextTrimming="WordEllipsis" TextWrapping="WrapWithOverflow" Margin="0,8,0,0" FontSize="{Binding Path=FontSize, ElementName=categoryHeader, Converter={StaticResource fontSizeConverter}}" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type localdata:CustomerData}">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="12">
+                    <TextBlock x:Name="customerHeader"  Text="{Binding CompanyName}" TextAlignment="Center" TextWrapping="WrapWithOverflow" />
+                    <TextBlock Text="{Binding City}" TextAlignment="Center" TextWrapping="WrapWithOverflow" Margin="0,8,0,0" FontSize="{Binding Path=FontSize, ElementName=customerHeader, Converter={StaticResource fontSizeConverter}}" />
+                    <TextBlock Text="{Binding PhoneNumber}" TextAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="{Binding Path=FontSize, ElementName=customerHeader, Converter={StaticResource fontSizeConverter}}" />
+                </StackPanel>
+            </DataTemplate>
+        </dxdb:DemoModuleControl.Resources>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="400" />
+            </Grid.ColumnDefinitions>
+            <dxdiag:DiagramDesignerControl x:Name="diagramControl" DockPanel.Dock="Right" Theme="Linear" SelectionChanged="SelectionChanged" PropertiesPanelVisibility="Collapsed" ToolboxViewMode="Compact" PageSize="800,700" DefaultStencils="BasicShapes,ArrowShapes" />
+            <dxg:GridControl x:Name="gridControl" Grid.Column="1" ItemsSource="{x:Static local:ProductFlowDiagramModule.Data}" AutoExpandAllGroups="True" ShowBorder="False" dx:ScrollBarExtensions.ScrollBarMode="TouchOverlap" Margin="10,0,0,0">
+                <dxg:GridControl.View>
+                    <dxg:TableView AutoWidth="True" ShowGroupPanel="False" ShowIndicator="False" />
+                </dxg:GridControl.View>
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn FieldName="ProductCategory.Name" Header="Category" />
+                    <dxg:GridColumn FieldName="Customer.Name" Header="Customer" />
+                    <dxg:GridColumn FieldName="ProductName" Header="Product" />
+                    <dxg:GridColumn FieldName="Quantity" Header="Quantity" />
+                </dxg:GridControl.Columns>
+            </dxg:GridControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:DiagramDemoModule>

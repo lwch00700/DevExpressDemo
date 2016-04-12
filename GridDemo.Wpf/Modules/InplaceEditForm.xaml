@@ -1,0 +1,118 @@
+﻿<local:GridDemoModule x:Class="GridDemo.InplaceEditForm"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
+    xmlns:dxp="http://schemas.devexpress.com/winfx/2008/xaml/printing"
+    xmlns:local="clr-namespace:GridDemo"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+ xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="800"
+ HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <local:GridDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/GridDemo;component/ModuleResources/InplaceEditFormResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </local:GridDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel>
+                <dx:GroupFrame Header="Editing Mode" Margin="0,0,0,4">
+                    <dxe:ListBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType={x:Type dxg:EditFormShowMode}}" EditValue="{Binding Path=View.EditFormShowMode, Mode=TwoWay}" Background="{x:Null}" ShowBorder="False">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Post Mode" Margin="0,0,0,4">
+                    <dxe:ListBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType={x:Type dxg:EditFormPostMode}}" EditValue="{Binding Path=View.EditFormPostMode, Mode=TwoWay}" Background="{x:Null}"
+                                     ShowBorder="False" IsEnabled="{Binding Path=View.EditFormShowMode, Converter={StaticResource ResourceKey=editFormShowModeConverter}}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Post Confirmation" Margin="0,0,0,4">
+                    <dxe:ListBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType={x:Type dxg:PostConfirmationMode}}" EditValue="{Binding Path=View.EditFormPostConfirmation, Mode=TwoWay}" Background="{x:Null}"
+                                     ShowBorder="False" IsEnabled="{Binding Path=View.EditFormShowMode, Converter={StaticResource ResourceKey=editFormShowModeConverter}}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Edit Form Template" Margin="0,0,0,4">
+                    <dxe:ListBoxEdit x:Name="templatesListBox" ShowBorder="False" Background="{x:Null}" SelectedIndex="0" EditValueChanged="OnTemplateValueChanged"
+                                     IsEnabled="{Binding Path=View.EditFormShowMode, Converter={StaticResource ResourceKey=editFormShowModeConverter}}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                        <dxe:ListBoxEdit.Items>
+                            <sys:String>Default</sys:String>
+                            <sys:String>Custom</sys:String>
+                        </dxe:ListBoxEdit.Items>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxg:GridControl x:Name="grid">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="ImageSource" Visible="False" EditFormVisible="True" EditFormColumnSpan="1" EditFormRowSpan="5" EditFormCaption="Image:" ReadOnly="True">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:ImageEditSettings/>
+                    </dxg:GridColumn.EditSettings>
+                    <dxg:GridColumn.EditFormTemplate>
+                        <DataTemplate>
+                            <dxe:ImageEdit Name="PART_Editor" Stretch="Uniform" />
+                        </DataTemplate>
+                    </dxg:GridColumn.EditFormTemplate>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Trademark"/>
+                <dxg:GridColumn FieldName="Model"/>
+                <dxg:GridColumn FieldName="Category"/>
+                <dxg:GridColumn FieldName="HP">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:SpinEditSettings />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="MPGCity">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:SpinEditSettings />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="MPGHighway">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:SpinEditSettings />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Description" EditFormColumnSpan="2" EditFormRowSpan="2">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:MemoEditSettings ShowIcon="True" PopupWidth="250" MemoTextWrapping="Wrap" MemoVerticalScrollBarVisibility="Auto" />
+                    </dxg:GridColumn.EditSettings>
+                    <dxg:GridColumn.EditFormTemplate>
+                        <DataTemplate>
+                            <dxe:TextEdit Name="PART_Editor" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Height="100" Margin="0,12,0,0" VerticalScrollBarVisibility="Visible"/>
+                        </DataTemplate>
+                    </dxg:GridColumn.EditFormTemplate>
+                </dxg:GridColumn>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView Name="tableView" AutoWidth="True" EditFormShowMode="Inline" ShowGroupPanel="False" ShowSearchPanelMode="Never" ShowFilterPanelMode="Never" AllowColumnMoving="False">
+                    <dxg:TableView.EditFormCaptionBinding>
+                        <Binding Path="Row.Trademark" RelativeSource="{RelativeSource Self}" />
+                    </dxg:TableView.EditFormCaptionBinding>
+                </dxg:TableView>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+        <dxmvvm:Interaction.Triggers>
+            <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding Commands.ShowEditForm, ElementName=tableView}" ProcessEventsFromDisabledEventOwner="True"/>
+        </dxmvvm:Interaction.Triggers>
+    </dxdb:DemoModuleControl>
+</local:GridDemoModule>

@@ -1,0 +1,17 @@
+DevExpress.Xpf.Core.v{DXVersion}.Extensions
+DevExpress.XtraScheduler.v{DXVersion}.Core
+DevExpress.Xpf.Scheduler.v{DXVersion}
+DevExpress.Xpf.Layout.v{DXVersion}.Core
+DevExpress.Xpf.Docking.v{DXVersion}
+DevExpress.Xpf.Printing.v{DXVersion}
+DevExpress.Charts.v{DXVersion}.Core
+DevExpress.Xpf.Charts.v{DXVersion}
+DevExpress.Xpf.PropertyGrid.v{DXVersion}
+DevExpress.Xpf.DocumentViewer.v{DXVersion}.Core
+DevExpress.RichEdit.v{DXVersion}.Core
+DevExpress.Office.v{DXVersion}.Core
+DevExpress.Xpo.v{DXVersion}
+DevExpress.Pdf.v{DXVersion}.Core
+DevExpress.Pdf.v{DXVersion}.Drawing
+DevExpress.DataAccess.v{DXVersion}
+DevExpress.CodeParser.v{DXVersion}

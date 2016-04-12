@@ -1,0 +1,6 @@
+DevExpress.Diagram.v{DXVersion}.Core
+DevExpress.Xpf.Diagram.v{DXVersion}
+DevExpress.Xpf.Docking.v{DXVersion}
+DevExpress.Xpf.Layout.v{DXVersion}.Core
+DevExpress.Xpf.NavBar.v{DXVersion}
+DevExpress.Xpf.PropertyGrid.v{DXVersion}

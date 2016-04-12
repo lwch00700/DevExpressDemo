@@ -1,0 +1,87 @@
+﻿<local:EditorsDemoModule x:Class="EditorsDemo.DateNavigatorModule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:EditorsDemo"
+ xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:utils="clr-namespace:EditorsDemo.Utils"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core">
+    <local:EditorsDemoModule.Resources>
+        <Thickness x:Key="groupBoxMargin">0,0,0,12</Thickness>
+    </local:EditorsDemoModule.Resources>
+
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel>
+                <dx:GroupFrame Header="Selection" Margin="{DynamicResource groupBoxMargin}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <dxe:CheckEdit Content="Multi Selection" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" EditValue="{Binding ElementName=navigator, Path=IsMultiSelect, Mode=TwoWay}" Margin="0,0,0,4"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Selected Dates:" VerticalAlignment="Center" Margin="0,0,8,4" />
+                        <dxe:ListBoxEdit Grid.ColumnSpan="2" Grid.Row="2" ItemsSource="{Binding Path=SelectedDates, ElementName=navigator}" Height="100"/>
+                    </Grid>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Options" Margin="{DynamicResource groupBoxMargin}">
+                    <StackPanel>
+                        <dxe:CheckEdit EditValue="{Binding ElementName=navigator, Path=ShowWeekNumbers, Mode=TwoWay}" Margin="0,0,0,4" Content="Show Week Numbers"/>
+                        <dxe:CheckEdit EditValue="{Binding ElementName=navigator, Path=ShowTodayButton, Mode=TwoWay}" Margin="0,0,0,4" Content="Show TodayButton"/>
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Work Days" MinWidth="150" Margin="{DynamicResource groupBoxMargin}">
+                    <StackPanel>
+                        <dxe:CheckEdit Name="chkMonday"
+                                   Content="Monday"
+                                   Checked="WeekDaysCheckEditChecked"
+                                   Unchecked="WeekDaysCheckEditUnchecked" Margin="0,0,0,4" />
+                        <dxe:CheckEdit Name="chkTuesday"
+                                   Content="Tuesday"
+                                   Checked="WeekDaysCheckEditChecked"
+                                   Unchecked="WeekDaysCheckEditUnchecked" Margin="0,0,0,4" />
+                        <dxe:CheckEdit Name="chkWednesday"
+                                   Content="Wednesday"
+                                   Checked="WeekDaysCheckEditChecked"
+                                   Unchecked="WeekDaysCheckEditUnchecked" Margin="0,0,0,4" />
+                        <dxe:CheckEdit Name="chkThursday"
+                                   Content="Thursday"
+                                   Checked="WeekDaysCheckEditChecked"
+                                   Unchecked="WeekDaysCheckEditUnchecked" Margin="0,0,0,4" />
+                        <dxe:CheckEdit Name="chkFriday"
+                                   Content="Friday"
+                                   Checked="WeekDaysCheckEditChecked"
+                                   Unchecked="WeekDaysCheckEditUnchecked" Margin="0,0,0,4" />
+                        <dxe:CheckEdit Name="chkSaturday"
+                                   Content="Saturday"
+                                   Checked="WeekDaysCheckEditChecked"
+                                   Unchecked="WeekDaysCheckEditUnchecked" Margin="0,0,0,4" />
+                        <dxe:CheckEdit Name="chkSunday"
+                                   Content="Sunday"
+                                   Checked="WeekDaysCheckEditChecked"
+                                   Unchecked="WeekDaysCheckEditUnchecked" Margin="0,0,0,4" />
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Special Days" MinWidth="150" Margin="{DynamicResource groupBoxMargin}">
+                    <StackPanel>
+                        <dxe:ListBoxEdit x:Name="lbSpecialDates" ItemsSource="{Binding Path=SpecialDates, ElementName=navigator}" Height="100" SelectionMode="Multiple" SelectedIndexChanged="lbSpecialDates_SelectedIndexChanged" Margin="0,0,0,4" />
+                        <dxe:DateEdit x:Name="deSpecialDate" EditValueChanged="deSpecialDate_EditValueChanged" ValidateOnTextInput="True" Margin="0,0,0,4" />
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="btnAddSpecialDate" Content="Add" Click="AddSpecialDate" Margin="0,0,6,4" />
+                            <Button x:Name="btnDeleteSpecialDate" Content="Delete" Click="DeleteSpecialDate" Margin="0,0,6,4" />
+                            <Button x:Name="btnDeleteAllSpecialDates" Content="Delete All" Click="DeleteAllSpecialDates" Margin="0,0,6,4" />
+                        </StackPanel>
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxe:DateNavigator x:Name="navigator"/>
+    </dxdb:DemoModuleControl>
+</local:EditorsDemoModule>

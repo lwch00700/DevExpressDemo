@@ -1,0 +1,99 @@
+<?xml version="1.0" standalone="yes"?>
+<Movies>
+  <Movie>
+    <Name>The Lord of the Rings: The Return of the King</Name>
+    <ProductionBudget>94</ProductionBudget>
+    <WorlwideGrosses>1119</WorlwideGrosses>
+    <ReleaseDate>12/17/2003</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>Pirates of the Caribbean: Dead Man's Chest</Name>
+    <ProductionBudget>225</ProductionBudget>
+    <WorlwideGrosses>1066</WorlwideGrosses>
+    <ReleaseDate>07/07/2006</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>The Dark Knight</Name>
+    <ProductionBudget>185</ProductionBudget>
+    <WorlwideGrosses>996</WorlwideGrosses>
+    <ReleaseDate>07/18/2008</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>Harry Potter and the Sorcerer's Stone</Name>
+    <ProductionBudget>125</ProductionBudget>
+    <WorlwideGrosses>976</WorlwideGrosses>
+    <ReleaseDate>11/16/2001</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>Shrek 2</Name>
+    <ProductionBudget>150</ProductionBudget>
+    <WorlwideGrosses>920</WorlwideGrosses>
+    <ReleaseDate>05/19/2004</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>Jurassic Park</Name>
+    <ProductionBudget>63</ProductionBudget>
+    <WorlwideGrosses>915</WorlwideGrosses>
+    <ReleaseDate>06/11/1993</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>Spider-Man 3</Name>
+    <ProductionBudget>258</ProductionBudget>
+    <WorlwideGrosses>891</WorlwideGrosses>
+    <ReleaseDate>05/04/2007</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>Finding Nemo</Name>
+    <ProductionBudget>94</ProductionBudget>
+    <WorlwideGrosses>865</WorlwideGrosses>
+    <ReleaseDate>05/30/2003</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>Spider-Man</Name>
+    <ProductionBudget>139</ProductionBudget>
+    <WorlwideGrosses>822</WorlwideGrosses>
+    <ReleaseDate>05/03/2002</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>Independence Day</Name>
+    <ProductionBudget>75</ProductionBudget>
+    <WorlwideGrosses>817</WorlwideGrosses>
+    <ReleaseDate>07/03/1996</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>Shrek the Third</Name>
+    <ProductionBudget>160</ProductionBudget>
+    <WorlwideGrosses>799</WorlwideGrosses>
+    <ReleaseDate>05/18/2007</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>The Lion King</Name>
+    <ProductionBudget>45</ProductionBudget>
+    <WorlwideGrosses>784</WorlwideGrosses>
+    <ReleaseDate>06/15/1994</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>Spider-Man 2</Name>
+    <ProductionBudget>200</ProductionBudget>
+    <WorlwideGrosses>784</WorlwideGrosses>
+    <ReleaseDate>06/30/2004</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>Star Wars</Name>
+    <ProductionBudget>11</ProductionBudget>
+    <WorlwideGrosses>775</WorlwideGrosses>
+    <ReleaseDate>05/25/1977</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>The Da Vinci Code</Name>
+    <ProductionBudget>125</ProductionBudget>
+    <WorlwideGrosses>758</WorlwideGrosses>
+    <ReleaseDate>05/19/2006</ReleaseDate>
+  </Movie>
+  <Movie>
+    <Name>The Matrix Reloaded</Name>
+    <ProductionBudget>150</ProductionBudget>
+    <WorlwideGrosses>739</WorlwideGrosses>
+    <ReleaseDate>05/15/2003</ReleaseDate>
+  </Movie>
+</Movies>

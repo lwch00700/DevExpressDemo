@@ -1,0 +1,301 @@
+﻿<EditorsDemo:EditorsDemoModule x:Class="EditorsDemo.ComboBoxEditWithWcfInstantFeedbackSource"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:common="clr-namespace:CommonDemo"
+    xmlns:dxdemo="clr-namespace:CommonDemo"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:EditorsDemo="clr-namespace:EditorsDemo"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:local="clr-namespace:EditorsDemo.Utils"
+    mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="800">
+    <EditorsDemo:EditorsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../ModuleResources/LookUpEditTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:IssueStatusImageConverter x:Key="IssueStatusImageConverter"/>
+            <local:IdToUriConverter x:Key="IdToUriConverter" />
+            <DataTemplate x:Key="idTemplate">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Hyperlink x:Name="link" TargetName="_blank">
+                <Hyperlink.NavigateUri>
+                    <Binding Path="Value" Converter="{StaticResource IdToUriConverter}" />
+                </Hyperlink.NavigateUri>
+                <TextBlock Text="{Binding Path=Value}" />
+                <dxmvvm:Interaction.Behaviors>
+                    <local:HyperLinkAttachedBehavior />
+                </dxmvvm:Interaction.Behaviors>
+            </Hyperlink>
+        </TextBlock>
+            </DataTemplate>
+            <DataTemplate x:Key="statusTemplate">
+                <Image Height="16" Width="16" HorizontalAlignment="Center" ToolTipService.ToolTip="{Binding Path=Value}" Source="{Binding Path=Value, Converter={StaticResource IssueStatusImageConverter}}">
+                    <RenderOptions.BitmapScalingMode>NearestNeighbor</RenderOptions.BitmapScalingMode>
+                </Image>
+            </DataTemplate>
+            <ControlTemplate x:Key="lookUpPopupTemplate">
+                <dxg:GridControl x:Name="PART_GridControl">
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn x:Name="colId" FieldName="ID" Width="60" FixedWidth="True" AllowGrouping="False" AllowColumnFiltering="False"
+                                AllowResizing="False" CellTemplate="{StaticResource idTemplate}" />
+                        <dxg:GridColumn x:Name="colSubject" FieldName="Subject" Width="250" AllowGrouping="False" AllowColumnFiltering="False" />
+                        <dxg:GridColumn x:Name="colTechnologyName" FieldName="TechnologyName" Width="100" Header="Technology" />
+                        <dxg:GridColumn x:Name="colProductName" FieldName="ProductName" Width="100" Header="Product"/>
+                        <dxg:GridColumn x:Name="colStatus" FieldName="Status" FixedWidth="True" Width="60" AllowResizing="False" CellTemplate="{StaticResource statusTemplate}" />
+                        <dxg:GridColumn x:Name="colCreatedOn" FieldName="CreatedOn" AllowGrouping="False" AllowColumnFiltering="False" AllowResizing="False" Width="90" FixedWidth="True" />
+                        <dxg:GridColumn x:Name="colUrgent" FieldName="Urgent" FixedWidth="True" Width="70" AllowResizing="False"/>
+                    </dxg:GridControl.Columns>
+                    <dxg:GridControl.GroupSummary>
+                        <dxg:GridSummaryItem FieldName="TechnologyName" SummaryType="Count" />
+                    </dxg:GridControl.GroupSummary>
+                    <dxg:GridControl.TotalSummary>
+                        <dxg:GridSummaryItem SummaryType="Count" Alignment="Right"/>
+                    </dxg:GridControl.TotalSummary>
+                    <dxg:GridControl.View>
+                        <dxg:TableView x:Name="view" ShowFixedTotalSummary="True" WaitIndicatorType="Panel"  ShowAutoFilterRow="True"
+                               AutoWidth="True" NavigationStyle="Row" AllowEditing="False"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </EditorsDemo:EditorsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="250">
+                <EditorsDemo:InternetConnectionControl/>
+                <dx:GroupFrame Header="Editor Properties" Margin="0,0,0,12">
+                    <StackPanel Orientation="Vertical">
+                        <dxe:CheckEdit Margin="0,6,0,0" Name="ceImmediatePopup" Content="Immediate Popup" IsChecked="True"/>
+                        <dxe:CheckEdit Margin="0,6,0,0" Name="ceAutoComplete"  Content="Allow Auto Complete" IsChecked="True"/>
+                        <dxe:CheckEdit Margin="0,6,0,0" Name="ceIncrementalFiltering"  Content="Allow Incremental Filtering" IsChecked="False"/>
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid Margin="48,40,48,48">
+            <dx:WcfInstantFeedbackDataSource x:Name="WcfInstantFeedbackDataSource"  KeyExpression="Oid" DataServiceContext="{Binding Path=WcfSCService}" Query="{Binding Path=WcfSCService.SCIssuesDemo}" UseExtendedDataQuery="true" />
+            <dx:DXTabControl>
+                <dx:DXTabItem Header="ComboBoxEdit">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <dx:GroupFrame Header="Default" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxe:ComboBoxEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="{Binding Path=IsChecked, ElementName=ceIncrementalFiltering, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding Path=Data, ElementName=WcfInstantFeedbackDataSource}"
+                                DisplayMember="Subject"
+                                ValueMember="ID" PopupMaxWidth="1200">
+                            </dxe:ComboBoxEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="Checked" Grid.Row="1"  HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxe:ComboBoxEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="{Binding Path=IsChecked, ElementName=ceIncrementalFiltering, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding Path=Data, ElementName=WcfInstantFeedbackDataSource}"
+                                DisplayMember="Subject"
+                                ValueMember="ID" PopupMaxWidth="1200">
+                                <dxe:ComboBoxEdit.StyleSettings>
+                                    <dxe:CheckedComboBoxStyleSettings/>
+                                </dxe:ComboBoxEdit.StyleSettings>
+                            </dxe:ComboBoxEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="Non Editable" Grid.Row="2" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxe:ComboBoxEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="{Binding Path=IsChecked, ElementName=ceIncrementalFiltering, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding Path=Data, ElementName=WcfInstantFeedbackDataSource}"
+                                DisplayMember="Subject"
+                                ValueMember="ID" PopupMaxWidth="1200"
+                                IsTextEditable="False">
+                            </dxe:ComboBoxEdit>
+                        </dx:GroupFrame>
+                    </Grid>
+                </dx:DXTabItem>
+                <dx:DXTabItem Header="LookUpEdit">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <dx:GroupFrame Header="Default" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxg:LookUpEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="{Binding Path=IsChecked, ElementName=ceIncrementalFiltering, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding Path=Data, ElementName=WcfInstantFeedbackDataSource}"
+                                DisplayMember="Subject"
+                                ValueMember="ID"
+                                PopupContentTemplate="{StaticResource lookUpPopupTemplate}"
+                                AutoPopulateColumns="False"
+                                IsPopupAutoWidth="False">
+                            </dxg:LookUpEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="SearchLookUp" Grid.Row="1" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxg:LookUpEdit
+                                FilterCondition = "StartsWith"
+                                FindButtonPlacement = "Popup"
+                                FindMode = "Always"
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="{Binding Path=IsChecked, ElementName=ceIncrementalFiltering, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding Path=Data, ElementName=WcfInstantFeedbackDataSource}"
+                                DisplayMember="Subject"
+                                ValueMember="ID"
+                                PopupContentTemplate="{StaticResource lookUpPopupTemplate}"
+                                AutoPopulateColumns="False"
+                                IsPopupAutoWidth="False">
+                                <dxg:LookUpEdit.StyleSettings>
+                                    <dxg:SearchLookUpEditStyleSettings />
+                                </dxg:LookUpEdit.StyleSettings>
+                            </dxg:LookUpEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="Multi Selection" Grid.Row="2"  HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxg:LookUpEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="{Binding Path=IsChecked, ElementName=ceIncrementalFiltering, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding Path=Data, ElementName=WcfInstantFeedbackDataSource}"
+                                DisplayMember="Subject"
+                                ValueMember="ID"
+                                PopupContentTemplate="{StaticResource lookUpPopupTemplate}"
+                                AutoPopulateColumns="False"
+                                IsPopupAutoWidth="False">
+                                <dxg:LookUpEdit.StyleSettings>
+                                    <dxg:LookUpEditStyleSettings SelectionMode="Multiple"/>
+                                </dxg:LookUpEdit.StyleSettings>
+                            </dxg:LookUpEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="Non Editable" Grid.Row="3" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxg:LookUpEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="{Binding Path=IsChecked, ElementName=ceIncrementalFiltering, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding Path=Data, ElementName=WcfInstantFeedbackDataSource}"
+                                DisplayMember="Subject"
+                                ValueMember="ID"
+                                IsTextEditable="False"
+                                PopupContentTemplate="{StaticResource lookUpPopupTemplate}"
+                                AutoPopulateColumns="False"
+                                IsPopupAutoWidth="False">
+                            </dxg:LookUpEdit>
+                        </dx:GroupFrame>
+                    </Grid>
+                </dx:DXTabItem>
+                <dx:DXTabItem Header="TokenEditor" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <dx:GroupFrame Header="TokenComboBoxEdit" Grid.Row="0" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxe:ComboBoxEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="{Binding Path=IsChecked, ElementName=ceIncrementalFiltering, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding Path=Data, ElementName=WcfInstantFeedbackDataSource}"
+                                DisplayMember="Subject"
+                                ValueMember="ID" PopupMaxWidth="1200">
+                                <dxe:ComboBoxEdit.StyleSettings>
+                                    <dxe:TokenComboBoxStyleSettings TokenMaxWidth="100" TokenTextTrimming="CharacterEllipsis"/>
+                                </dxe:ComboBoxEdit.StyleSettings>
+                            </dxe:ComboBoxEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="TokenLookUp" Grid.Row="1" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxg:LookUpEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="{Binding Path=IsChecked, ElementName=ceIncrementalFiltering, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding Path=Data, ElementName=WcfInstantFeedbackDataSource}"
+                                DisplayMember="Subject"
+                                ValueMember="ID"
+                                PopupContentTemplate="{StaticResource lookUpPopupTemplate}"
+                                AutoPopulateColumns="False"
+                                IsPopupAutoWidth="False">
+                                <dxg:LookUpEdit.StyleSettings>
+                                    <dxg:TokenLookUpEditStyleSettings TokenMaxWidth="100" TokenTextTrimming="CharacterEllipsis"/>
+                                </dxg:LookUpEdit.StyleSettings>
+                            </dxg:LookUpEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="TokenSearchLookUp" Grid.Row="2" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxg:LookUpEdit
+                                FilterCondition="StartsWith"
+                                FindButtonPlacement="Popup"
+                                FindMode="Always"
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="{Binding Path=IsChecked, ElementName=ceIncrementalFiltering, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding Path=Data, ElementName=WcfInstantFeedbackDataSource}"
+                                DisplayMember="Subject"
+                                ValueMember="ID"
+                                PopupContentTemplate="{StaticResource lookUpPopupTemplate}"
+                                AutoPopulateColumns="False"
+                                IsPopupAutoWidth="False">
+                                <dxg:LookUpEdit.StyleSettings>
+                                    <dxg:SearchTokenLookUpEditStyleSettings TokenMaxWidth="100" TokenTextTrimming="CharacterEllipsis"/>
+                                </dxg:LookUpEdit.StyleSettings>
+                            </dxg:LookUpEdit>
+                        </dx:GroupFrame>
+                    </Grid>
+                </dx:DXTabItem>
+                <dx:DXTabItem Header="ListBoxEdit">
+                    <Grid>
+                        <dxe:ListBoxEdit
+                             HorizontalAlignment="Center" Width="500"
+                             ItemsSource="{Binding Path=Data, ElementName=WcfInstantFeedbackDataSource}"
+                             DisplayMember="Subject"
+                             ValidateOnTextInput="False"
+                             ValueMember="ID">
+                        </dxe:ListBoxEdit>
+                    </Grid>
+                </dx:DXTabItem>
+            </dx:DXTabControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</EditorsDemo:EditorsDemoModule>

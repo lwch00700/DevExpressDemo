@@ -1,0 +1,168 @@
+﻿<local:ModuleBase x:Class="PrintingDemo.BadgesModule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxp="http://schemas.devexpress.com/winfx/2008/xaml/printing"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxec="clr-namespace:DevExpress.Xpf.Editors.Controls;assembly=DevExpress.Xpf.Core.v15.2"
+    xmlns:local="clr-namespace:PrintingDemo"
+    mc:Ignorable="d"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignWidth="800" d:DesignHeight="400">
+
+    <local:ModuleBase.Resources>
+        <ResourceDictionary>
+            <Style x:Key="pageInfoStyle" TargetType="dxe:TextEdit">
+                <Setter Property="dxp:ExportSettings.TargetType" Value="PageNumber" />
+                <Setter Property="FontFamily" Value="Tahoma"></Setter>
+                <Setter Property="FontSize" Value="11"></Setter>
+                <Setter Property="Foreground" Value="Black"></Setter>
+                <Setter Property="IsPrintingMode" Value="True"></Setter>
+            </Style>
+
+            <Style x:Key="commonTextStyle" TargetType="dxe:TextEdit">
+                <Setter Property="BorderBrush" Value="White" />
+                <Setter Property="FontFamily" Value="Tahoma" />
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="IsPrintingMode" Value="True"></Setter>
+            </Style>
+
+            <Style x:Key="detailText" TargetType="dxe:TextEdit" BasedOn="{StaticResource commonTextStyle}">
+                <Setter Property="BorderThickness" Value="0 0 0 5" />
+                <Setter Property="Padding" Value="8 4 4 4" />
+            </Style>
+
+            <Style x:Key="headerText" TargetType="dxe:TextEdit" BasedOn="{StaticResource commonTextStyle}">
+                <Setter Property="BorderThickness" Value="0 0 5 5" />
+                <Setter Property="Background" Value="#6D8C59" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Padding" Value="8 4 8 4" />
+            </Style>
+
+            <Style x:Key="valueText" TargetType="dxe:TextEdit" BasedOn="{StaticResource detailText}">
+                <Setter Property="Background" Value="#F0EDDA" />
+                <Setter Property="Foreground" Value="Black" />
+
+            </Style>
+
+            <DataTemplate x:Key="reportHeaderTemplate">
+                <dxe:TextEdit Text="Employee List"
+                                         Width="{Binding Path=UsablePageWidth, Mode=OneWay}"
+                                         Height="48" Margin="0 0 0 35"
+                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                         FontFamily="Tahoma" FontSize="27" Foreground="White" Background="#6D8C59" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="detailTemplate">
+                <Grid Width="{Binding Path=UsablePageWidth, Mode=OneWay}"
+                      dxp:ExportSettings.TargetType="Panel"
+                      Margin="0,0,0,20">
+
+                    <dxp:ExportSettings.Bookmark>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Content.FirstName" />
+                            <Binding Path="Content.LastName" />
+                        </MultiBinding>
+                    </dxp:ExportSettings.Bookmark>
+
+                    <Grid.Resources>
+                        <dx:ImageDataConverter x:Key="imageDataConverter" />
+                    </Grid.Resources>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <dxe:ImageEdit Grid.Column="0" Grid.Row="0" BorderThickness="7" BorderBrush="#F0EDDA" VerticalAlignment="Top">
+                        <dxe:ImageEdit.Source>
+                            <Binding Path="Content.Photo" Converter="{StaticResource imageDataConverter}" />
+                        </dxe:ImageEdit.Source>
+                    </dxe:ImageEdit>
+
+                    <Grid Grid.Column="2" Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <dxe:TextEdit Grid.Row="0" Grid.Column="0" Text="Name:" Style="{StaticResource headerText}" />
+                        <dxe:TextEdit Grid.Row="0" Grid.Column="1" Style="{StaticResource valueText}">
+                            <dxe:TextEdit.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="Content.FirstName" />
+                                    <Binding Path="Content.LastName" />
+                                </MultiBinding>
+                            </dxe:TextEdit.Text>
+                        </dxe:TextEdit>
+
+                        <dxe:TextEdit Grid.Row="1" Grid.Column="0" Text="Position:" Style="{StaticResource headerText}" />
+                        <dxe:TextEdit Grid.Row="1" Grid.Column="1" Text="{Binding Content.Title}" Style="{StaticResource valueText}" />
+
+                        <dxe:TextEdit Grid.Row="2" Grid.Column="0" Text="Birth Date:" Style="{StaticResource headerText}" />
+                        <dxe:TextEdit Grid.Row="2" Grid.Column="1" Style="{StaticResource valueText}">
+                            <dxe:TextEdit.Text>
+                                <Binding Path="Content.BirthDate" StringFormat="{}{0:d}" />
+                            </dxe:TextEdit.Text>
+                        </dxe:TextEdit>
+
+                        <dxe:TextEdit Grid.Row="3" Grid.Column="0" Text="About:" Style="{StaticResource headerText}" />
+                        <dxe:TextEdit Grid.Row="3" Grid.Column="1" Text="{Binding Content.Notes}" TextWrapping="Wrap" Style="{StaticResource valueText}" />
+
+                        <dxe:TextEdit Grid.Row="4" Grid.Column="0" Text="Address:" Style="{StaticResource headerText}" />
+                        <dxe:TextEdit Grid.Row="4" Grid.Column="1" Style="{StaticResource valueText}">
+                            <dxe:TextEdit.Text>
+                                <MultiBinding StringFormat="{}{0}, {1}, {2}">
+                                    <Binding Path="Content.Country" />
+                                    <Binding Path="Content.City" />
+                                    <Binding Path="Content.Address" />
+                                </MultiBinding>
+                            </dxe:TextEdit.Text>
+                        </dxe:TextEdit>
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="reportFooterTemplate">
+                <StackPanel>
+                    <dxec:DXSeparator Width="{Binding Path=UsablePageWidth, Mode=OneWay}" dxp:ExportSettings.TargetType="Image" />
+                    <dxe:TextEdit Text="{Binding Path=Content, Mode=OneWay}" />
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="pageFooterTemplate">
+                <dxe:TextEdit Style="{StaticResource pageInfoStyle}"
+                              dxp:PageNumberExportSettings.Kind="NumberOfTotal"
+                              dxp:PageNumberExportSettings.Format="{}{0} / {1}"
+                              Width="{Binding Path=UsablePageWidth, Mode=OneWay}"
+                                         HorizontalContentAlignment="Right" />
+            </DataTemplate>
+        </ResourceDictionary>
+    </local:ModuleBase.Resources>
+
+    <local:ModuleBase.DataContext>
+        <local:BadgesViewModel ReportHeaderTemplate="{StaticResource reportHeaderTemplate}"
+                                                 DetailTemplate="{StaticResource detailTemplate}"
+                                                 ReportFooterTemplate="{StaticResource reportFooterTemplate}"
+                                                 PageFooterTemplate="{StaticResource pageFooterTemplate}" />
+    </local:ModuleBase.DataContext>
+
+    <dxdb:DemoModuleControl>
+        <dxp:DocumentPreviewControl Name="preview" DocumentSource="{Binding Link}" CommandBarStyle="Bars"/>
+    </dxdb:DemoModuleControl>
+</local:ModuleBase>

@@ -1,0 +1,150 @@
+﻿<dxdb:DemoModule x:Class="BarsDemo.RadialContextMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BarsDemo"
+             xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:utils="clr-namespace:DemoUtils"
+             DataContext="{dxmvvm:ViewModelSource Type=local:RadialContextMenuViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="600">
+    <dxdb:DemoModuleControl>
+        <Grid>
+            <utils:DemoRichControl
+                    Grid.Row="1"
+                    Margin="0,0,0,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Width="300"
+                    AcceptsReturn="False"
+                    >
+                <FlowDocument>
+                    <Paragraph>
+                        Right click to show a radial menu
+                    </Paragraph>
+                </FlowDocument>
+                <dxb:BarManager.DXContextMenu>
+                    <dxb:RadialContextMenu FocusManager.IsFocusScope="True" x:Name="radialMenu" DataContext="{Binding PlacementTarget, RelativeSource={RelativeSource Self}}" >
+                        <dxb:BarSplitButtonItem Content="Cut" Glyph="{dx:DXImage Image=Cut_16x16.png}" Command="{Binding CutCommand}" CommandTarget="{Binding}" FirstSectorIndex="-1" >
+                            <dxb:BarSplitButtonItem.PopupControl>
+                                <dxb:PopupMenu>
+                                    <dxb:BarButtonItem Content="Copy" Glyph="{dx:DXImage Image=Copy_16x16.png}" Command="{Binding CopyCommand}" CommandTarget="{Binding}" />
+                                    <dxb:BarButtonItem Content="Cut" Glyph="{dx:DXImage Image=Cut_16x16.png}" Command="{Binding CutCommand}" CommandTarget="{Binding}" />
+                                    <dxb:BarButtonItem Content="Paste" Glyph="{dx:DXImage Image=Paste_16x16.png}" Command="{x:Static ApplicationCommands.Paste}" CommandTarget="{Binding}" />
+                                </dxb:PopupMenu>
+                            </dxb:BarSplitButtonItem.PopupControl>
+                        </dxb:BarSplitButtonItem>
+                        <dxb:BarSplitButtonItem Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}" LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}" Command="{Binding SelectAllCommand}" >
+                            <dxb:BarSplitButtonItem.PopupControl>
+                                <dxb:PopupMenu>
+                                    <dxb:BarButtonItem x:Name="bClear" CategoryName="Edit" Content="Clear" Glyph="{dx:DXImage Image=Delete_16x16.png}" Command="{Binding ClearSelectionCommand}" />
+                                    <dxb:BarButtonItem Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}" LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}" Command="{Binding SelectAllCommand}" />
+                                </dxb:PopupMenu>
+                            </dxb:BarSplitButtonItem.PopupControl>
+                        </dxb:BarSplitButtonItem>
+
+                        <dxb:BarSplitButtonItem Content="Font" Glyph="{dx:DXImage Image=ChangeFontStyle_16x16.png}" ActAsDropDown="True" Hint="Change the font family.">
+                            <dxb:BarSplitButtonItem.PopupControl>
+                                <dxb:PopupControlContainer>
+                                    <dxe:ListBoxEdit ItemsSource="{Binding DataContext.FontFamilies}" MaxHeight="400" EditValue="{Binding SelectionFontFamily}">
+                                        <dxmvvm:Interaction.Behaviors>
+                                            <local:ClosePopupOnListEditClickBehaviour />
+                                        </dxmvvm:Interaction.Behaviors>
+                                        <dxe:ListBoxEdit.ItemContainerStyle>
+                                            <Style TargetType="dxe:ListBoxEditItem">
+                                                <Setter Property="MinWidth" Value="200" />
+                                            </Style>
+                                        </dxe:ListBoxEdit.ItemContainerStyle>
+                                    </dxe:ListBoxEdit>
+                                </dxb:PopupControlContainer>
+                            </dxb:BarSplitButtonItem.PopupControl>
+
+                        </dxb:BarSplitButtonItem>
+                        <dxb:BarSplitButtonItem Content="Font size" ActAsDropDown="True" Hint="Change the font size.">
+                            <dxb:BarSplitButtonItem.GlyphTemplate>
+                                <DataTemplate>
+                                    <Canvas Width="16" Height="16">
+                                        <Image Source="{dx:DXImage Image=FontSize_16x16.png}"/>
+                                        <TextBlock Text="{Binding SelectionFontSize}" FontSize="8" Canvas.Top="2" Canvas.Left="17"/>
+                                    </Canvas>
+                                </DataTemplate>
+                            </dxb:BarSplitButtonItem.GlyphTemplate>
+                            <dxb:BarSplitButtonItem.PopupControl>
+                                <dxb:PopupControlContainer MaxHeight="200">
+                                    <dxe:ListBoxEdit ItemsSource="{Binding DataContext.FontSizes}" EditValue="{Binding SelectionFontSize}">
+                                        <dxmvvm:Interaction.Behaviors>
+                                            <local:ClosePopupOnListEditClickBehaviour />
+                                        </dxmvvm:Interaction.Behaviors>
+                                    </dxe:ListBoxEdit>
+                                </dxb:PopupControlContainer>
+                            </dxb:BarSplitButtonItem.PopupControl>
+                        </dxb:BarSplitButtonItem>
+
+                        <dxb:BarSplitButtonItem Content="Color" Hint="Change the text color." ActAsDropDown="True" >
+                            <dxb:BarSplitButtonItem.GlyphTemplate>
+                                <DataTemplate>
+                                    <Canvas Width="16" Height="16">
+                                        <Image Source="/BarsDemo;component/Images/Icons/font-color-16x16.png"/>
+                                        <Border Width="13" Height="3" Canvas.Left="2" Canvas.Top="12">
+                                            <Border.Background>
+                                                <SolidColorBrush Color="{Binding SelectionTextColor}"/>
+                                            </Border.Background>
+                                        </Border>
+                                    </Canvas>
+                                </DataTemplate>
+                            </dxb:BarSplitButtonItem.GlyphTemplate>
+                            <dxb:BarSplitButtonItem.PopupControl>
+                                <dxb:PopupControlContainer>
+                                    <dxe:ColorEdit DefaultColor="Transparent" DefaultColorButtonContent="No color" ShowBorder="False" EditValue="{Binding SelectionTextColor}" CloseOwnerPopupOnClick="True"/>
+                                </dxb:PopupControlContainer>
+                            </dxb:BarSplitButtonItem.PopupControl>
+                        </dxb:BarSplitButtonItem>
+                        <dxb:BarSplitButtonItem Content="Highlight" Hint="Change the highlight text color." ActAsDropDown="True" >
+                            <dxb:BarSplitButtonItem.GlyphTemplate>
+                                <DataTemplate>
+                                    <Canvas Width="16" Height="16">
+                                        <Border Width="12" Height="13" Canvas.Left="4" Canvas.Top="3">
+                                            <Border.Background>
+                                                <SolidColorBrush Color="{Binding SelectionTextBackgroundColor}"/>
+                                            </Border.Background>
+                                        </Border>
+                                        <Image Source="{dx:DXImage Image=FillBackground_16x16.png}"/>
+                                    </Canvas>
+                                </DataTemplate>
+                            </dxb:BarSplitButtonItem.GlyphTemplate>
+                            <dxb:BarSplitButtonItem.PopupControl>
+                                <dxb:PopupControlContainer>
+                                    <dxe:ColorEdit DefaultColor="Transparent" DefaultColorButtonContent="No color" ShowBorder="False" EditValue="{Binding SelectionTextBackgroundColor}" CloseOwnerPopupOnClick="True"/>
+                                </dxb:PopupControlContainer>
+                            </dxb:BarSplitButtonItem.PopupControl>
+                        </dxb:BarSplitButtonItem>
+
+                        <dxb:BarSplitCheckItem Content="Bold" Glyph="{dx:DXImage Image=Bold_16x16.png}" LargeGlyph="{dx:DXImage Image=Bold_32x32.png}" IsChecked="{Binding IsBold}" FirstSectorIndex="5" >
+                            <dxb:BarSplitCheckItem.PopupControl>
+                                <dxb:PopupMenu>
+                                    <dxb:BarCheckItem Content="Italic" Glyph="{dx:DXImage Image=Italic_16x16.png}" LargeGlyph="{dx:DXImage Image=Italic_32x32.png}" IsChecked="{Binding IsItalic}" />
+                                    <dxb:BarCheckItem Content="Bold" Glyph="{dx:DXImage Image=Bold_16x16.png}" LargeGlyph="{dx:DXImage Image=Bold_32x32.png}" IsChecked="{Binding IsBold}" />
+                                    <dxb:BarCheckItem Content="Underline" Glyph="{dx:DXImage Image=Underline_16x16.png}" LargeGlyph="{dx:DXImage Image=Underline_32x32.png}" IsChecked="{Binding IsUnderline}" />
+                                </dxb:PopupMenu>
+                            </dxb:BarSplitCheckItem.PopupControl>
+                        </dxb:BarSplitCheckItem>
+                        <dxb:BarSplitCheckItem Content="Left" Glyph="{dx:DXImage Image=AlignLeft_16x16.png}" IsChecked="{Binding IsLeftAlignment}" FirstSectorIndex="-1" ActAsDropDown="True" >
+                            <dxb:BarSplitButtonItem.PopupControl>
+                                <dxb:PopupMenu>
+                                    <dxb:BarCheckItem Content="Left" Glyph="{dx:DXImage Image=AlignLeft_16x16.png}" IsChecked="{Binding IsLeftAlignment}" />
+                                    <dxb:BarCheckItem Content="Center" Glyph="{dx:DXImage Image=AlignCenter_16x16.png}" IsChecked="{Binding IsCenterAlignment}" />
+                                    <dxb:BarCheckItem Content="Right" Glyph="{dx:DXImage Image=AlignRight_16x16.png}" IsChecked="{Binding IsRightAlignment}" />
+                                </dxb:PopupMenu>
+                            </dxb:BarSplitButtonItem.PopupControl>
+                        </dxb:BarSplitCheckItem>
+                    </dxb:RadialContextMenu>
+                </dxb:BarManager.DXContextMenu>
+            </utils:DemoRichControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</dxdb:DemoModule>

@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="clr-namespace:GridDemo"
+ xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors">
+
+    <DataTemplate x:Key="eMailTemplateCards">
+        <Button Margin="4,0" VerticalAlignment="Center" Cursor="Hand" Content="{Binding Value}" Command="{x:Static local:CardTemplates.SendMail}" CommandParameter="{Binding Value}" ClickMode="Press">
+   <Button.Template>
+    <ControlTemplate TargetType="{x:Type Button}">
+     <Grid Background="Transparent">
+      <Grid.ColumnDefinitions>
+       <ColumnDefinition Width="Auto" />
+       <ColumnDefinition Width="19" />
+      </Grid.ColumnDefinitions>
+      <TextBlock Name="text" Foreground="#FF2A6DBD" Text="{TemplateBinding Content}" VerticalAlignment="Center" />
+      <Path x:Name="path" Stretch="Fill" Fill="#FF3B6CA7" Data="F1 M 648,462L 644,466L 643,465L 646,462L 643,459L 644,458L 648,462 Z M 652,462L 648,466L 647,465L 650,462L 647,459L 648,458L 652,462 Z " HorizontalAlignment="Center" Margin="0,3,0,0" VerticalAlignment="Center" Width="8" Height="7" Grid.Column="1" />
+     </Grid>
+     <ControlTemplate.Triggers>
+      <Trigger Property="IsMouseOver" Value="true">
+       <Setter Property="Foreground" Value="#FF5E9AE2" TargetName="text" />
+       <Setter Property="Fill" Value="#FF5E9AE2" TargetName="path" />
+      </Trigger>
+     </ControlTemplate.Triggers>
+    </ControlTemplate>
+   </Button.Template>
+  </Button>
+ </DataTemplate>
+    <DataTemplate x:Key="XBAPTextTemplate">
+        <TextBlock Margin="15,15,0,0" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="13" FontFamily="Tahoma">
+            The DXGrid for WPF has no equal when it comes to Data Loading Speed and Memory Use in its Server Mode. 
+            To see this feature in action, please download and install it locally on your machine, or you can try Instant Feedback WCF demo.
+        </TextBlock>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,33 @@
+﻿<Window x:Class="SpreadsheetDemo.AddTransactionForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        Title="AddTransactionForm" Height="140" Width="405" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="138*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="138*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="categoryLabel" Content="Category:" Grid.Row="1" Grid.Column="0" Margin="3" VerticalContentAlignment="Center"/>
+        <dxe:ComboBoxEdit x:Name="categoryComboBox" Margin="3" Grid.Row="1" Grid.Column="1"></dxe:ComboBoxEdit>
+        <Label x:Name="monthLabel" Content="Month:"  Grid.Row="1" Grid.Column="2" Margin="3" VerticalContentAlignment="Center"></Label>
+        <dxe:ComboBoxEdit x:Name="monthComboBox" Margin="3" Grid.Row="1" Grid.Column="3" IsTextEditable="False" EditValueChanged="MonthComboBoxEditValueChanged"></dxe:ComboBoxEdit>
+        <Label x:Name="sumLabel" Content="Sum:" Grid.Row="2" Grid.Column="0" Margin="3" VerticalContentAlignment="Center"/>
+        <dxe:SpinEdit x:Name="sumEdit" Margin="3" Grid.Row="2" Grid.Column="1" Mask="c"></dxe:SpinEdit>
+        <Label x:Name="dayLabel" Content="Day:"  Grid.Row="2" Grid.Column="2" Margin="3" VerticalContentAlignment="Center"/>
+        <dxe:SpinEdit x:Name="dayTextEdit" Margin="3" Grid.Row="2" Grid.Column="3" Mask="n0"></dxe:SpinEdit>
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="4" HorizontalAlignment="Right">
+                <Button x:Name="OKButton" Margin="5" Width="75" Height="23" IsDefault="True" Click="OkButtonClick">OK</Button>
+                <Button x:Name="CnclButton" Margin="5" Width="75" Height="23" IsCancel="True">Cancel</Button>
+            </StackPanel>
+    </Grid>
+</Window>

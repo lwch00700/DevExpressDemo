@@ -1,0 +1,101 @@
+﻿<local:PivotGridDemoModule x:Class="PivotGridDemo.PivotGrid.CustomAppearance"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:local="clr-namespace:PivotGridDemo.PivotGrid"
+    xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxpgi="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid/internal">
+    <local:PivotGridDemoModule.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="SalesPersonFieldHeaderTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/PivotGridDemo;component/Images/HeaderIcons/Person.png" Stretch="None" HorizontalAlignment="Left"
+                           VerticalAlignment="Center" />
+                    <TextBlock Name="textBlock" Text="{Binding Path=DisplayText, Mode=OneWay}" HorizontalAlignment="Right"
+                            Style="{Binding Path=ActualHeaderContentStyle}" />
+                    </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="OrderFieldHeaderTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/PivotGridDemo;component/Images/HeaderIcons/Order.png" Stretch="None" HorizontalAlignment="Left"
+                           VerticalAlignment="Center" />
+                    <TextBlock Name="textBlock" Text="{Binding Path=DisplayText, Mode=OneWay}" HorizontalAlignment="Right"
+                           Style="{Binding Path=ActualHeaderContentStyle}" />
+                </StackPanel>
+            </DataTemplate>
+            <SolidColorBrush x:Key="{dxpgi:AppearanceThemeKey ResourceKey=CellValueBorderBrush, ThemeName=Office2007Silver}" Color="#373737" />
+            <SolidColorBrush x:Key="{dxpgi:AppearanceThemeKey ResourceKey=FieldValueBorderBrush, ThemeName=Office2007Silver}" Color="#2D2D2D" />
+            <ControlTemplate x:Key="{dxpgi:ScrollableAreaThemeKey ResourceKey=ExpandButtonTemplate, ThemeName=Office2007Silver}" TargetType="{x:Type dx:ToggleStateButton}">
+                <dx:SimplePanel Margin="0,1,0,0">
+                    <Path Stretch="Fill" RenderTransformOrigin="0.5, 0.5" Data="F1 M 692,518L 692,529L 702,524L 702,523L 692,518 Z "
+                      HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Cursor="Hand" Width="9" Height="9" SnapsToDevicePixels="True">
+                        <Path.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="#E0E0E0" Offset="0" />
+                                <GradientStop Color="#AFAFAF" Offset="1" />
+                            </LinearGradientBrush>
+                        </Path.Fill>
+                        <Path.RenderTransform>
+                            <RotateTransform x:Name="ExpandButtonRotate2">
+                                <RotateTransform.Angle>
+                                    <Binding Path="IsChecked" RelativeSource="{RelativeSource TemplatedParent}">
+                                        <Binding.Converter>
+                                            <dx:BoolToObjectConverter TrueValue="90" FalseValue="0"/>
+                                        </Binding.Converter>
+                                    </Binding>
+                                </RotateTransform.Angle>
+                            </RotateTransform>
+                        </Path.RenderTransform>
+                    </Path>
+                </dx:SimplePanel>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </local:PivotGridDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxpg:PivotGridControl local:FieldAreaHelper.FixAreas="True" dx:ThemeManager.ThemeName="Office2007Silver" x:Name="pivotGrid"
+                               FieldListStyle="Excel2007" SelectMode="None" RowTreeWidth="187"
+                               Background="#505050" ShowBorder="False" FocusedCell="4,10"
+
+                               CellBackground="#414141" CellTotalBackground="#414146"
+                               CellForeground="#B4B4B4" CellTotalForeground="#B4B4B4"
+                               CellSelectedBackground="#5A5A5A" CellTotalSelectedBackground="#5A5A5F"
+                               CellSelectedForeground="#DCDCDC" CellTotalSelectedForeground="#DCDCDC"
+
+                               ValueBackground="#373737"  ValueTotalBackground="#3F3F3F"
+                               ValueForeground="#B4B4B4"  ValueTotalForeground="#B4B4B4"
+                               ValueSelectedBackground="#575757"  ValueTotalSelectedBackground="#3F3F44"
+                               ValueSelectedForeground="#DCDCDC"  ValueTotalSelectedForeground="#DCDCDC"
+
+                               CustomCellAppearance="OnCustomCellAppearance" CustomValueAppearance="OnCustomValueAppearance"
+                               ShowFilterHeaders="False" ShowDataHeaders="False" ShowColumnHeaders="False" ShowRowHeaders="False"
+                               ShowColumnGrandTotals="False">
+            <dxpg:PivotGridControl.Fields>
+                <dxpg:PivotGridField x:Name="fieldOrderYear" FieldName="OrderDate"
+                                 Area="FilterArea" AreaIndex="0" GroupInterval="DateYear" Caption="Order Year"  Visible="False" />
+                <dxpg:PivotGridField x:Name="fieldOrderQuarter" FieldName="OrderDate"
+                                 Area="RowArea" AreaIndex="0" GroupInterval="DateQuarter"
+                                 Caption="Order Quarter" ValueFormat="Quarter {0}" Visible="False" />
+                <dxpg:PivotGridField x:Name="fieldCategoryName" FieldName="CategoryName" Area="RowArea" AreaIndex="0" Caption="Category Name" />
+                <dxpg:PivotGridField x:Name="fieldProductName" FieldName="ProductName" Area="RowArea" AreaIndex="1" Caption="Product Name"
+                                 />
+                <dxpg:PivotGridField x:Name="fieldCountry" FieldName="Country" Area="ColumnArea" AreaIndex="0" Caption="Country"  Visible="False" />
+                <dxpg:PivotGridField x:Name="fieldSalesPerson" FieldName="FullName" Area="ColumnArea" AreaIndex="1" Caption="Sales Person"
+                                 HeaderTemplate="{StaticResource SalesPersonFieldHeaderTemplate}" HeaderListTemplate="{StaticResource SalesPersonFieldHeaderTemplate}" />
+                <dxpg:PivotGridField x:Name="fieldOrderID" FieldName="OrderID" Area="FilterArea" Caption="Order ID" Visible="False"
+                                 HeaderTemplate="{StaticResource OrderFieldHeaderTemplate}" HeaderListTemplate="{StaticResource OrderFieldHeaderTemplate}" />
+                <dxpg:PivotGridField x:Name="fieldOrderAmount" FieldName="ExtendedPrice" Area="DataArea" AreaIndex="0" CellFormat="c"
+                                 Caption="Order Amount" />
+                <dxpg:PivotGridField x:Name="fieldQuantity" FieldName="Quantity" Area="DataArea" Caption="Quantity" Visible="False" />
+            </dxpg:PivotGridControl.Fields>
+            <dxpg:PivotGridControl.FocusedCellBorderTemplate>
+                <ControlTemplate>
+                    <Rectangle StrokeDashArray="2 2" Stroke="#DCDCDC" StrokeThickness="1" />
+                </ControlTemplate>
+            </dxpg:PivotGridControl.FocusedCellBorderTemplate>
+        </dxpg:PivotGridControl>
+    </dxdb:DemoModuleControl>
+</local:PivotGridDemoModule>

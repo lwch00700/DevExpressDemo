@@ -1,0 +1,60 @@
+﻿<local:LayoutControlDemoModule
+    x:Class="DevExpress.Xpf.LayoutControlDemo.pageFilteringUI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:local="clr-namespace:DevExpress.Xpf.LayoutControlDemo"
+    xmlns:model="clr-namespace:DevExpress.DemoData.Models.Vehicles"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    mc:Ignorable="d" d:DesignHeight="550" d:DesignWidth="670"
+    DataContext="{dxmvvm:ViewModelSource local:FilteringUIViewModel}">
+    <local:LayoutControlDemoModule.Resources>
+        <ResourceDictionary Source="/LayoutControlDemo;component/Themes/FilteringUIResources.xaml" />
+    </local:LayoutControlDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <dx:GroupFrame Header="Filtering UI Mode" VerticalAlignment="Top">
+                <StackPanel Orientation="Vertical">
+                    <RadioButton x:Name="isDefaultFilteringUI" Content="Default"/>
+                    <RadioButton x:Name="isCustomFilteringUI" Content="Custom" IsChecked="True"/>
+                </StackPanel>
+            </dx:GroupFrame>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <dxmvvm:Interaction.Behaviors>
+                <dx:FilteringBehavior x:Name="filteringBehavior" SourceType="{x:Type local:VehiclesFilteringViewModel}"/>
+            </dxmvvm:Interaction.Behaviors>
+            <Grid>
+                <dxlc:DataLayoutControl CurrentItem="{Binding Path=FilteringViewModel, ElementName=filteringBehavior}" GroupBoxDisplayMode="Light" ItemSpace="-1"
+                                        Visibility="{Binding Path=IsChecked, ElementName=isDefaultFilteringUI, Converter={dxmvvm:BooleanToVisibilityConverter}}"/>
+                <ContentControl Content="{Binding Path=FilteringViewModel, ElementName=filteringBehavior}" ContentTemplate="{StaticResource filteringUICustom}"
+                                Visibility="{Binding Path=IsChecked, ElementName=isCustomFilteringUI, Converter={dxmvvm:BooleanToVisibilityConverter}}"/>
+            </Grid>
+            <dxg:GridControl Grid.Column="1" ItemsSource="{Binding Vehicles}"
+                             FilterCriteria="{Binding Path=FilterCriteria, ElementName=filteringBehavior}">
+                <dxg:GridControl.View>
+                    <dxg:TableView AllowEditing="False" NavigationStyle="Row" AutoWidth="True" ShowFilterPanelMode="Never" AllowColumnFiltering="False"
+                                   DataRowTemplate="{StaticResource dataRowTemplate}" UseLightweightTemplates="None" />
+                </dxg:GridControl.View>
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn FieldName="TrademarkName" Header="Trademark"/>
+                    <dxg:GridColumn FieldName="Name" Header="Model"/>
+                    <dxg:GridColumn FieldName="CategoryName" Header="Category"/>
+                    <dxg:GridColumn FieldName="BodyStyleName" Header="Body Style"/>
+                    <dxg:GridColumn FieldName="TransmissionTypeName" Header="Transmission Type"/>
+                    <dxg:GridColumn FieldName="Price"/>
+                </dxg:GridControl.Columns>
+            </dxg:GridControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:LayoutControlDemoModule>

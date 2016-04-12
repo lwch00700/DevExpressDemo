@@ -1,0 +1,70 @@
+﻿<local:GridDemoModule x:Class="GridDemo.Sparklines"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:GridDemo"
+    xmlns:dxdemo="clr-namespace:GridDemo"
+    xmlns:dxdd="clr-namespace:DevExpress.DemoData"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="800">
+    <local:GridDemoModule.Resources>
+        <ResourceDictionary>
+            <local:EmployeesWithChartSource x:Key="EmployeesWithChars"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/GridDemo;component/ModuleResources/SharedResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </local:GridDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <dx:GroupFrame Header="Sparkline Type" VerticalAlignment="Top">
+                <dxe:ListBoxEdit Name="multiViewListBox" Margin="0,0,30,0" ShowBorder="False" DisplayMember="DisplayName" SelectedIndex="0" Background="{x:Null}">
+                    <dxe:ListBoxEdit.StyleSettings>
+                        <dxe:RadioListBoxEditStyleSettings/>
+                    </dxe:ListBoxEdit.StyleSettings>
+                    <dxe:ListBoxEdit.Items>
+                        <local:MultiViewViewItem DisplayName="Line">
+                            <local:MultiViewViewItem.Content>
+                                <dxe:LineSparklineStyleSettings HighlightMaxPoint="True" HighlightMinPoint="True" />
+                            </local:MultiViewViewItem.Content>
+                        </local:MultiViewViewItem>
+                        <local:MultiViewViewItem DisplayName="Area">
+                            <local:MultiViewViewItem.Content>
+                                <dxe:AreaSparklineStyleSettings HighlightMaxPoint="True" HighlightMinPoint="True" />
+                            </local:MultiViewViewItem.Content>
+                        </local:MultiViewViewItem>
+                    </dxe:ListBoxEdit.Items>
+                </dxe:ListBoxEdit>
+            </dx:GroupFrame>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxg:GridControl x:Name="grid" ItemsSource="{Binding Employees, Source={StaticResource EmployeesWithChars}}">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="FullName" ReadOnly="True" MinWidth="60"/>
+                <dxg:GridColumn FieldName="JobTitle" ReadOnly="True"/>
+                <dxg:GridColumn FieldName="CountryRegionName" Header="Country" ReadOnly="True" MinWidth="60" CellTemplate="{StaticResource colCountryNameCellTemplate}"/>
+                <dxg:GridColumn FieldName="BirthDate" ReadOnly="True" MinWidth="60" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:DateEditSettings DisplayFormat="d" />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="EmailAddress" Header="Contacts" ReadOnly="True" Width="200"/>
+                <dxg:GridColumn FieldName="ChartSource" Header="Orders" MinWidth="200">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:SparklineEditSettings
+                            PointValueMember="ValueMember"
+                            StyleSettings="{Binding Path=SelectedItem.Content, ElementName=multiViewListBox}">
+                        </dxe:SparklineEditSettings>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView AutoWidth="True"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </dxdb:DemoModuleControl>
+</local:GridDemoModule>

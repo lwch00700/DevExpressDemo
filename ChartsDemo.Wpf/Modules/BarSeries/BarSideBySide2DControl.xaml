@@ -1,0 +1,142 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.BarSideBySide2DControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:local="clr-namespace:ChartsDemo"
+    ModuleAppear="ChartsDemoModule_ModuleAppear">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:DemoValuesProvider x:Key="DemoValuesProvider" />
+            <local:Bar2DKindToBar2DModelConverter x:Key="Bar2DKindToBar2DModelConverter" />
+            <local:Bar2DKindToTickmarksLengthConverter x:Key="Bar2DKindToTickmarksLengthConverter" />
+            <dxmvvm:BooleanNegationConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="120">
+                <dxe:CheckEdit Name="chbVisible" Content="Show Labels" Margin="0,0,0,2" IsChecked="True" />
+                <dx:GroupFrame Header="Label Position" Margin="0,10,0,10">
+                    <dxe:ListBoxEdit Name="lbPosition"
+                                     Background="{x:Null}"
+                                     ShowBorder="False"
+                                     SelectedIndex="0"
+                                     IsEnabled="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                     ItemsSource="{Binding Bar2DLabelPositions, Source={StaticResource DemoValuesProvider}}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Model" Margin="0,2,0,10">
+                    <dxe:ListBoxEdit Name="lbModel"
+                                     Background="{x:Null}"
+                                     ShowBorder="False"
+                                     SelectedIndex="0"
+                                     ItemsSource="{Binding PredefinedBar2DKinds, Source={StaticResource DemoValuesProvider}}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart" BorderThickness="0" AnimationMode="OnLoad"
+                              CrosshairEnabled="{Binding ElementName=chbVisible, Path=IsChecked, Converter={StaticResource InvertedBoolConverter}}">
+                <dxc:ChartControl.CrosshairOptions>
+                    <dxc:CrosshairOptions CrosshairLabelMode="ShowForNearestSeries"/>
+                </dxc:ChartControl.CrosshairOptions>
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D BarDistance="0.04">
+                        <dxc:XYDiagram2D.DefaultPane>
+                            <dxc:Pane MirrorHeight="100.0"/>
+                        </dxc:XYDiagram2D.DefaultPane>
+                        <dxc:XYDiagram2D.AxisX>
+                            <dxc:AxisX2D TickmarksLength="{Binding ElementName=lbModel, Path=SelectedItem, Converter={StaticResource Bar2DKindToTickmarksLengthConverter}}" />
+                        </dxc:XYDiagram2D.AxisX>
+                        <dxc:XYDiagram2D.AxisY>
+                            <dxc:AxisY2D>
+                                <dxc:AxisY2D.Title>
+                                    <dxc:AxisTitle Content="Millions of Dollars" />
+                                </dxc:AxisY2D.Title>
+                            </dxc:AxisY2D>
+                        </dxc:XYDiagram2D.AxisY>
+                        <dxc:XYDiagram2D.Series>
+                            <dxc:BarSideBySideSeries2D x:Name="Series1998"
+                                                       DisplayName="1998"
+                                                       Model="{Binding ElementName=lbModel, Path=SelectedItem, Converter={StaticResource Bar2DKindToBar2DModelConverter}}"
+                                                       AnimationAutoStartMode="SetStartState" >
+                                <dxc:BarSideBySideSeries2D.Label>
+                                    <dxc:SeriesLabel Indent="20" ResolveOverlappingMode="Default"
+                                    ConnectorThickness="1"
+                                    Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                    dxc:BarSideBySideSeries2D.LabelPosition="{Binding ElementName=lbPosition, Path=SelectedItem}" />
+                                </dxc:BarSideBySideSeries2D.Label>
+                                <dxc:BarSideBySideSeries2D.Points>
+                                    <dxc:SeriesPoint Argument="Illinois" Value="423.721" />
+                                    <dxc:SeriesPoint Argument="Indiana" Value="178.719" />
+                                    <dxc:SeriesPoint Argument="Michigan" Value="308.845" />
+                                    <dxc:SeriesPoint Argument="Ohio" Value="348.555" />
+                                    <dxc:SeriesPoint Argument="Wisconsin" Value="160.274" />
+                                </dxc:BarSideBySideSeries2D.Points>
+                            </dxc:BarSideBySideSeries2D>
+                            <dxc:BarSideBySideSeries2D x:Name="Series2001"
+                                                       DisplayName="2001"
+                                                       Model="{Binding ElementName=lbModel, Path=SelectedItem, Converter={StaticResource Bar2DKindToBar2DModelConverter}}"
+                                                       AnimationAutoStartMode="SetStartState"
+                                                       ToolTipPointPattern="Year: {S}&#13;&#10;State: {A}&#13;&#10;GSP: {V}">
+                                <dxc:BarSideBySideSeries2D.Label>
+                                    <dxc:SeriesLabel Indent="20" ResolveOverlappingMode="Default"
+                                    ConnectorThickness="1"
+                                    Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                    dxc:BarSideBySideSeries2D.LabelPosition="{Binding ElementName=lbPosition, Path=SelectedItem}" />
+                                </dxc:BarSideBySideSeries2D.Label>
+                                <dxc:BarSideBySideSeries2D.Points>
+                                    <dxc:SeriesPoint Argument="Illinois" Value="476.851" />
+                                    <dxc:SeriesPoint Argument="Indiana" Value="195.769" />
+                                    <dxc:SeriesPoint Argument="Michigan" Value="335.793" />
+                                    <dxc:SeriesPoint Argument="Ohio" Value="374.771" />
+                                    <dxc:SeriesPoint Argument="Wisconsin" Value="182.373" />
+                                </dxc:BarSideBySideSeries2D.Points>
+                            </dxc:BarSideBySideSeries2D>
+                            <dxc:BarSideBySideSeries2D x:Name="Series2004"
+                                                       DisplayName="2004"
+                                                       Model="{Binding ElementName=lbModel, Path=SelectedItem, Converter={StaticResource Bar2DKindToBar2DModelConverter}}"
+                                                       AnimationAutoStartMode="SetStartState"
+                                                       ToolTipPointPattern="Year: {S}&#13;&#10;State: {A}&#13;&#10;GSP: {V}">
+                                <dxc:BarSideBySideSeries2D.Label>
+                                    <dxc:SeriesLabel Indent="20" ResolveOverlappingMode="Default"
+                                    ConnectorThickness="1"
+                                    Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                    dxc:BarSideBySideSeries2D.LabelPosition="{Binding ElementName=lbPosition, Path=SelectedItem}" />
+                                </dxc:BarSideBySideSeries2D.Label>
+                                <dxc:BarSideBySideSeries2D.Points>
+                                    <dxc:SeriesPoint Argument="Illinois" Value="528.904" />
+                                    <dxc:SeriesPoint Argument="Indiana" Value="227.271" />
+                                    <dxc:SeriesPoint Argument="Michigan" Value="372.576" />
+                                    <dxc:SeriesPoint Argument="Ohio" Value="418.258" />
+                                    <dxc:SeriesPoint Argument="Wisconsin" Value="211.727" />
+                                </dxc:BarSideBySideSeries2D.Points>
+                            </dxc:BarSideBySideSeries2D>
+                        </dxc:XYDiagram2D.Series>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend ReverseItems="True" UseCheckBoxes="True"/>
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center">Great Lakes Gross State Product</dxc:Title>
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0">From www.bea.gov</dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

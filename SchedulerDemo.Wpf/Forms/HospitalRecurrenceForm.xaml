@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="SchedulerDemo.Forms.HospitalRecurrenceForm"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+    xmlns:dxschi="http://schemas.devexpress.com/winfx/2008/xaml/scheduler/internal"
+    xmlns:forms="clr-namespace:SchedulerDemo.Forms"
+    MinWidth="550">
+    <UserControl.Resources>
+        <dxsch:SchedulerStringIdConverter x:Key="SchedulerStringIdConverter" />
+        <dxsch:SchedulerControlStringIdConverter x:Key="SchedulerControlStringIdConverter" />
+        <dxschi:TimeSpanToDateTimeConverter x:Key="timeSpanToDateTimeConverter" />
+        <dxschi:InvertedBoolConverter x:Key="invertedBoolConverter" />
+        <dx:EnumToBoolConverter x:Key="EnumToBoolConverter" />
+        <dx:BoolToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+        <dx:BoolToVisibilityInverseConverter x:Key="invertedBooleanToVisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <dx:GroupFrame Header="{Binding Source={StaticResource SchedulerControlStringIdConverter}, ConverterParameter=Form_RecurrencePattern, Converter={StaticResource SchedulerControlStringIdConverter}}" Margin="0,12,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <forms:HospitalRecurrenceTypeEditor ViewModel="{Binding}" IsReadOnly="{Binding IsReadOnly}" Margin="0,0,24,0"/>
+                <StackPanel Grid.Column="2">
+                    <dxsch:DailyRecurrenceControl Visibility="{Binding IsDailyRecurrence, Converter={dxschi:BoolToVisibilityConverter}}" RecurrenceInfo="{Binding RecurrenceInfo}" IsReadOnly="{Binding IsReadOnly}" />
+                    <dxsch:WeeklyRecurrenceControl Visibility="{Binding IsWeeklyRecurrence, Converter={dxschi:BoolToVisibilityConverter}}" RecurrenceInfo="{Binding RecurrenceInfo}" IsReadOnly="{Binding IsReadOnly}" FirstDayOfWeek="{Binding FirstDayOfWeek}" />
+                    <dxsch:MonthlyRecurrenceControl Visibility="{Binding IsMonthlyRecurrence, Converter={dxschi:BoolToVisibilityConverter}}" RecurrenceInfo="{Binding RecurrenceInfo}" IsReadOnly="{Binding IsReadOnly}" />
+                </StackPanel>
+            </Grid>
+        </dx:GroupFrame>
+        <dx:GroupFrame Grid.Row="1" Header="{Binding Source={StaticResource SchedulerControlStringIdConverter}, ConverterParameter=Form_RangeOfRecurrence, Converter={StaticResource SchedulerControlStringIdConverter}}" Margin="0,12,0,0">
+            <dxsch:RecurrenceRangeControl RecurrenceInfo="{Binding RecurrenceInfo}"
+                        TimeZoneHelper="{Binding TimeZoneHelper, Mode=OneTime}"
+                        Pattern="{Binding PatternCopy}" IsReadOnly="{Binding IsReadOnly}"
+                        />
+        </dx:GroupFrame>
+    </Grid>
+</UserControl>

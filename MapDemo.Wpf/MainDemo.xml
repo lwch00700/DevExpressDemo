@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<DemoSpecialData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="XpfDemoSpecialData">
+  <Namespaces>
+    <Namespace Prefix="dxdb" Path="DevExpress.Xpf.DemoBase" />
+    <Namespace Prefix="local" Path="MapDemo" />
+  </Namespaces>
+  <Modules>
+    <XpfDemoModule Path="PhotoGallery" Group="Real Life Solutions" Type="local:PhotoGallery" IsHighlighted="All" SupportsRightToLeft="None" AllowSwitchingTheme="false" IsUpdated="Wpf">
+      <Title>Photo Gallery</Title>
+      <ShortDescription>In this demo you can see the Photo Gallery based on DXMap control.</ShortDescription>
+      <Description>
+        [Paragraph]
+        This demo illustrates the flexibility of the DevExpress WPF Map Control. The Photo Gallery allows you to locate a city within the map and then navigate to a collection of images associated with the selected city.
+        [/Paragraph]
+        [Paragraph]
+        As you explore the images, you can see how we use map elements to describe each city in detail.
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="SalesDashboard" Visibility="All" Group="Real Life Solutions" Type="local:SalesDashboard" IsHighlighted="All" SupportsRightToLeft="None" Tags="mvvm" AllowSwitchingTheme="false">
+      <Title>Sales Dashboard</Title>
+      <ShortDescription>In this demo you can see a Sales dashboard created based on DXMap, DXCharts and DXGauges controls.</ShortDescription>
+      <Description>
+        [Paragraph]
+        This demo illustrates how to create a dashboard using the Map control included in the DXMap Suite.
+        [/Paragraph]
+        [Paragraph]
+        By default, this dashboard provides information about the previous month's sales made by five shops.  This dashboard also demonstrates the location of each shop on the map.
+        [/Paragraph]
+        [Paragraph]
+        To get information about individual shop sales from the previous month, click a shop icon on the map. After that you will see the shop contact information on the tooltip and shop statistics on the chart.
+        [/Paragraph]
+        [Paragraph]
+        Note that the gauge needle displays current total sales made by an individual shop, while gauge markers show minimum and maximum sales values made by all shops.  It helps you to assess the current total sales ranking of an individual shop among other shops.
+        [/Paragraph]
+        [Paragraph]
+        Use scroll buttons to move the map in any direction and the zoom slider to see any map region in greater detail. Note that it is also possible to zoom in or out using the middle mouse button.
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="Navigator" Group="Real Life Solutions" Type="local:Navigator" IsHighlighted="All" SupportsRightToLeft="None" AllowSwitchingTheme="false">
+      <Title>Navigator</Title>
+      <ShortDescription>In this demo you can see a navigation system based on the DXMap control.</ShortDescription>
+      <Description>
+        [Paragraph]
+        This demo shows how to create a typical navigator with the help of the DXMap control. This is possible thanks to the DXMap support for Microsoft Bing GeoCode, Bing Route and Bing Search services.
+        [/Paragraph]
+        [Paragraph]
+        In this demo, you can locate any place on a map (by clicking it or using the Search panel), see the detailed information about this place or specify a route consisting of two or more locations.
+        [/Paragraph]
+        [Paragraph]
+        In addition, this demo can imitate the movement on a route. You can control the speed of a moving point via the Time Scale slider.
+        [/Paragraph]
+        [Paragraph]
+        To start navigation, follow the instructions displayed in this demo.
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="WorldWeather" Group="Real Life Solutions" Type="local:WorldWeather" IsHighlighted="All" SupportsRightToLeft="None" Visibility="Wpf" AllowSwitchingTheme="false">
+      <Title>World Weather</Title>
+      <ShortDescription>This demo illustrates the capability of a map to display weather data obtained from various weather services.</ShortDescription>
+      <Description>
+        [Paragraph]
+        A map control can display weather data obtained from various weather services.
+        [/Paragraph]
+        [Paragraph]
+        In this demo you can see the current weather in the world’s largest cities.
+        [/Paragraph]
+        [Paragraph]
+        To see the weather forecast on a graph for a specific city, click the city’s label on a map. This invokes the chart showing potential changes in temperature for a selected city.
+        [/Paragraph]
+        [Paragraph]
+        NOTE. The weather data for this demo is provided by the OpenWeatherMap service (http://www.openweathermap.org).
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="BingMapsProvider" Group="Geo Data Sources" Type="local:BingMapsProvider" SupportsRightToLeft="None" AllowSwitchingTheme="false" IsUpdated="Wpf">
+      <Title>Bing Maps Provider</Title>
+      <ShortDescription>This is a typical map provided by the Bing Maps source.</ShortDescription>
+      <Description>
+        [Paragraph]
+        This demo illustrates how to load a map using the Bing Maps data provider.
+        [/Paragraph]
+        [Paragraph]
+        To move the map in any direction, you can use either a drag operation with the mouse or the scroll buttons at the top left.
+        [/Paragraph]
+        [Paragraph]
+        To zoom in the map for more detail or to zoom out for a wider view, you can use the scroll wheel on the mouse or the zoom slider.
+        [/Paragraph]
+        [Paragraph]
+        NOTE: Image tiles for this demo are provided by the Bing Maps website at http://www.bing.com/maps/. When using Bing Maps, you must read and understand terms of use. Read the Bing Maps Licensing and Pricing Information at http://www.microsoft.com/maps/product/licensing.aspx.
+        [/Paragraph]
+        [Paragraph]
+        By default, the map displays an area. To see a[LineBreak/]road/street map or a hybrid view, use the options below.
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="OpenStreetMapProvider" Group="Geo Data Sources" Type="local:OpenStreetMapProvider" SupportsRightToLeft="None" AllowSwitchingTheme="false" IsUpdated="Wpf">
+      <Title>OpenStreetMap Provider</Title>
+      <ShortDescription>This is a typical map provided by the OpenStreetMap source.</ShortDescription>
+      <Description>
+        [Paragraph]
+        This demo illustrates use of map images from the OpenStreetMap data provider.
+        [/Paragraph]
+        [Paragraph]
+        Use scroll buttons to move the map in any direction and the zoom slider to see any map region in greater detail. Note that it is also possible to zoom in or out using the middle mouse button.
+        [/Paragraph]
+        [Paragraph]
+        NOTE: Image tiles for this demo are provided by the OpenStreetMap website at[LineBreak/]http://www.openstreetmap.org. When using OpenStreetMap data, you must read and understand terms of use (http://wiki.openstreetmap.org/wiki/Legal_FAQ) and the Tile Usage Policy (http://wiki.openstreetmap.org/wiki/Tile_usage_policy).
+        [/Paragraph]
+        [Paragraph]
+        By default, the map displays a road/street view. Use the options below to see a hybrid view of the map.
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="MultipleLayers" Group="Features" Type="local:MultipleLayers" SupportsRightToLeft="None" AllowSwitchingTheme="false">
+      <Title>Multiple Layers</Title>
+      <ShortDescription>This demo shows how to simultaneously draw several layers on a single map.</ShortDescription>
+      <Description>
+        [Paragraph]
+        This demo illustrates the use of multiple layers.
+        [/Paragraph]
+        [Paragraph]
+        Map layers are intended to display map images or various vector elements. For example, in this demo one layer is used to show reliefs provided by the Bing Maps data source, while another layer displays a smaller area as a road map using the OpenStreetMap data provider.
+        [/Paragraph]
+        [Paragraph]
+        Note that when one layer is shown above another, the DXMap control can clip appropriate layers using shape contours of any complexity. For example, in this demo the road layer has been clipped using a complex polygon.
+        [/Paragraph]
+        [Paragraph]
+        In addition, it is possible to specify minimum and maximum zoom levels at which a layer should be displayed. For example, the layer that shows the interior road map becomes invisible when the minimum zoom level is reached.
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="MapElements" Group="Features" Type="local:MapElements" SupportsRightToLeft="None" AllowSwitchingTheme="false">
+      <Title>Map Elements</Title>
+      <ShortDescription>The map control supports the drawing of various graphics elements on it (e.g., ellipse, polygon, polyline, etc.).</ShortDescription>
+      <Description>
+        [Paragraph]
+        This demo illustrates the three different map elements that can be displayed on the map: a polyline (in this demo, the flight path for an airplane is a polyline), a polygon (here, the airplane icons on the map) and a custom element used to draw an ellipse (here, the small circles indicating the initial and final airplane destinations).
+        [/Paragraph]
+        [Paragraph]
+        Click an airplane icon on the map to get information about the airplane, its flight number, other flight data, and to see the flight path.
+        [/Paragraph]
+        [Paragraph]
+        You can also change the time scale using the slider below.
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="ShapefileSupport" Group="Features" Type="local:ShapefileSupport" SupportsRightToLeft="None" AllowSwitchingTheme="false">
+      <Title>Shapefile Support</Title>
+      <ShortDescription>The DXMap Suite provides support for the loading of vector elements from Shapefiles.</ShortDescription>
+      <Description>
+        [Paragraph]
+        This demo illustrates how to generate a map from shape elements stored in a Shapefile. This file contains information on shape contours, as well as additional information.
+        [/Paragraph]
+        [Paragraph]
+        Note that the DXMap control supports automatic highlighting of the currently selected/hovered shape. To see how this works, move the mouse pointer so that it hovers over any country - and you will see that its region has become highlighted. In addition, the hit-testing feature provides the capability to invoke a tooltip with some information about this country.
+        [/Paragraph]
+        [Paragraph]
+        NOTE: Shapefiles for this demo were obtained from the Natural Earth web resource[LineBreak/](http://www.naturalearthdata.com)
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="Colorizer" Group="Features" Type="local:Colorizer" SupportsRightToLeft="None" AllowSwitchingTheme="false">
+      <Title>Colorizer</Title>
+      <ShortDescription>This demo illustrates a map control's capability to automatically color shapes depending on supplementary data.</ShortDescription>
+      <Description>
+        [Paragraph]
+        This demo shows how to create GDP, Population, and Political maps using the map colorizer.  This colorizer fills each country shape with a color depending on geographic data.
+        [/Paragraph]
+        [Paragraph]
+        Note that GDP and Population map kinds have a map legend. This legend contains a color scale accompanied by labels, which help interpret colors on a map.
+        [/Paragraph]
+        [Paragraph]
+        In addition, this demo shows automatic highlighting of the currently hovered shape. To see how it works, move the mouse pointer over any shape and see that its contour has become highlighted.
+        [/Paragraph]
+        [Paragraph]
+        You can also click any shape on a map and see a tooltip with additional information about this country.
+        [/Paragraph]
+        [Paragraph]
+        NOTE: The Shapefile for this demo was obtained from the Natural Earth web resource (http://www.naturalearthdata.com).
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="DataBinding" Group="Features" Type="local:DataBinding" SupportsRightToLeft="None" AllowSwitchingTheme="false" IsUpdated="Wpf">
+      <Title>Data Binding</Title>
+      <ShortDescription>This demo illustrates the data binding feature of a map control.</ShortDescription>
+      <Description>
+        [Paragraph]
+        The map control supports binding to vector data from various data sources.
+        [/Paragraph]
+        [Paragraph]
+        In this demo you can see wrecked ship images generated automatically after a map control has been bound to the XML data source. The XML file contains name and coordinates for each wrecked ship.
+        [/Paragraph]
+        [Paragraph]
+        To see the ship description on a tooltip, click the corresponding icon on a map.
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="BubbleCharts" Group="Real Life Solutions" Type="local:BubbleCharts" SupportsRightToLeft="None" AllowSwitchingTheme="false" IsNew="All">
+      <Title>Bubble Charts</Title>
+      <ShortDescription>This demo illustrates the use of Bubble charts within a map.</ShortDescription>
+      <Description>
+        [Paragraph]
+        In this demo, the map control displays earthquake occurrences around the world (by year).The magnitude of individual earthquakes are visualized using Bubble charts and colors are used to specify the year of occurrence.
+        [/Paragraph]
+        [Paragraph]
+        As you can see, because Bubble size is proportional to the magnitude, it simplifies the comparison of quake events.
+        [/Paragraph]
+        [Paragraph]
+        Press the Options button to customize the contents of the Map. You can control the year, magnitude and marker type used for earthquake information displayed on the map.
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="EnergyStatistics" Group="Real Life Solutions" Type="local:EnergyStatistics" SupportsRightToLeft="None" AllowSwitchingTheme="false" IsNew="All">
+      <Title>Energy Statistics</Title>
+      <ShortDescription>This demo illustrates the use of Pie charts within a map. </ShortDescription>
+      <Description>
+        [Paragraph]
+        The DevExpress WPF Map Control can display chart data within it. This demo illustrates the use of Pie charts and displays energy statistics in Europe (by country). 
+        [/Paragraph]
+        [Paragraph]
+        The Pie is segmented by energy sectors. Pie chart size displays total energy produced or imported. 
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+    <XpfDemoModule Path="DayAndNight" Group="Features" Type="local:DayAndNight" SupportsRightToLeft="None" AllowSwitchingTheme="false" IsNew="All">
+      <Title>Day and Night</Title>
+      <ShortDescription>This demo illustrates the use of geographical map projections.</ShortDescription>
+      <Description>
+        [Paragraph]
+        The DevExpress Map Control can display geographical data using any number of unique map projections. In this demo, you can view day/night across the planet using different map projections.
+        [/Paragraph]
+        [Paragraph]
+        To change the current map projection, date/time and map interactivity speed, press the Options button then select an appropriate value from list on the right.
+        [/Paragraph]
+      </Description>
+    </XpfDemoModule>
+  </Modules>
+</DemoSpecialData>

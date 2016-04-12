@@ -1,0 +1,1 @@
+DevExpress.Xpf.Carousel.v{DXVersion}

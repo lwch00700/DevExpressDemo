@@ -1,0 +1,118 @@
+﻿<local:RichEditDemoModule
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxre="http://schemas.devexpress.com/winfx/2008/xaml/richedit"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:RichEditDemo" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+    x:Class="RichEditDemo.HyperlinksAndBookmarks" Height="400" Width="800"
+    >
+    <local:RichEditDemoModule.Resources>
+        <ResourceDictionary>
+            <dxre:RichEditUICommand x:Key="commands" />
+            <dxre:RichEditStringIdConverter x:Key="stringIdConverter"/>
+            <dxre:DefaultBarItemDataTemplates x:Key="defaultBarItemTemplates"/>
+        </ResourceDictionary>
+    </local:RichEditDemoModule.Resources>
+
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical">
+                <dxlc:GroupBox Header="Bookmarks" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <dxe:CheckEdit x:Name="edtShowBookmarks" Content="Show bookmarks" IsChecked="True" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Checked="edtShowBoomarks_Checked" Unchecked="edtShowBookmarks_Unchecked"/>
+                        <TextBlock Text="Bookmar color:" Margin="0,6,0,3" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1"/>
+                        <dxe:PopupColorEdit x:Name="colorEdit1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,3,0,0" Grid.Row="2" Color="SteelBlue" ColorChanged="colorEdit1_ColorChanged" />
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox Header="Hyperlinks" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <dxe:CheckEdit x:Name="edtShowTooltip" Content="Show tooltip" IsChecked="True" Grid.Row="0" Checked="edtShowTooltip_Checked" Unchecked="edtShowTooltip_Unchecked" />
+                        <TextBlock Text="Modifier keys:" Margin="0,3,0,3" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1"/>
+                        <Grid Grid.Row="2" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <dxe:CheckEdit x:Name="edtCtrl" Content="Ctrl" IsChecked="True" Grid.Row="2" Grid.Column="0" Margin="0,0,3,0" Checked="edtCtrl_Checked" Unchecked="edtCtrl_Unchecked"></dxe:CheckEdit>
+                            <dxe:CheckEdit x:Name="edtAlt" Content="Alt" IsChecked="False" Grid.Row="2" Grid.Column="1" Margin="3,0,3,0" Unchecked="edtAlt_Unchecked" Checked="edtAlt_Checked"></dxe:CheckEdit>
+                            <dxe:CheckEdit x:Name="edtShift" Content="Shift" IsChecked="False" Grid.Row="2" Grid.Column="2" Margin="3,0,3,0" Checked="edtShift_Checked" Unchecked="edtShift_Unchecked"></dxe:CheckEdit>
+                        </Grid>
+                    </Grid>
+                </dxlc:GroupBox>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxb:BarManager x:Name="barManager1" ToolbarGlyphSize="Small">
+                <dxb:BarManager.Items>
+                    <dxb:BarButtonItem x:Name="biFileNew" Command="{Binding FileNew, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biFileOpen" Command="{Binding FileOpen, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biFileSave" Command="{Binding FileSave, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biFileSaveAs" Command="{Binding FileSaveAs, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biFileQuickPrint" Command="{Binding FileQuickPrint, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biFilePrint" Command="{Binding FilePrint, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biFilePrintPreview" Command="{Binding FilePrintPreview, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biEditUndo" Command="{Binding EditUndo, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biEditRedo" Command="{Binding EditRedo, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biEditPaste" Command="{Binding EditPaste, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biEditCut" Command="{Binding EditCut, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biEditCopy" Command="{Binding EditCopy, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biInsertBookmark" Command="{Binding InsertBookmark, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarButtonItem x:Name="biInsertHyperlink" Command="{Binding InsertHyperlink, Mode=OneTime, Source={StaticResource commands}}"/>
+                </dxb:BarManager.Items>
+                <DockPanel>
+                    <dxr:RibbonControl x:Name="ribbonControl1" DockPanel.Dock="Top" ToolbarShowMode="Hide">
+                        <dxr:RibbonDefaultPageCategory>
+                            <dxr:RibbonPage x:Name="pageFile" Caption="{Binding ConverterParameter=Caption_PageFile, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}">
+                                <dxr:RibbonPageGroup x:Name="grpFileCommon" Caption="{Binding ConverterParameter=Caption_GroupCommon, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}" ShowCaptionButton="False">
+                                    <dxr:RibbonPageGroup.ItemLinks>
+                                        <dxb:BarButtonItemLink BarItemName="biFileNew"/>
+                                        <dxb:BarButtonItemLink BarItemName="biFileOpen"/>
+                                        <dxb:BarButtonItemLink BarItemName="biFileSave"/>
+                                        <dxb:BarButtonItemLink BarItemName="biFileSaveAs"/>
+                                        <dxb:BarButtonItemLink BarItemName="biFileQuickPrint"/>
+                                        <dxb:BarButtonItemLink BarItemName="biFilePrint"/>
+                                        <dxb:BarButtonItemLink BarItemName="biFilePrintPreview"/>
+                                        <dxb:BarButtonItemLink BarItemName="biEditUndo"/>
+                                        <dxb:BarButtonItemLink BarItemName="biEditRedo"/>
+                                    </dxr:RibbonPageGroup.ItemLinks>
+                                </dxr:RibbonPageGroup>
+                            </dxr:RibbonPage>
+                            <dxr:RibbonPage x:Name="pageHome" Caption="{Binding ConverterParameter=Caption_PageHome, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}">
+                                <dxr:RibbonPageGroup x:Name="grpHomeClipboard" Caption="{Binding ConverterParameter=Caption_GroupClipboard, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}" ShowCaptionButton="False">
+                                    <dxr:RibbonPageGroup.ItemLinks>
+                                        <dxb:BarButtonItemLink BarItemName="biEditPaste"/>
+                                        <dxb:BarButtonItemLink BarItemName="biEditCut"/>
+                                        <dxb:BarButtonItemLink BarItemName="biEditCopy"/>
+                                    </dxr:RibbonPageGroup.ItemLinks>
+                                </dxr:RibbonPageGroup>
+                            </dxr:RibbonPage>
+                            <dxr:RibbonPage x:Name="pageInsert" Caption="{Binding ConverterParameter=Caption_PageInsert, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}">
+                                <dxr:RibbonPageGroup x:Name="grpInsertLinks" Caption="{Binding ConverterParameter=Caption_GroupLinks, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}" ShowCaptionButton="False">
+                                    <dxr:RibbonPageGroup.ItemLinks>
+                                        <dxb:BarButtonItemLink BarItemName="biInsertBookmark"/>
+                                        <dxb:BarButtonItemLink BarItemName="biInsertHyperlink"/>
+                                    </dxr:RibbonPageGroup.ItemLinks>
+                                </dxr:RibbonPageGroup>
+                            </dxr:RibbonPage>
+                        </dxr:RibbonDefaultPageCategory>
+                    </dxr:RibbonControl>
+                    <dxre:RichEditControl x:Name="richEdit" ShowBorder="False" BarManager="{Binding ElementName=barManager1, Mode=OneTime}" Ribbon="{Binding ElementName=ribbonControl1, Mode=OneTime}" Loaded="richEdit_Loaded"/>
+                </DockPanel>
+            </dxb:BarManager>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:RichEditDemoModule>

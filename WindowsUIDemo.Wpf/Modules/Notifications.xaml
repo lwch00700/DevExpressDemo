@@ -1,0 +1,368 @@
+﻿<local:WindowsUIDemoModule x:Class="WindowsUIDemo.Notifications"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        xmlns:dxre="http://schemas.devexpress.com/winfx/2008/xaml/richedit"
+        xmlns:mvvm="clr-namespace:DevExpress.Mvvm;assembly=DevExpress.Xpf.Mvvm.v15.2"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:local="clr-namespace:WindowsUIDemo"
+        xmlns:helpers="clr-namespace:DevExpress.Xpf.DemoBase.Helpers;assembly=DevExpress.Xpf.DemoBase.v15.2"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        x:Name="root"
+        xmlns:dxmvvmi="clr-namespace:DevExpress.Mvvm.UI.Native"
+        DataContext="{dxmvvm:ViewModelSource Type={x:Type local:NotificationsViewModel}}">
+    <local:WindowsUIDemoModule.Resources>
+        <dxmvvm:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <DataTemplate x:Key="CustomNotificationTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Background="#FF3D3D3D" CornerRadius="10,0,0,10">
+                    <Image Source="pack://application:,,,/WindowsUIDemo;component/Images/notification-icon.png" Stretch="None" Width="100" Height="100"/>
+                </Border>
+                <Border Grid.Column="1" CornerRadius="0,10,10,0" Background="{Binding Background}">
+                    <dxre:RichEditControl HorizontalScrollBarVisibility="Collapsed"
+                                          VerticalScrollBarVisibility="Collapsed"
+                                          VerticalAlignment="Stretch"
+                                          HorizontalAlignment="Stretch"
+                                          IsHitTestVisible="False"
+                                          Background="{Binding Background}"
+                                          Margin="10,15,15,15"
+                                          ShowBorder="False"
+                                          ReadOnly="True"
+                                          ActiveViewType="Simple">
+                        <dxmvvm:Interaction.Behaviors>
+                            <local:RichEditBehavior Document="{Binding Text}"/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </dxre:RichEditControl>
+                </Border>
+            </Grid>
+        </DataTemplate>
+        <dxmvvm:ObjectToObjectConverter x:Key="PreviewVisibilityConverter" DefaultTarget="Collapsed">
+            <dxmvvm:MapItem Source="1" Target="Visible"/>
+        </dxmvvm:ObjectToObjectConverter>
+        <dxmvvm:ObjectToObjectConverter x:Key="InversePreviewVisibilityConverter" DefaultTarget="Collapsed">
+            <dxmvvm:MapItem Source="0" Target="Visible"/>
+        </dxmvvm:ObjectToObjectConverter>
+        <Style TargetType="Button" x:Key="ShowButtonStyle">
+            <Setter Property="Background" Value="#FFF7941E"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="40,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#FF3D3D3D"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CustomNotificationStyle" TargetType="ContentControl">
+            <Setter Property="Width" Value="{Binding DataContext.Width, RelativeSource={RelativeSource Self}}"/>
+            <Setter Property="Height" Value="{Binding DataContext.Height, RelativeSource={RelativeSource Self}}"/>
+        </Style>
+    </local:WindowsUIDemoModule.Resources>
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:NotificationService x:Name="notificationService"
+                                CustomNotificationStyle="{StaticResource CustomNotificationStyle}"
+                                ApplicationId="Components_15_2_Demo_Center_15_2"
+                                PredefinedNotificationTemplate="{Binding SelectedItem[Template], ElementName=predefinedNotificationsList}"
+                                PredefinedNotificationDuration="{Binding ElementName=duration, Path=EditValue}"
+                                Sound="{Binding ElementName=sound, Path=EditValue}"
+                                UseWin8NotificationsIfAvailable="{Binding ElementName=useWin8Notifications, Path=IsChecked}"
+                                CustomNotificationDuration="{Binding ElementName=customDuration, Path=EditValue}"
+                                CustomNotificationPosition="{Binding ElementName=position, Path=EditValue}"
+                                CustomNotificationVisibleMaxCount="{Binding ElementName=maxCount, Path=EditValue}"
+                                CustomNotificationScreen="{Binding ElementName=screen, Path=EditValue}"
+                                CustomNotificationTemplate="{StaticResource CustomNotificationTemplate}"/>
+    </dxmvvm:Interaction.Behaviors>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False" BorderThickness="0" AboutPanelMargin="0,1,0,0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="280"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.RowSpan="2" Margin="0,0,20,0">
+                <dx:GroupFrame Header="Template" Visibility="{Binding SelectedIndex, ElementName=SettingsTabControl, Converter={StaticResource InversePreviewVisibilityConverter}}">
+                    <DockPanel>
+                        <Button DockPanel.Dock="Bottom" HorizontalAlignment="Center" Content="Show" Command="{Binding ShowPredefinedCommand}" Style="{StaticResource ShowButtonStyle}"/>
+                        <ListView x:Name="predefinedNotificationsList" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedIndex="0" Margin="-3,6,0,0">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <Border>
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroup x:Name="CommonStates">
+                                                            <VisualState x:Name="Normal" />
+                                                            <VisualState x:Name="MouseOver" />
+                                                            <VisualState x:Name="Disabled" />
+                                                        </VisualStateGroup>
+                                                        <VisualStateGroup x:Name="SelectionStates">
+                                                            <VisualState x:Name="Unselected" />
+                                                            <VisualState x:Name="Selected">
+                                                                <Storyboard>
+                                                                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
+                                                                        <EasingColorKeyFrame KeyTime="0" Value="#FFF7941E" />
+                                                                    </ColorAnimationUsingKeyFrames>
+                                                                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="Description" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                                                        <EasingColorKeyFrame KeyTime="0" Value="White" />
+                                                                    </ColorAnimationUsingKeyFrames>
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                        </VisualStateGroup>
+                                                    </VisualStateManager.VisualStateGroups>
+                                                    <Border x:Name="Border" Padding="21,11,21,11" Background="Transparent" Margin="0,6.5">
+                                                        <Grid x:Name="Grid" Height="80">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+                                                            <StackPanel Background="#FF595959" Orientation="Horizontal">
+                                                                <StackPanel.Resources>
+                                                                    <Style TargetType="RichTextBox">
+                                                                        <Setter Property="Width" Value="218"/>
+                                                                        <Setter Property="IsHitTestVisible" Value="False"/>
+                                                                        <Setter Property="Background" Value="Transparent"/>
+                                                                        <Setter Property="Foreground" Value="White"/>
+                                                                        <Setter Property="BorderThickness" Value="0"/>
+                                                                        <Setter Property="FontSize" Value="14"/>
+                                                                        <Setter Property="Padding" Value="15,0,0,0"/>
+                                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                                    </Style>
+                                                                </StackPanel.Resources>
+                                                                <Image Margin="0,0,-15,0" Width="80" Height="80" Source="pack://application:,,,/WindowsUIDemo;component/Images/sun.png" HorizontalAlignment="Left" Visibility="{Binding ShowImage, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                                                <ContentPresenter Content="{Binding [RichTextBox]}"/>
+                                                            </StackPanel>
+                                                            <TextBlock x:Name="Description" FontSize="14" Margin="40,0,10,0" Foreground="Black" TextWrapping="Wrap" Grid.Column="2" VerticalAlignment="Center" Text="{Binding [Description]}"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.Items>
+                                <ResourceDictionary>
+                                    <dxmvvm:NotificationTemplate x:Key="Template">LongText</dxmvvm:NotificationTemplate>
+                                    <sys:String x:Key="Description">A single string wrapped across a maximum of three lines of text.</sys:String>
+                                    <RichTextBox x:Key="RichTextBox">
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run>Lorem ipsum dolor sit amet</Run>
+                                                <LineBreak/>
+                                                <Run>integer fringilla, dui eget</Run>
+                                                <LineBreak/>
+                                                <Run>ultrices cursus, justo tellus</Run>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </ResourceDictionary>
+                                <ResourceDictionary>
+                                    <dxmvvm:NotificationTemplate x:Key="Template">ShortHeaderAndLongText</dxmvvm:NotificationTemplate>
+                                    <sys:String x:Key="Description">One string of bold text on the first line, one string of regular text wrapped across the second and third lines.</sys:String>
+                                    <RichTextBox x:Key="RichTextBox">
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run FontWeight="Bold">Lorem ipsum dolor sit amet</Run>
+                                                <LineBreak/>
+                                                <Run>Integer fringilla, dui eget</Run>
+                                                <LineBreak/>
+                                                <Run>ultrices cursus, justo tellus</Run>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </ResourceDictionary>
+                                <ResourceDictionary>
+                                    <dxmvvm:NotificationTemplate x:Key="Template">LongHeaderAndShortText</dxmvvm:NotificationTemplate>
+                                    <sys:String x:Key="Description">One string of bold text wrapped across the first and second lines, one string of regular text on the third line.</sys:String>
+                                    <RichTextBox x:Key="RichTextBox">
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run FontWeight="Bold">Lorem ipsum dolor sit amet</Run>
+                                                <LineBreak/>
+                                                <Run FontWeight="Bold">Integer fringilla, dui eget</Run>
+                                                <LineBreak/>
+                                                <Run>Ultrices cursus, justo tellus</Run>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </ResourceDictionary>
+                                <ResourceDictionary>
+                                    <dxmvvm:NotificationTemplate x:Key="Template">ShortHeaderAndTwoTextFields</dxmvvm:NotificationTemplate>
+                                    <sys:String x:Key="Description">One string of bold text on the first line, one string of regular text on the second line, one string of regular text on the third line</sys:String>
+                                    <RichTextBox x:Key="RichTextBox">
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run FontWeight="Bold">Lorem ipsum dolor sit amet</Run>
+                                                <LineBreak/>
+                                                <Run>Integer fringilla, dui eget</Run>
+                                                <LineBreak/>
+                                                <Run>Ultrices cursus, justo tellus</Run>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </ResourceDictionary>
+                            </ListView.Items>
+                        </ListView>
+                    </DockPanel>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Preview" Visibility="{Binding SelectedIndex, ElementName=SettingsTabControl, Converter={StaticResource PreviewVisibilityConverter}}">
+                    <DockPanel Background="White">
+                        <Button DockPanel.Dock="Bottom" HorizontalAlignment="Center" Content="Show" Command="{Binding ShowCustomCommand}" Style="{StaticResource ShowButtonStyle}"/>
+                        <Grid Width="{Binding CustomNotificationWidth}" Height="{Binding CustomNotificationHeight}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="#FF3D3D3D" CornerRadius="10,0,0,10">
+                                <Image Source="pack://application:,,,/WindowsUIDemo;component/Images/notification-icon.png" Stretch="None" Width="100" Height="100"/>
+                            </Border>
+                            <Border Grid.Column="1" CornerRadius="0,10,10,0" Background="{Binding CustomNotificationBackgroundBrush}">
+                                <dxre:RichEditControl x:Name="previewRich"
+                                                      Loaded="previewRich_Loaded"
+                                                      IsHitTestVisible="False"
+                                                      Margin="10,15,15,15"
+                                                      Background="{Binding CustomNotificationBackgroundBrush}"
+                                                      HorizontalScrollBarVisibility="Collapsed"
+                                                      VerticalScrollBarVisibility="Collapsed"
+                                                      ShowBorder="False"
+                                                      Width="220"
+                                                      ReadOnly="True"
+                                                      ActiveViewType="Simple"/>
+                            </Border>
+                        </Grid>
+                    </DockPanel>
+                </dx:GroupFrame>
+            </Grid>
+            <TabControl Grid.Column="1" Margin="0,7,0,0" Padding="0,7,0,0" x:Name="SettingsTabControl">
+                <TabItem Header="Predefined">
+                    <dxlc:LayoutControl Orientation="Vertical">
+                        <dxlc:LayoutItem>
+                            <CheckBox Grid.Column="1" Content="Image" VerticalAlignment="Center" IsChecked="{Binding ShowImage, Mode=TwoWay}"/>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem>
+                            <CheckBox x:Name="useWin8Notifications" Grid.Column="0" Content="Prefer Native Notifications on Win8" VerticalAlignment="Center" IsChecked="True"/>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Sound:">
+                            <dxe:ComboBoxEdit x:Name="sound" Margin="19,0,0,0" IsTextEditable="False" ItemsSource="{dxe:EnumItemsSource EnumType={x:Type dxmvvm:PredefinedSound}}" SelectedIndex="0"/>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Duration:">
+                            <dxe:ComboBoxEdit x:Name="duration" Margin="19,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" IsTextEditable="False" ItemsSource="{dxe:EnumItemsSource EnumType={x:Type dxmvvm:PredefinedNotificationDuration}}" SelectedIndex="0"/>
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutControl>
+                </TabItem>
+                <TabItem Header="Custom">
+                    <dxlc:LayoutControl Orientation="Vertical">
+                        <dxlc:LayoutItem>
+                            <dxb:BarManager Name="barManager1" ToolbarGlyphSize="Small" AllowCustomization="False">
+                                <dxb:BarManager.Resources>
+                                    <dxre:RichEditUICommand x:Key="commands" />
+                                </dxb:BarManager.Resources>
+                                <dxb:BarManager.Bars>
+                                    <dxb:Bar Caption="Common" Name="barCommon">
+                                        <dxb:Bar.DockInfo>
+                                            <dxb:BarDockInfo ContainerType="Top" />
+                                        </dxb:Bar.DockInfo>
+                                        <dxb:Bar.Items>
+                                            <dxb:BarCheckItem Command="{Binding Path=FormatFontBold, Mode=OneTime, Source={StaticResource commands}}"/>
+                                            <dxb:BarCheckItem Command="{Binding Path=FormatFontItalic, Mode=OneTime, Source={StaticResource commands}}"/>
+                                            <dxb:BarCheckItem Command="{Binding Path=FormatFontUnderline, Mode=OneTime, Source={StaticResource commands}}"/>
+                                        </dxb:Bar.Items>
+                                    </dxb:Bar>
+                                    <dxb:Bar Caption="Clipboard" Name="barClipboard">
+                                        <dxb:Bar.DockInfo>
+                                            <dxb:BarDockInfo ContainerType="Top" />
+                                        </dxb:Bar.DockInfo>
+                                        <dxb:Bar.ItemLinks>
+                                            <dxre:BarSplitButtonColorEditItemLink BarItemName="biFormatFontForeColor" />
+                                        </dxb:Bar.ItemLinks>
+                                        <dxb:Bar.Items>
+                                            <dxb:BarButtonItem Command="{Binding Path=FormatIncreaseFontSize, Mode=OneTime, Source={StaticResource commands}}"/>
+                                            <dxb:BarButtonItem Command="{Binding Path=FormatDecreaseFontSize, Mode=OneTime, Source={StaticResource commands}}"/>
+                                            <dxre:BarSplitButtonColorEditItem Command="{Binding Path=FormatFontForeColor, Mode=OneTime, Source={StaticResource commands}}" Name="biFormatFontForeColor">
+                                                <dxre:BarSplitButtonColorEditItem.PopupControl>
+                                                    <dxb:PopupControlContainerInfo>
+                                                        <dxe:ColorEdit EditValue="{Binding ElementName=biFormatFontForeColor, Mode=TwoWay, Path=EditValue}" ShowBorder="False" />
+                                                    </dxb:PopupControlContainerInfo>
+                                                </dxre:BarSplitButtonColorEditItem.PopupControl>
+                                            </dxre:BarSplitButtonColorEditItem>
+                                        </dxb:Bar.Items>
+                                    </dxb:Bar>
+                                </dxb:BarManager.Bars>
+                                <dxre:RichEditControl x:Name="settingsRich"
+                                                      HorizontalScrollBarVisibility="Collapsed"
+                                                      VerticalScrollBarVisibility="Collapsed"
+                                                      ShowBorder="True"
+                                                      Height="80"
+                                                      ActiveViewType="Simple"
+                                                      BarManager="{Binding ElementName=barManager1, Mode=OneTime}"
+                                                      Loaded="RichEditControl_Loaded"/>
+                            </dxb:BarManager>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Background Color">
+                            <dxe:PopupColorEdit EditValue="{Binding CustomNotificationBackground, UpdateSourceTrigger=PropertyChanged}" EditValueChanged="PopupColorEdit_ColorChanged"/>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Notification Width">
+                            <dxe:SpinEdit EditValue="{Binding CustomNotificationWidth, UpdateSourceTrigger=PropertyChanged}" MinValue="200" MaxValue="600" EditValueType="{x:Type sys:Double}"/>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Notification Height">
+                            <dxe:SpinEdit EditValue="{Binding CustomNotificationHeight, UpdateSourceTrigger=PropertyChanged}" MinValue="100" MaxValue="400" EditValueType="{x:Type sys:Double}"/>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Position">
+                            <dxe:ComboBoxEdit x:Name="position" IsTextEditable="False" ItemsSource="{dxe:EnumItemsSource EnumType={x:Type dxmvvm:NotificationPosition}}" SelectedIndex="0"/>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Duration">
+                            <dxe:ComboBoxEdit x:Name="customDuration" IsTextEditable="False" SelectedIndex="1">
+                                <sys:TimeSpan>00:00:01.0</sys:TimeSpan>
+                                <sys:TimeSpan>00:00:06.0</sys:TimeSpan>
+                                <sys:TimeSpan>00:00:25.0</sys:TimeSpan>
+                            </dxe:ComboBoxEdit>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Maximum on Screen">
+                            <dxe:ComboBoxEdit x:Name="maxCount" IsTextEditable="False" SelectedIndex="0">
+                                <sys:Int32>3</sys:Int32>
+                                <sys:Int32>5</sys:Int32>
+                                <sys:Int32>7</sys:Int32>
+                                <sys:Int32>10</sys:Int32>
+                            </dxe:ComboBoxEdit>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Screen">
+                            <dxe:ComboBoxEdit x:Name="screen" IsTextEditable="False" ItemsSource="{dxe:EnumItemsSource EnumType={x:Type dxmvvm:NotificationScreen}}" SelectedIndex="0"/>
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutControl>
+                </TabItem>
+            </TabControl>
+            <helpers:LogControl Grid.Row="1" Grid.Column="1" Margin="0,13,0,0">
+                <dxmvvm:Interaction.Behaviors>
+                    <helpers:LogService/>
+                </dxmvvm:Interaction.Behaviors>
+            </helpers:LogControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:WindowsUIDemoModule>

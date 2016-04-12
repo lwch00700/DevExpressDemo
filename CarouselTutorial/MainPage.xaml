@@ -1,0 +1,54 @@
+﻿<Window x:Class="CarouselTutorial.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:local="clr-namespace:CarouselTutorial"
+    Title="DevExpress WPF Carousel Tutorial"
+    Icon="dxcarousel.ico"
+    >
+    <Window.Resources>
+        <col:ArrayList x:Key="tutorialPages">
+            <local:PageInfo Title="Carousel Basic" Page="TutorialPage1.xaml" Description="This tutorial shows how to create a simple Carousel with three items. Note that items are automatically arranged and animated when navigating between them with the mouse." />
+            <local:PageInfo Title="CarouselItemsControl" Page="TutorialPage2.xaml" Description="This tutorial demonstrates how to use a Carousel with a CarouselItemsControl. When using the CarouselItemsControl, the style is automatically specified by this CarouselItemsControl." />
+            <local:PageInfo Title="Conditional Item Parameters" Page="TutorialPage3.xaml" Description="This demo shows how to customize item style properties, dependent on the items postition. In the example, parameters are created for the Carousel, and these define the distribution functions for style parameters. Then, the parameters are bound to the corresponding style properties." />
+            <local:PageInfo Title="Item Distribution" Page="TutorialPage4.xaml" Description="This demo shows how to specify an item distribution function. In the example, two Carousels arrange their items using uniform and arbitrary distribution functions, respectively. In the second Carousel, which uses the arbitrary distribution, the items are stuck to predefined points that identify the distribution function." />
+            <local:PageInfo Title="Navigator" Page="TutorialPage5.xaml" Description="This demo shows how to use the CarouselNavigator to navigate between items in a Carousel." />
+            <local:PageInfo Title="Item Animation" Page="TutorialPage6.xaml" Description="This demo shows how to animate Carousel items while navigating between them. In the example, a function is defined that specifies an item's rotation angle. This function is bound to the Angle property of the rotate transformation of Carousel items." />
+        </col:ArrayList>
+    </Window.Resources>
+    <DockPanel Margin="10">
+        <ListBox Name="tutorialList"
+			SelectedIndex="0"
+			ItemsSource="{StaticResource tutorialPages}"
+            SelectedValuePath="Title"
+			VerticalAlignment="Top"
+			Margin="10"
+			Padding="5"
+            DisplayMemberPath="Title" 
+            DockPanel.Dock="Left"
+       />
+        <Border BorderBrush="Black" 
+            BorderThickness="1" 
+            Margin="10" 
+            Padding="10"
+            DataContext="{Binding ElementName=tutorialList, Path=SelectedItem}"
+            >
+            <DockPanel>
+                <Expander DockPanel.Dock="Bottom" Header="Description">
+                    <TextBlock Text="{Binding Path=Description}"
+							   TextWrapping="Wrap" 
+                               Margin="10" 
+                               TextAlignment="Justify" 
+                               FontSize="12"
+                    />
+                </Expander>
+                <Frame Name="ContentFrame" 
+                       Source="{Binding Path=Page}" 
+                       NavigationUIVisibility="Hidden" 
+                       Focusable="false"
+                />
+            </DockPanel>
+        </Border>
+
+    </DockPanel>
+</Window>

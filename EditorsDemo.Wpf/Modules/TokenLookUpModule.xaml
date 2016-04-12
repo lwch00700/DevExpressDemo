@@ -1,0 +1,158 @@
+﻿<local:EditorsDemoModule x:Class="EditorsDemo.TokenLookUpModule"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:EditorsDemo"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <local:EditorsDemoModule.Resources>
+        <ControlTemplate x:Key="popupContentTemplate">
+            <dxg:GridControl x:Name="PART_GridControl" AutoExpandAllGroups="True">
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn FieldName="JobTitle" />
+                    <dxg:GridColumn FieldName="FirstName" />
+                    <dxg:GridColumn FieldName="LastName" />
+                    <dxg:GridColumn FieldName="BirthDate" />
+                    <dxg:GridColumn FieldName="ImageData" Width="60" FixedWidth="True">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:ImageEditSettings ShowMenu="True" />
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                </dxg:GridControl.Columns>
+                <dxg:GridControl.View>
+                    <dxg:TableView
+                        Name="View"
+                        ShowGroupedColumns="True"
+                        AutoWidth="True"
+                        AllowPerPixelScrolling="True"
+                        ScrollAnimationDuration="0"
+                        ShowAutoFilterRow="True"
+                        ShowTotalSummary="True"
+                        IsSynchronizedWithCurrentItem="False">
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+            </dxg:GridControl>
+        </ControlTemplate>
+    </local:EditorsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Width="250">
+                <dx:GroupFrame Header="Options">
+                    <StackPanel Orientation="Vertical">
+                        <dxe:CheckEdit x:Name="cbAutoComplete" Content="AutoComplete" EditValue="True"/>
+                        <dxe:CheckEdit x:Name="cbFiltering" Content="Incremental Filtering" Margin="0,6,0,0" EditValue="True"/>
+                        <dxe:CheckEdit x:Name="cbPopup" Content="Immediate Popup" Margin="0,6,0,0" EditValue="True"/>
+                        <Grid Margin="0,6,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="55*"/>
+                                <ColumnDefinition Width="45*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Horizontal ScrollBar:" VerticalAlignment="Center" Margin="0,0,8,0" />
+                            <dxe:ComboBoxEdit Grid.Column="1" x:Name="cbHorizontalScrollBarVisibility" SelectedIndex="0" IsTextEditable="False">
+                                <ScrollBarVisibility>Hidden</ScrollBarVisibility>
+                                <ScrollBarVisibility>Visible</ScrollBarVisibility>
+                                <ScrollBarVisibility>Auto</ScrollBarVisibility>
+                            </dxe:ComboBoxEdit>
+                        </Grid>
+                        <Grid Margin="0,6,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="55*"/>
+                                <ColumnDefinition Width="45*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Vertical ScrollBar:" VerticalAlignment="Center" Margin="0,0,8,0" />
+                            <dxe:ComboBoxEdit Grid.Column="1" x:Name="cbVerticalScrollBarVisibility" SelectedIndex="2" IsTextEditable="False">
+                                <ScrollBarVisibility>Hidden</ScrollBarVisibility>
+                                <ScrollBarVisibility>Visible</ScrollBarVisibility>
+                                <ScrollBarVisibility>Auto</ScrollBarVisibility>
+                            </dxe:ComboBoxEdit>
+                        </Grid>
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.25*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1" Margin="20,0,20,0" Orientation="Vertical" MaxWidth="400">
+                <dx:GroupFrame Header="One Line">
+                    <dxg:LookUpEdit Margin="16,12,16,16"
+                                    ItemsSource="{Binding Path=Source.CollectionView}"
+                                    EditValue="{Binding SelectedEmployees, Mode=OneWay}"
+                                    AutoPopulateColumns="False"
+                                    PopupContentTemplate="{StaticResource popupContentTemplate}"
+                                    PopupHeight="500"
+                                    PopupWidth="750"
+                                    PopupMinHeight="100"
+                                    ValidateOnTextInput="True"
+                                    ValidateOnEnterKeyPressed="True"
+                                    PopupMinWidth="100"
+                                    IsPopupAutoWidth="False"
+                                    DisplayMember="LastName"
+                                    AutoComplete="{Binding Path=IsChecked, ElementName=cbAutoComplete}"
+                                    IncrementalFiltering="{Binding Path=IsChecked, ElementName=cbFiltering}"
+                                    HorizontalScrollBarVisibility="{Binding Path=EditValue, ElementName=cbHorizontalScrollBarVisibility}"
+                                    ImmediatePopup="{Binding Path=IsChecked, ElementName=cbPopup}">
+                        <dxg:LookUpEdit.StyleSettings>
+                            <dxg:TokenLookUpEditStyleSettings/>
+                        </dxg:LookUpEdit.StyleSettings>
+                    </dxg:LookUpEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Multiple Line" Margin="0,16,0,0">
+                    <dxg:LookUpEdit Margin="16,12,16,16"
+                                     MaxHeight="90"
+                                    PopupHeight="500"
+                                    PopupWidth="750"
+                                    PopupMinHeight="100"
+                                    PopupMinWidth="100"
+                                    IsPopupAutoWidth="False"
+                                    ValidateOnTextInput="True"
+                                    ValidateOnEnterKeyPressed="True"
+                                    PopupContentTemplate="{StaticResource popupContentTemplate}"
+                                    ItemsSource="{Binding Path=Source.CollectionView}"
+                                    EditValue="{Binding SelectedEmployees2, Mode=OneWay}"
+                                    AutoPopulateColumns="False"
+                                    DisplayMember="LastName"
+                                    AutoComplete="{Binding Path=IsChecked, ElementName=cbAutoComplete}"
+                                    IncrementalFiltering="{Binding Path=IsChecked, ElementName=cbFiltering}"
+                                    VerticalScrollBarVisibility="{Binding Path=EditValue, ElementName=cbVerticalScrollBarVisibility}"
+                                    ImmediatePopup="{Binding Path=IsChecked, ElementName=cbPopup}">
+                        <dxg:LookUpEdit.StyleSettings>
+                            <dxg:TokenLookUpEditStyleSettings EnableTokenWrapping="True"/>
+                        </dxg:LookUpEdit.StyleSettings>
+                    </dxg:LookUpEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Multi Line Scrolling" Margin="0,16,0,0">
+                    <dxg:LookUpEdit Margin="16,12,16,16"
+                                    MaxHeight="90"
+                                    PopupHeight="500"
+                                    PopupWidth="750"
+                                    PopupMinHeight="100"
+                                    PopupMinWidth="100"
+                                    IsPopupAutoWidth="False"
+                                    ValidateOnTextInput="True"
+                                    ValidateOnEnterKeyPressed="True"
+                                    PopupContentTemplate="{StaticResource popupContentTemplate}"
+                                    ItemsSource="{Binding Path=Source.CollectionView}"
+                                    EditValue="{Binding SelectedEmployees3, Mode=OneWay}"
+                                    AutoPopulateColumns="False"
+                                    DisplayMember="LastName"
+                                    AutoComplete="{Binding Path=IsChecked, ElementName=cbAutoComplete}"
+                                    IncrementalFiltering="{Binding Path=IsChecked, ElementName=cbFiltering}"
+                                    VerticalScrollBarVisibility="{Binding Path=EditValue, ElementName=cbVerticalScrollBarVisibility}"
+                                    ImmediatePopup="{Binding Path=IsChecked, ElementName=cbPopup}">
+                        <dxg:LookUpEdit.StyleSettings>
+                            <dxg:TokenLookUpEditStyleSettings EnableTokenWrapping="True"/>
+                        </dxg:LookUpEdit.StyleSettings>
+                    </dxg:LookUpEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:EditorsDemoModule>

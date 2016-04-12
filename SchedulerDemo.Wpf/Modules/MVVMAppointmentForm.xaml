@@ -1,0 +1,92 @@
+﻿<local:SchedulerDemoModule x:Class="SchedulerDemo.MVVMAppointmentForm"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+    xmlns:dxschi="http://schemas.devexpress.com/winfx/2008/xaml/scheduler/internal"
+    xmlns:local="clr-namespace:SchedulerDemo"
+    xmlns:forms="clr-namespace:SchedulerDemo.Forms"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <local:SchedulerDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SchedulerDemo;component/Themes/Margin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="DialogWindowStyle" TargetType="dx:DXWindow">
+                <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+            </Style>
+        </ResourceDictionary>
+    </local:SchedulerDemoModule.Resources>
+
+    <dxdb:DemoModuleControl>
+        <dxsch:SchedulerControl ActiveViewType="Day" GroupType="Resource" FormCustomizationUsingMVVMLocal="True">
+            <dxsch:SchedulerControl.DataContext>
+                <local:AppointmentCustomizationViewModel/>
+            </dxsch:SchedulerControl.DataContext>
+            <dxsch:SchedulerControl.FullWeekView>
+                <dxsch:FullWeekView Enabled="True"/>
+            </dxsch:SchedulerControl.FullWeekView>
+            <dxsch:SchedulerControl.WeekView>
+                <dxsch:WeekView Enabled="False"/>
+            </dxsch:SchedulerControl.WeekView>
+            <dxsch:SchedulerControl.AppointmentFormServiceTemplate>
+                <DataTemplate>
+                    <ContentControl>
+                        <dx:WindowedDocumentUIService WindowStyle="{StaticResource DialogWindowStyle}">
+                            <dx:WindowedDocumentUIService.ViewTemplate>
+                                <DataTemplate>
+                                    <forms:HospitalAppointmentForm/>
+                                </DataTemplate>
+                            </dx:WindowedDocumentUIService.ViewTemplate>
+                        </dx:WindowedDocumentUIService>
+                    </ContentControl>
+                </DataTemplate>
+            </dxsch:SchedulerControl.AppointmentFormServiceTemplate>
+            <dxsch:SchedulerControl.AppointmentRecurrenceDialogServiceTemplate>
+                <DataTemplate>
+                    <ContentControl>
+                        <dx:DialogService DialogStyle="{StaticResource DialogWindowStyle}">
+                            <dx:DialogService.ViewTemplate>
+                                <DataTemplate>
+                                    <forms:HospitalRecurrenceForm/>
+                                </DataTemplate>
+                            </dx:DialogService.ViewTemplate>
+                        </dx:DialogService>
+                    </ContentControl>
+                </DataTemplate>
+            </dxsch:SchedulerControl.AppointmentRecurrenceDialogServiceTemplate>
+            <dxsch:SchedulerControl.Storage>
+                <dxsch:SchedulerStorage>
+                    <dxsch:SchedulerStorage.AppointmentStorage>
+                        <dxsch:AppointmentStorage DataSource="{Binding Appointments}">
+                            <dxsch:AppointmentStorage.Mappings>
+                                <dxsch:AppointmentMapping Start="StartDate" End="EndDate" Subject="PatientName" Location="Location"
+                                                          ResourceId="DoctorId" RecurrenceInfo="Recurrence" Type="Type"/>
+                            </dxsch:AppointmentStorage.Mappings>
+                            <dxsch:AppointmentStorage.CustomFieldMappings>
+                                <dxsch:SchedulerCustomFieldMapping Member="InsuranceNumber" Name="InsuranceNumber"/>
+                                <dxsch:SchedulerCustomFieldMapping Member="FirstVisit" Name="FirstVisit"/>
+                                <dxsch:SchedulerCustomFieldMapping Member="Notes" Name="Notes"/>
+                            </dxsch:AppointmentStorage.CustomFieldMappings>
+                        </dxsch:AppointmentStorage>
+                    </dxsch:SchedulerStorage.AppointmentStorage>
+                    <dxsch:SchedulerStorage.ResourceStorage>
+                        <dxsch:ResourceStorage DataSource="{Binding Doctors}">
+                            <dxsch:ResourceStorage.Mappings>
+                                <dxsch:ResourceMapping Id="Id" Caption="Name"/>
+                            </dxsch:ResourceStorage.Mappings>
+                        </dxsch:ResourceStorage>
+                    </dxsch:SchedulerStorage.ResourceStorage>
+                </dxsch:SchedulerStorage>
+            </dxsch:SchedulerControl.Storage>
+            <dxsch:SchedulerControl.DayView>
+                <dxsch:DayView DayCount="3"/>
+            </dxsch:SchedulerControl.DayView>
+        </dxsch:SchedulerControl>
+    </dxdb:DemoModuleControl>
+</local:SchedulerDemoModule>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<DrawingImage x:Key="Layer_1">
+		<DrawingImage.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Brush="#FFDE1818" Geometry="F1 M 6.67572e-006,190L 250,190L 250,60L 6.67572e-006,60L 6.67572e-006,190 Z "/>
+					<GeometryDrawing Brush="#FFFFEF08" Geometry="F1 M 40.6667,78.9673L 46.3322,96.4044L 64.6667,96.4044L 49.8338,107.181L 55.4992,124.618L 40.6667,113.841L 25.8341,124.618L 31.4997,107.181L 16.6667,96.4044L 35.0012,96.4044L 40.6667,78.9673 Z "/>
+					<GeometryDrawing Brush="#FFFFEF08" Geometry="F1 M 85.2304,71.351L 84.6647,77.601L 90.434,80.0703L 84.3151,81.4637L 83.7494,87.7135L 80.5335,82.3247L 74.4147,83.7182L 78.5459,78.9944L 75.3298,73.6055L 81.0991,76.0748L 85.2304,71.351 Z "/>
+					<GeometryDrawing Brush="#FFFFEF08" Geometry="F1 M 104.923,89.9764L 101.94,95.498L 106.27,100.041L 100.097,98.9106L 97.1149,104.432L 96.2822,98.2121L 90.1093,97.0821L 95.7674,94.368L 94.9345,88.148L 99.2644,92.6906L 104.923,89.9764 Z "/>
+					<GeometryDrawing Brush="#FFFFEF08" Geometry="F1 M 107.064,118.273L 102.021,122.008L 104.015,127.959L 98.9045,124.317L 93.8617,128.052L 95.746,122.066L 90.6352,118.424L 96.9104,118.367L 98.7946,112.381L 100.789,118.331L 107.064,118.273 Z "/>
+					<GeometryDrawing Brush="#FFFFEF08" Geometry="F1 M 90.577,137.751L 84.557,139.523L 84.3825,145.796L 80.8364,140.619L 74.8165,142.391L 78.6449,137.419L 75.0987,132.241L 81.0108,134.346L 84.8392,129.373L 84.6648,135.646L 90.577,137.751 Z "/>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
+</ResourceDictionary>

@@ -1,0 +1,54 @@
+﻿<local:TreeMapDemoModule
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxtm="http://schemas.devexpress.com/winfx/2008/xaml/treemap"
+    xmlns:local="clr-namespace:TreeMapDemo"
+    x:Class="TreeMapDemo.Grouping"
+    mc:Ignorable="d">
+    <dxdb:DemoModuleControl BorderThickness="0">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <dx:GroupFrame Header="Group Definitions" Margin="0,0,0,10" VerticalAlignment="Top">
+                <dxe:ListBoxEdit DataContext="{Binding DataContext}" ShowBorder="False" ItemsSource="{Binding GroupDefinitionSettings}" SelectedItem="{Binding GroupDefinition}" VerticalAlignment="Top"/>
+            </dx:GroupFrame>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <dxtm:TreeMapControl ToolTipEnabled="True" SelectionMode="None" ToolTipGroupPattern="{}{L}: ${V} billion" Background="#EEEEEE" BorderThickness="1" BorderBrush="#ACACAC">
+                <dxtm:TreeMapControl.ToolTipContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="20,12,20,16">
+                            <TextBlock Text="{Binding Item.Name}" Foreground="White" Margin="0,0,0,8" FontSize="20"/>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Item.Age}" Foreground="White"/>
+                                <TextBlock Text=" years old" Foreground="White"/>
+                                <TextBlock Text=",  $" Foreground="White"/>
+                                <TextBlock Text="{Binding Item.NetWorth}" Foreground="White"/>
+                                <TextBlock Text=" billion" Foreground="White"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </dxtm:TreeMapControl.ToolTipContentTemplate>
+                <dxtm:TreeMapControl.DataAdapter>
+                    <dxtm:TreeMapFlatDataAdapter DataSource="{Binding BillionaresInfos}" ValueDataMember="NetWorth" LabelDataMember="Name" Groups="{Binding GroupDefinition.CollectionGroupDefinition}"/>
+                </dxtm:TreeMapControl.DataAdapter>
+                <dxtm:TreeMapControl.Colorizer>
+                    <dxtm:TreeMapPaletteColorizer ColorizeGroups="{Binding GroupDefinition.ColorizeGroups}">
+                        <dxtm:Office2016Palette/>
+                    </dxtm:TreeMapPaletteColorizer>
+                </dxtm:TreeMapControl.Colorizer>
+            </dxtm:TreeMapControl>
+            <Grid Grid.Row="1" Margin="4">
+                <TextBlock Text="Forbes World's Billionaires 2010" FontSize="14" HorizontalAlignment="Left"/>
+                <TextBlock Text="From www.forbes.com" HorizontalAlignment="Right" FontSize="12" Foreground="Silver"/>
+            </Grid>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:TreeMapDemoModule>

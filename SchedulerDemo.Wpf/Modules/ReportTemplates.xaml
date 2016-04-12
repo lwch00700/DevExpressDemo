@@ -1,0 +1,60 @@
+﻿<local:SchedulerDemoModule x:Class="SchedulerDemo.ReportTemplates" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:local="clr-namespace:SchedulerDemo"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase">
+
+    <local:SchedulerDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SchedulerDemo;component/Themes/Margin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:WeekDaysToBooleanConverter x:Key="WeekDaysToBooleanConverter" />
+        </ResourceDictionary>
+    </local:SchedulerDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.Resources>
+            <local:DefaultDemoViewModel x:Key="SchedulerDemoModel"/>
+            <local:AppointmentDictionaryToMappingConverter x:Key="AppointmentConverter"/>
+            <local:ResourceDictionaryToMappingConverter x:Key="ResourceConverter"/>
+        </dxdb:DemoModuleControl.Resources>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical">
+                <dx:GroupFrame Header="Action">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Preview a report with a template file..." Margin="0,0,0,8" />
+                        <Button Name="btnPreview" Content="Preview" Click="btnPreview_Click"  Width="80" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxsch:DXSchedulerControlPrintAdapter x:Name="adapter" SchedulerControl="{Binding ElementName=scheduler}" TimeInterval="{Binding  ViewModel.TimeInterval, Mode=OneWay}"/>
+            <dxsch:SchedulerControl x:Name="scheduler" ActiveViewType="Day"  VerticalAlignment="Stretch" Start="{Binding StartTime}" DataContext="{StaticResource SchedulerDemoModel}" ShowBorder="{Binding ShowBorder}" GroupType="Resource">
+                <dxsch:SchedulerControl.DayView>
+                    <dxsch:DayView ResourcesPerPage="2" DayCount="3"></dxsch:DayView>
+                </dxsch:SchedulerControl.DayView>
+                <dxsch:SchedulerControl.WorkWeekView>
+                    <dxsch:WorkWeekView ResourcesPerPage="2"></dxsch:WorkWeekView>
+                </dxsch:SchedulerControl.WorkWeekView>
+                <dxsch:SchedulerControl.WeekView>
+                    <dxsch:WeekView ResourcesPerPage="2"></dxsch:WeekView>
+                </dxsch:SchedulerControl.WeekView>
+                <dxsch:SchedulerControl.MonthView>
+                    <dxsch:MonthView ResourcesPerPage="2"></dxsch:MonthView>
+                </dxsch:SchedulerControl.MonthView>
+                <dxsch:SchedulerControl.TimelineView>
+                    <dxsch:TimelineView ResourcesPerPage="2"></dxsch:TimelineView>
+                </dxsch:SchedulerControl.TimelineView>
+                <dxsch:SchedulerControl.DefaultMenuCustomizations>
+                    <dxb:RemoveBarItemAndLinkAction ItemName="SwitchViewMenu" />
+                </dxsch:SchedulerControl.DefaultMenuCustomizations>
+            </dxsch:SchedulerControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:SchedulerDemoModule>

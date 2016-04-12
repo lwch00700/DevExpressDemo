@@ -1,0 +1,75 @@
+﻿<local:TreeListDemoModule x:Class="TreeListDemo.UnboundColumns"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:collections="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+    xmlns:global="clr-namespace:System.Globalization;assembly=mscorlib"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:TreeListDemo"
+    mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="800">
+
+    <local:TreeListDemoModule.Resources>
+        <dxdb:EmployeesData x:Key="employeesData" />
+        <dxg:RowPropertyValueConverter x:Key="RowPropertyValueConverter"/>
+        <dxg:RowPropertyValueConverter x:Key="BalloonVisibilityRowPropertyValueConverter">
+            <dxg:RowPropertyValueConverter.InnerConverter>
+                <local:BooleanToVisibilityConverter />
+            </dxg:RowPropertyValueConverter.InnerConverter>
+        </dxg:RowPropertyValueConverter>
+        <DataTemplate x:Key="AgeCellTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="Auto" Text="{Binding Path=Data, Converter={StaticResource RowPropertyValueConverter}, ConverterParameter=Age}" TextAlignment="Left" HorizontalAlignment="Left" Margin="5,0,0, 0" VerticalAlignment="Center" Height="Auto"/>
+                <Image Stretch="None" Source="/TreeListDemo;component/Images/balloon.png" Visibility="{Binding Path=Data, Converter={StaticResource BalloonVisibilityRowPropertyValueConverter}, ConverterParameter=BalloonVisibility}" Margin="0, 0, 5, 0">
+                    <RenderOptions.BitmapScalingMode>NearestNeighbor</RenderOptions.BitmapScalingMode>
+                    <ToolTipService.ToolTip>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=Data, Converter={StaticResource RowPropertyValueConverter}, ConverterParameter=DaysTillBirthDate}"></TextBlock>
+                            <TextBlock Text="day(s) till the birthday" Margin="5, 0, 0, 0"></TextBlock>
+                        </StackPanel>
+                    </ToolTipService.ToolTip>
+                </Image>
+            </StackPanel>
+        </DataTemplate>
+    </local:TreeListDemoModule.Resources>
+
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="160">
+                <dx:GroupFrame Header="Expression Editor:">
+                    <dxe:ListBoxEdit Background="{x:Null}" ShowBorder="False" Name="columnsList" SelectedIndex="0">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings/>
+                        </dxe:ListBoxEdit.StyleSettings>
+                        <dxe:ListBoxEdit.Items>
+                            <dxe:ListBoxEditItem Tag="FullName">Full Name</dxe:ListBoxEditItem>
+                            <dxe:ListBoxEditItem Tag="Age">Age</dxe:ListBoxEditItem>
+                            <dxe:ListBoxEditItem Tag="BalloonVisibility">Balloon Visibility</dxe:ListBoxEditItem>
+                        </dxe:ListBoxEdit.Items>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <Button Margin="0,12,0,0" Name="showExpressionEditorButton" Click="showExpressionEditorButton_Click">Edit Column Expression</Button>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxg:TreeListControl x:Name="treeList" ItemsSource="{Binding Path=DataSource, Source={StaticResource employeesData}}" DesignTimeShowSampleData="False">
+            <dxg:TreeListControl.Columns>
+                <dxg:TreeListColumn FieldName="JobTitle" />
+                <dxg:TreeListColumn FieldName="FullName" AllowUnboundExpressionEditor="True" UnboundType="String" UnboundExpression="[Title] + Iif(Len([Title]) >0 ,' ','') + [FirstName] + ' ' + [LastName]" ReadOnly="True" />
+                <dxg:TreeListColumn FieldName="City" Width="70"/>
+                <dxg:TreeListColumn FieldName="AddressLine1" Header="Address" />
+                <dxg:TreeListColumn FieldName="Phone" />
+                <dxg:TreeListColumn FieldName="Age" UnboundType="Integer" AllowUnboundExpressionEditor="True" UnboundExpression="DateDiffYear([BirthDate], Today())" CellTemplate="{StaticResource AgeCellTemplate}" Width="50"/>
+                <dxg:TreeListColumn FieldName="BirthDateDiffDays" ShowInColumnChooser="False" UnboundType="Integer"  Visible="False" UnboundExpression="DateDiffDay(Today(), AddYears([BirthDate], DateDiffYear([BirthDate], Today())))" />
+                <dxg:TreeListColumn FieldName="DaysTillBirthDate" AllowUnboundExpressionEditor="True" UnboundType="Integer" Visible="False" UnboundExpression="Iif([BirthDateDiffDays] > 0, [BirthDateDiffDays], [BirthDateDiffDays] + DateDiffDay(Today(), AddYears(Today(), 1)))" />
+                <dxg:TreeListColumn FieldName="BalloonVisibility" AllowUnboundExpressionEditor="True" ShowInColumnChooser="False" UnboundType="Boolean" Visible="False"  UnboundExpression="Iif([DaysTillBirthDate] &lt; 30, 'True', 'False')" />
+            </dxg:TreeListControl.Columns>
+            <dxg:TreeListControl.View>
+                <dxg:TreeListView x:Name="view" KeyFieldName="Id" ParentFieldName="ParentId" AutoWidth="True" />
+            </dxg:TreeListControl.View>
+        </dxg:TreeListControl>
+    </dxdb:DemoModuleControl>
+</local:TreeListDemoModule>

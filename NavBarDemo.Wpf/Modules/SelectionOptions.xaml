@@ -1,0 +1,93 @@
+﻿<local:NavBarDemoModule x:Class="NavBarDemo.SelectionOptions"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="clr-namespace:NavBarDemo"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+ xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+ xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+ xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <local:NavBarDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NavBarDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <collections:ArrayList x:Key="navBarViews">
+                <sys:String>Explorer Bar</sys:String>
+                <sys:String>Navigation Pane</sys:String>
+                <sys:String>Side Bar</sys:String>
+            </collections:ArrayList>
+            <DataTemplate x:Key="selectedItemTemplate">
+                <Grid Margin="0,2,0,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,6,0" VerticalAlignment="Center">
+                        <Label Content="{Binding Path=Group.Header}" />
+                        <Label Content=":" />
+                    </StackPanel>
+                    <dxe:TextEdit Grid.Column="1" HorizontalAlignment="Stretch" AcceptsReturn="True" IsReadOnly="True" Text="{Binding Path=Content}" />
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </local:NavBarDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="200">
+                <dx:GroupFrame Header="View" Margin="{DynamicResource groupMargin}">
+                    <dxe:ListBoxEdit ItemsSource="{DynamicResource navBarViews}" SelectedIndexChanged="SelectView" SelectedIndex="0" Background="{x:Null}"
+                                     ShowBorder="False">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <StackPanel Orientation="Vertical" Margin="12,0,12,0">
+                    <dxe:CheckEdit Margin="{DynamicResource controlMargin}" x:Name="AllowSelectItem" Content="Allow Item Selection" IsChecked="{Binding Path=AllowSelectItem, ElementName=navBar}" />
+                    <dxe:CheckEdit Margin="{DynamicResource controlMargin}" Content="Allow Disabled Item Selection" IsChecked="{Binding Path=AllowSelectDisabledItem, ElementName=navBar}"
+       IsEnabled="{Binding Path=AllowSelectItem, ElementName=navBar, Mode=OneWay}" />
+                    <dxe:CheckEdit Margin="{DynamicResource groupMargin}" x:Name="EachGroupHasSelectedItem" Content="Each Group Has Selected Item"
+       IsChecked="{Binding Path=EachGroupHasSelectedItem, ElementName=navBar}" IsEnabled="{Binding Path=AllowSelectItem, ElementName=navBar, Mode=OneWay}" />
+                </StackPanel>
+                <dx:GroupFrame Header="Selected Items" x:Name="selectedItemsGroup">
+                    <dx:GroupFrame.Visibility>
+                        <Binding Path="SelectedItems.Count">
+                            <Binding.Converter>
+                                <local:IntToVisibilityConverter />
+                            </Binding.Converter>
+                        </Binding>
+                    </dx:GroupFrame.Visibility>
+                    <ItemsControl ItemsSource="{Binding Path=SelectedItems, ElementName=navBar}"
+     ItemTemplate="{StaticResource selectedItemTemplate}">
+                    </ItemsControl>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <local:NavBarDemoGridControl>
+            <dxn:NavBarControl Name="navBar">
+                <dxn:NavBarControl.Groups>
+                    <dxn:NavBarGroup Header="Group 1">
+                        <dxn:NavBarItem>Item 1</dxn:NavBarItem>
+                        <dxn:NavBarItem IsEnabled="False">Item 2</dxn:NavBarItem>
+                        <dxn:NavBarItem>Item 3</dxn:NavBarItem>
+                        <dxn:NavBarItem IsEnabled="False">Item 4</dxn:NavBarItem>
+                        <dxn:NavBarItem>Item 5</dxn:NavBarItem>
+                    </dxn:NavBarGroup>
+                    <dxn:NavBarGroup Header="Group 2">
+                        <dxn:NavBarItem>Item 1</dxn:NavBarItem>
+                        <dxn:NavBarItem IsEnabled="False">Item 2</dxn:NavBarItem>
+                        <dxn:NavBarItem>Item 3</dxn:NavBarItem>
+                    </dxn:NavBarGroup>
+                    <dxn:NavBarGroup Header="Group 3">
+                        <dxn:NavBarItem>Item 1</dxn:NavBarItem>
+                        <dxn:NavBarItem IsEnabled="False">Item 2</dxn:NavBarItem>
+                        <dxn:NavBarItem>Item 3</dxn:NavBarItem>
+                        <dxn:NavBarItem IsEnabled="False">Item 4</dxn:NavBarItem>
+                    </dxn:NavBarGroup>
+                </dxn:NavBarControl.Groups>
+            </dxn:NavBarControl>
+        </local:NavBarDemoGridControl>
+    </dxdb:DemoModuleControl>
+</local:NavBarDemoModule>

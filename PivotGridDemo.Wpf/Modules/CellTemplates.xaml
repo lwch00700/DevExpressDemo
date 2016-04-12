@@ -1,0 +1,75 @@
+﻿<local:PivotGridDemoModule x:Class="PivotGridDemo.PivotGrid.CellTemplates"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:local="clr-namespace:PivotGridDemo.PivotGrid"
+    xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase">
+
+    <local:PivotGridDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PivotGridDemo;component/Controls/ControlStyles/InplaceProgressBar.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <dx:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <DataTemplate x:Key="CellTemplate">
+                <Grid>
+                    <ProgressBar Template="{StaticResource InplaceProgressBarTemplate}" x:Name="cellShare" VerticalAlignment="Stretch" Margin="2,1,2,1"
+                                 Maximum="{Binding Path=RowTotalValue, Mode=OneWay, Converter={local:RoundConverter}}"
+                                 Value="{Binding Path=Value, Mode=OneWay, Converter={local:RoundConverter}}"
+                                 ToolTipService.ToolTip="Share in product category sales" />
+                    <Border Name="cellValue" BorderBrush="#1F000000" BorderThickness="1" Visibility="{Binding Path=IsCellValueVisible, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PivotGridDemoModule}, Converter={StaticResource BoolToVisibilityConverter}}"
+                             HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFFFFFFF"
+                             CornerRadius="2,2,2,2">
+                        <TextBlock TextAlignment="Center" TextWrapping="NoWrap"
+                                   Margin="5,-2,5,-2" Text="{Binding DisplayText}"
+                                   Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <ToolTipService.ToolTip>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="0,0,2,0">Sales of</TextBlock>
+                                    <TextBlock Text="{Binding RowValueDisplayText}" FontWeight="UltraBold" Margin="0,0,2,0" />
+                                    <TextBlock Margin="0,0,2,0">in</TextBlock>
+                                    <TextBlock Text="{Binding ColumnValueDisplayText}" FontWeight="UltraBold" />
+                                </StackPanel>
+                            </ToolTipService.ToolTip>
+                        </TextBlock>
+                    </Border>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </local:PivotGridDemoModule.Resources>
+
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical">
+                <dx:GroupFrame Header="Template">
+                    <dxe:ListBoxEdit x:Name="templatesList" ShowBorder="False" SelectedIndex="2" Background="{x:Null}" SelectedIndexChanged="TemplatesList_SelectionChanged">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                        <dxe:ListBoxEdit.Items>
+                            <sys:String>None</sys:String>
+                            <sys:String>Share Only</sys:String>
+                            <sys:String>Value and Share</sys:String>
+                        </dxe:ListBoxEdit.Items>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+
+        <dxpg:PivotGridControl local:FieldAreaHelper.FixAreas="True" x:Name="pivotGrid"
+                               RowTreeWidth="200" ShowBorder="False">
+            <dxpg:PivotGridControl.Fields>
+                <dxpg:PivotGridField x:Name="fieldCategory" FieldName="CategoryName" Area="RowArea" Width="100" Caption="Category" />
+                <dxpg:PivotGridField x:Name="fieldProduct" FieldName="ProductName" Area="RowArea" Width="200" Caption="Product" />
+                <dxpg:PivotGridField x:Name="fieldSales" FieldName="ProductSales" Area="DataArea" Width="200" Caption="Sales"
+                                 CellTemplate="{StaticResource CellTemplate}" />
+                <dxpg:PivotGridField x:Name="fieldYear" FieldName="ShippedDate" Area="ColumnArea"
+                                 GroupInterval="DateYear" Caption="Year" Width="200" />
+            </dxpg:PivotGridControl.Fields>
+        </dxpg:PivotGridControl>
+    </dxdb:DemoModuleControl>
+</local:PivotGridDemoModule>

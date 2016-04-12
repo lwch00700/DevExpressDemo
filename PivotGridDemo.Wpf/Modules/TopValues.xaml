@@ -1,0 +1,36 @@
+﻿<local:PivotGridDemoModule x:Class="PivotGridDemo.PivotGrid.TopValues"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:PivotGridDemo.PivotGrid"
+    xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    Height="300" Width="300">
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical">
+                <dx:GroupFrame Header="Set Top Values" VerticalAlignment="Stretch">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,0,7,0" VerticalAlignment="Center" FlowDirection="LeftToRight">Show top</TextBlock>
+                            <dxe:SpinEdit Name="seTopValuesCount" FlowDirection="LeftToRight" Value="5" MinValue="1" MaxValue="30" Mask="N00" VerticalAlignment="Top" EditValueChanged="seTopValuesCount_EditValueChanged" Width="60" />
+                        </StackPanel>
+                        <TextBlock Text="values for the field:" Margin="0,5,0,5" HorizontalAlignment="Left" />
+                        <dxe:ComboBoxEdit Name="cbField" Width="120" HorizontalAlignment="Left" SelectedIndexChanged="cbField_SelectedIndexChanged" IsTextEditable="False" />
+                        <dxe:CheckEdit Name="checkTopValueShowOthers" Height="25" Content="Show Others Value" Checked="checkTopValueShowOthers_Checked" Unchecked="checkTopValueShowOthers_Unchecked" Margin="0,10,0,0" />
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxpg:PivotGridControl x:Name="pivotGrid" local:FieldAreaHelper.FixAreas="True" VerticalAlignment="Stretch" ShowBorder="False" Loaded="pivotGrid_Loaded" RowTreeWidth="200">
+            <dxpg:PivotGridControl.Fields>
+                <dxpg:PivotGridField x:Name="fieldOrderID" FieldName="OrderID" Area="RowArea" AreaIndex="0" Caption="Order ID" />
+                <dxpg:PivotGridField x:Name="fieldExtendedPrice" FieldName="ExtendedPrice" Area="DataArea" AreaIndex="0" Caption="Order Amount" Width="120" />
+                <dxpg:PivotGridField x:Name="fieldCategoryName" FieldName="CategoryName" Area="RowArea" AreaIndex="1" Caption="Category Name" Width="160" />
+                <dxpg:PivotGridField x:Name="fieldSalesPerson" FieldName="FullName" Area="RowArea" AreaIndex="2" Caption="Sales Person" Width="140" />
+                <dxpg:PivotGridField x:Name="fieldProductName" FieldName="ProductName" Area="RowArea" AreaIndex="3" Caption="Product Name" Width="180" />
+            </dxpg:PivotGridControl.Fields>
+        </dxpg:PivotGridControl>
+    </dxdb:DemoModuleControl>
+</local:PivotGridDemoModule>

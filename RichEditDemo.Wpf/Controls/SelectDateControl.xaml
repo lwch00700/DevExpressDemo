@@ -1,0 +1,15 @@
+﻿<local:PopupControlBase x:Class="RichEditDemo.SelectDateControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:local="clr-namespace:RichEditDemo"
+             MinHeight="24" MinWidth="170">
+    <Grid>
+        <dxe:DateEdit x:Name="dateEdit">
+            <dxe:DateEdit.Buttons>
+                <dxe:ButtonInfo ButtonKind="Simple" GlyphKind="Apply" Click="ButtonInfo_Click" />
+            </dxe:DateEdit.Buttons>
+        </dxe:DateEdit>
+    </Grid>
+</local:PopupControlBase>

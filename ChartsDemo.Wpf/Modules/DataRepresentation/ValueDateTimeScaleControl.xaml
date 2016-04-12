@@ -1,0 +1,74 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.ValueDateTimeScaleControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:ChartsDemo"
+    ModuleAppear="ChartsDemoModule_ModuleAppear">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                              BorderThickness="0"
+                              CrosshairEnabled="False"
+                              ToolTipEnabled="True">
+                <dxc:ChartControl.ToolTipOptions>
+                    <dxc:ToolTipOptions>
+                        <dxc:ToolTipOptions.ToolTipPosition>
+                            <dxc:ToolTipRelativePosition/>
+                        </dxc:ToolTipOptions.ToolTipPosition>
+                    </dxc:ToolTipOptions>
+                </dxc:ChartControl.ToolTipOptions>
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D Rotated="True">
+                        <dxc:XYDiagram2D.Series>
+                            <dxc:PointSeries2D Name="series"
+                                               ValueScaleType="DateTime"
+                                               ArgumentDataMember="Name"
+                                               ValueDataMember="ReleaseDate"
+                                               ColorEach="True"
+                                               MarkerSize="15"
+                                               AnimationAutoStartMode="SetStartState">
+                                <dxc:PointSeries2D.PointAnimation>
+                                    <dxc:Marker2DSlideFromLeftCenterAnimation />
+                                </dxc:PointSeries2D.PointAnimation>
+                                <dxc:PointSeries2D.MarkerModel>
+                                    <dxc:CrossMarker2DModel />
+                                </dxc:PointSeries2D.MarkerModel>
+                                <dxc:PointSeries2D.Label>
+                                    <dxc:SeriesLabel ResolveOverlappingMode="Default" dxc:MarkerSeries2D.Angle="90" />
+                                </dxc:PointSeries2D.Label>
+                            </dxc:PointSeries2D>
+                        </dxc:XYDiagram2D.Series>
+                        <dxc:XYDiagram2D.AxisX>
+                            <dxc:AxisX2D GridLinesVisible="True" />
+                        </dxc:XYDiagram2D.AxisX>
+                        <dxc:XYDiagram2D.AxisY>
+                            <dxc:AxisY2D>
+                                <dxc:AxisY2D.DateTimeScaleOptions>
+                                    <dxc:ContinuousDateTimeScaleOptions GridAlignment="Year" AutoGrid="False"/>
+                                </dxc:AxisY2D.DateTimeScaleOptions>
+                                <dxc:AxisY2D.WholeRange>
+                                    <dxc:Range MinValue="01/01/1976" MaxValue="01/01/2009" SideMarginsValue="0" />
+                                </dxc:AxisY2D.WholeRange>
+                                <dxc:AxisY2D.Label>
+                                    <dxc:AxisLabel TextPattern="{}{V:yyyy}"/>
+                                </dxc:AxisY2D.Label>
+                            </dxc:AxisY2D>
+                        </dxc:XYDiagram2D.AxisY>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center" FontSize="24" Content="Movies Release Dates" />
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0" Content="From www.boxofficemojo.com" />
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

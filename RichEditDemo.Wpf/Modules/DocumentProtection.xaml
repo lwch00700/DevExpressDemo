@@ -1,0 +1,71 @@
+﻿<local:RichEditDemoModule
+    x:Class="RichEditDemo.DocumentProtection" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxre="http://schemas.devexpress.com/winfx/2008/xaml/richedit"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+    xmlns:local="clr-namespace:RichEditDemo">
+    <local:RichEditDemoModule.Resources>
+        <ResourceDictionary>
+            <dxre:RichEditUICommand x:Key="commands" />
+            <dxre:RichEditStringIdConverter x:Key="stringIdConverter"/>
+        </ResourceDictionary>
+    </local:RichEditDemoModule.Resources>
+
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="You are logged in as:" HorizontalAlignment="Left" />
+                <dxe:ComboBoxEdit x:Name="cbUserName" EditValueChanged="cbUserName_EditValueChanged" MinWidth="150" />
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+                <Grid>
+                       <StackPanel x:Name="pnlAlert" Background="LemonChiffon" Orientation="Horizontal">
+                        <TextBlock Text="Restricted Access" Visibility="Collapsed" Padding="14,7,7,7" FontWeight="Bold" />
+                        <TextBlock Text="Permission is currently restricted. Only specified users can edit part of this document." Visibility="Collapsed" Padding="7" />
+                    </StackPanel>
+                <dxb:BarManager x:Name="barManager1" ToolbarGlyphSize="Small">
+                    <dxb:BarManager.Items>
+                        <dxb:BarButtonItem x:Name="biReviewProtectDocument" Command="{Binding ReviewProtectDocument, Mode=OneTime, Source={StaticResource commands}}"/>
+                        <dxb:BarButtonItem x:Name="biReviewEditPermissionRange" Command="{Binding ReviewEditPermissionRange, Mode=OneTime, Source={StaticResource commands}}"/>
+                        <dxb:BarButtonItem x:Name="biReviewUnprotectDocument" Command="{Binding ReviewUnprotectDocument, Mode=OneTime, Source={StaticResource commands}}"/>
+                        <dxb:BarButtonItem x:Name="biReviewNewComment" Command="{Binding ReviewNewComment, Mode=OneTime, Source={StaticResource commands}}"/>
+                        <dxb:BarSubItem x:Name="biReviewDeleteCommentsPlaceholder" Command="{Binding ReviewDeleteCommentsPlaceholder, Mode=OneTime, Source={StaticResource commands}}">
+                            <dxb:BarSubItem.ItemLinks>
+                                <dxb:BarButtonItemLink BarItemName="biReviewDeleteOneComment"/>
+                                <dxb:BarButtonItemLink BarItemName="biReviewDeleteAllCommentsShown"/>
+                                <dxb:BarButtonItemLink BarItemName="biReviewDeleteAllComments"/>
+                            </dxb:BarSubItem.ItemLinks>
+                        </dxb:BarSubItem>
+                        <dxb:BarButtonItem x:Name="biReviewDeleteOneComment" Command="{Binding ReviewDeleteOneComment, Mode=OneTime, Source={StaticResource commands}}" GlyphSize="Large"/>
+                        <dxb:BarButtonItem x:Name="biReviewDeleteAllCommentsShown" Command="{Binding ReviewDeleteAllCommentsShown, Mode=OneTime, Source={StaticResource commands}}" GlyphSize="Large"/>
+                        <dxb:BarButtonItem x:Name="biReviewDeleteAllComments" Command="{Binding ReviewDeleteAllComments, Mode=OneTime, Source={StaticResource commands}}" GlyphSize="Large"/>
+                        <dxb:BarButtonItem x:Name="biReviewPreviousComment" Command="{Binding ReviewPreviousComment, Mode=OneTime, Source={StaticResource commands}}"/>
+                        <dxb:BarButtonItem x:Name="biReviewNextComment" Command="{Binding ReviewNextComment, Mode=OneTime, Source={StaticResource commands}}"/>
+                    </dxb:BarManager.Items>
+                    <DockPanel>
+                        <dxr:RibbonControl x:Name="ribbonControl1" DockPanel.Dock="Top" ToolbarShowMode="Hide">
+                            <dxr:RibbonDefaultPageCategory>
+                                <dxr:RibbonPage x:Name="pageReview" Caption="{Binding ConverterParameter=Caption_PageReview, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}">
+                                    <dxr:RibbonPageGroup x:Name="grpReviewProtect" Caption="{Binding ConverterParameter=Caption_GroupDocumentProtection, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}" ShowCaptionButton="False">
+                                        <dxr:RibbonPageGroup.ItemLinks>
+                                            <dxb:BarButtonItemLink BarItemName="biReviewProtectDocument"/>
+                                            <dxb:BarButtonItemLink BarItemName="biReviewEditPermissionRange"/>
+                                            <dxb:BarButtonItemLink BarItemName="biReviewUnprotectDocument"/>
+                                        </dxr:RibbonPageGroup.ItemLinks>
+                                    </dxr:RibbonPageGroup>
+                                </dxr:RibbonPage>
+                            </dxr:RibbonDefaultPageCategory>
+                        </dxr:RibbonControl>
+                        <dxre:RichEditControl x:Name="richEdit" Loaded="richEdit_Loaded" ShowBorder="False" BarManager="{Binding ElementName=barManager1, Mode=OneTime}" Ribbon="{Binding ElementName=ribbonControl1, Mode=OneTime}" VerticalAlignment="Stretch"/>
+                    </DockPanel>
+                </dxb:BarManager>
+            </Grid>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:RichEditDemoModule>

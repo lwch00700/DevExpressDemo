@@ -1,0 +1,320 @@
+﻿<EditorsDemo:EditorsDemoModule x:Class="EditorsDemo.ComboBoxEditWithPLINQSource"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:common="clr-namespace:CommonDemo"
+    xmlns:dxdemo="clr-namespace:CommonDemo"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:EditorsDemo="clr-namespace:EditorsDemo"
+    xmlns:controls="clr-namespace:GridDemo.Controls"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:gridDemo="clr-namespace:GridDemo"
+    xmlns:local="clr-namespace:EditorsDemo.Utils"
+    x:Name="demoModule"
+    mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="800">
+    <EditorsDemo:EditorsDemoModule.Resources>
+        <dx:FormatStringConverter x:Key="FormatStringConverter" FormatString="#,#" />
+        <DataTemplate x:Key="CountItemTemplate">
+            <dx:DXDockPanel LastChildFill="False" Width="150">
+                <TextBlock Text="{Binding Path=DisplayName}" dx:DXDockPanel.Dock="Left" />
+                <TextBlock Text="{Binding Path=Count, Converter={StaticResource FormatStringConverter}}" dx:DXDockPanel.Dock="Right" />
+            </dx:DXDockPanel>
+        </DataTemplate>
+        <local:CategoryDataToImageSourceConverter x:Key="ImageConverter" />
+        <DataTemplate x:Key="categoryTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Height="24" Width="24" Source="{Binding Converter={StaticResource ImageConverter}}">
+                    <RenderOptions.BitmapScalingMode>NearestNeighbor</RenderOptions.BitmapScalingMode>
+                </Image>
+                <TextBlock Grid.Column="1" Text="{Binding Path=Name}" VerticalAlignment="Center" Padding="5,0,2,0" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="categoryCellTemplate">
+            <Image Height="24" Width="24" HorizontalAlignment="Center" Source="{Binding Path=Value, Converter={StaticResource ImageConverter}}"
+                                       ToolTipService.ToolTip="{Binding Path=Value.Name}">
+                <RenderOptions.BitmapScalingMode>NearestNeighbor</RenderOptions.BitmapScalingMode>
+            </Image>
+        </DataTemplate>
+        <ControlTemplate x:Key="lookUpPopupTemplate">
+            <dxg:GridControl x:Name="PART_GridControl">
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn FieldName="OrderId" Header="ID" Width="60" FixedWidth="True" AllowResizing="False" AllowGrouping="False" AllowColumnFiltering="False" />
+                    <dxg:GridColumn FieldName="CustomerName" Width="120" />
+                    <dxg:GridColumn FieldName="OrderDate" Width="80" GroupInterval="DateRange">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:DateEditSettings DisplayFormat="d"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="ProductCategory" Width="100" CellTemplate="{StaticResource categoryCellTemplate}">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:ComboBoxEditSettings ItemsSource="{Binding Path=Categories}" ItemTemplate="{StaticResource categoryTemplate}"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="ProductName" Width="200" />
+                    <dxg:GridColumn FieldName="Quantity" Width="60" />
+                    <dxg:GridColumn FieldName="Price" Width="60">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings DisplayFormat="c" />
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="IsReady" Width="60" HorizontalHeaderContentAlignment="Center">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:CheckEditSettings />
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                </dxg:GridControl.Columns>
+                <dxg:GridControl.View>
+                    <dxg:TableView x:Name="view" ShowTotalSummary="True" ShowAutoFilterRow="True" AutoWidth="True" RowAnimationKind="None"/>
+                </dxg:GridControl.View>
+                <dxg:GridControl.TotalSummary>
+                    <dxg:GridSummaryItem FieldName="CustomerName" SummaryType="Count" />
+                </dxg:GridControl.TotalSummary>
+            </dxg:GridControl>
+        </ControlTemplate>
+    </EditorsDemo:EditorsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel>
+                <dx:GroupFrame Header="Rows">
+                    <dxe:ListBoxEdit SelectedIndex="1" ItemTemplate="{StaticResource CountItemTemplate}" ShowBorder="False" Background="{x:Null}"
+                                     ItemsSource="{Binding Path=DataContext.CountItems}" SelectedItem="{Binding Path=DataContext.SelectedCountItem, Mode=TwoWay}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Editor Properties" Margin="0,6,0,0">
+                    <StackPanel Orientation="Vertical">
+                        <dxe:CheckEdit Margin="0,6,0,0" Name="ceImmediatePopup" Content="Immediate Popup" IsChecked="True"/>
+                        <dxe:CheckEdit Margin="0,6,0,0" Name="ceAutoComplete"  Content="Allow Auto Complete" IsChecked="True"/>
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dx:PLinqServerModeDataSource Name="pLinqInstantSource" ListSource="{Binding Path=DataContext.ListSource}" />
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid Margin="48,40,48,48">
+            <dx:DXTabControl>
+                <dx:DXTabItem Header="ComboBoxEdit">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <dx:GroupFrame Header="Default" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxe:ComboBoxEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding ElementName=pLinqInstantSource, Path=Data}"
+                                DisplayMember="ProductName"
+                                ValueMember="OrderId" PopupMaxWidth="1200">
+                            </dxe:ComboBoxEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="Checked" Grid.Row="1"  HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxe:ComboBoxEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding ElementName=pLinqInstantSource, Path=Data}"
+                                DisplayMember="ProductName"
+                                ValueMember="OrderId" PopupMaxWidth="1200" IsTextEditable="False">
+                                <dxe:ComboBoxEdit.StyleSettings>
+                                    <dxe:CheckedComboBoxStyleSettings/>
+                                </dxe:ComboBoxEdit.StyleSettings>
+                            </dxe:ComboBoxEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="Non Editable" Grid.Row="2" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxe:ComboBoxEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding ElementName=pLinqInstantSource, Path=Data}"
+                                DisplayMember="ProductName"
+                                ValueMember="OrderId" PopupMaxWidth="1200"
+                                IsTextEditable="False">
+                            </dxe:ComboBoxEdit>
+                        </dx:GroupFrame>
+                    </Grid>
+                </dx:DXTabItem>
+                <dx:DXTabItem Header="LookUpEdit">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <dx:GroupFrame Header="Default" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxg:LookUpEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="False"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding ElementName=pLinqInstantSource, Path=Data}"
+                                DisplayMember="ProductName"
+                                ValueMember="OrderId"
+                                PopupContentTemplate="{StaticResource lookUpPopupTemplate}"
+                                AutoPopulateColumns="False"
+                                IsPopupAutoWidth="False">
+                            </dxg:LookUpEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="SearchLookUp" Grid.Row="1" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxg:LookUpEdit
+                                FilterCondition = "StartsWith"
+                                FindButtonPlacement = "Popup"
+                                FindMode = "Always"
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="False"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding ElementName=pLinqInstantSource, Path=Data}"
+                                DisplayMember="ProductName"
+                                ValueMember="OrderId"
+                                PopupContentTemplate="{StaticResource lookUpPopupTemplate}"
+                                AutoPopulateColumns="False"
+                                IsPopupAutoWidth="False">
+                                <dxg:LookUpEdit.StyleSettings>
+                                    <dxg:SearchLookUpEditStyleSettings />
+                                </dxg:LookUpEdit.StyleSettings>
+                            </dxg:LookUpEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="Multi Selection" Grid.Row="2"  HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxg:LookUpEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="False"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding ElementName=pLinqInstantSource, Path=Data}"
+                                DisplayMember="ProductName"
+                                ValueMember="OrderId"
+                                PopupContentTemplate="{StaticResource lookUpPopupTemplate}"
+                                AutoPopulateColumns="False"
+                                IsPopupAutoWidth="False">
+                                <dxg:LookUpEdit.StyleSettings>
+                                    <dxg:LookUpEditStyleSettings SelectionMode="Multiple"/>
+                                </dxg:LookUpEdit.StyleSettings>
+                            </dxg:LookUpEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="Non Editable" Grid.Row="3" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxg:LookUpEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="False"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding ElementName=pLinqInstantSource, Path=Data}"
+                                DisplayMember="ProductName"
+                                ValueMember="OrderId"
+                                IsTextEditable="False"
+                                PopupContentTemplate="{StaticResource lookUpPopupTemplate}"
+                                AutoPopulateColumns="False"
+                                IsPopupAutoWidth="False">
+                            </dxg:LookUpEdit>
+                        </dx:GroupFrame>
+                    </Grid>
+                </dx:DXTabItem>
+                <dx:DXTabItem Header="TokenEditor">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <dx:GroupFrame Header="TokenComboBoxEdit" Grid.Row="0" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxe:ComboBoxEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="False"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding ElementName=pLinqInstantSource, Path=Data}"
+                                DisplayMember="ProductName"
+                                ValueMember="OrderId" PopupMaxWidth="1200">
+                                <dxe:ComboBoxEdit.StyleSettings>
+                                    <dxe:TokenComboBoxStyleSettings TokenMaxWidth="100" TokenTextTrimming="CharacterEllipsis"/>
+                                </dxe:ComboBoxEdit.StyleSettings>
+                            </dxe:ComboBoxEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="TokenLookUp" Grid.Row="1" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxg:LookUpEdit
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="False"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding ElementName=pLinqInstantSource, Path=Data}"
+                                DisplayMember="ProductName"
+                                ValueMember="OrderId"
+                                PopupContentTemplate="{StaticResource lookUpPopupTemplate}"
+                                AutoPopulateColumns="False"
+                                IsPopupAutoWidth="False">
+                                <dxg:LookUpEdit.StyleSettings>
+                                    <dxg:TokenLookUpEditStyleSettings TokenMaxWidth="100" TokenTextTrimming="CharacterEllipsis"/>
+                                </dxg:LookUpEdit.StyleSettings>
+                            </dxg:LookUpEdit>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="TokenSearchLookUp" Grid.Row="2" HorizontalAlignment="Center" Width="400" VerticalAlignment="Center">
+                            <dxg:LookUpEdit
+                                FilterCondition="StartsWith"
+                                FindButtonPlacement="Popup"
+                                FindMode="Always"
+                                AutoComplete="{Binding Path=IsChecked, ElementName=ceAutoComplete, Mode=TwoWay}"
+                                IncrementalFiltering="False"
+                                ImmediatePopup="{Binding Path=IsChecked, ElementName=ceImmediatePopup, Mode=TwoWay}"
+                                ValidateOnTextInput="False"
+                                VerticalAlignment="Center"
+                                ShowSizeGrip="True"
+                                ItemsSource="{Binding ElementName=pLinqInstantSource, Path=Data}"
+                                DisplayMember="ProductName"
+                                ValueMember="OrderId"
+                                PopupContentTemplate="{StaticResource lookUpPopupTemplate}"
+                                AutoPopulateColumns="False"
+                                IsPopupAutoWidth="False">
+                                <dxg:LookUpEdit.StyleSettings>
+                                    <dxg:SearchTokenLookUpEditStyleSettings TokenMaxWidth="100" TokenTextTrimming="CharacterEllipsis"/>
+                                </dxg:LookUpEdit.StyleSettings>
+                            </dxg:LookUpEdit>
+                        </dx:GroupFrame>
+                    </Grid>
+                </dx:DXTabItem>
+                <dx:DXTabItem Header="ListBoxEdit">
+                    <Grid>
+                        <dxe:ListBoxEdit
+                             HorizontalAlignment="Center" Width="500"
+                             ItemsSource="{Binding ElementName=pLinqInstantSource, Path=Data}"
+                             DisplayMember="ProductName"
+                             ValidateOnTextInput="False"
+                             ValueMember="OrderId">
+                        </dxe:ListBoxEdit>
+                    </Grid>
+                </dx:DXTabItem>
+            </dx:DXTabControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</EditorsDemo:EditorsDemoModule>

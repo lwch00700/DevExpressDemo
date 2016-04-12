@@ -1,0 +1,12 @@
+DevExpress.Xpf.SpellChecker.v{DXVersion}
+DevExpress.SpellChecker.v{DXVersion}.Core
+DevExpress.RichEdit.v{DXVersion}.Core
+DevExpress.Xpf.RichEdit.v{DXVersion}
+DevExpress.Xpf.Printing.v{DXVersion}
+DevExpress.Office.v{DXVersion}.Core
+DevExpress.Xpf.Layout.v{DXVersion}.Core
+DevExpress.Xpf.Docking.v{DXVersion}
+DevExpress.Xpo.v{DXVersion}
+DevExpress.Xpf.DocumentViewer.v{DXVersion}.Core
+DevExpress.Pdf.v{DXVersion}.Core
+DevExpress.Pdf.v{DXVersion}.Drawing

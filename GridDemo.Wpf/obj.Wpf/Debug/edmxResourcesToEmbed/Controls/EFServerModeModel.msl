@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DXGridServerModeDBModelStoreContainer" CdmEntityContainer="DXGridServerModeDBEntities">
+    <EntitySetMapping Name="EFServerModeTestClasses">
+      <EntityTypeMapping TypeName="DXGridServerModeDBModel.EFServerModeTestClass">
+        <MappingFragment StoreEntitySet="WpfServerSideGridTest">
+          <ScalarProperty Name="OID" ColumnName="OID" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="From" ColumnName="From" />
+          <ScalarProperty Name="Sent" ColumnName="Sent" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="HasAttachment" ColumnName="HasAttachment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

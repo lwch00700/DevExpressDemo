@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+                    xmlns:local="clr-namespace:ChartsDemo">
+    <collections:ArrayList x:Key="Morbidity">
+        <local:IndustryBubblePoint Name="Transportation&#xD;equipment" NumberOfCases="1000" Rate="5.9" />
+        <local:IndustryBubblePoint Name="Transportation&#xD;by air" NumberOfCases="500" Rate="4.9" />
+        <local:IndustryBubblePoint Name="Local and interurban&#xD;passenger transit" NumberOfCases="200" Rate="4.6" />
+        <local:IndustryBubblePoint Name="Food and kindred&#xD;products" NumberOfCases="500" Rate="3.0" />
+        <local:IndustryBubblePoint Name="Instruments and&#xD;related products" NumberOfCases="200" Rate="2.9" />
+        <local:IndustryBubblePoint Name="Electronic&#xD;equipment" NumberOfCases="400" Rate="2.8" />
+        <local:IndustryBubblePoint Name="Primary metal&#xD;industries" NumberOfCases="200" Rate="2.6" />
+        <local:IndustryBubblePoint Name="Chemical and&#xD;allied products" NumberOfCases="300" Rate="2.5" />
+        <local:IndustryBubblePoint Name="Fabricated metal&#xD;products" NumberOfCases="400" Rate="2.4" />
+    </collections:ArrayList>
+</ResourceDictionary>

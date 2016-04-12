@@ -1,0 +1,65 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+             xmlns:local="clr-namespace:RibbonDemo"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="RibbonDemo.TextUserControl"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <local:PointToStringConverter x:Key="pointToStringConverter" FormatString="Column: {0} Row: {0}"/>
+    </UserControl.Resources>
+    <dxb:BarManager>
+        <dxb:BarManager.Items>
+            <dxb:BarButtonItem x:Name="undoBtn"
+    Content="Undo"
+    Glyph="{dx:DXImage Image=Undo_16x16.png}"
+    Command="{Binding UndoCommand, ElementName=textBox}"/>
+            <dxb:BarButtonItem x:Name="redoBtn"
+    Content="Redo"
+    Glyph="{dx:DXImage Image=Redo_16x16.png}"
+    Command="{Binding RedoCommand, ElementName=textBox}"/>
+        </dxb:BarManager.Items>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <dxr:RibbonControl x:Name="ribbonControl" Grid.Row="0" AllowCustomization="False" ToolbarShowMode="ShowBelow" RibbonHeaderVisibility="Collapsed">
+                <dxr:RibbonControl.ToolbarItemLinks>
+                    <dxb:BarButtonItemLink BarItemName="undoBtn"/>
+                    <dxb:BarButtonItemLink BarItemName="redoBtn"/>
+                </dxr:RibbonControl.ToolbarItemLinks>
+                <dxr:RibbonDefaultPageCategory>
+                    <dxr:RibbonPage Caption="Home">
+                        <dxr:RibbonPageGroup Caption="File">
+                            <dxb:BarButtonItem x:Name="openFile" Content="Open" Command="{Binding OpenFromFileCommand, ElementName=textBox}" Glyph="{dx:DXImage Image=Open_16x16.png}"/>
+                            <dxb:BarButtonItem x:Name="saveFile" Content="Save" Glyph="{dx:DXImage Image=Save_16x16.png}" Command="{Binding SaveToFileCommand, ElementName=textBox}"/>
+                            <dxb:BarButtonItem x:Name="closeFile" Content="Close" Glyph="{dx:DXImage Image=Close_16x16.png}" Command="{Binding CloseCommand}"/>
+                        </dxr:RibbonPageGroup>
+                        <dxr:RibbonPageGroup Caption="Clipboard">
+                            <dxb:BarButtonItem x:Name="cutButton" Content="Cut" Glyph="{dx:DXImage Image=Cut_16x16.png}" LargeGlyph="{dx:DXImage Image=Cut_32x32.png}" Command="{Binding CutCommand, ElementName=textBox}"/>
+                            <dxb:BarButtonItem x:Name="copyButton" Content="Copy" Glyph="{dx:DXImage Image=Copy_16x16.png}" LargeGlyph="{dx:DXImage Image=Copy_32x32.png}" Command="{Binding CopyCommand, ElementName=textBox}"/>
+                            <dxb:BarButtonItem x:Name="pasteButton" Content="Paste" Glyph="{dx:DXImage Image=Paste_16x16.png}" LargeGlyph="{dx:DXImage Image=Paste_32x32.png}" Command="{Binding PasteCommand, ElementName=textBox}"/>
+                            <dxb:BarButtonItem x:Name="selectAllButton" Content="Select All" Glyph="{dx:DXImage Image=SelectAll_16x16.png}" LargeGlyph="{dx:DXImage Image=SelectAll_32x32.png}" Command="{Binding SelectAllCommand, ElementName=textBox}"/>
+                        </dxr:RibbonPageGroup>
+                    </dxr:RibbonPage>
+                </dxr:RibbonDefaultPageCategory>
+            </dxr:RibbonControl>
+
+            <dxr:RibbonStatusBarControl x:Name="statusBar" Grid.Row="2" IsSizeGripVisible="False">
+                <dxr:RibbonStatusBarControl.LeftItems>
+                    <dxb:BarStaticItem Content="{Binding ElementName=textBox, Path=CaretPos, Converter={StaticResource pointToStringConverter}}" ShowBorder="False"/>
+                </dxr:RibbonStatusBarControl.LeftItems>
+            </dxr:RibbonStatusBarControl>
+            <local:DemoTextBox x:Name="textBox" Grid.Row="1" Margin="0,0,0,1"/>
+        </Grid>
+    </dxb:BarManager>
+
+
+</UserControl>

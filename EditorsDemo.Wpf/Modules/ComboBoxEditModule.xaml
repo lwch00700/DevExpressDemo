@@ -1,0 +1,133 @@
+﻿<local:EditorsDemoModule x:Class="EditorsDemo.ComboBoxEditModule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:EditorsDemo"
+    >
+    <local:EditorsDemoModule.Resources>
+        <local:BytesToBitmapConverter x:Key="bytesToBitmapConverter"/>
+        <DataTemplate x:Key="productCategoryTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding Icon25, Converter={StaticResource bytesToBitmapConverter}}" />
+                <TextBlock Text="{Binding CategoryName}" VerticalAlignment="Center" Margin="3,0,0,0" />
+            </StackPanel>
+        </DataTemplate>
+    </local:EditorsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Width="250">
+                <dx:GroupFrame Header="&quot;Default Style&quot; Properties">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Edit value:" VerticalAlignment="Center" Margin="0,0,6,0" />
+                        <dxe:TextEdit IsReadOnly="True" Grid.Column="1" Text="{Binding ElementName=defaultComboBox, Path=EditValue}" MaxWidth="160" />
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Selected index:" VerticalAlignment="Center" Margin="0,4,6,0" />
+                        <dxe:TextEdit IsReadOnly="True" Grid.Column="1" Grid.Row="1" Text="{Binding ElementName=defaultComboBox, Path=SelectedIndex}" MaxWidth="160" Margin="0,4,0,0" />
+                        <dxe:CheckEdit Content="Show size grip" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,6,0,0" IsChecked="{Binding ElementName=defaultComboBox, Path=ShowSizeGrip, Mode=TwoWay}" />
+                        <dxe:CheckEdit Content="Auto-complete" Grid.ColumnSpan="2" Grid.Row="3" Margin="0,4,0,0" IsChecked="{Binding ElementName=defaultComboBox, Path=AutoComplete, Mode=TwoWay}" />
+                        <dxe:CheckEdit Content="Incremental filtering" Grid.ColumnSpan="2" Grid.Row="4" Margin="0,4,0,0" IsChecked="{Binding ElementName=defaultComboBox, Path=IncrementalFiltering, Mode=TwoWay}" />
+                        <dxe:CheckEdit Content="Immediate pop-up" Grid.ColumnSpan="2" Grid.Row="5" Margin="0,4,0,0" IsChecked="{Binding ElementName=defaultComboBox, Path=ImmediatePopup, Mode=TwoWay}" />
+                        <dxe:CheckEdit x:Name="chDefaultShowCustomItems" Content="Show 'None'" Grid.Row="6" Margin="0,4,0,0" Grid.ColumnSpan="2" IsChecked="True"/>
+                    </Grid>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="&quot;Non Editable Style&quot; Properties" Margin="0,12,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <dxe:CheckEdit Content="Auto-complete" Grid.Row="0" Margin="0,4,0,0" IsChecked="{Binding ElementName=nonEditableComboBox, Path=AutoComplete, Mode=TwoWay}" />
+                        <dxe:CheckEdit Content="Immediate pop-up" Grid.Row="1" Margin="0,4,0,0" IsChecked="{Binding ElementName=nonEditableComboBox, Path=ImmediatePopup, Mode=TwoWay}" />
+                    </Grid>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="&quot;Checked Style&quot; Properties" Margin="0,12,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Separator string:" VerticalAlignment="Center" Margin="0,0,8,0" />
+                        <dxe:ComboBoxEdit x:Name="cboSeparators" IsTextEditable="False" Grid.Column="1" Text="{Binding ElementName=checkedComboBox, Path=SeparatorString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <dxe:CheckEdit x:Name="chCheckedShowCustomItems" Content="Show 'Select All'" Grid.Row="2" Margin="0,4,0,0" Grid.ColumnSpan="2" IsChecked="True"/>
+                    </Grid>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="&quot;Radio Style&quot; Properties" Margin="0,12,0,0">
+                    <Grid>
+                        <dxe:CheckEdit Content="Use item template" Checked="CheckEdit_Checked" Unchecked="CheckEdit_Unchecked" />
+                    </Grid>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.15*" />
+                <RowDefinition Height="0.85*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1" MaxWidth="400" Margin="20,0,20,0">
+                <dx:GroupFrame Header="Default Style">
+                    <dxe:ComboBoxEdit
+                        Margin="16,12,16,16" x:Name="defaultComboBox" Grid.Row="0"
+                        ShowSizeGrip="False"
+                        SelectedIndex="0"
+                        ShowCustomItems="{Binding Path=IsChecked, ElementName=chDefaultShowCustomItems, Mode=TwoWay}">
+                        <dxe:ComboBoxEdit.StyleSettings>
+                            <dxe:ComboBoxStyleSettings />
+                        </dxe:ComboBoxEdit.StyleSettings>
+                    </dxe:ComboBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Non Editable Style" Margin="0,16,0,0">
+                    <dxe:ComboBoxEdit
+                        Margin="16,12,16,16" x:Name="nonEditableComboBox"
+                        ShowSizeGrip="False"
+                        SelectedIndex="0"
+                        IsTextEditable="False"
+                        AutoComplete="true">
+                        <dxe:ComboBoxEdit.StyleSettings>
+                            <dxe:ComboBoxStyleSettings />
+                        </dxe:ComboBoxEdit.StyleSettings>
+                    </dxe:ComboBoxEdit>
+                </dx:GroupFrame>
+
+                <dx:GroupFrame Header="Checked Style" Margin="0,16,0,0">
+                    <dxe:ComboBoxEdit
+                        Margin="16,12,16,16"
+                        x:Name="checkedComboBox"
+                        ShowSizeGrip="False"
+                        IsTextEditable="False"
+                        ShowCustomItems="{Binding Path=IsChecked, ElementName=chCheckedShowCustomItems, Mode=TwoWay}">
+                        <dxe:ComboBoxEdit.StyleSettings>
+                            <dxe:CheckedComboBoxStyleSettings />
+                        </dxe:ComboBoxEdit.StyleSettings>
+                    </dxe:ComboBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Radio Style" Margin="0,16,0,0">
+                    <dxe:ComboBoxEdit Margin="16,12,16,16" x:Name="radioComboBox" IsTextEditable="False" ShowSizeGrip="False" DisplayMember="CategoryName" SelectedIndex="3">
+                        <dxe:ComboBoxEdit.StyleSettings>
+                            <dxe:RadioComboBoxStyleSettings />
+                        </dxe:ComboBoxEdit.StyleSettings>
+                    </dxe:ComboBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:EditorsDemoModule>

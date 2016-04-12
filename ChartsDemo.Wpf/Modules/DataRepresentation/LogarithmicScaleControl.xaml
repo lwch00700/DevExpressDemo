@@ -1,0 +1,207 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.LogarithmicScaleControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:ChartsDemo"
+    ModuleAppear="ChartsDemoModule_ModuleAppear">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <dxmvvm:BooleanNegationConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="120">
+                <dx:GroupFrame Header="Logarithmic" Margin="0,0,0,10">
+                    <StackPanel>
+                        <dxe:CheckEdit Name="chbLogarithmic" Content="Enabled" Margin="0,0,0,10" IsChecked="True" Checked="AnimateLogarithmic" Unchecked="AnimateLogarithmic"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Base:" VerticalAlignment="Center" Grid.Column="0"/>
+                            <dxe:ComboBoxEdit Name="cbeBase" SelectedIndex="2" IsTextEditable="False" HorizontalAlignment="Right"
+                                              IsEnabled="{Binding ElementName=chbLogarithmic, Path=IsChecked}" Width="55" Grid.ColumnSpan="2" SelectedIndexChanged="AnimateLogarithmic">
+                                <dxe:ComboBoxEdit.Items>
+                                    <sys:String>2</sys:String>
+                                    <sys:String>5</sys:String>
+                                    <sys:String>10</sys:String>
+                                    <sys:String>20</sys:String>
+                                    <sys:String>50</sys:String>
+                                    <sys:String>100</sys:String>
+                                </dxe:ComboBoxEdit.Items>
+                            </dxe:ComboBoxEdit>
+                        </Grid>
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dxe:CheckEdit Name="chbVisible" Content="Show Labels" Margin="0,0,0,10" IsChecked="True" />
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                              BorderThickness="0"
+                              AnimationMode="OnLoad"
+                              CrosshairEnabled="{Binding ElementName=chbVisible, Path=IsChecked, Converter={StaticResource InvertedBoolConverter}}">
+                <dxc:ChartControl.CrosshairOptions>
+                    <dxc:CrosshairOptions GroupHeaderPattern="{}Year: {A}"/>
+                </dxc:ChartControl.CrosshairOptions>
+                <dxc:ChartControl.ToolTipOptions>
+                    <dxc:ToolTipOptions ShowForSeries="True">
+                        <dxc:ToolTipOptions.ToolTipPosition>
+                            <dxc:ToolTipRelativePosition/>
+                        </dxc:ToolTipOptions.ToolTipPosition>
+                    </dxc:ToolTipOptions>
+                </dxc:ChartControl.ToolTipOptions>
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D>
+                        <dxc:XYDiagram2D.AxisY>
+                            <dxc:AxisY2D GridLinesMinorVisible="True"
+                                         Logarithmic="{Binding ElementName=chbLogarithmic, Path=IsChecked}"
+                                         LogarithmicBase="{Binding ElementName=cbeBase, Path=SelectedItem}">
+                                <dxc:AxisY2D.WholeRange>
+                                    <dxc:Range dxc:AxisY2D.AlwaysShowZeroLevel="False" />
+                                </dxc:AxisY2D.WholeRange>
+                                <dxc:AxisY2D.Title>
+                                    <dxc:AxisTitle Content="Population mid-year, millions" />
+                                </dxc:AxisY2D.Title>
+                            </dxc:AxisY2D>
+                        </dxc:XYDiagram2D.AxisY>
+                        <dxc:XYDiagram2D.AxisX>
+                            <dxc:AxisX2D GridLinesVisible="True" />
+                        </dxc:XYDiagram2D.AxisX>
+                        <dxc:XYDiagram2D.Series>
+                            <dxc:LineSeries2D x:Name="Asia"
+                                              DisplayName="Asia"
+                                              AnimationAutoStartMode="SetStartState">
+                                <dxc:LineSeries2D.Label>
+                                    <dxc:SeriesLabel ConnectorVisible="False"
+                                                     Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                                     ResolveOverlappingMode="Default" dxc:MarkerSeries2D.Angle="90"/>
+                                </dxc:LineSeries2D.Label>
+                                <dxc:LineSeries2D.Points>
+                                    <dxc:SeriesPoint Argument="1950" Value="1436" />
+                                    <dxc:SeriesPoint Argument="1960" Value="1748" />
+                                    <dxc:SeriesPoint Argument="1970" Value="2156" />
+                                    <dxc:SeriesPoint Argument="1980" Value="2644" />
+                                    <dxc:SeriesPoint Argument="1990" Value="3180" />
+                                    <dxc:SeriesPoint Argument="2000" Value="3678" />
+                                    <dxc:SeriesPoint Argument="2010" Value="4149" />
+                                    <dxc:SeriesPoint Argument="2020" Value="4611" />
+                                    <dxc:SeriesPoint Argument="2030" Value="4922" />
+                                    <dxc:SeriesPoint Argument="2040" Value="5290" />
+                                    <dxc:SeriesPoint Argument="2050" Value="5503" />
+                                </dxc:LineSeries2D.Points>
+                            </dxc:LineSeries2D>
+                            <dxc:LineSeries2D x:Name="Europe"
+                                              DisplayName="Europe"
+                                              AnimationAutoStartMode="SetStartState">
+                                <dxc:LineSeries2D.Label>
+                                    <dxc:SeriesLabel ConnectorVisible="False"
+                                                     Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                                     ResolveOverlappingMode="Default" dxc:MarkerSeries2D.Angle="90" />
+                                </dxc:LineSeries2D.Label>
+                                <dxc:LineSeries2D.Points>
+                                    <dxc:SeriesPoint Argument="1950" Value="546" />
+                                    <dxc:SeriesPoint Argument="1960" Value="605" />
+                                    <dxc:SeriesPoint Argument="1970" Value="656" />
+                                    <dxc:SeriesPoint Argument="1980" Value="694" />
+                                    <dxc:SeriesPoint Argument="1990" Value="721" />
+                                    <dxc:SeriesPoint Argument="2000" Value="730" />
+                                    <dxc:SeriesPoint Argument="2010" Value="728" />
+                                    <dxc:SeriesPoint Argument="2020" Value="721" />
+                                    <dxc:SeriesPoint Argument="2030" Value="704" />
+                                    <dxc:SeriesPoint Argument="2040" Value="680" />
+                                    <dxc:SeriesPoint Argument="2050" Value="650" />
+                                </dxc:LineSeries2D.Points>
+                            </dxc:LineSeries2D>
+                            <dxc:LineSeries2D x:Name="Americas"
+                                              DisplayName="Americas"
+                                              AnimationAutoStartMode="SetStartState">
+                                <dxc:LineSeries2D.Label>
+                                    <dxc:SeriesLabel ConnectorVisible="False"
+                                                     Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                                     ResolveOverlappingMode="Default" dxc:MarkerSeries2D.Angle="90"/>
+                                </dxc:LineSeries2D.Label>
+                                <dxc:LineSeries2D.Points>
+                                    <dxc:SeriesPoint Argument="1950" Value="332" />
+                                    <dxc:SeriesPoint Argument="1960" Value="417" />
+                                    <dxc:SeriesPoint Argument="1970" Value="513" />
+                                    <dxc:SeriesPoint Argument="1980" Value="614" />
+                                    <dxc:SeriesPoint Argument="1990" Value="721" />
+                                    <dxc:SeriesPoint Argument="2000" Value="836" />
+                                    <dxc:SeriesPoint Argument="2010" Value="935" />
+                                    <dxc:SeriesPoint Argument="2020" Value="1027" />
+                                    <dxc:SeriesPoint Argument="2030" Value="1110" />
+                                    <dxc:SeriesPoint Argument="2040" Value="1178" />
+                                    <dxc:SeriesPoint Argument="2050" Value="1231" />
+                                </dxc:LineSeries2D.Points>
+                            </dxc:LineSeries2D>
+                            <dxc:LineSeries2D x:Name="Africa"
+                                              DisplayName="Africa"
+                                              AnimationAutoStartMode="SetStartState">
+                                <dxc:LineSeries2D.Label>
+                                    <dxc:SeriesLabel ConnectorVisible="False"
+                                                     Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                                     ResolveOverlappingMode="Default" dxc:MarkerSeries2D.Angle="90"/>
+                                </dxc:LineSeries2D.Label>
+                                <dxc:LineSeries2D.Points>
+                                    <dxc:SeriesPoint Argument="1950" Value="227" />
+                                    <dxc:SeriesPoint Argument="1960" Value="283" />
+                                    <dxc:SeriesPoint Argument="1970" Value="361" />
+                                    <dxc:SeriesPoint Argument="1980" Value="471" />
+                                    <dxc:SeriesPoint Argument="1990" Value="623" />
+                                    <dxc:SeriesPoint Argument="2000" Value="797" />
+                                    <dxc:SeriesPoint Argument="2010" Value="982" />
+                                    <dxc:SeriesPoint Argument="2020" Value="1189" />
+                                    <dxc:SeriesPoint Argument="2030" Value="1416" />
+                                    <dxc:SeriesPoint Argument="2040" Value="1665" />
+                                    <dxc:SeriesPoint Argument="2050" Value="1937" />
+                                </dxc:LineSeries2D.Points>
+                            </dxc:LineSeries2D>
+                            <dxc:LineSeries2D x:Name="Oceania"
+                                              DisplayName="Oceania"
+                                              AnimationAutoStartMode="SetStartState">
+                                <dxc:LineSeries2D.Label>
+                                    <dxc:SeriesLabel ConnectorVisible="False"
+                                                     Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                                     ResolveOverlappingMode="Default" dxc:MarkerSeries2D.Angle="90"/>
+                                </dxc:LineSeries2D.Label>
+                                <dxc:LineSeries2D.Points>
+                                    <dxc:SeriesPoint Argument="1950" Value="12" />
+                                    <dxc:SeriesPoint Argument="1960" Value="15" />
+                                    <dxc:SeriesPoint Argument="1970" Value="19" />
+                                    <dxc:SeriesPoint Argument="1980" Value="22" />
+                                    <dxc:SeriesPoint Argument="1990" Value="26" />
+                                    <dxc:SeriesPoint Argument="2000" Value="30" />
+                                    <dxc:SeriesPoint Argument="2010" Value="35" />
+                                    <dxc:SeriesPoint Argument="2020" Value="39" />
+                                    <dxc:SeriesPoint Argument="2030" Value="43" />
+                                    <dxc:SeriesPoint Argument="2040" Value="47" />
+                                    <dxc:SeriesPoint Argument="2050" Value="50" />
+                                </dxc:LineSeries2D.Points>
+                            </dxc:LineSeries2D>
+                        </dxc:XYDiagram2D.Series>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend/>
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center" Content="Historic, Current and Future Population" />
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0" Content="From www.geohive.com" />
+                </dxc:ChartControl.Titles>
+                <dxc:ChartControl.ToolTipController>
+                    <dxc:ChartToolTipController AutoPopDelay="0" InitialDelay="0"/>
+                </dxc:ChartControl.ToolTipController>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

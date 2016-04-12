@@ -1,0 +1,66 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.CustomDrawControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:ChartsDemo"
+    ModuleAppear="ChartsDemoModule_ModuleAppear">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="120">
+                <dxe:CheckEdit Name="chbVisible" Content="Show Labels" Margin="0,0,0,10" IsChecked="True"
+                               />
+                <dxe:CheckEdit Name="chbCustomDraw" Content="Custom Draw" Margin="0,0,0,10" IsChecked="True"
+                               Checked="chbCustomDraw_Checked" Unchecked="chbCustomDraw_Unchecked" />
+                <Button Content="Create Bars" Click="Button_Click" />
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                              CustomDrawSeriesPoint="chart_CustomDrawSeriesPoint"
+                              BorderThickness="0"
+                              CrosshairEnabled="False"
+                              AnimationMode="OnLoad">
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D>
+                        <dxc:XYDiagram2D.AxisY>
+                            <dxc:AxisY2D>
+                                <dxc:AxisY2D.NumericScaleOptions>
+                                    <dxc:ContinuousNumericScaleOptions GridSpacing="1"/>
+                                </dxc:AxisY2D.NumericScaleOptions>
+                                <dxc:AxisY2D.Strips>
+                                    <dxc:Strip AxisLabelText="High" MaxLimit="3" MinLimit="2" Brush="#FFFFDBDB" BorderColor="#00BB002F" />
+                                    <dxc:Strip AxisLabelText="Middle" MaxLimit="2" MinLimit="1" Brush="#FFFFF6BF" BorderColor="#00BB002F" />
+                                    <dxc:Strip AxisLabelText="Low" MaxLimit="1" MinLimit="0" Brush="#FFD6F39F" BorderColor="#00BB002F" />
+                                </dxc:AxisY2D.Strips>
+                                <dxc:AxisY2D.WholeRange>
+                                    <dxc:Range MinValue="0" MaxValue="3" SideMarginsValue="0"/>
+                                </dxc:AxisY2D.WholeRange>
+                            </dxc:AxisY2D>
+                        </dxc:XYDiagram2D.AxisY>
+                        <dxc:XYDiagram2D.Series>
+                            <dxc:BarSideBySideSeries2D x:Name="Series1"
+                                                       ArgumentScaleType="Numerical"
+                                                       AnimationAutoStartMode="SetStartState">
+                                <dxc:BarSideBySideSeries2D.PointAnimation>
+                                    <dxc:Bar2DBounceAnimation PointDelay="00:00:00.050" />
+                                </dxc:BarSideBySideSeries2D.PointAnimation>
+                                <dxc:BarSideBySideSeries2D.Label>
+                                    <dxc:SeriesLabel ConnectorVisible="True" ResolveOverlappingMode="Default" Visible="{Binding ElementName=chbVisible, Path=IsChecked}" dxc:BarSideBySideSeries2D.LabelPosition="Outside"/>
+                                </dxc:BarSideBySideSeries2D.Label>
+                            </dxc:BarSideBySideSeries2D>
+                        </dxc:XYDiagram2D.Series>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

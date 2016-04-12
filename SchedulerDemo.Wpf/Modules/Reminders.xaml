@@ -1,0 +1,50 @@
+﻿<local:SchedulerDemoModule x:Class="SchedulerDemo.Reminders" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+    xmlns:local="clr-namespace:SchedulerDemo" xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase">
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel>
+                <dx:GroupFrame Header="Action">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Appointment with reminder" Margin="0,0,0,8" />
+                        <Button Content="Create New" Name="button1" Width="120" Click="button1_Click" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </dx:GroupFrame>
+
+            </StackPanel>
+
+
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxsch:SchedulerControl x:Name="scheduler" ActiveViewType="Day" VerticalAlignment="Stretch" SnapsToDevicePixels="False">
+                <dxsch:SchedulerControl.Storage>
+                    <dxsch:SchedulerStorage>
+                    </dxsch:SchedulerStorage>
+                </dxsch:SchedulerControl.Storage>
+                <dxsch:SchedulerControl.DayView>
+                    <dxsch:DayView ResourcesPerPage="4"></dxsch:DayView>
+                </dxsch:SchedulerControl.DayView>
+                <dxsch:SchedulerControl.WorkWeekView>
+                    <dxsch:WorkWeekView Enabled="False"></dxsch:WorkWeekView>
+                </dxsch:SchedulerControl.WorkWeekView>
+                <dxsch:SchedulerControl.WeekView>
+                    <dxsch:WeekView Enabled="False"></dxsch:WeekView>
+                </dxsch:SchedulerControl.WeekView>
+                <dxsch:SchedulerControl.MonthView>
+                    <dxsch:MonthView Enabled="False"></dxsch:MonthView>
+                </dxsch:SchedulerControl.MonthView>
+                <dxsch:SchedulerControl.TimelineView>
+                    <dxsch:TimelineView Enabled="False">
+                    </dxsch:TimelineView>
+                </dxsch:SchedulerControl.TimelineView>
+
+            </dxsch:SchedulerControl>
+        </Grid>
+
+    </dxdb:DemoModuleControl>
+</local:SchedulerDemoModule>

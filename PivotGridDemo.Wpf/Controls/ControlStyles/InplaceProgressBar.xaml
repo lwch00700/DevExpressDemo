@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:local="clr-namespace:PivotGridDemo.PivotGrid">
+ <ControlTemplate x:Key="InplaceProgressBarTemplate" TargetType="{x:Type ProgressBar}">
+  <Grid>
+            <Border Name="PART_Track">
+                <Border Name="PART_Indicator" HorizontalAlignment="Left" Background="#FFBA4F8C" Opacity="0.5" />
+            </Border>
+        </Grid>
+ </ControlTemplate>
+
+</ResourceDictionary>

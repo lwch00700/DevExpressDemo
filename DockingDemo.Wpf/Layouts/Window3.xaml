@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="DockingDemo.Window3"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        >
+    <Grid>
+        <dxb:BarManager>
+            <dxb:BarManager.Categories>
+                <dxb:BarManagerCategory Name="Standard" />
+                <dxb:BarManagerCategory Name="File" />
+                <dxb:BarManagerCategory Name="Edit" />
+            </dxb:BarManager.Categories>
+            <dxb:BarManager.Items>
+                <dxb:BarButtonItem Name="bCopy" CategoryName="Edit" Command="Copy" CommandTarget="{Binding ElementName=text}" Content="{Binding Command.Text, RelativeSource={RelativeSource Self}}" Glyph="/DockingDemo;component/Images/Icons/copy-16x16.png" />
+                <dxb:BarButtonItem Name="bSelectAll" CategoryName="Edit" Command="SelectAll" CommandTarget="{Binding ElementName=text}" Content="{Binding Command.Text, RelativeSource={RelativeSource Self}}" />
+                <dxb:BarButtonItem Name="bClose" CategoryName="File" Content="Close" Glyph="/DockingDemo;component/Images/Icons/close-16x16.png" ItemClick="bClose_ItemClick" Hint="Close" />
+                <dxb:BarSubItem Name="smEdit" CategoryName="Standard" Content="Edit">
+                    <dxb:BarSubItem.ItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="bCopy" />
+                        <dxb:BarButtonItemLink BarItemName="bSelectAll" />
+                    </dxb:BarSubItem.ItemLinks>
+                </dxb:BarSubItem>
+                <dxb:BarSubItem Name="bsFile" CategoryName="Standard" Content="File">
+                    <dxb:BarSubItem.ItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="bClose" />
+                    </dxb:BarSubItem.ItemLinks>
+                </dxb:BarSubItem>
+            </dxb:BarManager.Items>
+            <dxb:BarManager.Bars>
+                <dxb:Bar Caption="childMenu" x:Name="childMenu" IsMainMenu="True" UseWholeRow="True">
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" />
+                    </dxb:Bar.DockInfo>
+                    <dxb:Bar.ItemLinks>
+                        <dxb:BarSubItemLink BarItemName="bsFile" MergeType="MergeItems" />
+                        <dxb:BarSubItemLink BarItemName="smEdit" MergeOrder="1" />
+                    </dxb:Bar.ItemLinks>
+                </dxb:Bar>
+                <dxb:Bar Caption="childBar" x:Name="childBar">
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" />
+                    </dxb:Bar.DockInfo>
+                    <dxb:Bar.ItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="bCopy" />
+                        <dxb:BarButtonItemLink BarItemName="bSelectAll" />
+                    </dxb:Bar.ItemLinks>
+                </dxb:Bar>
+            </dxb:BarManager.Bars>
+            <FlowDocumentScrollViewer x:Name="text" VerticalScrollBarVisibility="Hidden" Opacity="0.5" MaxWidth="320" VerticalContentAlignment="Center">
+                <FlowDocument FontFamily="Segoue" TextAlignment="Center">
+                    <Paragraph FontSize="21" Margin="0">
+                        Document 3
+                    </Paragraph>
+                    <Paragraph FontSize="15" Margin="0">
+                        MDIChild main menu can be automatically merged with MDIParent main menu.
+                    </Paragraph>
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
+        </dxb:BarManager>
+    </Grid>
+</UserControl>

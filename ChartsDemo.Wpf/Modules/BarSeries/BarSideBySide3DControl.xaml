@@ -1,0 +1,137 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.BarSideBySide3DControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:local="clr-namespace:ChartsDemo">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <ObjectDataProvider x:Key="Bar3DModelKindDataProvider" ObjectType="{x:Type dxc:Bar3DModel}" MethodName="GetPredefinedKinds" />
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <local:ChartsDemoModule.Triggers>
+        <EventTrigger RoutedEvent="local:ChartsDemoModule.ModuleAppear">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="Year1998" Storyboard.TargetProperty="BarWidth" From="0.01" To="0.6" Duration="0:0:0.6" />
+                        <DoubleAnimation Storyboard.TargetName="Year2001" Storyboard.TargetProperty="BarWidth" From="0.01" To="0.6" Duration="0:0:0.6" />
+                        <DoubleAnimation Storyboard.TargetName="Year2004" Storyboard.TargetProperty="BarWidth" From="0.01" To="0.6" Duration="0:0:0.6" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </local:ChartsDemoModule.Triggers>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="120">
+                <dxe:CheckEdit Name="chbVisible" Content="Show Labels" Margin="0,0,0,2" Unchecked="chbVisible_Unchecked" Checked="chbVisible_Checked" IsChecked="False" />
+                <dx:GroupFrame Header="Model" Margin="0,10,0,10">
+                    <dxe:ListBoxEdit Name="lbModel"
+                                     Background="{x:Null}"
+                                     ShowBorder="False"
+                                     ItemsSource="{Binding Source={StaticResource Bar3DModelKindDataProvider}}"
+                                     SelectedIndexChanged="lbModel_SelectedIndexChanged">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart" BorderThickness="0" IsManipulationEnabled="True">
+                <dxc:ChartControl.ToolTipController>
+                    <dxc:ChartToolTipController AutoPopDelay="00:00:00" />
+                </dxc:ChartControl.ToolTipController>
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram3D SeriesPadding="0.5" SeriesDistance="1" ZoomPercent="130">
+                        <dxc:XYDiagram3D.ContentTransform>
+                            <RotateTransform3D>
+                                <RotateTransform3D.Rotation>
+                                    <AxisAngleRotation3D Angle="-30" />
+                                </RotateTransform3D.Rotation>
+                            </RotateTransform3D>
+                        </dxc:XYDiagram3D.ContentTransform>
+                        <dxc:XYDiagram3D.AxisY>
+                            <dxc:AxisY3D>
+                                <dxc:AxisY3D.Title>
+                                    <dxc:AxisTitle Content="Millions of Dollars" />
+                                </dxc:AxisY3D.Title>
+                            </dxc:AxisY3D>
+                        </dxc:XYDiagram3D.AxisY>
+                        <dxc:XYDiagram3D.Series>
+                            <dxc:BarSideBySideSeries3D x:Name="Year1998" DisplayName="1998"
+                                                       ArgumentScaleType="Qualitative"
+                                                       BarWidth="0.01"
+                                                       ToolTipPointPattern="Year: {S}&#13;&#10;State: {A}&#13;&#10;GSP: {V}">
+                                <dxc:BarSideBySideSeries3D.Model>
+                                    <dxc:CylinderBar3DModel />
+                                </dxc:BarSideBySideSeries3D.Model>
+                                <dxc:BarSideBySideSeries3D.Label>
+                                    <dxc:SeriesLabel RenderMode="CustomShape" />
+                                </dxc:BarSideBySideSeries3D.Label>
+                                <dxc:Series.Points>
+                                    <dxc:SeriesPoint Argument="Illinois" Value="423.72" />
+                                    <dxc:SeriesPoint Argument="Indiana" Value="178.71" />
+                                    <dxc:SeriesPoint Argument="Michigan" Value="308.84" />
+                                    <dxc:SeriesPoint Argument="Ohio" Value="348.54" />
+                                    <dxc:SeriesPoint Argument="Wisconsin" Value="160.27" />
+                                </dxc:Series.Points>
+                            </dxc:BarSideBySideSeries3D>
+                            <dxc:BarSideBySideSeries3D x:Name="Year2001"
+                                                       DisplayName="2001"
+                                                       ArgumentScaleType="Qualitative"
+                                                       BarWidth="0.01"
+                                                       ToolTipPointPattern="Year: {S}&#13;&#10;State: {A}&#13;&#10;GSP: {V}">
+                                <dxc:BarSideBySideSeries3D.Model>
+                                    <dxc:CylinderBar3DModel />
+                                </dxc:BarSideBySideSeries3D.Model>
+                                <dxc:BarSideBySideSeries3D.Label>
+                                    <dxc:SeriesLabel RenderMode="CustomShape" />
+                                </dxc:BarSideBySideSeries3D.Label>
+                                <dxc:Series.Points>
+                                    <dxc:SeriesPoint Argument="Illinois" Value="476.85" />
+                                    <dxc:SeriesPoint Argument="Indiana" Value="195.75" />
+                                    <dxc:SeriesPoint Argument="Michigan" Value="335.79" />
+                                    <dxc:SeriesPoint Argument="Ohio" Value="374.76" />
+                                    <dxc:SeriesPoint Argument="Wisconsin" Value="182.36" />
+                                </dxc:Series.Points>
+                            </dxc:BarSideBySideSeries3D>
+                            <dxc:BarSideBySideSeries3D x:Name="Year2004"
+                                                       DisplayName="2004"
+                                                       ArgumentScaleType="Qualitative"
+                                                       BarWidth="0.01"
+                                                       ToolTipPointPattern="Year: {S}&#13;&#10;State: {A}&#13;&#10;GSP: {V}">
+                                <dxc:BarSideBySideSeries3D.Model>
+                                    <dxc:CylinderBar3DModel />
+                                </dxc:BarSideBySideSeries3D.Model>
+                                <dxc:BarSideBySideSeries3D.Label>
+                                    <dxc:SeriesLabel RenderMode="CustomShape" />
+                                </dxc:BarSideBySideSeries3D.Label>
+                                <dxc:Series.Points>
+                                    <dxc:SeriesPoint Argument="Illinois" Value="528.9" />
+                                    <dxc:SeriesPoint Argument="Indiana" Value="227.27" />
+                                    <dxc:SeriesPoint Argument="Michigan" Value="372.57" />
+                                    <dxc:SeriesPoint Argument="Ohio" Value="418.25" />
+                                    <dxc:SeriesPoint Argument="Wisconsin" Value="211.72" />
+                                </dxc:Series.Points>
+                            </dxc:BarSideBySideSeries3D>
+                        </dxc:XYDiagram3D.Series>
+                    </dxc:XYDiagram3D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend HorizontalPosition="Right" />
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center" FontSize="24">Great Lakes Gross State Product</dxc:Title>
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0">From www.bea.gov</dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

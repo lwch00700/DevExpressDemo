@@ -1,0 +1,5 @@
+DevExpress.Xpf.PropertyGrid.v{DXVersion}
+DevExpress.Xpf.Core.v{DXVersion}.Extensions
+DevExpress.Xpo.v{DXVersion}
+DevExpress.DataAccess.v{DXVersion}
+DevExpress.CodeParser.v{DXVersion}

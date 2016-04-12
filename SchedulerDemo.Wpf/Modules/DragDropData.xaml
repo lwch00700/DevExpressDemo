@@ -1,0 +1,101 @@
+﻿<local:SchedulerDemoModule xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SchedulerDemo"
+             xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" x:Class="SchedulerDemo.DragDropData"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <local:SchedulerDemoModule.Resources>
+        <ResourceDictionary>
+            <dxsch:SchedulerUICommand x:Key="commands" />
+            <dxsch:SchedulerControlStringIdConverter x:Key="stringIdConverter"/>
+        </ResourceDictionary>
+    </local:SchedulerDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" MinHeight="150" />
+                <RowDefinition Height="3" />
+                <RowDefinition Height="150" />
+            </Grid.RowDefinitions>
+
+            <dxg:GridControl x:Name="grdTasks" Grid.Row="2" Margin="6,0,6,6">
+                <dxg:GridControl.View>
+                    <dxg:TableView ShowGroupPanel="False" AllowPerPixelScrolling="True"/>
+                </dxg:GridControl.View>
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn FieldName="Subject" Header="Subject" Width="160" />
+                    <dxg:GridColumn FieldName="Duration" Header="Duration (h)" />
+                    <dxg:GridColumn FieldName="Priority" Header="Priority" Width="60" />
+                    <dxg:GridColumn FieldName="Severity" Header="Severity" Width="60" />
+                    <dxg:GridColumn FieldName="Description" Header="Description" Width="300" />
+                </dxg:GridControl.Columns>
+            </dxg:GridControl>
+
+            <dxb:BarManager x:Name="barManager1" ToolbarGlyphSize="Small">
+                <dxb:BarManager.Bars>
+                    <dxb:Bar x:Name="barArrangeView" Caption="{Binding ConverterParameter=Caption_GroupArrangeView, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}">
+                        <dxb:Bar.DockInfo>
+                            <dxb:BarDockInfo ContainerType="Top"/>
+                        </dxb:Bar.DockInfo>
+                        <dxb:Bar.ItemLinks>
+                            <dxb:BarCheckItemLink BarItemName="biSwitchToDayView"/>
+                            <dxb:BarCheckItemLink BarItemName="biSwitchToWorkWeekView"/>
+                            <dxb:BarCheckItemLink BarItemName="biSwitchToWeekView"/>
+                            <dxb:BarCheckItemLink BarItemName="biSwitchToFullWeekView"/>
+                            <dxb:BarCheckItemLink BarItemName="biSwitchToMonthView"/>
+                            <dxb:BarCheckItemLink BarItemName="biSwitchToTimelineView"/>
+                        </dxb:Bar.ItemLinks>
+                    </dxb:Bar>
+                    <dxb:Bar x:Name="barGroupBy" Caption="{Binding ConverterParameter=Caption_GroupGroupBy, Converter={StaticResource stringIdConverter}, Mode=OneTime, Source={StaticResource stringIdConverter}}">
+                        <dxb:Bar.DockInfo>
+                            <dxb:BarDockInfo ContainerType="Top"/>
+                        </dxb:Bar.DockInfo>
+                        <dxb:Bar.ItemLinks>
+                            <dxb:BarCheckItemLink BarItemName="biSwitchToGroupByNone"/>
+                            <dxb:BarCheckItemLink BarItemName="biSwitchToGroupByDate"/>
+                            <dxb:BarCheckItemLink BarItemName="biSwitchToGroupByResource"/>
+                        </dxb:Bar.ItemLinks>
+                    </dxb:Bar>
+                </dxb:BarManager.Bars>
+                <dxb:BarManager.Items>
+                    <dxb:BarCheckItem x:Name="biSwitchToDayView" Command="{Binding SwitchToDayView, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarCheckItem x:Name="biSwitchToWorkWeekView" Command="{Binding SwitchToWorkWeekView, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarCheckItem x:Name="biSwitchToWeekView" Command="{Binding SwitchToWeekView, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarCheckItem x:Name="biSwitchToFullWeekView" Command="{Binding SwitchToFullWeekView, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarCheckItem x:Name="biSwitchToMonthView" Command="{Binding SwitchToMonthView, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarCheckItem x:Name="biSwitchToTimelineView" Command="{Binding SwitchToTimelineView, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarCheckItem x:Name="biSwitchToGroupByNone" Command="{Binding SwitchToGroupByNone, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarCheckItem x:Name="biSwitchToGroupByDate" Command="{Binding SwitchToGroupByDate, Mode=OneTime, Source={StaticResource commands}}"/>
+                    <dxb:BarCheckItem x:Name="biSwitchToGroupByResource" Command="{Binding SwitchToGroupByResource, Mode=OneTime, Source={StaticResource commands}}"/>
+                </dxb:BarManager.Items>
+
+                <dxsch:SchedulerControl x:Name="scheduler"  GroupType="Resource" Margin="6,6,6,0" BarManager="{Binding ElementName=barManager1, Mode=OneTime}">
+                    <dxsch:SchedulerControl.DayView>
+                        <dxsch:DayView ResourcesPerPage="3"/>
+                    </dxsch:SchedulerControl.DayView>
+                    <dxsch:SchedulerControl.WorkWeekView>
+                        <dxsch:WorkWeekView ResourcesPerPage="3"/>
+                    </dxsch:SchedulerControl.WorkWeekView>
+                    <dxsch:SchedulerControl.WeekView>
+                        <dxsch:WeekView ResourcesPerPage="3" Enabled="False"/>
+                    </dxsch:SchedulerControl.WeekView>
+                    <dxsch:SchedulerControl.FullWeekView>
+                        <dxsch:FullWeekView Enabled="True" ResourcesPerPage="3"/>
+                    </dxsch:SchedulerControl.FullWeekView>
+                    <dxsch:SchedulerControl.MonthView>
+                        <dxsch:MonthView ResourcesPerPage="3"/>
+                    </dxsch:SchedulerControl.MonthView>
+                    <dxsch:SchedulerControl.TimelineView>
+                        <dxsch:TimelineView ResourcesPerPage="4"/>
+                    </dxsch:SchedulerControl.TimelineView>
+                </dxsch:SchedulerControl>
+
+            </dxb:BarManager>
+
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:SchedulerDemoModule>

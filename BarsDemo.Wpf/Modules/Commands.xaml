@@ -1,0 +1,38 @@
+﻿<local:BarsDemoModule x:Class="BarsDemo.Commands"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:local="clr-namespace:BarsDemo"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:coll="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Height="300" Width="300">
+
+    <dxdb:DemoModuleControl>
+        <DockPanel>
+            <dxb:ToolBarControl x:Name="bar1" GlyphSize="Small" Caption="Text Box Commands" DockPanel.Dock="Top">
+                <dxb:BarButtonItem Name="bCut" Command="Cut" CommandTarget="{Binding ElementName=textBox}" Content="{Binding Command.Text, RelativeSource={RelativeSource Self}}" Glyph="{dx:DXImage Image=Cut_16x16.png}"/>
+                <dxb:BarButtonItem Name="bCopy" Command="Copy" CommandTarget="{Binding ElementName=textBox}" Content="{Binding Command.Text, RelativeSource={RelativeSource Self}}" Glyph="{dx:DXImage Image=Copy_16x16.png}"/>
+                <dxb:BarButtonItem Name="bPaste" Command="Paste" CommandTarget="{Binding ElementName=textBox}" Content="{Binding Command.Text, RelativeSource={RelativeSource Self}}" Glyph="{dx:DXImage Image=Paste_16x16.png}"/>
+                <dxb:BarItemLinkSeparator/>
+                <dxb:BarButtonItem Name="bUndo" Command="Undo" CommandTarget="{Binding ElementName=textBox}"  Content="{Binding Command.Text, RelativeSource={RelativeSource Self}}" Glyph="{dx:DXImage Image=Undo_16x16.png}"/>
+                <dxb:BarButtonItem Name="bRedo" Command="Redo" CommandTarget="{Binding ElementName=textBox}" Content="{Binding Command.Text, RelativeSource={RelativeSource Self}}" Glyph="{dx:DXImage Image=Redo_16x16.png}"/>
+                <dxb:BarItemLinkSeparator/>
+                <dxb:BarButtonItem Name="bSelectAll" Command="SelectAll" CommandTarget="{Binding ElementName=textBox}"  Content="{Binding Command.Text, RelativeSource={RelativeSource Self}}" Glyph="{dx:DXImage Image=SelectAll_16x16.png}" BarItemDisplayMode="ContentAndGlyph"/>
+            </dxb:ToolBarControl>
+            <TextBox Name="textBox" Text="Use bar items to manipulate its text." Width="300" Margin="8" DockPanel.Dock="Top" HorizontalAlignment="Left"/>
+
+            <dxb:ToolBarControl x:Name="bar2" Caption="Slider Commands" DockPanel.Dock="Top">
+                <dxb:BarButtonItem Name="bMinimize" Command="{x:Static Slider.MinimizeValue}" CommandTarget="{Binding ElementName=slider}" Content="Minimize"/>
+                <dxb:BarButtonItem Name="bDecreaseLarge" Command="{x:Static Slider.DecreaseLarge}" CommandTarget="{Binding ElementName=slider}" Content="Decrease Large"/>
+                <dxb:BarButtonItem Name="bDecreaseSmall" Command="{x:Static Slider.DecreaseSmall}" CommandTarget="{Binding ElementName=slider}" Content="Decrease Small"/>
+                <dxb:BarButtonItem Name="bIncreaseSmall" Command="{x:Static Slider.IncreaseSmall}" CommandTarget="{Binding ElementName=slider}" Content="Increase Small"/>
+                <dxb:BarButtonItem Name="bIncreaseLarge" Command="{x:Static Slider.IncreaseLarge}" CommandTarget="{Binding ElementName=slider}" Content="Increase Large"/>
+                <dxb:BarButtonItem Name="bMaximize" Command="{x:Static Slider.MaximizeValue}" CommandTarget="{Binding ElementName=slider}" Content="Maximize"/>
+            </dxb:ToolBarControl>
+            <Slider Name="slider" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Margin="4" Minimum="0" Maximum="100" SmallChange="1" LargeChange="10" Value="50" DockPanel.Dock="Top"/>
+        </DockPanel>
+    </dxdb:DemoModuleControl>
+</local:BarsDemoModule>

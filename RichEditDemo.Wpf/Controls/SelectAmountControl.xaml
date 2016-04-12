@@ -1,0 +1,15 @@
+﻿<local:PopupControlBase x:Class="RichEditDemo.SelectAmountControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:RichEditDemo"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             MinWidth="170">
+    <Grid>
+        <dxe:PopupCalcEdit x:Name="calcEdit">
+            <dxe:PopupCalcEdit.Buttons>
+                <dxe:ButtonInfo ButtonKind="Simple" GlyphKind="Apply" Click="ButtonInfo_Click" />
+            </dxe:PopupCalcEdit.Buttons>
+        </dxe:PopupCalcEdit>
+    </Grid>
+</local:PopupControlBase>

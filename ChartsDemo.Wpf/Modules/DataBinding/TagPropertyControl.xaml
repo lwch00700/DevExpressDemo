@@ -1,0 +1,49 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.TagPropertyControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:ChartsDemo"
+    ModuleAppear="ChartsDemoModule_ModuleAppear">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+         </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+    <Grid>
+        <dxc:ChartControl Name="chart"
+                          CustomDrawSeriesPoint="chart_CustomDrawSeriesPoint"
+                          BorderThickness="0"
+                          CrosshairEnabled="False"
+                          AnimationMode="OnLoad">
+                <dxc:ChartControl.Diagram>
+                <dxc:XYDiagram2D>
+                    <dxc:XYDiagram2D.Series>
+                        <dxc:BarSideBySideSeries2D x:Name="Series"
+                                                   ColorEach="True"
+                                                   ArgumentDataMember="Name"
+                                                   ValueDataMember="Area"
+                                                   AnimationAutoStartMode="SetStartState">
+                                <dxc:BarSideBySideSeries2D.Label>
+                                    <dxc:SeriesLabel ResolveOverlappingMode="Default" />
+                                </dxc:BarSideBySideSeries2D.Label>
+                                    <dxc:BarSideBySideSeries2D.PointAnimation>
+                                <dxc:Bar2DWidenAnimation />
+                             </dxc:BarSideBySideSeries2D.PointAnimation>
+                        </dxc:BarSideBySideSeries2D>
+                    </dxc:XYDiagram2D.Series>
+                </dxc:XYDiagram2D>
+            </dxc:ChartControl.Diagram>
+            <dxc:ChartControl.Legend>
+                <dxc:Legend HorizontalPosition="Right" />
+            </dxc:ChartControl.Legend>
+            <dxc:ChartControl.Titles>
+                <dxc:Title Dock="Top" HorizontalAlignment="Center" Content="Area of Countries" />
+                <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0" Content="From www.nationmaster.com" />
+            </dxc:ChartControl.Titles>
+        </dxc:ChartControl>
+    </Grid>
+</dxdb:DemoModuleControl></local:ChartsDemoModule>

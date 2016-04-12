@@ -1,0 +1,98 @@
+﻿<local:TreeMapDemoModule
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxtm="http://schemas.devexpress.com/winfx/2008/xaml/treemap"
+    xmlns:local="clr-namespace:TreeMapDemo"
+    x:Class="TreeMapDemo.Customizing"
+    mc:Ignorable="d">
+    <dxdb:DemoModuleControl BorderThickness="0">
+        <dxdb:DemoModuleControl.Resources>
+            <local:StringToImagePathConverter x:Key="stringToImagePathConverter"/>
+            <local:CountToTextConverter x:Key="countToTextConverter"/>
+        </dxdb:DemoModuleControl.Resources>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <dxtm:TreeMapControl x:Name="treeMap" EnableHighlighting="False" SelectionMode="None" Background="#EEEEEE" ToolTipEnabled="True" BorderThickness="1" BorderBrush="#ACACAC">
+                <dxtm:TreeMapControl.ToolTipContentTemplate>
+                    <DataTemplate>
+                        <Grid Margin="16,14,16,16">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <Image Source="{Binding Item.SportCategory, Converter={StaticResource ResourceKey=stringToImagePathConverter}}" Width="24" Height="24"/>
+                                    <TextBlock Text="{Binding Item.SportCategory}" FontSize="18" Foreground="White" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                                </StackPanel>
+                                <TextBlock Text="Athletes" FontSize="14" Foreground="White" FontWeight="Bold"/>
+                                <ItemsControl ItemsSource="{Binding Item.Athletes}" Foreground="White"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </dxtm:TreeMapControl.ToolTipContentTemplate>
+                <dxtm:TreeMapControl.ToolTipOptions>
+                    <dxtm:ToolTipOptions OpenMode="OnClick" InitialDelay="0"/>
+                </dxtm:TreeMapControl.ToolTipOptions>
+                <dxtm:TreeMapControl.Colorizer>
+                    <local:MedalsColorizer/>
+                </dxtm:TreeMapControl.Colorizer>
+                <dxtm:TreeMapControl.LeafContentTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0">
+                            <Border BorderThickness="1" BorderBrush="#33000000"/>
+                            <local:LeafVerticalStackPanel>
+                                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,4,8,4">
+                                    <TextBlock Text="{Binding Tag.SportCategory}" Foreground="White" FontSize="12"/>
+                                    <TextBlock Text="{Binding Tag.Count, Converter={StaticResource countToTextConverter}}" Foreground="White" FontSize="12"/>
+                                </StackPanel>
+                                <Image HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="8"
+                                       Source="{Binding Tag.SportCategory, Converter={StaticResource ResourceKey=stringToImagePathConverter}}" Width="32" Height="32"/>
+                            </local:LeafVerticalStackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </dxtm:TreeMapControl.LeafContentTemplate>
+                <dxtm:TreeMapControl.DataAdapter>
+                    <dxtm:TreeMapFlatDataAdapter DataSource="{Binding}" ValueDataMember="Count" LabelDataMember="Count">
+                        <dxtm:TreeMapFlatDataAdapter.Groups>
+                            <dxtm:GroupDefinitionCollection>
+                                <dxtm:TreeMapGroupDefinition GroupDataMember="Country">
+                                    <dxtm:TreeMapGroupDefinition.HeaderContentTemplate>
+                                        <DataTemplate>
+                                            <Grid MinHeight="24" Margin="4,4,4,0">
+                                                <TextBlock Text="{Binding Label}" Foreground="#474747" FontSize="16" Margin="8,0,0,0" VerticalAlignment="Center" FontWeight="Bold"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </dxtm:TreeMapGroupDefinition.HeaderContentTemplate>
+                                </dxtm:TreeMapGroupDefinition>
+                                <dxtm:TreeMapGroupDefinition GroupDataMember="MedalType">
+                                    <dxtm:TreeMapGroupDefinition.HeaderContentTemplate>
+                                        <DataTemplate>
+                                            <Grid MinHeight="24" Margin="4,4,4,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="3*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding Label}" Foreground="#7F7F7F" FontSize="16" Margin="4,0,0,0" VerticalAlignment="Center" FontWeight="Bold"/>
+                                                <Image Grid.Column="1" Source="{Binding Label, Converter={StaticResource ResourceKey=stringToImagePathConverter}}"
+                                                       HorizontalAlignment="Right" VerticalAlignment="Center" Width="24" Height="24" Margin="0,0,4,0"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </dxtm:TreeMapGroupDefinition.HeaderContentTemplate>
+                                </dxtm:TreeMapGroupDefinition>
+                            </dxtm:GroupDefinitionCollection>
+                        </dxtm:TreeMapFlatDataAdapter.Groups>
+                    </dxtm:TreeMapFlatDataAdapter>
+                </dxtm:TreeMapControl.DataAdapter>
+            </dxtm:TreeMapControl>
+            <Grid Grid.Row="1" Margin="4">
+                <TextBlock Text="Winter Olympic Games 2014 Medals" FontSize="14" HorizontalAlignment="Left"/>
+                <TextBlock Text="From washingtonpost.com" HorizontalAlignment="Right" FontSize="12" Foreground="Silver"/>
+            </Grid>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:TreeMapDemoModule>

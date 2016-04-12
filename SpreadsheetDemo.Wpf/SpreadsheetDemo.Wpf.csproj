@@ -1,0 +1,876 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F17038D9-5699-453B-BDEB-F7BDFFC1368A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpreadsheetDemo</RootNamespace>
+    <AssemblyName>SpreadsheetDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>DemoIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <ApplicationIcon>demoicon.ico</ApplicationIcon>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WPF;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>2</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'ClickOnce Debug' OR '$(Configuration)' == 'ClickOnce Release' ">
+    <HostInBrowser>True</HostInBrowser>
+    <Install>False</Install>
+    <TargetZone>Internet</TargetZone>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(WINDIR)\System32\PresentationHost.exe</StartProgram>
+    <ApplicationExtension>.xbap</ApplicationExtension>
+    <BootstrapperEnabled>false</BootstrapperEnabled>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+    <StartArguments>-debug "$(MSBuildProjectDirectory)\bin\$(Configuration)\$(AssemblyName)$(ApplicationExtension)"</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <ApplicationIcon>demoicon.ico</ApplicationIcon>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;WPF;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ClickOnce Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <IntermediateOutputPath>.\obj\ClickOnce Debug\</IntermediateOutputPath>
+    <OutputPath>.\bin\ClickOnce Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WPF;CLICKONCE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ClickOnce Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <IntermediateOutputPath>.\obj\ClickOnce Release\</IntermediateOutputPath>
+    <OutputPath>.\bin\ClickOnce Release\</OutputPath>
+    <DefineConstants>TRACE;WPF;CLICKONCE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="DevExpress.Build.XamlResourceProcessing.targets" />
+    <Content Include="Themes.WPF.targets" />
+    <Reference Include="Accessibility"><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Charts.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.CodeParser.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Printing.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Data.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.DemoData.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.DemoData.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.RichEdit.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Utils.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Charts.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Core.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.DemoBase.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Office.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Docs.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Spreadsheet.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.LayoutControl.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Mvvm.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.NavBar.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Printing.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.PropertyGrid.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Ribbon.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.RichEdit.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Spreadsheet.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraPrinting.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="PresentationUI"><Private>False</Private></Reference>
+    <Reference Include="ReachFramework"><Private>False</Private></Reference>
+    <Reference Include="System"><Private>False</Private></Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations"><Private>False</Private></Reference>
+    <Reference Include="System.Configuration"><Private>False</Private></Reference>
+    <Reference Include="System.Core"><Private>False</Private></Reference>
+    <Reference Include="System.Data.Entity"><Private>False</Private></Reference>
+    <Reference Include="System.Data.Services.Client"><Private>False</Private></Reference>
+    <Reference Include="System.Deployment"><Private>False</Private></Reference>
+    <Reference Include="System.Drawing"><Private>False</Private></Reference>
+    <Reference Include="System.Printing"><Private>False</Private></Reference>
+    <Reference Include="System.Windows.Forms"><Private>False</Private></Reference>
+    <Reference Include="System.Xaml"><Private>False</Private></Reference>
+    <Reference Include="System.Xml.Linq"><Private>False</Private></Reference>
+    <Reference Include="System.Data.DataSetExtensions"><Private>False</Private></Reference>
+    <Reference Include="System.Data"><Private>False</Private></Reference>
+    <Reference Include="System.Xml"><Private>False</Private></Reference>
+    <Reference Include="UIAutomationProvider"><Private>False</Private></Reference>
+    <Reference Include="UIAutomationTypes"><Private>False</Private></Reference>
+    <Reference Include="WindowsBase"><Private>False</Private></Reference>
+    <Reference Include="PresentationCore"><Private>False</Private></Reference>
+    <Reference Include="PresentationFramework"><Private>False</Private></Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeExamples\CellActions.cs" />
+    <Compile Include="CodeExamples\Charts\AxesActions.cs" />
+    <Compile Include="CodeExamples\Charts\Charts.cs" />
+    <Compile Include="CodeExamples\Charts\CreationAndDataActions.cs" />
+    <Compile Include="CodeExamples\Charts\DataLabelsActions.cs" />
+    <Compile Include="CodeExamples\Charts\LegendActions.cs" />
+    <Compile Include="CodeExamples\Charts\SeriesActions.cs" />
+    <Compile Include="CodeExamples\Charts\StyleActions.cs" />
+    <Compile Include="CodeExamples\Charts\TitlesActions.cs" />
+    <Compile Include="CodeExamples\Charts\ViewOptionsActions.cs" />
+    <Compile Include="CodeExamples\ConditionalFormatting.cs" />
+    <Compile Include="CodeExamples\DataValidationActions.cs" />
+    <Compile Include="CodeExamples\FormattingActions.cs" />
+    <Compile Include="CodeExamples\FormulaActions.cs" />
+    <Compile Include="CodeExamples\ImportExportActions.cs" />
+    <Compile Include="CodeExamples\Pivots\PivotFieldActions.cs" />
+    <Compile Include="CodeExamples\Pivots\PivotFormattingActions.cs" />
+    <Compile Include="CodeExamples\Pivots\PivotLayoutActions.cs" />
+    <Compile Include="CodeExamples\Pivots\PivotTableActions.cs" />
+    <Compile Include="CodeExamples\Pivots\PivotTableFilterActions.cs" />
+    <Compile Include="CodeExamples\ProtectionActions.cs" />
+    <Compile Include="CodeExamples\RowAndColumnActions.cs" />
+    <Compile Include="CodeExamples\TableActions.cs" />
+    <Compile Include="CodeExamples\WorksheetActions.cs" />
+    <EmbeddedResource Include="Data\EmbeddedData.txt" />
+    <Compile Include="DemoTesting\Fixtures.cs" />
+    <Compile Include="Modules\AddTransactionForm.xaml.cs">
+      <DependentUpon>AddTransactionForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Api\CodeExampleModel.cs" />
+    <Compile Include="Modules\Api\SyntaxHightlight.cs" />
+    <Compile Include="Modules\AutoFilter.xaml.cs">
+      <DependentUpon>AutoFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ChartingModule.xaml.cs">
+      <DependentUpon>ChartingModule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CellCustomization.xaml.cs">
+      <DependentUpon>CellCustomization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CellPropertiesViewer.xaml.cs">
+      <DependentUpon>CellPropertiesViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ChartAPI.xaml.cs">
+      <DependentUpon>ChartAPI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Comments.xaml.cs">
+      <DependentUpon>Comments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ConditionalFormatting\TopTradingPartners.cs" />
+    <Compile Include="Modules\ContextMenuCustomization.xaml.cs">
+      <DependentUpon>ContextMenuCustomization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CustomFunction.xaml.cs">
+      <DependentUpon>CustomFunction.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CustomFunction\DocumentGenerator.cs" />
+    <Compile Include="Modules\DataValidation.xaml.cs">
+      <DependentUpon>DataValidation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DocumentProperties.xaml.cs">
+      <DependentUpon>DocumentProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DocumentThemes.xaml.cs">
+      <DependentUpon>DocumentThemes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DocumentThemes\DocumentGenerator.cs" />
+    <Compile Include="Modules\EmployeeInformation.xaml.cs">
+      <DependentUpon>EmployeeInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\EmployeeInformation\DocumentGenerator.cs" />
+    <Compile Include="Modules\ExpenseReport.xaml.cs">
+      <DependentUpon>ExpenseReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ExpenseReport\DocumentGenerator.cs" />
+    <Compile Include="Modules\FirstLook.xaml.cs">
+      <DependentUpon>FirstLook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PivotTable.xaml.cs">
+      <DependentUpon>PivotTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Grouping.xaml.cs">
+      <DependentUpon>Grouping.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\HeaderFooter.xaml.cs">
+      <DependentUpon>HeaderFooter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PersonalFinance.xaml.cs">
+      <DependentUpon>PersonalFinance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\HomeAccounting\DocumentGenerator.cs" />
+    <Compile Include="Modules\Hyperlinks.xaml.cs">
+      <DependentUpon>Hyperlinks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Invoice.xaml.cs">
+      <DependentUpon>Invoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Invoice\DocumentGenerator.cs" />
+    <Compile Include="Modules\LoanAmortizationSchedule.xaml.cs">
+      <DependentUpon>LoanAmortizationSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\LoanAmortizationSchedule\DocumentGenerator.cs" />
+    <Compile Include="Modules\OperationRestrictions.xaml.cs">
+      <DependentUpon>OperationRestrictions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\OperationRestrictions\BehaviorOptionsProvider.cs" />
+    <Compile Include="Modules\PivotAPI.xaml.cs">
+      <DependentUpon>PivotAPI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StatisticFunctions.xaml.cs">
+      <DependentUpon>StatisticFunctions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\WorksheetProtection.xaml.cs">
+      <DependentUpon>WorksheetProtection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ShiftSchedule.xaml.cs">
+      <DependentUpon>ShiftSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ShiftSchedule\DocumentGenerator.cs" />
+    <Compile Include="Modules\SportResults.xaml.cs">
+      <DependentUpon>SportResults.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SportResults\DocumentGenerator.cs" />
+    <Compile Include="Modules\SpreadsheetAPIModule.xaml.cs">
+      <DependentUpon>SpreadsheetAPIModule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Api\SpreadsheetApiModuleUtils.cs" />
+    <Compile Include="Modules\SpreadsheetCodeResultViewer.cs" />
+    <Compile Include="Modules\ConditionalFormatting.xaml.cs">
+      <DependentUpon>ConditionalFormatting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\UnitConverter.xaml.cs">
+      <DependentUpon>UnitConverter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\WeatherInCalifornia.xaml.cs">
+      <DependentUpon>WeatherInCalifornia.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\WeatherInCalifornia\WeatherInCalifornia.cs" />
+    <Compile Include="Utils.cs" />
+    <Page Include="Modules\AddTransactionForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\AutoFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\ChartingModule.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\CellCustomization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\CellPropertiesViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\ChartAPI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PivotTable.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PivotAPI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Comments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\ContextMenuCustomization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\CustomFunction.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DataValidation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DocumentProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\DocumentThemes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\EmployeeInformation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ExpenseReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FirstLook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Grouping.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\HeaderFooter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PersonalFinance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Hyperlinks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Invoice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\LoanAmortizationSchedule.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\OperationRestrictions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\StatisticFunctions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\WorksheetProtection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ShiftSchedule.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\SportResults.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\SpreadsheetAPIModule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\ConditionalFormatting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\UnitConverter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\WeatherInCalifornia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SpreadsheetDemoModuleControl.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="clickonce.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DemoIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="DevExpress.Charts.v15.2.Core">
+      <Visible>False</Visible>
+      <Group>DevExpress.Charts.v15.2.Core</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.CodeParser.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.CodeParser.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.DataAccess.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.DataAccess.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Docs.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Docs.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Office.v15.2.Core">
+      <Visible>False</Visible>
+      <Group>DevExpress.Office.v15.2.Core</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Pdf.v15.2.Core">
+      <Visible>False</Visible>
+      <Group>DevExpress.Pdf.v15.2.Core</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Pdf.v15.2.Drawing">
+      <Visible>False</Visible>
+      <Group>DevExpress.Pdf.v15.2.Drawing</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.RichEdit.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.RichEdit.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.RichEdit.v15.2.Core">
+      <Visible>False</Visible>
+      <Group>DevExpress.RichEdit.v15.2.Core</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Snap.v15.2.Core">
+      <Visible>False</Visible>
+      <Group>DevExpress.Snap.v15.2.Core</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Sparkline.v15.2.Core">
+      <Visible>False</Visible>
+      <Group>DevExpress.Sparkline.v15.2.Core</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Spreadsheet.v15.2.Core">
+      <Visible>False</Visible>
+      <Group>DevExpress.Spreadsheet.v15.2.Core</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Charts.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Charts.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Docking.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Docking.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Grid.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Grid.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Grid.v15.2.Core">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Grid.v15.2.Core</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Layout.v15.2.Core">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Layout.v15.2.Core</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.LayoutControl.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.LayoutControl.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.NavBar.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.NavBar.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Printing.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Printing.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.PropertyGrid.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.PropertyGrid.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Ribbon.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Ribbon.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.RichEdit.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.RichEdit.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Spreadsheet.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Spreadsheet.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.DXStyle.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.DXStyle.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.HybridApp.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.HybridApp.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.LightGray.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.LightGray.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.MetropolisDark.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.MetropolisDark.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.MetropolisLight.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.MetropolisLight.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2007Black.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2007Black.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2007Blue.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2007Blue.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2007Silver.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2007Silver.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2010Black.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2010Black.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2010Blue.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2010Blue.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2010Silver.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2010Silver.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2013.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2013.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2013DarkGray.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2013DarkGray.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2013LightGray.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2013LightGray.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Seven.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Seven.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.TouchlineDark.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.TouchlineDark.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.VS2010.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.VS2010.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpo.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpo.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.XtraCharts.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.XtraCharts.v15.2</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="DevExpress.Build.XamlResourceProcessing.targets" />
+  <ItemGroup><PublishFile Include="DevExpress.Xpf.Themes.LightGray.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.LightGray.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.MetropolisDark.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.MetropolisDark.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.TouchlineDark.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.TouchlineDark.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2013.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2013.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.HybridApp.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.HybridApp.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.MetropolisLight.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.MetropolisLight.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2013LightGray.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2013LightGray.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2013DarkGray.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2013DarkGray.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2007Black.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2007Black.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2007Blue.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2007Blue.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2007Silver.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2007Silver.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2010Black.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2010Black.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2010Blue.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2010Blue.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2010Silver.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2010Silver.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Seven.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Seven.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.VS2010.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.VS2010.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.DXStyle.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.DXStyle.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile></ItemGroup><ItemGroup><Reference Include="DevExpress.Xpf.Themes.LightGray.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2007Black.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2007Blue.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2007Silver.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Seven.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2010Black.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2010Blue.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2010Silver.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.MetropolisDark.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.TouchlineDark.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2013.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.HybridApp.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.MetropolisLight.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2013LightGray.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2013DarkGray.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.VS2010.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.DXStyle.v15.2"><Private>True</Private><HintPath></HintPath></Reference></ItemGroup>
+  <PropertyGroup>
+    
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,25 @@
+﻿<local:SchedulerDemoModule x:Class="SchedulerDemo.UnboundMode" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+    xmlns:local="clr-namespace:SchedulerDemo"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase">
+    <dxdb:DemoModuleControl>
+        <Grid>
+            <dxsch:SchedulerControl x:Name="scheduler" ActiveViewType="Day" VerticalAlignment="Stretch" SnapsToDevicePixels="False" GroupType="Resource">
+                <dxsch:SchedulerControl.DayView>
+                    <dxsch:DayView ResourcesPerPage="3" />
+                </dxsch:SchedulerControl.DayView>
+                <dxsch:SchedulerControl.FullWeekView>
+                    <dxsch:FullWeekView Enabled="True" ResourcesPerPage="3"/>
+                </dxsch:SchedulerControl.FullWeekView>
+                <dxsch:SchedulerControl.WeekView>
+                    <dxsch:WeekView Enabled="False" ResourcesPerPage="3"/>
+                </dxsch:SchedulerControl.WeekView>
+            </dxsch:SchedulerControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:SchedulerDemoModule>

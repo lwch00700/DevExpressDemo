@@ -1,0 +1,90 @@
+﻿<local:NavBarDemoModule x:Class="NavBarDemo.ScrollingOptions"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="clr-namespace:NavBarDemo"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+ xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+ xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+ xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <local:NavBarDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NavBarDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <collections:ArrayList x:Key="navBarViews">
+                <sys:String>Explorer Bar</sys:String>
+                <sys:String>Navigation Pane</sys:String>
+                <sys:String>Side Bar</sys:String>
+            </collections:ArrayList>
+            <collections:ArrayList x:Key="clickModes">
+                <ClickMode>Press</ClickMode>
+                <ClickMode>Hover</ClickMode>
+            </collections:ArrayList>
+            <local:ScrollModeToVisibilityConverter x:Key="ScrollModeToVisibilityConverter" />
+            <local:ViewToEnabledConverter x:Key="ViewToEnabledConverter"/>
+        </ResourceDictionary>
+    </local:NavBarDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="200">
+                <dx:GroupFrame Header="View" Margin="{DynamicResource groupMargin}">
+                    <dxe:ListBoxEdit ItemsSource="{DynamicResource navBarViews}" SelectedIndexChanged="SelectView" SelectedIndex="0" Background="{x:Null}"
+                                     ShowBorder="False">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Scroll Mode" Margin="{DynamicResource groupMargin}">
+                    <dxe:ListBoxEdit x:Name="lbScrollMode" SelectedIndex="0" SelectedIndexChanged="lbScrollMode_SelectedIndexChanged" ShowBorder="False" Background="{x:Null}"
+                                     DataContext="{Binding}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                        <dxe:ListBoxEdit.Items>
+                            <dxe:ListBoxEditItem>
+                                <dxn:ScrollMode>Buttons</dxn:ScrollMode>
+                            </dxe:ListBoxEditItem>
+                            <dxe:ListBoxEditItem>
+                                <dxn:ScrollMode>ScrollBar</dxn:ScrollMode>
+                            </dxe:ListBoxEditItem>
+                            <dxe:ListBoxEditItem IsEnabled="{Binding Path=View, ElementName=navBar, Converter={StaticResource ViewToEnabledConverter}}">
+                                <dxn:ScrollMode>None</dxn:ScrollMode>
+                            </dxe:ListBoxEditItem>
+                        </dxe:ListBoxEdit.Items>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Click Mode" Margin="{DynamicResource groupMargin}"
+                          Visibility="{Binding Path=View.(dxn:ScrollingSettings.ScrollMode), ElementName=navBar, Converter={StaticResource ScrollModeToVisibilityConverter}}">
+                    <dxe:ListBoxEdit ItemsSource="{DynamicResource clickModes}" SelectedIndex="0" Name="lbClickMode" SelectedItem="{Binding Path=View.(dxn:ScrollingSettings.ClickMode), ElementName=navBar}" Background="{x:Null}"
+                                     ShowBorder="False">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+
+                <dx:GroupFrame Header="Scrolling Speed" ToolTip="Scrolling Speed (Pixel per second)" Margin="{DynamicResource groupMargin}"
+                          Visibility="{Binding Path=View.(dxn:ScrollingSettings.ScrollMode), ElementName=navBar, Converter={StaticResource ScrollModeToVisibilityConverter}}">
+                    <dxe:TrackBarEdit HorizontalAlignment="Stretch" SmallStep="50" LargeStep="50" TickFrequency="50"
+                    Value="{Binding Path=View.(dxn:ScrollingSettings.ScrollSpeed), ElementName=navBar, Mode=TwoWay}" Minimum="100" Maximum="1000" />
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Acceleration" ToolTip="Acceleration (Pixel per second squared)" Margin="{DynamicResource groupMargin}"
+                          Visibility="{Binding Path=View.(dxn:ScrollingSettings.ScrollMode), ElementName=navBar, Converter={StaticResource ScrollModeToVisibilityConverter}}">
+                    <dxe:TrackBarEdit HorizontalAlignment="Stretch" SmallStep="50" LargeStep="50" TickFrequency="50"
+                    Value="{Binding Path=View.(dxn:ScrollingSettings.AccelerationRatio), ElementName=navBar, Mode=TwoWay}" Minimum="100" Maximum="1000" />
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Deceleration" ToolTip="Deceleration (Pixel per second squared)" Margin="{DynamicResource groupMargin}"
+                          Visibility="{Binding Path=View.(dxn:ScrollingSettings.ScrollMode), ElementName=navBar, Converter={StaticResource ScrollModeToVisibilityConverter}}">
+                    <dxe:TrackBarEdit HorizontalAlignment="Stretch" SmallStep="50" LargeStep="50" TickFrequency="50"
+                    Value="{Binding Path=View.(dxn:ScrollingSettings.DecelerationRatio), ElementName=navBar, Mode=TwoWay}" Minimum="100" Maximum="1000" />
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <local:NavBarDemoGridControl>
+            <dxn:NavBarControl x:Name="navBar" />
+        </local:NavBarDemoGridControl>
+    </dxdb:DemoModuleControl>
+</local:NavBarDemoModule>

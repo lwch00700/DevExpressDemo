@@ -1,0 +1,58 @@
+﻿<Page x:Class="CarouselTutorial.TutorialPage3"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="TutorialPage3"
+    xmlns:dxca="http://schemas.devexpress.com/winfx/2008/xaml/carousel"
+    xmlns:local="clr-namespace:CarouselTutorial"
+    >
+    <dxca:CarouselPanel VisibleItemCount="8" AttractorPointIndex="3" PathPadding="10" PathVisible="False" IsAutoSizeItem="True">
+        <dxca:CarouselPanel.Resources>
+            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=advancedCarouselItemStyle}}">
+                <Setter Property="Text" Value="{Binding Path=(dxca:CarouselPanel.Parameters).Char, Converter={local:ParameterToCharConverter}, RelativeSource={RelativeSource Self}}" />
+                <Setter Property="Background" Value="{Binding Path=(dxca:CarouselPanel.Parameters).Color, Converter={local:ParameterToColorConverter}, RelativeSource={RelativeSource Self}}" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="TextAlignment" Value="Center" />
+            </Style>
+        </dxca:CarouselPanel.Resources>
+        <dxca:CarouselPanel.ParameterSet>
+            <dxca:ParameterCollection>
+                <dxca:Parameter Name="Char">
+                    <dxca:Parameter.DistributionFunction>
+                        <dxca:PieceLinearFunction>
+                            <dxca:PieceLinearFunction.Points>
+                                <dxca:PointCollection>
+                                    <Point X="0" Y="0" />
+                                    <Point X="1" Y="7" />
+                                </dxca:PointCollection>
+                            </dxca:PieceLinearFunction.Points>
+                        </dxca:PieceLinearFunction>
+                    </dxca:Parameter.DistributionFunction>
+                </dxca:Parameter>
+                <dxca:Parameter Name="Color">
+                    <dxca:Parameter.DistributionFunction>
+                        <dxca:PieceLinearFunction>
+                            <dxca:PieceLinearFunction.Points>
+                                <dxca:PointCollection>
+                                    <Point X="0" Y="0" />
+                                    <Point X="1" Y="255" />
+                                </dxca:PointCollection>
+                            </dxca:PieceLinearFunction.Points>
+                        </dxca:PieceLinearFunction>
+                    </dxca:Parameter.DistributionFunction>
+                </dxca:Parameter>
+            </dxca:ParameterCollection>
+        </dxca:CarouselPanel.ParameterSet>
+                            <dxca:CarouselPanel.ItemMovingPath>
+            <PathGeometry Figures="M0,0L400,0" />
+        </dxca:CarouselPanel.ItemMovingPath>
+        <TextBlock />
+        <TextBlock />
+        <TextBlock />
+        <TextBlock />
+        <TextBlock />
+        <TextBlock />
+        <TextBlock />
+        <TextBlock />
+    </dxca:CarouselPanel>
+</Page>

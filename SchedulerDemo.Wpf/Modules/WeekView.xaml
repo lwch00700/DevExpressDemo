@@ -1,0 +1,153 @@
+﻿<local:SchedulerDemoModule x:Class="SchedulerDemo.WeekView" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+    xmlns:dxschcore="clr-namespace:DevExpress.XtraScheduler;assembly=DevExpress.XtraScheduler.v15.2.Core"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:local="clr-namespace:SchedulerDemo" xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase">
+
+    <local:SchedulerDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SchedulerDemo;component/Themes/Margin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </local:SchedulerDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.Resources>
+            <local:DefaultDemoViewModel x:Key="SchedulerDemoModel" />
+            <local:AppointmentDictionaryToMappingConverter x:Key="AppointmentConverter" />
+            <local:ResourceDictionaryToMappingConverter x:Key="ResourceConverter" />
+        </dxdb:DemoModuleControl.Resources>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical">
+                <dx:GroupFrame Margin="{DynamicResource GroupMargin}" Header="First Day of Week" MinWidth="150">
+                    <dxe:ComboBoxEdit Name="cbFirstDayOfWeek"
+                                  Margin="{DynamicResource ElementMargin}"
+                                  HorizontalAlignment="Stretch"
+                                  IsTextEditable="False"
+                                  SelectedItem="{Binding Path=OptionsView.FirstDayOfWeek, Mode=TwoWay}">
+                        <dxe:ComboBoxEdit.ItemsSource>
+                            <local:FirstDayOfWeekList>
+                                <dxschcore:FirstDayOfWeek>System</dxschcore:FirstDayOfWeek>
+                                <dxschcore:FirstDayOfWeek>Sunday</dxschcore:FirstDayOfWeek>
+                                <dxschcore:FirstDayOfWeek>Monday</dxschcore:FirstDayOfWeek>
+                                <dxschcore:FirstDayOfWeek>Tuesday</dxschcore:FirstDayOfWeek>
+                                <dxschcore:FirstDayOfWeek>Wednesday</dxschcore:FirstDayOfWeek>
+                                <dxschcore:FirstDayOfWeek>Thursday</dxschcore:FirstDayOfWeek>
+                                <dxschcore:FirstDayOfWeek>Friday</dxschcore:FirstDayOfWeek>
+                                <dxschcore:FirstDayOfWeek>Saturday</dxschcore:FirstDayOfWeek>
+                            </local:FirstDayOfWeekList>
+                        </dxe:ComboBoxEdit.ItemsSource>
+                    </dxe:ComboBoxEdit>
+
+                </dx:GroupFrame>
+
+
+                <dx:GroupFrame Header="Appointment Options" MinWidth="150">
+                    <StackPanel Grid.IsSharedSizeScope="True">
+                        <Grid HorizontalAlignment="Stretch" Margin="{DynamicResource ElementMargin}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="FirstColumn" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                        <Grid HorizontalAlignment="Stretch" Margin="{DynamicResource ElementMargin}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="FirstColumn" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Status:" />
+                            <dxe:ComboBoxEdit Name="cbStatusDisplayType" HorizontalAlignment="Stretch" IsTextEditable="False"
+                                          SelectedItem="{Binding Path=WeekView.AppointmentDisplayOptions.StatusDisplayType, Mode=TwoWay}"
+                                          Grid.Column="2">
+                                <dxe:ComboBoxEdit.ItemsSource>
+                                    <local:AppointmentStatusDisplayTypeList>
+                                        <dxschcore:AppointmentStatusDisplayType>Never</dxschcore:AppointmentStatusDisplayType>
+                                        <dxschcore:AppointmentStatusDisplayType>Time</dxschcore:AppointmentStatusDisplayType>
+                                        <dxschcore:AppointmentStatusDisplayType>Bounds</dxschcore:AppointmentStatusDisplayType>
+                                    </local:AppointmentStatusDisplayTypeList>
+                                </dxe:ComboBoxEdit.ItemsSource>
+                            </dxe:ComboBoxEdit>
+                        </Grid>
+                        <Grid HorizontalAlignment="Stretch" Margin="{DynamicResource ElementMargin}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="FirstColumn" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Display Time As:" />
+                            <dxe:ComboBoxEdit Name="cbTimeDisplayType" HorizontalAlignment="Stretch" IsTextEditable="False"
+                                          SelectedItem="{Binding Path=WeekView.AppointmentDisplayOptions.TimeDisplayType, Mode=TwoWay}"
+                                          Grid.Column="2">
+                                <dxe:ComboBoxEdit.ItemsSource>
+                                    <local:AppointmentTimeDisplayTypeList>
+                                        <dxschcore:AppointmentTimeDisplayType>Auto</dxschcore:AppointmentTimeDisplayType>
+                                        <dxschcore:AppointmentTimeDisplayType>Clock</dxschcore:AppointmentTimeDisplayType>
+                                        <dxschcore:AppointmentTimeDisplayType>Text</dxschcore:AppointmentTimeDisplayType>
+                                    </local:AppointmentTimeDisplayTypeList>
+                                </dxe:ComboBoxEdit.ItemsSource>
+                            </dxe:ComboBoxEdit>
+                        </Grid>
+                        <Grid HorizontalAlignment="Stretch" Margin="{DynamicResource ElementMargin}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="FirstColumn" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Start Time:" />
+                            <dxe:ComboBoxEdit Name="cbStartTimeVisibility" HorizontalAlignment="Stretch" IsTextEditable="False"
+                                          SelectedItem="{Binding Path=WeekView.AppointmentDisplayOptions.StartTimeVisibility, Mode=TwoWay}"
+                                          Grid.Column="2">
+                                <dxe:ComboBoxEdit.ItemsSource>
+                                    <local:AppointmentTimeVisibilityList>
+                                        <dxschcore:AppointmentTimeVisibility>Always</dxschcore:AppointmentTimeVisibility>
+                                        <dxschcore:AppointmentTimeVisibility>Never</dxschcore:AppointmentTimeVisibility>
+                                    </local:AppointmentTimeVisibilityList>
+                                </dxe:ComboBoxEdit.ItemsSource>
+                            </dxe:ComboBoxEdit>
+                        </Grid>
+                        <Grid HorizontalAlignment="Stretch" Margin="{DynamicResource ElementMargin}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="FirstColumn" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="End Time:" />
+                            <dxe:ComboBoxEdit Name="cbEndTimeVisibility" HorizontalAlignment="Stretch" IsTextEditable="False"
+                                          SelectedItem="{Binding Path=WeekView.AppointmentDisplayOptions.EndTimeVisibility, Mode=TwoWay}"
+                                          Grid.Column="2">
+                                <dxe:ComboBoxEdit.ItemsSource>
+                                    <local:AppointmentTimeVisibilityList>
+                                        <dxschcore:AppointmentTimeVisibility>Always</dxschcore:AppointmentTimeVisibility>
+                                        <dxschcore:AppointmentTimeVisibility>Never</dxschcore:AppointmentTimeVisibility>
+                                    </local:AppointmentTimeVisibilityList>
+                                </dxe:ComboBoxEdit.ItemsSource>
+                            </dxe:ComboBoxEdit>
+                        </Grid>
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxsch:SchedulerControl x:Name="scheduler" ActiveViewType="Week" VerticalAlignment="Stretch" Start="{Binding StartTime}" DataContext="{StaticResource SchedulerDemoModel}" ShowBorder="{Binding ShowBorder}">
+            <dxsch:SchedulerControl.WorkWeekView>
+                <dxsch:WorkWeekView Enabled="False"></dxsch:WorkWeekView>
+            </dxsch:SchedulerControl.WorkWeekView>
+            <dxsch:SchedulerControl.WeekView>
+                <dxsch:WeekView ResourcesPerPage="4"></dxsch:WeekView>
+            </dxsch:SchedulerControl.WeekView>
+            <dxsch:SchedulerControl.MonthView>
+                <dxsch:MonthView Enabled="False"></dxsch:MonthView>
+            </dxsch:SchedulerControl.MonthView>
+            <dxsch:SchedulerControl.TimelineView>
+                <dxsch:TimelineView Enabled="False">
+                </dxsch:TimelineView>
+            </dxsch:SchedulerControl.TimelineView>
+        </dxsch:SchedulerControl>
+    </dxdb:DemoModuleControl>
+</local:SchedulerDemoModule>

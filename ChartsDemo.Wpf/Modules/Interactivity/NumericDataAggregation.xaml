@@ -1,0 +1,53 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.NumericDataAggregation" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:local="clr-namespace:ChartsDemo"
+    Loaded="ChartsDemoModule_Loaded">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:DemoValuesProvider x:Key="DemoValuesProvider" />
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                BorderThickness="0"
+                IsManipulationEnabled="True">
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D EnableAxisXNavigation="True">
+                        <dxc:XYDiagram2D.AxisX>
+                            <dxc:AxisX2D x:Name="AxisX">
+                                <dxc:AxisX2D.NumericScaleOptions>
+                                    <dxc:AutomaticNumericScaleOptions/>
+                                </dxc:AxisX2D.NumericScaleOptions>
+                            </dxc:AxisX2D>
+                        </dxc:XYDiagram2D.AxisX>
+                        <dxc:XYDiagram2D.Series>
+                            <dxc:LineSeries2D DataSource="{Binding Path=Series}" ArgumentDataMember="Argument" ValueDataMember="Value"
+                                              ArgumentScaleType="Numerical"  MarkerVisible="False" DisplayName="{Binding Path=SeriesTitle}"
+                                              CrosshairLabelPattern="{}{A} : {V:n2}">
+                            </dxc:LineSeries2D>
+                        </dxc:XYDiagram2D.Series>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend HorizontalPosition="Right" VerticalPosition="Top"/>
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title HorizontalAlignment="Center">
+                        <dxc:Title.Content>
+                            <TextBlock Margin="0,6,0,3" Text="{Binding Path=Title}"/>
+                        </dxc:Title.Content>
+                    </dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

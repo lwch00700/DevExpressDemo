@@ -1,0 +1,110 @@
+﻿<local:ChartsDemoModule
+    x:Class="ChartsDemo.CustomBar3DControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:local="clr-namespace:ChartsDemo">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <dxc:CustomBar3DModel x:Key="Chair" LoadFromResources="True">
+                <dxc:CustomBar3DSection Source="Models/Chair/bottom.xaml" FixedHeight="True" UseViewColor="False"/>
+                <dxc:CustomBar3DSection Source="Models/Chair/center.xaml" UseViewColor="False"/>
+                <dxc:CustomBar3DSection Source="Models/Chair/top.xaml" FixedHeight="True" UseViewColor="False"/>
+            </dxc:CustomBar3DModel>
+            <dxc:CustomBar3DModel x:Key="Pencil" LoadFromResources="True">
+                <dxc:CustomBar3DSection Source="Models/Pencil/bottom.xaml" UseViewColor="False" AlignByZ="True"/>
+                <dxc:CustomBar3DSection Source="Models/Pencil/top.xaml" UseViewColor="False" FixedHeight="True" AlignByZ="True"/>
+            </dxc:CustomBar3DModel>
+            <Storyboard x:Key="InitialAnimation" TargetProperty="Opacity" TargetName="chart">
+                <DoubleAnimation From="0" To="1" Duration="0:0:2"/>
+            </Storyboard>
+            <Storyboard x:Key="SeriesPointAnimationStoryboard" TargetProperty="Progress">
+                <DoubleAnimation From="0" To="1"/>
+            </Storyboard>
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <local:ChartsDemoModule.Triggers>
+        <EventTrigger RoutedEvent="local:ChartsDemoModule.ModuleAppear">
+            <EventTrigger.Actions>
+                <BeginStoryboard Storyboard="{StaticResource InitialAnimation}" />
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </local:ChartsDemoModule.Triggers>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="120">
+                <dx:GroupFrame Header="Model">
+                    <dxe:ListBoxEdit Name="lbModel"
+                                     Background="{x:Null}"
+                                     ShowBorder="False"
+                                     SelectedIndex="0"
+                                     SelectedIndexChanged="lbModel_SelectedIndexChanged">
+                        <dxe:ListBoxEdit.ItemsSource>
+                            <collections:ArrayList>
+                                <dxe:ListBoxEditItem>Pencil</dxe:ListBoxEditItem>
+                                <dxe:ListBoxEditItem>Chair</dxe:ListBoxEditItem>
+                            </collections:ArrayList>
+                        </dxe:ListBoxEdit.ItemsSource>
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings/>
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart" Opacity="0" MouseDown="chart_MouseDown" MouseUp="chart_MouseUp" Loaded="chart_Loaded"
+                              QueryChartCursor="chart_QueryChartCursor" BorderThickness="0" IsManipulationEnabled="True">
+                <dxc:ChartControl.AnimationRecords>
+                    <dxc:ChartAnimationRecord x:Name="SeriesPointAnimationRecord">
+                        <dxc:ChartAnimationRecord.Animations>
+                            <dxc:SeriesPointAnimation x:Name="SeriesPointAnimation">
+                                <dxc:SeriesPointAnimation.Actions>
+                                    <dxc:SeriesPointRotationAction>
+                                        <dxc:SeriesPointRotationAction.Rotation>
+                                            <dxc:AnimationRotation Order="YXZ" AngleY="360"/>
+                                        </dxc:SeriesPointRotationAction.Rotation>
+                                    </dxc:SeriesPointRotationAction>
+                                </dxc:SeriesPointAnimation.Actions>
+                            </dxc:SeriesPointAnimation>
+                        </dxc:ChartAnimationRecord.Animations>
+                    </dxc:ChartAnimationRecord>
+                </dxc:ChartControl.AnimationRecords>
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram3D Name="diagram" ZoomPercent="140" VerticalScrollPercent="5">
+                        <dxc:XYDiagram3D.ContentTransform>
+                            <MatrixTransform3D Matrix=
+                                              " 0.826344875879367,  0.11134536092713, -0.552047422517269, 0,
+                                               -0.0176642204318833, 0.984902043397912, 0.172209001585809, 0,
+                                                0.562887307926274, -0.132552538680534, 0.815835585804461, 0,
+                                                0,                  0,                 0,                 1"/>
+                        </dxc:XYDiagram3D.ContentTransform>
+                        <dxc:XYDiagram3D.AxisX>
+                            <dxc:AxisX3D>
+                                <dxc:AxisX3D.Label>
+                                    <dxc:AxisLabel Visible="False" />
+                                </dxc:AxisX3D.Label>
+                            </dxc:AxisX3D>
+                        </dxc:XYDiagram3D.AxisX>
+                        <dxc:XYDiagram3D.AxisY>
+                            <dxc:AxisY3D>
+                                <dxc:AxisY3D.Label>
+                                    <dxc:AxisLabel Visible="False"/>
+                                </dxc:AxisY3D.Label>
+                            </dxc:AxisY3D>
+                        </dxc:XYDiagram3D.AxisY>
+                        <dxc:XYDiagram3D.Series>
+                            <dxc:BarSeries3D Name="series" ArgumentScaleType="Qualitative" ColorEach="True"/>
+                        </dxc:XYDiagram3D.Series>
+                    </dxc:XYDiagram3D>
+                </dxc:ChartControl.Diagram>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

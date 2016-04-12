@@ -1,0 +1,13 @@
+﻿<local:WindowsUIDemoModule x:Class="WindowsUIDemo.SlideViewItemsSource"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+    xmlns:local="clr-namespace:WindowsUIDemo">
+    <dxdb:DemoModuleControl>
+        <dxwui:NavigationFrame Source="SlideViewEmployeesView">
+        </dxwui:NavigationFrame>
+    </dxdb:DemoModuleControl>
+</local:WindowsUIDemoModule>

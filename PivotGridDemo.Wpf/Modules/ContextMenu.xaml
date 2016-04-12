@@ -1,0 +1,88 @@
+﻿<local:PivotGridDemoModule x:Class="PivotGridDemo.PivotGrid.ContextMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:PivotGridDemo.PivotGrid"
+    xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    Height="300" Width="300">
+
+    <dxdb:DemoModuleControl>
+        <dxb:BarManager Name="barManager">
+            <dxb:BarManager.Items>
+                <dxb:BarCheckItem Name="ShowColumnGrandTotalHeader"  IsChecked="{Binding ElementName=pivotGrid, Path=ShowColumnGrandTotalHeader, Mode=TwoWay}" Content="Show Column Grand Total Header" />
+                <dxb:BarCheckItem Name="ShowColumnGrandTotals"  IsChecked="{Binding ElementName=pivotGrid, Path=ShowColumnGrandTotals, Mode=TwoWay}" Content="Show Column Grand Totals" />
+                <dxb:BarCheckItem Name="ShowColumnTotals" IsChecked="{Binding ElementName=pivotGrid, Path=ShowColumnTotals, Mode=TwoWay}" Content="Show Column Totals" />
+
+                <dxb:BarCheckItem Name="ShowRowGrandTotalHeader"  IsChecked="{Binding ElementName=pivotGrid, Path=ShowRowGrandTotalHeader, Mode=TwoWay}" Content="Show Row Grand Total Header" />
+                <dxb:BarCheckItem Name="ShowRowGrandTotals"  IsChecked="{Binding ElementName=pivotGrid, Path=ShowRowGrandTotals, Mode=TwoWay}" Content="Show Row Grand Totals" />
+                <dxb:BarCheckItem Name="ShowRowTotals" IsChecked="{Binding ElementName=pivotGrid, Path=ShowRowTotals, Mode=TwoWay}" Content="Show Row Totals" />
+
+                <dxb:BarCheckItem Name="ShowGrandTotalsForSingleValues"  IsChecked="{Binding ElementName=pivotGrid, Path=ShowGrandTotalsForSingleValues, Mode=TwoWay}" Content="Show Grand Totals For Single Values" />
+                <dxb:BarCheckItem Name="ShowTotalsForSingleValues"  IsChecked="{Binding ElementName=pivotGrid, Path=ShowTotalsForSingleValues, Mode=TwoWay}" Content="Show Totals For Single Values" />
+
+            </dxb:BarManager.Items>
+            <dxpg:PivotGridControl x:Name="pivotGrid" local:FieldAreaHelper.FixAreas="True" CustomSummary="OnPivotGridCustomSummary" PopupMenuShowing="OnPivotGridShowMenu"
+                               RowTreeWidth="305" ShowBorder="False" VerticalAlignment="Stretch" ShowColumnGrandTotals="False" ShowFilterHeaders="False"
+                               DataFieldAreaIndex="2" DataFieldArea="ColumnArea" DataFieldCaption="Data" SummaryDataSourceFieldNaming="FieldName" Loaded="pivotGrid_Loaded">
+                <dxpg:PivotGridControl.Fields>
+                    <dxpg:PivotGridField x:Name="fieldProduct" FieldName="ProductName" Area="RowArea" AreaIndex="1" Width="130" Caption="Product Name" />
+                    <dxpg:PivotGridField x:Name="fieldCategory" FieldName="CategoryName" Area="RowArea" AreaIndex="0" Width="130" Caption="Category Name" />
+                    <dxpg:PivotGridField x:Name="fieldYear" FieldName="OrderDate" Area="ColumnArea" GroupInterval="DateYear" AreaIndex="0" Width="80" Caption="Year" />
+                    <dxpg:PivotGridField x:Name="fieldQuantity" FieldName="Quantity" SummaryType="Sum" ShowSummaryTypeName="True" AreaIndex="1" Area="DataArea"
+                                 Width="70" Caption="Quantity" />
+                    <dxpg:PivotGridField x:Name="fieldDiscount" FieldName="Discount" SummaryType="Average" ShowSummaryTypeName="True" AreaIndex="2" Area="DataArea"
+                                 Width="70" Caption="Discount" CellFormat="p" ValueFormat="p" />
+                    <dxpg:PivotGridField x:Name="fieldUnitPrice" FieldName="UnitPrice" SummaryType="Max" ShowSummaryTypeName="True" AreaIndex="0" Area="DataArea"
+                                 Width="130" Caption="Unit Price" />
+                </dxpg:PivotGridControl.Fields>
+                <dxpg:PivotGridControl.HeaderAreaMenuCustomizations>
+                    <dxb:BarItemLinkSeparator />
+                    <dxb:BarSubItem Content="Totals">
+                        <dxb:BarSubItem.ItemLinks>
+                            <dxb:BarCheckItemLink BarItemName="ShowColumnGrandTotalHeader" />
+                            <dxb:BarCheckItemLink BarItemName="ShowColumnGrandTotals" />
+                            <dxb:BarCheckItemLink BarItemName="ShowColumnTotals" />
+                            <dxb:BarItemLinkSeparator x:Name="Separator1" />
+                            <dxb:BarCheckItemLink BarItemName="ShowRowGrandTotalHeader" />
+                            <dxb:BarCheckItemLink BarItemName="ShowRowGrandTotals" />
+                            <dxb:BarCheckItemLink BarItemName="ShowRowTotals" />
+                            <dxb:BarItemLinkSeparator x:Name="Separator2" />
+                            <dxb:BarCheckItemLink BarItemName="ShowGrandTotalsForSingleValues" />
+                            <dxb:BarCheckItemLink BarItemName="ShowTotalsForSingleValues" />
+                        </dxb:BarSubItem.ItemLinks>
+                    </dxb:BarSubItem>
+                    <dxb:RemoveBarItemAndLinkAction ItemName="ItemShowPrefilter" />
+                    <dxb:RemoveBarItemAndLinkAction ItemName="ItemHidePrefilter" />
+                    <dxb:RemoveBarItemAndLinkAction ItemName="ItemRefreshData" />
+                    <dxb:RemoveBarItemAndLinkAction ItemName="ItemShowFieldList" />
+                </dxpg:PivotGridControl.HeaderAreaMenuCustomizations>
+                <dxpg:PivotGridControl.HeaderMenuCustomizations>
+                    <dxb:BarItemLinkSeparator />
+                    <dxb:BarSubItem Content="Totals">
+                        <dxb:BarSubItem.ItemLinks>
+                            <dxb:BarCheckItemLink BarItemName="ShowColumnGrandTotalHeader" />
+                            <dxb:BarCheckItemLink BarItemName="ShowColumnGrandTotals" />
+                            <dxb:BarCheckItemLink BarItemName="ShowColumnTotals" />
+                            <dxb:BarItemLinkSeparator x:Name="Separator3" />
+                            <dxb:BarCheckItemLink BarItemName="ShowRowGrandTotalHeader" />
+                            <dxb:BarCheckItemLink BarItemName="ShowRowGrandTotals" />
+                            <dxb:BarCheckItemLink BarItemName="ShowRowTotals" />
+                            <dxb:BarItemLinkSeparator x:Name="Separator4" />
+                            <dxb:BarCheckItemLink BarItemName="ShowGrandTotalsForSingleValues" />
+                            <dxb:BarCheckItemLink BarItemName="ShowTotalsForSingleValues" />
+                        </dxb:BarSubItem.ItemLinks>
+                    </dxb:BarSubItem>
+                    <dxb:RemoveBarItemAndLinkAction ItemName="ItemShowPrefilter" />
+                    <dxb:RemoveBarItemAndLinkAction ItemName="ItemHidePrefilter" />
+                    <dxb:RemoveBarItemAndLinkAction ItemName="ItemRefreshData" />
+                    <dxb:RemoveBarItemAndLinkAction ItemName="ItemShowFieldList" />
+                    <dxb:RemoveBarItemAndLinkAction ItemName="ItemHideField" />
+                    <dxb:RemoveBarItemAndLinkAction ItemName="ItemFieldOrder" />
+                </dxpg:PivotGridControl.HeaderMenuCustomizations>
+            </dxpg:PivotGridControl>
+        </dxb:BarManager>
+    </dxdb:DemoModuleControl>
+</local:PivotGridDemoModule>

@@ -1,0 +1,118 @@
+﻿<local:ModuleBase x:Class="PrintingDemo.DrillDownReportModule"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+                  xmlns:dxp="http://schemas.devexpress.com/winfx/2008/xaml/printing"
+                  xmlns:local="clr-namespace:PrintingDemo"
+                  xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+                  xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase">
+
+    <local:ModuleBase.Resources>
+        <dx:BoolToObjectConverter FalseValue="Show Detail" TrueValue="Hide Detail" x:Key="detailConverter"/>
+        <dx:BoolToObjectConverter FalseValue="#FFFFFFFF" TrueValue="#FFF5F5F5" x:Key="evenConverter"/>
+
+        <Style x:Key="gridHeaderStyle" TargetType="{x:Type dxe:TextEdit}">
+            <Setter Property="BorderBrush" Value="#FFA9A9A9"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="IsPrintingMode" Value="True"/>
+            <Setter Property="Padding" Value="5,3,5,3"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="gridRowStyle" TargetType="{x:Type dxe:TextEdit}">
+            <Setter Property="BorderBrush" Value="#FFA9A9A9"/>
+            <Setter Property="IsPrintingMode" Value="True"/>
+            <Setter Property="Padding" Value="5,3,5,3"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=(ItemsControl.AlternationIndex), Mode=OneWay, Converter={StaticResource evenConverter}}"/>
+        </Style>
+
+        <Style x:Key="gridFooterStyle" TargetType="{x:Type dxe:TextEdit}">
+            <Setter Property="BorderBrush" Value="#FFA9A9A9"/>
+            <Setter Property="IsPrintingMode" Value="True"/>
+        </Style>
+
+        <DataTemplate x:Key="detailTemplate">
+            <Grid Margin="0,20" dxp:ExportSettings.TargetType="Panel" Width="{Binding UsablePageWidth}">
+                <Grid.Resources>
+                    <dx:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+                    <dxe:BytesToImageSourceConverter x:Key="bytesToImageSourceConverter"/>
+                </Grid.Resources>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel dxp:ExportSettings.TargetType="Panel" Grid.Row="0" Grid.Column="0">
+                    <dxe:TextEdit IsPrintingMode="True" Foreground="#FF0080C0" FontSize="18" FontWeight="Bold" Text="{Binding Content.Category.CategoryName, Mode=OneWay}"/>
+
+                    <dxe:TextEdit Margin="0,5" IsPrintingMode="True" FontSize="14" FontStyle="Italic" Text="{Binding Content.Category.Description, Mode=OneWay}"/>
+
+                    <dxe:TextEdit Margin="0,5" IsPrintingMode="True" FontSize="14" Foreground="#FF0080C0" TextDecorations="Underline"
+                                  dxp:ExportSettings.ElementTag="{Binding Content.Category.CategoryID, Mode=OneWay}"
+                                  Text="{Binding Content.IsExpanded, Converter={StaticResource detailConverter}}"/>
+                </StackPanel>
+
+                <dxe:ImageEdit Margin="0,0,0,10" Grid.Row="0" Grid.Column="1" IsPrintingMode="True"
+                               Source="{Binding Content.Category.Picture, Mode=OneWay, Converter={StaticResource bytesToImageSourceConverter}}"/>
+
+                <StackPanel Margin="0" dxp:ExportSettings.TargetType="Panel" Grid.Row="1" Width="{Binding UsablePageWidth}"
+                            Visibility="{Binding Content.IsExpanded,Converter={StaticResource booleanToVisibilityConverter}}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="35*"/>
+                            <ColumnDefinition Width="25*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <dxe:TextEdit BorderThickness="1,1,0,0" Grid.Column="0" Style="{StaticResource gridHeaderStyle}" Text="Product Name"/>
+                        <dxe:TextEdit BorderThickness="1,1,0,0" Grid.Column="1" Style="{StaticResource gridHeaderStyle}" Text="Quantity Per Unit"/>
+                        <dxe:TextEdit BorderThickness="1,1,1,0" Grid.Column="2" Style="{StaticResource gridHeaderStyle}" Text="Unit Price"/>
+                    </Grid>
+
+                    <ItemsControl Grid.ColumnSpan="2" ItemsSource="{Binding Content.Category.Products}">
+                        <ItemsControl.AlternationCount>
+                            2
+                        </ItemsControl.AlternationCount>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40*"/>
+                                        <ColumnDefinition Width="35*"/>
+                                        <ColumnDefinition Width="25*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <dxe:TextEdit BorderThickness="1,1,0,0" Grid.Column="0" Style="{StaticResource gridRowStyle}" Text="{Binding ProductName, Mode=OneWay}"/>
+                                    <dxe:TextEdit BorderThickness="1,1,0,0" Grid.Column="1" Style="{StaticResource gridRowStyle}" Text="{Binding QuantityPerUnit, Mode=OneWay}"/>
+                                    <dxe:TextEdit BorderThickness="1,1,1,0" Grid.Column="2" Style="{StaticResource gridRowStyle}" Text="{Binding UnitPrice, Mode=OneWay}"
+                                                  HorizontalContentAlignment ="Right" MaskUseAsDisplayFormat="True" MaskType="Numeric" Mask="c2"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <dxe:TextEdit BorderThickness="0,1,0,0" Style="{StaticResource gridFooterStyle}" Text=""/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </local:ModuleBase.Resources>
+
+    <local:ModuleBase.DataContext>
+        <local:DrillDownReportModuleViewModel DetailTemplate="{StaticResource detailTemplate}" />
+    </local:ModuleBase.DataContext>
+
+    <dxdb:DemoModuleControl>
+        <dxp:DocumentPreviewControl CurrentPageNumber="{Binding CurrentPageNumber, Mode=TwoWay}" Name="preview" DocumentSource="{Binding Link}" CommandBarStyle="Bars">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="DocumentPreviewMouseClick" Command="{Binding PreviewClickCommand}" PassEventArgsToCommand="True" />
+            </dxmvvm:Interaction.Behaviors>
+        </dxp:DocumentPreviewControl>
+    </dxdb:DemoModuleControl>
+</local:ModuleBase>

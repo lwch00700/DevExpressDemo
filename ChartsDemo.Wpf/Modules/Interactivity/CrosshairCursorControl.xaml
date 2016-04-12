@@ -1,0 +1,97 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.CrosshairCursorControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:local="clr-namespace:ChartsDemo"
+    ModuleAppear="ChartsDemoModule_ModuleAppear" >
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:StringToCrosshairSnapModeConverter x:Key="SnapModeConverter"/>
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="180">
+                <dxe:CheckEdit x:Name="chbShowLines"
+                               Content="Show Crosshair Lines"
+                               Margin="10,10,10,0"
+                               IsChecked="True"/>
+                <dxe:CheckEdit x:Name="chbShowAxisLabels"
+                               Content="Show Argument/Value Labels"
+                               Margin="10,10,10,0"
+                               IsChecked="True"/>
+                <dxe:CheckEdit x:Name="chbShowCrossLabel"
+                               Content="Show Crosshair Label"
+                               Margin="10,10,10,0"
+                               IsChecked="True"/>
+                <StackPanel Margin="0, 10, 0, 0">
+                    <TextBlock>Crosshair Snap Mode:</TextBlock>
+                    <dxe:ComboBoxEdit x:Name="cbSnapMode" IsTextEditable="False" Margin="0, 5, 0, 0"/>
+                </StackPanel>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart" BorderThickness="0" AnimationMode="OnLoad" Padding="24,16,46,16">
+                <dxc:ChartControl.CrosshairOptions>
+                    <dxc:CrosshairOptions ShowArgumentLine="{Binding ElementName=chbShowLines, Path=IsChecked}" ShowValueLine="{Binding ElementName=chbShowLines, Path=IsChecked}"
+                                          ShowArgumentLabels="{Binding ElementName=chbShowAxisLabels, Path=IsChecked}" ShowValueLabels="{Binding ElementName=chbShowAxisLabels, Path=IsChecked}"
+                                          ShowCrosshairLabels="{Binding ElementName=chbShowCrossLabel, Path=IsChecked}"
+                                          SnapMode="{Binding ElementName=cbSnapMode, Path=SelectedItem, Converter={StaticResource SnapModeConverter}}"/>
+                </dxc:ChartControl.CrosshairOptions>
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D Name="diagram">
+                        <dxc:XYDiagram2D.AxisY>
+                            <dxc:AxisY2D Name="axisY" GridLinesMinorVisible="True">
+                                <dxc:AxisY2D.CrosshairAxisLabelOptions>
+                                    <dxc:CrosshairAxisLabelOptions Pattern="${V:F0}"/>
+                                </dxc:AxisY2D.CrosshairAxisLabelOptions>
+                                <dxc:AxisY2D.WholeRange>
+                                    <dxc:Range dxc:AxisY2D.AlwaysShowZeroLevel="False" />
+                                </dxc:AxisY2D.WholeRange>
+                                <dxc:AxisY2D.Label>
+                                    <dxc:AxisLabel TextPattern="${V}"/>
+                                </dxc:AxisY2D.Label>
+                            </dxc:AxisY2D>
+                        </dxc:XYDiagram2D.AxisY>
+                        <dxc:XYDiagram2D.AxisX>
+                            <dxc:AxisX2D Name="axisX" GridLinesVisible="True">
+                                <dxc:AxisX2D.DateTimeScaleOptions>
+                                    <dxc:ContinuousDateTimeScaleOptions/>
+                                </dxc:AxisX2D.DateTimeScaleOptions>
+                                <dxc:AxisX2D.Label>
+                                    <dxc:AxisLabel TextPattern="{}{A:MMMM}"/>
+                                </dxc:AxisX2D.Label>
+                                <dxc:AxisX2D.CrosshairAxisLabelOptions>
+                                    <dxc:CrosshairAxisLabelOptions Pattern="{}{A:m}"/>
+                                </dxc:AxisX2D.CrosshairAxisLabelOptions>
+                                <dxc:AxisX2D.WholeRange>
+                                    <dxc:Range SideMarginsValue="0" />
+                                </dxc:AxisX2D.WholeRange>
+                            </dxc:AxisX2D>
+                        </dxc:XYDiagram2D.AxisX>
+                        <dxc:XYDiagram2D.Series>
+                            <dxc:LineSeries2D ArgumentScaleType="DateTime" x:Name="series"
+                                              ArgumentDataMember="Date"
+                                              ValueDataMember="Price"
+                                              AnimationAutoStartMode="SetStartState" MarkerSize="5"
+                                              CrosshairLabelPattern="{}{A:m}: {V}">
+                                <dxc:LineSeries2D.PointAnimation>
+                                    <dxc:Marker2DFadeInAnimation PointDelay="00:00:00.0050000" />
+                                </dxc:LineSeries2D.PointAnimation>
+                            </dxc:LineSeries2D>
+                        </dxc:XYDiagram2D.Series>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center" Content="Gold Price History in 2010" />
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0" Content="From www.usagold.com" />
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

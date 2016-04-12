@@ -1,0 +1,18 @@
+﻿<local:SpellCheckerDemoModule x:Class="SpellCheckerDemo.DXRichEdit"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+            xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+            xmlns:dxre="http://schemas.devexpress.com/winfx/2008/xaml/richedit"
+            xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+            xmlns:local="clr-namespace:SpellCheckerDemo">
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel>
+                <dxe:CheckEdit x:Name="edtCheckAsYouType" Content="CheckAsYouType Mode" EditValueChanged="edtCheckAsYouType_EditValueChanged" EditValue="True" />
+                <Button Content="Check Spelling" Margin="10" Padding="10,5,10,5" Click="Button_Click" dx:StyleManager.ApplyApplicationTheme="True" />
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxre:RichEditControl x:Name="richEdit" VerticalAlignment="Stretch" Loaded="richEdit_Loaded" />
+    </dxdb:DemoModuleControl>
+</local:SpellCheckerDemoModule>

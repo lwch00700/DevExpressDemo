@@ -1,0 +1,34 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:local="clr-namespace:GridDemo">
+
+    <dx:DurationToDoubleConverter x:Key="DurationToDoubleConverter" />
+    <dx:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <local:IssueStatusImageConverter x:Key="IssueStatusImageConverter"/>
+    <local:IdToUriConverter x:Key="IdToUriConverter" />
+    <Style x:Key="CustomWaitIndicatorStyle" TargetType="{x:Type dx:WaitIndicator}">
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+    <DataTemplate x:Key="idTemplate">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Hyperlink TargetName="_blank">
+                <Hyperlink.NavigateUri>
+                    <Binding Path="Value" Converter="{StaticResource IdToUriConverter}" />
+                </Hyperlink.NavigateUri>
+                <TextBlock Text="{Binding Path=Value}" />
+                <dxmvvm:Interaction.Behaviors>
+                    <local:HyperLinkAttachedBehavior />
+                </dxmvvm:Interaction.Behaviors>
+            </Hyperlink>
+        </TextBlock>
+    </DataTemplate>
+    <DataTemplate x:Key="statusTemplate">
+        <Image Height="16" Width="16" HorizontalAlignment="Center" ToolTipService.ToolTip="{Binding Path=Value}" Source="{Binding Path=Value, Converter={StaticResource IssueStatusImageConverter}}">
+            <RenderOptions.BitmapScalingMode>NearestNeighbor</RenderOptions.BitmapScalingMode>
+        </Image>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,95 @@
+﻿<local:EditorsDemoModule x:Class="EditorsDemo.DateEditModule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:EditorsDemo"
+ xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:utils="clr-namespace:EditorsDemo.Utils"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors">
+    <local:EditorsDemoModule.Resources>
+        <ResourceDictionary>
+            <utils:NullableToStringConverter x:Key="NullableToStringConverter" />
+        </ResourceDictionary>
+    </local:EditorsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Width="250">
+                <dx:GroupFrame Header="Properties">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Edit value:" VerticalAlignment="Center" Margin="0,0,8,0" />
+                        <dxe:TextEdit Grid.Row="0" Grid.Column="1" IsReadOnly="True" DisplayFormatString="d" EditValue="{Binding Path=EditValue, ElementName=editor}" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Min value:" VerticalAlignment="Center" Margin="0,4,8,0" />
+                        <dxe:DateEdit x:Name="minDate" Grid.Row="1" Grid.Column="1" Margin="0,4,0,0" AllowNullInput="True" />
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Max value:" VerticalAlignment="Center" Margin="0,4,8,0" />
+                        <dxe:DateEdit x:Name="maxDate" Grid.Row="2" Grid.Column="1" Margin="0,4,0,0" AllowNullInput="True" />
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Null value:" VerticalAlignment="Center" Margin="0,4,8,0" />
+                        <dxe:DateEdit x:Name="nullDate" Grid.Row="3" Grid.Column="1" Margin="0,4,0,0" AllowNullInput="True" />
+
+                        <dxe:CheckEdit Grid.Row="4" x:Name="allowNull" IsChecked="True" Content="Allow null input (Ctrl+0, Ctrl+Del)" Grid.ColumnSpan="2" Margin="0,8,0,0" />
+
+                    </Grid>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Appearance" Margin="0,12,0,0">
+                    <StackPanel>
+                        <dxe:CheckEdit Grid.ColumnSpan="2" IsChecked="True" x:Name="showClearButton" Content="Show &quot;Clear&quot; button" Margin="0,4,0,0" Grid.Row="1" />
+                        <dxe:CheckEdit Grid.ColumnSpan="2" IsChecked="True" x:Name="showTodayButton" Content="Show &quot;Today&quot;" Margin="0,4,0,0" Grid.Row="2" />
+                        <dxe:CheckEdit Grid.ColumnSpan="2" IsChecked="True" x:Name="showWeekNumbers" Content="Show week numbers" Margin="0,4,0,0" Grid.Row="3" />
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Mask" Margin="0,12,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Text="Edit mask:" VerticalAlignment="Center" Margin="0,0,8,0" />
+                        <dxe:ComboBoxEdit x:Name="dateMask" SelectedIndex="0" Grid.Column="1" IsTextEditable="False" DisplayMember="MaskName" ValueMember="MaskString" />
+                        <dxe:CheckEdit Grid.Row="1" Grid.ColumnSpan="2" x:Name="maskUseAsDisplayFormat" IsChecked="True" Content="Use mask as display format" Margin="0,8,0,0" />
+                    </Grid>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.25*" />
+                <RowDefinition Height="0.75*" />
+            </Grid.RowDefinitions>
+            <dxe:DateEdit x:Name="editor"
+                    VerticalAlignment="Bottom"
+                    MaxWidth="300"
+                    Mask="{Binding ElementName=dateMask, Path=EditValue, Mode=OneWay}"
+                    Margin="20,0,20,0"
+                    MaskUseAsDisplayFormat="{Binding ElementName=maskUseAsDisplayFormat, Path=IsChecked, Mode=OneWay}"
+                    ShowClearButton="{Binding ElementName=showClearButton, Path=IsChecked, Mode=OneWay}"
+                    ShowToday="{Binding ElementName=showTodayButton, Path=IsChecked, Mode=OneWay}"
+                    ShowWeekNumbers="{Binding ElementName=showWeekNumbers, Path=IsChecked, Mode=OneWay}"
+                    NullValue="{Binding ElementName=nullDate, Path=EditValue, Mode=OneWay}"
+                    MinValue="{Binding ElementName=minDate, Path=EditValue, Mode=TwoWay}"
+                    MaxValue="{Binding ElementName=maxDate, Path=EditValue, Mode=TwoWay}"
+                    AllowNullInput="{Binding ElementName=allowNull, Path=IsChecked, Mode=OneWay}"
+                    AllowRoundOutOfRangeValue="true">
+            </dxe:DateEdit>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:EditorsDemoModule>

@@ -1,0 +1,95 @@
+﻿<local:PivotGridDemoModule x:Class="PivotGridDemo.PivotGrid.CustomChartData"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:local="clr-namespace:PivotGridDemo.PivotGrid"
+    xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core">
+
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel x:Name="spLayout" Orientation="Vertical" Width="220">
+                <dx:GroupFrame Header="Grid Settings" Margin="0,0,0,4">
+                    <StackPanel>
+                        <TextBlock Margin="4,0,0,4" VerticalAlignment="Center" HorizontalAlignment="Stretch">Row Field Values Export Rule:</TextBlock>
+                        <dxe:ComboBoxEdit Name="cbRowFieldValuesExportRule" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                      IsTextEditable="False" Margin="4,0,0,4" SelectedIndexChanged="cbRowFieldValuesExportRule_SelectedIndexChanged" />
+                        <TextBlock Margin="4,0,0,4" VerticalAlignment="Center">Export cell values less than:</TextBlock>
+                        <UniformGrid Margin="0,4,0,0" Columns="2" Rows="1">
+                            <dxe:SpinEdit Name="seCellZeroValueThreshold" Value="100" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                      Margin="4,0,0,4" IsFloatValue="False" EditValueChanged="seCellZeroValueThreshold_EditValueChanged" />
+                            <TextBlock Margin="4,0,0,4" VerticalAlignment="Center" HorizontalAlignment="Left">as zero values</TextBlock>
+                        </UniformGrid>
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Chart Settings" Margin="0,0,0,4">
+                    <StackPanel>
+                        <TextBlock Margin="4,0,0,4" VerticalAlignment="Center">Chart Type:</TextBlock>
+                        <dxe:ComboBoxEdit Name="cbChartType" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                      IsTextEditable="False" Margin="4,0,0,4" SelectedIndexChanged="cbChartType_SelectedIndexChanged" />
+                        <TextBlock Margin="4,0,0,4" VerticalAlignment="Center">Date Measure Unit:</TextBlock>
+                        <dxe:ComboBoxEdit Name="cbChartDateMeasureUnit" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                      IsTextEditable="False" Margin="4,0,0,4" SelectedIndexChanged="cbChartDateMeasureUnit_SelectedIndexChanged" />
+                        <dxe:CheckEdit Name="ceShowPointsLabels" Checked="ceShowPointsLabels_Checked" Unchecked="ceShowPointsLabels_Checked"
+                                   IsChecked="False" Content="Show Point Labels" Margin="4,4,0,0" />
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <dxpg:PivotGridControl local:FieldAreaHelper.FixAreas="True" x:Name="pivotGrid" ChartProvideDataByColumns="False" ChartFieldValuesProvideMode="Value"
+                               ChartProvideColumnCustomTotals="False" ChartProvideColumnGrandTotals="False"
+                               ChartProvideColumnTotals="False" ChartProvideRowGrandTotals="False"
+                               ShowColumnGrandTotals="False" ShowColumnTotals="False" ShowFilterHeaders="False"
+                               ShowRowGrandTotals="False" FieldExpandedInGroupChanged="pivotGrid_FieldExpandedInGroupChanged"
+                               CustomChartDataSourceData="pivotGrid_CustomChartDataSourceData">
+                <dxpg:PivotGridControl.Fields>
+                    <dxpg:PivotGridField x:Name="fieldCategoryName" FieldName="CategoryName" Area="RowArea" AreaIndex="0"
+                                     AllowedAreas="RowArea" Caption="Category" AllowDrag="False" ShowCustomTotals="False"
+                                     ShowGrandTotal="False" ShowTotals="False" Width="155" />
+                    <dxpg:PivotGridField x:Name="fieldExtendedPrice" FieldName="ExtendedPrice" Area="DataArea" AreaIndex="0"
+                                     AllowedAreas="DataArea" AllowDrag="False" CellFormat="c" />
+                    <dxpg:PivotGridField x:Name="fieldProductName" FieldName="ProductName" Area="RowArea" AreaIndex="1"
+                                     AllowedAreas="RowArea" AllowDrag="False" Width="155" Caption="Product Name" />
+                    <dxpg:PivotGridField x:Name="fieldYear" FieldName="OrderDate" UnboundFieldName="fieldYear" Area="ColumnArea" AreaIndex="0"
+                                     AllowedAreas="ColumnArea" GroupInterval="DateYear" Caption="Year" AllowDrag="False" AllowExpand="False"
+                                     Width="80"
+                                     Group="{Binding ElementName=PivotGridGroup1}"
+                                     ShowCustomTotals="False"
+                                     ShowGrandTotal="False" ShowTotals="False" />
+                    <dxpg:PivotGridField x:Name="fieldQuarter" FieldName="OrderDate" UnboundFieldName="fieldQuarter" Area="ColumnArea" AreaIndex="1"
+                                     AllowedAreas="ColumnArea" GroupInterval="DateQuarter" Caption="Quarter" AllowExpand="False"
+                                     Width="80"
+                                     ValueFormat="Qtr {0}" Group="{Binding ElementName=PivotGridGroup1}"
+                                     ShowCustomTotals="False"
+                                     ShowGrandTotal="False" ShowTotals="False" />
+                    <dxpg:PivotGridField x:Name="fieldMonth" FieldName="OrderDate" UnboundFieldName="fieldMonth" Area="ColumnArea" AreaIndex="2"
+                                     AllowedAreas="ColumnArea" GroupInterval="DateMonth" Caption="Month" AllowExpand="False"
+                                     Width="80"
+                                     Group="{Binding ElementName=PivotGridGroup1}"
+                                     ShowCustomTotals="False"
+                                     ShowGrandTotal="False" ShowTotals="False" />
+
+                </dxpg:PivotGridControl.Fields>
+                <dxpg:PivotGridControl.Groups>
+                    <dxpg:PivotGridGroup x:Name="PivotGridGroup1" Caption="DateTimeFields" />
+                </dxpg:PivotGridControl.Groups>
+            </dxpg:PivotGridControl>
+
+            <dxc:ChartControl Name="chartControl" Grid.Row="1" DataSource="{Binding ElementName=pivotGrid, Path=ChartDataSource}"
+                          Margin="0,4,0,0">
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend />
+                </dxc:ChartControl.Legend>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:PivotGridDemoModule>

@@ -1,0 +1,427 @@
+﻿<local:ControlsDemoModule x:Class="ControlsDemo.BookCalendar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxco="http://schemas.devexpress.com/winfx/2008/xaml/controls"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:ControlsDemo">
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="220">
+                <dx:GroupFrame Header="Select your city">
+                    <dxe:ComboBoxEdit x:Name="city" IsTextEditable="False" SelectedIndexChanged="city_SelectedIndexChanged" />
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid Margin="20,22,20,18">
+            <Grid.Background>
+                <ImageBrush ImageSource="/ControlsDemo;component/Images/shadow.png" Opacity="0.5" />
+            </Grid.Background>
+            <dxco:Book x:Name="book" VerticalAlignment="Stretch" Margin="11,9,11,13">
+                <dxco:Book.Template>
+                    <ControlTemplate TargetType="dxco:Book">
+                        <Grid x:Name="Book">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid x:Name="OddGrid">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="54" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Border Background="#FF122959" BorderThickness="0" CornerRadius="4,0,0,0" Margin="0" Padding="1,1,0,0">
+                                        <Border Margin="0" BorderThickness="0" CornerRadius="3,0,0,0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="-0.002,0.5" StartPoint="1.002,0.5">
+                                                    <GradientStop Color="#FF172F63" />
+                                                    <GradientStop Color="#FF405C99" Offset="1" />
+                                                    <GradientStop Color="#FF46609B" Offset="0.082" />
+                                                    <GradientStop Color="#FF8799C1" Offset="0.203" />
+                                                    <GradientStop Color="#FF44609B" Offset="0.466" />
+                                                    <GradientStop Color="#FF415D99" Offset="0.746" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                    <Border Margin="0" Background="#FF584E42" BorderThickness="0" CornerRadius="0,0,0,4" Padding="1,0,0,1" Grid.Row="1">
+                                        <Border Margin="0" BorderThickness="0" CornerRadius="0,0,0,3">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.999,0.5" StartPoint="-0.005,0.5">
+                                                    <GradientStop Color="#FFFEFEE9" />
+                                                    <GradientStop Color="#FF94947F" Offset="1" />
+                                                    <GradientStop Color="#FFCFCEBC" Offset="0.897" />
+                                                    <GradientStop Color="#FFF4F3E2" Offset="0.789" />
+                                                    <GradientStop Color="#FFFCFCEB" Offset="0.616" />
+                                                    <GradientStop Color="#FFFEFEE9" Offset="0.694" />
+                                                    <GradientStop Color="#FFACA991" Offset="0.97" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                </Grid>
+                                <ContentControl x:Name="OddContent" Margin="1,1,0,1" />
+                                <Canvas>
+                                    <Rectangle x:Name="PrevEvenBackShadow" Width="120" Opacity="0.65">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                                                <GradientStop Offset="1" />
+                                                <GradientStop Color="#232B3348" Offset="0.3" />
+                                                <GradientStop Color="#38000000" Offset="0.2" />
+                                                <GradientStop Color="#A5000000" />
+                                                <GradientStop Color="#60000000" Offset="0.103" />
+                                                <GradientStop Color="#194C5264" Offset="0.4" />
+                                                <GradientStop Color="#0C6B6F7E" Offset="0.5" />
+                                                <GradientStop Color="#87000000" Offset="0.04" />
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Canvas>
+                            </Grid>
+                            <Grid x:Name="EvenGrid">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="54" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Border Margin="0" Background="#FF584E42" BorderThickness="0" CornerRadius="0,0,4,0" Grid.Row="1" Padding="0,0,1,1">
+                                        <Border Margin="1,0,0,0" BorderThickness="0" CornerRadius="0,0,3,0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="-0.005,0.5">
+                                                    <GradientStop Color="#FFA2A28D" Offset="0" />
+                                                    <GradientStop Color="#FFFEFEE9" Offset="1" />
+                                                    <GradientStop Color="#FFEEEFEE" Offset="0.056" />
+                                                    <GradientStop Color="#FFF6F6E3" Offset="0.194" />
+                                                    <GradientStop Color="#FFD2D2CB" Offset="0.026" />
+                                                    <GradientStop Color="#FFF1F1DB" Offset="0.414" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                    <Border Background="#FF122959" BorderBrush="Black" BorderThickness="0" CornerRadius="0,4,0,0" Margin="0" Padding="0,1,1,0">
+                                        <Border Margin="1,0,0,0" BorderThickness="0" CornerRadius="0,3,0,0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="-0.003,0.5">
+                                                    <GradientStop Color="#FF284176" Offset="0" />
+                                                    <GradientStop Color="#FF4964A0" Offset="1" />
+                                                    <GradientStop Color="#FF6D82B3" Offset="0.052" />
+                                                    <GradientStop Color="#FF4C67A2" Offset="0.142" />
+                                                    <GradientStop Color="#FF415D9A" Offset="0.216" />
+                                                    <GradientStop Color="#FF425D98" Offset="0.539" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                </Grid>
+                                <ContentControl x:Name="EvenContent" Margin="0,1,1,1" />
+                                <Canvas>
+                                    <Rectangle x:Name="NextOddBackShadow" Width="120" Opacity="0.65">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+                                                <GradientStop Offset="1" />
+                                                <GradientStop Color="#232B3348" Offset="0.3" />
+                                                <GradientStop Color="#38000000" Offset="0.2" />
+                                                <GradientStop Color="#A5000000" />
+                                                <GradientStop Color="#60000000" Offset="0.103" />
+                                                <GradientStop Color="#194C5264" Offset="0.4" />
+                                                <GradientStop Color="#0C6B6F7E" Offset="0.5" />
+                                                <GradientStop Color="#87000000" Offset="0.04" />
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Canvas>
+                            </Grid>
+                            <Grid x:Name="NextOddGrid" Opacity="0.9">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="54" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Border Background="#FF122959" BorderThickness="0" CornerRadius="4,0,0,0" Margin="0" Padding="1,1,0,0">
+                                        <Border Margin="0" BorderThickness="0" CornerRadius="3,0,0,0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="-0.002,0.5" StartPoint="1.002,0.5">
+                                                    <GradientStop Color="#FF172F63" />
+                                                    <GradientStop Color="#FF405C99" Offset="1" />
+                                                    <GradientStop Color="#FF46609B" Offset="0.082" />
+                                                    <GradientStop Color="#FF8799C1" Offset="0.203" />
+                                                    <GradientStop Color="#FF44609B" Offset="0.466" />
+                                                    <GradientStop Color="#FF415D99" Offset="0.746" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                    <Border Margin="0" Background="#FF584E42" BorderThickness="0" CornerRadius="0,0,0,4" Padding="1,0,0,1" Grid.Row="1">
+                                        <Border Margin="0" BorderThickness="0" CornerRadius="0,0,0,3">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.999,0.5" StartPoint="-0.005,0.5">
+                                                    <GradientStop Color="#FFFEFEE9" />
+                                                    <GradientStop Color="#FF94947F" Offset="1" />
+                                                    <GradientStop Color="#FFCFCEBC" Offset="0.897" />
+                                                    <GradientStop Color="#FFF4F3E2" Offset="0.789" />
+                                                    <GradientStop Color="#FFFCFCEB" Offset="0.616" />
+                                                    <GradientStop Color="#FFFEFEE9" Offset="0.694" />
+                                                    <GradientStop Color="#FFACA991" Offset="0.97" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                </Grid>
+                                <ContentControl x:Name="NextOddContent" Margin="1,1,0,1" />
+                                <Canvas>
+                                    <Rectangle x:Name="NextOddOverlayForeShadow" Width="120" Opacity="0.65">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+                                                <GradientStop Offset="0.3" Color="#21000000" />
+                                                <GradientStop Color="#4C000000" />
+                                                <GradientStop Color="#7F000000" Offset="0.05" />
+                                                <GradientStop Color="#66000000" Offset="0.1" />
+                                                <GradientStop Color="#30000000" Offset="0.237" />
+                                                <GradientStop Color="#14000000" Offset="0.4" />
+                                                <GradientStop Color="#07000000" Offset="0.517" />
+                                                <GradientStop Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Canvas>
+                            </Grid>
+                            <Grid x:Name="NextEvenGrid">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="54" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Border Margin="0" Background="#FF584E42" BorderThickness="0" CornerRadius="0,0,4,0" Grid.Row="1" Padding="0,0,1,1">
+                                        <Border Margin="1,0,0,0" BorderThickness="0" CornerRadius="0,0,3,0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="-0.005,0.5">
+                                                    <GradientStop Color="#FFA2A28D" Offset="0" />
+                                                    <GradientStop Color="#FFFEFEE9" Offset="1" />
+                                                    <GradientStop Color="#FFEEEFEE" Offset="0.056" />
+                                                    <GradientStop Color="#FFF6F6E3" Offset="0.194" />
+                                                    <GradientStop Color="#FFD2D2CB" Offset="0.026" />
+                                                    <GradientStop Color="#FFF1F1DB" Offset="0.414" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                    <Border Background="#FF122959" BorderBrush="Black" BorderThickness="0" CornerRadius="0,4,0,0" Margin="0" Padding="0,1,1,0">
+                                        <Border Margin="1,0,0,0" BorderThickness="0" CornerRadius="0,3,0,0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="-0.003,0.5">
+                                                    <GradientStop Color="#FF284176" Offset="0" />
+                                                    <GradientStop Color="#FF4964A0" Offset="1" />
+                                                    <GradientStop Color="#FF6D82B3" Offset="0.052" />
+                                                    <GradientStop Color="#FF4C67A2" Offset="0.142" />
+                                                    <GradientStop Color="#FF415D9A" Offset="0.216" />
+                                                    <GradientStop Color="#FF425D98" Offset="0.539" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                </Grid>
+                                <ContentControl x:Name="NextEvenContent" Margin="0,1,1,1" />
+                                <Canvas>
+                                    <Rectangle x:Name="NextEvenBaseForeShadow" Width="120" Opacity="0.65">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+                                                <GradientStop Color="#00000000" Offset="0.25" />
+                                                <GradientStop Color="#BF000000" Offset="0.991" />
+                                                <GradientStop Color="#4C000000" Offset="0.8" />
+                                                <GradientStop Color="#A0000000" Offset="0.96" />
+                                                <GradientStop Color="#72000000" Offset="0.9" />
+                                                <GradientStop Color="#19000000" Offset="0.5" />
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Canvas>
+                            </Grid>
+                            <Grid x:Name="PrevOddGrid">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="54" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Border Background="#FF122959" BorderThickness="0" CornerRadius="4,0,0,0" Margin="0" Padding="1,1,0,0">
+                                        <Border Margin="0" BorderThickness="0" CornerRadius="3,0,0,0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="-0.002,0.5" StartPoint="1.002,0.5">
+                                                    <GradientStop Color="#FF172F63" />
+                                                    <GradientStop Color="#FF405C99" Offset="1" />
+                                                    <GradientStop Color="#FF46609B" Offset="0.082" />
+                                                    <GradientStop Color="#FF8799C1" Offset="0.203" />
+                                                    <GradientStop Color="#FF44609B" Offset="0.466" />
+                                                    <GradientStop Color="#FF415D99" Offset="0.746" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                    <Border Margin="0" Background="#FF584E42" BorderThickness="0" CornerRadius="0,0,0,4" Padding="1,0,0,1" Grid.Row="1">
+                                        <Border Margin="0" BorderThickness="0" CornerRadius="0,0,0,3">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.999,0.5" StartPoint="-0.005,0.5">
+                                                    <GradientStop Color="#FFFEFEE9" />
+                                                    <GradientStop Color="#FF94947F" Offset="1" />
+                                                    <GradientStop Color="#FFCFCEBC" Offset="0.897" />
+                                                    <GradientStop Color="#FFF4F3E2" Offset="0.789" />
+                                                    <GradientStop Color="#FFFCFCEB" Offset="0.616" />
+                                                    <GradientStop Color="#FFFEFEE9" Offset="0.694" />
+                                                    <GradientStop Color="#FFACA991" Offset="0.97" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                </Grid>
+                                <ContentControl x:Name="PrevOddContent" Margin="1,1,0,1" />
+                                <Canvas>
+                                    <Rectangle x:Name="PrevOddBaseForeShadow" Width="120" Opacity="0.65">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                                                <GradientStop Color="#00000000" Offset="0.25" />
+                                                <GradientStop Color="#BF000000" Offset="0.991" />
+                                                <GradientStop Color="#4C000000" Offset="0.8" />
+                                                <GradientStop Color="#A0000000" Offset="0.96" />
+                                                <GradientStop Color="#72000000" Offset="0.9" />
+                                                <GradientStop Color="#19000000" Offset="0.5" />
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Canvas>
+                            </Grid>
+                            <Grid x:Name="PrevEvenGrid" Opacity="0.9">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="54" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Border Margin="0" Background="#FF584E42" BorderThickness="0" CornerRadius="0,0,4,0" Grid.Row="1" Padding="0,0,1,1">
+                                        <Border Margin="1,0,0,0" BorderThickness="0" CornerRadius="0,0,3,0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="-0.005,0.5">
+                                                    <GradientStop Color="#FFA2A28D" Offset="0" />
+                                                    <GradientStop Color="#FFFEFEE9" Offset="1" />
+                                                    <GradientStop Color="#FFEEEFEE" Offset="0.056" />
+                                                    <GradientStop Color="#FFF6F6E3" Offset="0.194" />
+                                                    <GradientStop Color="#FFD2D2CB" Offset="0.026" />
+                                                    <GradientStop Color="#FFF1F1DB" Offset="0.414" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                    <Border Background="#FF122959" BorderBrush="Black" BorderThickness="0" CornerRadius="0,4,0,0" Margin="0" Padding="0,1,1,0">
+                                        <Border Margin="1,0,0,0" BorderThickness="0" CornerRadius="0,3,0,0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="-0.003,0.5">
+                                                    <GradientStop Color="#FF284176" Offset="0" />
+                                                    <GradientStop Color="#FF4964A0" Offset="1" />
+                                                    <GradientStop Color="#FF6D82B3" Offset="0.052" />
+                                                    <GradientStop Color="#FF4C67A2" Offset="0.142" />
+                                                    <GradientStop Color="#FF415D9A" Offset="0.216" />
+                                                    <GradientStop Color="#FF425D98" Offset="0.539" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+                                </Grid>
+                                <ContentControl x:Name="PrevEvenContent" Margin="0,1,1,1" />
+                                <Canvas>
+                                    <Rectangle x:Name="PrevEvenOverlayForeShadow" Width="120" Opacity="0.65">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                                                <GradientStop Offset="0.3" Color="#21000000" />
+                                                <GradientStop Color="#4C000000" />
+                                                <GradientStop Color="#7F000000" Offset="0.05" />
+                                                <GradientStop Color="#66000000" Offset="0.1" />
+                                                <GradientStop Color="#30000000" Offset="0.237" />
+                                                <GradientStop Color="#14000000" Offset="0.4" />
+                                                <GradientStop Color="#07000000" Offset="0.517" />
+                                                <GradientStop Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Canvas>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </dxco:Book.Template>
+
+                <dxco:Book.PageTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.Resources>
+                                <local:TextConverter x:Key="GetText" />
+                                <local:DayConverter x:Key="GetDay" />
+                                <local:DOWConverter x:Key="GetDOW" />
+                                <local:SunRiseConverter x:Key="SunRise" />
+                                <local:SunSetConverter x:Key="SunSet" />
+                                <local:MonthConverter x:Key="GetMonth" />
+                                <local:ForegroundConverter x:Key="GetForeground" />
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="54" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Border BorderThickness="0" CornerRadius="4,0,0,0" Margin="0" Padding="1,1,0,0">
+                                <Border Margin="0" BorderThickness="0" CornerRadius="3,0,0,0">
+                                    <TextBlock Focusable="False" HorizontalAlignment="Center" Margin="0,10" VerticalAlignment="Center" FontSize="26.667" Foreground="White" Text="{Binding Converter={StaticResource GetMonth}}" TextWrapping="Wrap" FontFamily="Verdana" />
+                                </Border>
+                            </Border>
+                            <Border Margin="0" BorderThickness="0" CornerRadius="0,0,0,4" Padding="1,0,0,1" Grid.Row="1">
+                                <Border Margin="0" BorderThickness="0" CornerRadius="0,0,0,3">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid VerticalAlignment="Bottom" Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.47*" />
+                                                <ColumnDefinition Width="0.06*" />
+                                                <ColumnDefinition Width="0.47*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Margin="25,5,0,25">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="120" />
+                                                    <RowDefinition Height="auto" />
+                                                </Grid.RowDefinitions>
+                                                <Image HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Source="../Images/sun.png" Stretch="None" />
+                                                <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Focusable="False" Grid.Row="0" Text="{Binding Converter={StaticResource SunRise}}" TextWrapping="Wrap" Foreground="#FF656785" FontSize="16" FontFamily="Verdana" />
+                                                    <TextBlock Focusable="False" Grid.Row="1" Text="{Binding Converter={StaticResource SunSet}}" TextWrapping="Wrap" Foreground="#FF656785" FontSize="16" FontFamily="Verdana" />
+                                                </Grid>
+                                            </Grid>
+                                            <Grid Margin="0,5,25,25" Grid.Column="2">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="120" />
+                                                    <RowDefinition Height="auto" />
+                                                </Grid.RowDefinitions>
+                                                <Grid Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <local:Moon IsTabStop="False" Focusable="False" x:Name="moon" Date="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                </Grid>
+                                                <Grid Grid.Row="1">
+                                                    <TextBlock Focusable="False" HorizontalAlignment="Center" Text="{Binding PhaseName, ElementName=moon, Mode=OneWay}" TextWrapping="Wrap" FontSize="16" Foreground="#FF656785" Margin="0" VerticalAlignment="Top" FontFamily="Verdana" />
+                                                </Grid>
+                                            </Grid>
+                                            <Rectangle Fill="#FFA6A8B2" Margin="25,0" StrokeThickness="0" Height="1" VerticalAlignment="Top" Grid.ColumnSpan="3" />
+                                        </Grid>
+                                        <StackPanel HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center">
+                                            <ContentControl IsTabStop="False" Focusable="False" Content="{Binding Converter={StaticResource GetDay}}" FontSize="120" Foreground="{Binding Converter={StaticResource GetForeground}}" FontFamily="Times New Roman" Margin="0" FontWeight="Bold" HorizontalAlignment="Center" />
+                                            <TextBlock Focusable="False" Text="{Binding Converter={StaticResource GetDOW}}" TextWrapping="Wrap" FontFamily="Verdana" FontWeight="Bold" FontSize="22" Foreground="{Binding Converter={StaticResource GetForeground}}" Margin="0" HorizontalAlignment="Center" />
+                                            <TextBlock Focusable="False" Text="{Binding Converter={StaticResource GetText}}" TextAlignment="Center" TextWrapping="Wrap" FontSize="12" Foreground="#FFC01D1D" Margin="0,10,0,15" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </dxco:Book.PageTemplate>
+            </dxco:Book>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ControlsDemoModule>

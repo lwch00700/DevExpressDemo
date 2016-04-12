@@ -1,0 +1,304 @@
+﻿<local:DockingDemoModule x:Class="DockingDemo.MDIQuickNotes"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="clr-namespace:DockingDemo"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+ xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+    xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+ xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:collection="clr-namespace:System.Collections;assembly=mscorlib"
+                                Height="332" Width="721">
+    <local:DockingDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/DockingDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <ControlTemplate x:Key="renameButton" TargetType="{x:Type Button}">
+                <Grid x:Name="grid" SnapsToDevicePixels="True">
+                    <Image x:Name="normal" Source="/DockingDemo;component/Images/Icons/change.png" Stretch="None" Opacity="0.5" />
+                    <Image x:Name="pressed" Source="/DockingDemo;component/Images/Icons/change-pressed.png" Stretch="None" Visibility="Hidden" />
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Opacity" TargetName="normal" Value="1" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Visibility" TargetName="pressed" Value="Visible" />
+                        <Setter Property="Visibility" TargetName="normal" Value="Hidden" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter Property="Opacity" TargetName="grid" Value="0.2" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <ControlTemplate x:Key="deleteButton" TargetType="{x:Type Button}">
+                <Grid x:Name="grid" SnapsToDevicePixels="True">
+                    <Image x:Name="normal" Source="/DockingDemo;component/Images/Icons/delete.png" Stretch="None" Opacity="0.5" />
+                    <Image x:Name="pressed" Source="/DockingDemo;component/Images/Icons/delete-pressed.png" Stretch="None" Visibility="Hidden" />
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Opacity" TargetName="normal" Value="1" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Visibility" TargetName="pressed" Value="Visible" />
+                        <Setter Property="Visibility" TargetName="normal" Value="Hidden" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter Property="Opacity" TargetName="grid" Value="0.2" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </local:DockingDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxb:BarManager Name="barManager" CreateStandardLayout="True">
+            <dxb:BarManager.Categories>
+                <dxb:BarManagerCategory Name="File" />
+                <dxb:BarManagerCategory Name="Edit" />
+                <dxb:BarManagerCategory Name="Format" />
+                <dxb:BarManagerCategory Name="Help" />
+                <dxb:BarManagerCategory Name="Status" />
+                <dxb:BarManagerCategory Name="Standard" />
+                <dxb:BarManagerCategory Name="Toolbars" />
+            </dxb:BarManager.Categories>
+            <dxb:BarManager.Items>
+                <dxb:ToolbarListItem Name="toolbarListItemCore" CategoryName="Toolbars" Content="Toolbars" />
+
+                <dxb:BarButtonItem Name="bNew" CategoryName="File" Content="New" Glyph="/DockingDemo;component/Images/Icons/new-16x16.png" KeyGesture="Ctrl+N" ItemClick="bNew_ItemClick" Hint="New Blank Document" />
+                <dxb:BarButtonItem Name="bOpen" CategoryName="File" Content="Open" Glyph="/DockingDemo;component/Images/Icons/open-16x16.png" KeyGesture="Ctrl+O" ItemClick="bOpen_ItemClick" Hint="Open" />
+                <dxb:BarButtonItem Name="bClose" CategoryName="File" Content="Close" Glyph="/DockingDemo;component/Images/Icons/close-16x16.png" ItemClick="bClose_ItemClick" Hint="Close" />
+                <dxb:BarButtonItem Name="bSave" CategoryName="File" Content="Save" Glyph="/DockingDemo;component/Images/Icons/save-16x16.png" KeyGesture="Ctrl+S" ItemClick="bSave_ItemClick" Hint="Save Document" />
+                <dxb:BarButtonItem Name="bSaveAs" CategoryName="File" Content="Save As..." Glyph="/DockingDemo;component/Images/Icons/save-as-16x16.png" ItemClick="bSaveAs_ItemClick" Hint="Save Document As..." />
+                <dxb:BarButtonItem Name="bPrint" CategoryName="File" Content="Print" Glyph="/DockingDemo;component/Images/Icons/print-16x16.png" KeyGesture="Ctrl+P" ItemClick="bPrint_ItemClick" />
+                <dxb:BarButtonItem Name="bExit" CategoryName="File" Content="Exit" KeyGesture="Ctrl+X" ItemClick="bExit_ItemClick" />
+
+                <dxb:BarButtonItem Name="bUndo" CategoryName="Edit" Content="Undo" Glyph="/DockingDemo;component/Images/Icons/undo-16x16.png" KeyGesture="Ctrl+Z" ItemClick="bUndo_ItemClick" />
+                <dxb:BarButtonItem Name="bRedo" CategoryName="Edit" Content="Redo" Glyph="/DockingDemo;component/Images/Icons/redo-16x16.png" KeyGesture="Ctrl+Y" ItemClick="bRedo_ItemClick" />
+                <dxb:BarButtonItem Name="bCut" CategoryName="Edit" Content="Cut" Glyph="/DockingDemo;component/Images/Icons/cut-16x16.png" KeyGesture="Ctrl+X" ItemClick="bCut_ItemClick" />
+                <dxb:BarButtonItem Name="bCopy" CategoryName="Edit" Content="Copy" Glyph="/DockingDemo;component/Images/Icons/copy-16x16.png" KeyGesture="Ctrl+C" ItemClick="bCopy_ItemClick" />
+                <dxb:BarButtonItem Name="bPaste" CategoryName="Edit" Content="Paste" Glyph="/DockingDemo;component/Images/Icons/paste-16x16.png" KeyGesture="Ctrl+V" ItemClick="bPaste_ItemClick" />
+                <dxb:BarButtonItem Name="bClear" CategoryName="Edit" Content="Clear" ItemClick="bClear_ItemClick" />
+                <dxb:BarButtonItem Name="bSelectAll" CategoryName="Edit" Content="Select All" KeyGesture="Ctrl+A" ItemClick="bSelectAll_ItemClick" />
+                <dxb:BarButtonItem Name="bFind" CategoryName="Edit" Content="Find" Glyph="/DockingDemo;component/Images/Icons/find-16x16.png" KeyGesture="Ctrl+F" ItemClick="bFind_ItemClick" />
+                <dxb:BarButtonItem Name="bReplace" CategoryName="Edit" Content="Replace" Glyph="/DockingDemo;component/Images/Icons/replace-16x16.png" KeyGesture="Ctrl+H" ItemClick="bReplace_ItemClick" />
+
+                <dxb:BarSplitButtonItem Name="bFontColor" CategoryName="Format" Content="Font Color" Glyph="/DockingDemo;component/Images/Icons/font-color-16x16.png" ActAsDropDown="True" Hint="Font Color Dialog">
+                    <dxb:BarSplitButtonItem.PopupControl>
+                        <dxb:PopupControlContainerInfo>
+                            <dx:ThemedUserControl>
+                                <dxe:ColorChooser x:Name="fontColorChooser" ColorChanged="fontColorChooser_ColorChanged" />
+                            </dx:ThemedUserControl>
+                        </dxb:PopupControlContainerInfo>
+                    </dxb:BarSplitButtonItem.PopupControl>
+                </dxb:BarSplitButtonItem>
+                <dxb:BarCheckItem Name="bBullets" CategoryName="Format" Content="Bullets" Glyph="/DockingDemo;component/Images/Icons/bullets-16x16.png" Command="{x:Static EditingCommands.ToggleBullets}" CommandTarget="{Binding ElementName=edit}" />
+
+                <dxb:BarButtonItem Name="bHome" CategoryName="Help" Content="Developer Express on the Web" ItemClick="bHome_ItemClick" />
+                <dxb:BarButtonItem Name="bAbout" CategoryName="Help" Content="About" ItemClick="bAbout_ItemClick" />
+
+
+                <dxb:BarCheckItem Name="bBold" CategoryName="Format" Content="Bold" Glyph="/DockingDemo;component/Images/Icons/bold-16x16.png" Command="{x:Static EditingCommands.ToggleBold}" CommandTarget="{Binding ElementName=edit}" />
+                <dxb:BarCheckItem Name="bItalic" CategoryName="Format" Content="Italic" Glyph="/DockingDemo;component/Images/Icons/italic-16x16.png" Command="{x:Static EditingCommands.ToggleItalic}" CommandTarget="{Binding ElementName=edit}" />
+                <dxb:BarCheckItem Name="bUnderline" CategoryName="Format" Content="Underline" Glyph="/DockingDemo;component/Images/Icons/underline-16x16.png" Command="{x:Static EditingCommands.ToggleUnderline}" CommandTarget="{Binding ElementName=edit}" />
+                <dxb:BarCheckItem Name="bLeft" CategoryName="Format" Content="Left" GroupIndex="1" Glyph="/DockingDemo;component/Images/Icons/left-align-16x16.png" Command="{x:Static EditingCommands.AlignLeft}" CommandTarget="{Binding ElementName=edit}" />
+                <dxb:BarCheckItem Name="bCenter" CategoryName="Format" Content="Center" GroupIndex="1" Glyph="/DockingDemo;component/Images/Icons/center-align-16x16.png" Command="{x:Static EditingCommands.AlignCenter}" CommandTarget="{Binding ElementName=edit}" />
+                <dxb:BarCheckItem Name="bRight" CategoryName="Format" Content="Right" GroupIndex="1" Glyph="/DockingDemo;component/Images/Icons/right-align-16x16.png" Command="{x:Static EditingCommands.AlignRight}" CommandTarget="{Binding ElementName=edit}" />
+
+                <dxb:BarStaticItem Name="bPosInfo" CategoryName="Status" ItemMinWidth="150" />
+                <dxb:BarStaticItem Name="bModified" CategoryName="Status" ItemMinWidth="100" />
+                <dxb:BarStaticItem Name="bFileName" CategoryName="Status" ItemMinWidth="500" AutoSizeMode="Fill" />
+
+                <dxb:BarEditItem Name="eFontFamily" CategoryName="Format" Content="Font:" EditWidth="150" EditValueChanged="eFontFamily_EditValueChanged" ClosePopupOnChangingEditValue="True">
+                    <dxb:BarEditItem.EditSettings>
+                        <dxe:ComboBoxEditSettings x:Name="fontFamilySettings" IsTextEditable="False" PopupMaxHeight="250">
+                            <dxe:ComboBoxEditSettings.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentPresenter Content="{Binding }" TextElement.FontFamily="{Binding }" />
+                                </DataTemplate>
+                            </dxe:ComboBoxEditSettings.ItemTemplate>
+                            <dxe:ComboBoxEditSettings.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </dxe:ComboBoxEditSettings.ItemsPanel>
+                        </dxe:ComboBoxEditSettings>
+                    </dxb:BarEditItem.EditSettings>
+                </dxb:BarEditItem>
+                <dxb:BarEditItem Name="eFontSize" CategoryName="Format" Content="Font Size:" EditWidth="60" EditValueChanged="eFontSize_EditValueChanged">
+                    <dxb:BarEditItem.EditSettings>
+                        <dxe:ComboBoxEditSettings x:Name="fontSizeSettings" PopupMaxHeight="250" IsTextEditable="False">
+                            <dxe:ComboBoxEditSettings.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </dxe:ComboBoxEditSettings.ItemsPanel>
+                        </dxe:ComboBoxEditSettings>
+                    </dxb:BarEditItem.EditSettings>
+                </dxb:BarEditItem>
+
+                <dxb:BarSubItem Name="bsFile" CategoryName="Standard" Content="File">
+                    <dxb:BarSubItem.ItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="bNew" />
+                        <dxb:BarButtonItemLink BarItemName="bOpen" />
+                        <dxb:BarButtonItemLink BarItemName="bClose" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItemLink BarItemName="bSave" />
+                        <dxb:BarButtonItemLink BarItemName="bSaveAs" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItemLink BarItemName="bPrint" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItemLink BarItemName="bExit" />
+                    </dxb:BarSubItem.ItemLinks>
+                </dxb:BarSubItem>
+                <dxb:BarSubItem Name="bsEdit" CategoryName="Standard" Content="Edit">
+                    <dxb:BarSubItem.ItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="bUndo" />
+                        <dxb:BarButtonItemLink BarItemName="bRedo" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItemLink BarItemName="bCut" />
+                        <dxb:BarButtonItemLink BarItemName="bCopy" />
+                        <dxb:BarButtonItemLink BarItemName="bPaste" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItemLink BarItemName="bClear" />
+                        <dxb:BarButtonItemLink BarItemName="bSelectAll" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItemLink BarItemName="bFind" />
+                        <dxb:BarButtonItemLink BarItemName="bReplace" />
+                    </dxb:BarSubItem.ItemLinks>
+                </dxb:BarSubItem>
+                <dxb:BarSubItem Name="bsFormat" CategoryName="Standard" Content="Format">
+                    <dxb:BarSubItem.ItemLinks>
+                        <dxb:BarEditItemLink BarItemName="eFontFamily" />
+                        <dxb:BarSplitButtonItemLink BarItemName="bFontColor" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarCheckItemLink BarItemName="bBullets" />
+                    </dxb:BarSubItem.ItemLinks>
+                </dxb:BarSubItem>
+                <dxb:BarSubItem Name="bsToolBars" CategoryName="Standard" Content="Toolbars">
+                    <dxb:BarSubItem.ItemLinks>
+                        <dxb:ToolbarListItemLink BarItemName="toolbarListItemCore" />
+                    </dxb:BarSubItem.ItemLinks>
+                </dxb:BarSubItem>
+                <dxb:BarSubItem Name="bsHelp" CategoryName="Standard" Content="Help">
+                    <dxb:BarSubItem.ItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="bHome" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItemLink BarItemName="bAbout" />
+                    </dxb:BarSubItem.ItemLinks>
+                </dxb:BarSubItem>
+            </dxb:BarManager.Items>
+            <dxb:BarManager.Bars>
+                <dxb:Bar Caption="MainMenu" x:Name="MainMenu" IsMainMenu="True" UseWholeRow="True">
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" />
+                    </dxb:Bar.DockInfo>
+                    <dxb:Bar.ItemLinks>
+                        <dxb:BarSubItemLink BarItemName="bsFile" />
+                        <dxb:BarSubItemLink BarItemName="bsEdit" />
+                        <dxb:BarSubItemLink BarItemName="bsFormat" />
+                        <dxb:BarSubItemLink BarItemName="bsToolBars" />
+                        <dxb:BarSubItemLink BarItemName="bsHelp" />
+                    </dxb:Bar.ItemLinks>
+                </dxb:Bar>
+                <dxb:Bar Caption="Standard">
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" Row="1" Column="0" />
+                    </dxb:Bar.DockInfo>
+                    <dxb:Bar.ItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="bNew" />
+                        <dxb:BarButtonItemLink BarItemName="bOpen" />
+                        <dxb:BarButtonItemLink BarItemName="bSave" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItemLink BarItemName="bPrint" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItemLink BarItemName="bCut" />
+                        <dxb:BarButtonItemLink BarItemName="bCopy" />
+                        <dxb:BarButtonItemLink BarItemName="bPaste" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarButtonItemLink BarItemName="bUndo" />
+                        <dxb:BarButtonItemLink BarItemName="bRedo" />
+                    </dxb:Bar.ItemLinks>
+                </dxb:Bar>
+                <dxb:Bar Caption="Font">
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" Row="2" Column="1" />
+                    </dxb:Bar.DockInfo>
+                    <dxb:Bar.ItemLinks>
+                        <dxb:BarEditItemLink BarItemName="eFontFamily" />
+                        <dxb:BarEditItemLink BarItemName="eFontSize" />
+                    </dxb:Bar.ItemLinks>
+                </dxb:Bar>
+                <dxb:Bar Caption="Format">
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" Row="2" Column="0" />
+                    </dxb:Bar.DockInfo>
+                    <dxb:Bar.ItemLinks>
+                        <dxb:BarCheckItemLink BarItemName="bBold" />
+                        <dxb:BarCheckItemLink BarItemName="bItalic" />
+                        <dxb:BarCheckItemLink BarItemName="bUnderline" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarCheckItemLink BarItemName="bLeft" />
+                        <dxb:BarCheckItemLink BarItemName="bCenter" />
+                        <dxb:BarCheckItemLink BarItemName="bRight" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarCheckItemLink BarItemName="bBullets" />
+                    </dxb:Bar.ItemLinks>
+                </dxb:Bar>
+                <dxb:Bar Caption="Font">
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" Row="1" Column="2" />
+                    </dxb:Bar.DockInfo>
+                    <dxb:Bar.ItemLinks>
+                        <dxb:BarSplitButtonItemLink BarItemName="bFontColor" />
+                        <dxb:BarItemLinkSeparator />
+                        <dxb:BarSubItemLink BarItemName="bsEdit" />
+                    </dxb:Bar.ItemLinks>
+                </dxb:Bar>
+                <dxb:Bar Caption="Status Bar" IsStatusBar="True" UseWholeRow="True">
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Bottom" />
+                    </dxb:Bar.DockInfo>
+                    <dxb:Bar.ItemLinks>
+                        <dxb:BarStaticItemLink BarItemName="bPosInfo" />
+                        <dxb:BarStaticItemLink BarItemName="bModified" />
+                        <dxb:BarStaticItemLink BarItemName="bFileName" />
+                    </dxb:Bar.ItemLinks>
+                </dxb:Bar>
+            </dxb:BarManager.Bars>
+
+            <dxdo:DockLayoutManager x:Name="dockManager" AllowDocumentSelector="False">
+                <dxdo:LayoutGroup>
+                    <dxdo:LayoutPanel x:Name="noteBooksPanel" Caption="Books" ShowCaption="False" ShowBorder="False" ItemWidth="200" MinWidth="100">
+                        <dxn:NavBarControl Name="noteBooksNavBar" ItemsSource="{Binding}" GroupDescription="Book" AllowSelectDisabledItem="True">
+                            <dxn:NavBarControl.Resources>
+                                <Style TargetType="dxn:NavBarGroup">
+                                    <Setter Property="Header" Value="{Binding}" />
+                                </Style>
+                                <Style TargetType="dxn:NavBarItem">
+                                    <Setter Property="Content" Value="{Binding Caption}" />
+                                </Style>
+                            </dxn:NavBarControl.Resources>
+                            <dxn:NavBarControl.View>
+                                <dxn:NavigationPaneView IsExpandButtonVisible="False" ItemSelected="NotebooksItemSelected" />
+                            </dxn:NavBarControl.View>
+                        </dxn:NavBarControl>
+                    </dxdo:LayoutPanel>
+                    <dxdo:DocumentGroup x:Name="notesContainer" ClosePageButtonShowMode="InAllTabPageHeaders" ShowDropDownButton="False">
+                        <dxdo:DocumentGroup.ControlBoxContent>
+                            <StackPanel Orientation="Horizontal" Margin="0,-1,0,1">
+                                <TextBlock Text="Search:" Margin="0,0,6,0" VerticalAlignment="Center" />
+                                <dxe:TextEdit Padding="-1" Width="140" />
+                            </StackPanel>
+                        </dxdo:DocumentGroup.ControlBoxContent>
+                        <dxdo:DocumentPanel x:Name="newNote" CaptionImage="/DockingDemo;component/Images/Icons/new-16x16.png" AllowClose="False" AllowFloat="False" ToolTip="Create a new section" />
+                    </dxdo:DocumentGroup>
+                </dxdo:LayoutGroup>
+            </dxdo:DockLayoutManager>
+        </dxb:BarManager>
+    </dxdb:DemoModuleControl>
+</local:DockingDemoModule>

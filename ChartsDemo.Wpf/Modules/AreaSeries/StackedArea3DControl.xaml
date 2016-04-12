@@ -1,0 +1,103 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.StackedArea3DControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:ChartsDemo">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Storyboard x:Key="InitialAnimation" TargetProperty="Opacity" TargetName="chart">
+                <DoubleAnimation From="0" To="1" Duration="0:0:2" />
+            </Storyboard>
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <local:ChartsDemoModule.Triggers>
+        <EventTrigger RoutedEvent="local:ChartsDemoModule.ModuleAppear">
+            <EventTrigger.Actions>
+                <BeginStoryboard Storyboard="{StaticResource InitialAnimation}" />
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </local:ChartsDemoModule.Triggers>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="120">
+                <dxe:CheckEdit Name="chbVisible" Content="Show Labels" Unchecked="chbVisible_UnChecked" Checked="chbVisible_Checked" IsChecked="True" />
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                              Opacity="0"
+                              BorderThickness="0"
+                              IsManipulationEnabled="True"
+                              ToolTipEnabled="False">
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram3D ZoomPercent="130">
+                        <dxc:XYDiagram3D.AxisY>
+                            <dxc:AxisY3D>
+                                <dxc:AxisY3D.Title>
+                                    <dxc:AxisTitle Content="Millions of Dollars" />
+                                </dxc:AxisY3D.Title>
+                            </dxc:AxisY3D>
+                        </dxc:XYDiagram3D.AxisY>
+                        <dxc:XYDiagram3D.AxisX>
+                            <dxc:AxisX3D>
+                                <dxc:AxisX3D.WholeRange>
+                                    <dxc:Range SideMarginsValue="0" />
+                                </dxc:AxisX3D.WholeRange>
+                            </dxc:AxisX3D>
+                        </dxc:XYDiagram3D.AxisX>
+                        <dxc:XYDiagram3D.Series>
+                            <dxc:AreaStackedSeries3D x:Name="year1998" DisplayName="1998" LabelsVisibility="True">
+                                <dxc:AreaStackedSeries3D.Label>
+                                    <dxc:SeriesLabel RenderMode="CustomShape" />
+                                </dxc:AreaStackedSeries3D.Label>
+                                <dxc:AreaStackedSeries3D.Points>
+                                    <dxc:SeriesPoint Argument="Illinois" Value="423.721" />
+                                    <dxc:SeriesPoint Argument="Indiana" Value="178.719" />
+                                    <dxc:SeriesPoint Argument="Michigan" Value="308.845" />
+                                    <dxc:SeriesPoint Argument="Ohio" Value="348.555" />
+                                    <dxc:SeriesPoint Argument="Wisconsin" Value="160.274" />
+                                </dxc:AreaStackedSeries3D.Points>
+                            </dxc:AreaStackedSeries3D>
+                            <dxc:AreaStackedSeries3D x:Name="year2001" DisplayName="2001" LabelsVisibility="True">
+                                <dxc:AreaStackedSeries3D.Label>
+                                    <dxc:SeriesLabel RenderMode="CustomShape" />
+                                </dxc:AreaStackedSeries3D.Label>
+                                <dxc:AreaStackedSeries3D.Points>
+                                    <dxc:SeriesPoint Argument="Illinois" Value="476.851" />
+                                    <dxc:SeriesPoint Argument="Indiana" Value="195.769" />
+                                    <dxc:SeriesPoint Argument="Michigan" Value="335.793" />
+                                    <dxc:SeriesPoint Argument="Ohio" Value="374.771" />
+                                    <dxc:SeriesPoint Argument="Wisconsin" Value="182.373" />
+                                </dxc:AreaStackedSeries3D.Points>
+                            </dxc:AreaStackedSeries3D>
+                            <dxc:AreaStackedSeries3D x:Name="year2004" DisplayName="2004" LabelsVisibility="True">
+                                <dxc:AreaStackedSeries3D.Label>
+                                    <dxc:SeriesLabel RenderMode="CustomShape" />
+                                </dxc:AreaStackedSeries3D.Label>
+                                <dxc:AreaStackedSeries3D.Points>
+                                    <dxc:SeriesPoint Argument="Illinois" Value="528.904" />
+                                    <dxc:SeriesPoint Argument="Indiana" Value="227.271" />
+                                    <dxc:SeriesPoint Argument="Michigan" Value="372.576" />
+                                    <dxc:SeriesPoint Argument="Ohio" Value="418.258" />
+                                    <dxc:SeriesPoint Argument="Wisconsin" Value="211.727" />
+                                </dxc:AreaStackedSeries3D.Points>
+                            </dxc:AreaStackedSeries3D>
+                        </dxc:XYDiagram3D.Series>
+                    </dxc:XYDiagram3D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend HorizontalPosition="Right" ReverseItems="True" />
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center">Great Lakes Gross State Product</dxc:Title>
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0">From www.bea.gov</dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

@@ -1,0 +1,101 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.BarSideBySideStacked2DControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:local="clr-namespace:ChartsDemo" Height="498" Width="1039"
+    ModuleAppear="ChartsDemoModule_ModuleAppear">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:DemoValuesProvider x:Key="DemoValuesProvider" />
+            <local:Bar2DKindToBar2DModelConverter x:Key="Bar2DKindToBar2DModelConverter" />
+            <local:Bar2DKindToTickmarksLengthConverter x:Key="Bar2DKindToTickmarksLengthConverter" />
+            <dxmvvm:BooleanNegationConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="120">
+                <dxe:CheckEdit Name="chbVisible" Content="Show Labels" Margin="0,0,0,2" IsChecked="False" />
+                <dx:GroupFrame Header="Group Series by" Margin="0,10,0,10">
+                    <dxe:ListBoxEdit Name="lbGroupBy"
+                                     Background="{x:Null}"
+                                     ShowBorder="False"
+                                     SelectedIndexChanged="lbGroupBy_SelectedIndexChanged"
+                                     SelectedIndex="0">
+                        <dxe:ListBoxEdit.Items>
+                            <system:String>Sex</system:String>
+                            <system:String>Age</system:String>
+                        </dxe:ListBoxEdit.Items>
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Model" Margin="0,2,0,10">
+                    <dxe:ListBoxEdit Name="lbModel"
+                                     Background="{x:Null}"
+                                     ShowBorder="False"
+                                     ItemsSource="{Binding PredefinedBar2DKinds, Source={StaticResource DemoValuesProvider}}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid Background="Transparent">
+            <dxc:ChartControl Name="chart" BorderThickness="0" AnimationMode="OnLoad"
+                              CrosshairEnabled="{Binding ElementName=chbVisible, Path=IsChecked, Converter={StaticResource InvertedBoolConverter}}">
+                <dxc:ChartControl.ToolTipController>
+                    <dxc:ChartToolTipController AutoPopDelay="00:00:00" />
+                </dxc:ChartControl.ToolTipController>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend HorizontalPosition="Right" />
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D BarDistance="0.04" SeriesDataMember="SexAgeKey">
+                        <dxc:XYDiagram2D.DefaultPane>
+                            <dxc:Pane MirrorHeight="100.0"/>
+                        </dxc:XYDiagram2D.DefaultPane>
+                        <dxc:XYDiagram2D.AxisX>
+                            <dxc:AxisX2D TickmarksLength="{Binding ElementName=lbModel, Path=SelectedItem, Converter={StaticResource Bar2DKindToTickmarksLengthConverter}}">
+                                <dxc:AxisX2D.Label>
+                                    <dxc:AxisLabel Staggered="True" />
+                                </dxc:AxisX2D.Label>
+                            </dxc:AxisX2D>
+                        </dxc:XYDiagram2D.AxisX>
+                        <dxc:XYDiagram2D.AxisY>
+                            <dxc:AxisY2D>
+                                <dxc:AxisY2D.Title>
+                                    <dxc:AxisTitle Content="Population, millions" />
+                                </dxc:AxisY2D.Title>
+                            </dxc:AxisY2D>
+                        </dxc:XYDiagram2D.AxisY>
+                        <dxc:XYDiagram2D.SeriesTemplate>
+                            <dxc:BarSideBySideStackedSeries2D AnimationAutoStartMode="SetStartState" CrosshairLabelPattern="{}{S}&#x0a;{V:0.0} million"
+                                                              ArgumentDataMember="Name" ValueDataMember="Population"
+                                                              Model="{Binding ElementName=lbModel, Path=SelectedItem, Converter={StaticResource Bar2DKindToBar2DModelConverter}}">
+                                <dxc:BarSideBySideStackedSeries2D.Label>
+                                    <dxc:SeriesLabel ResolveOverlappingMode="Default" Visible="{Binding ElementName=chbVisible, Path=IsChecked}" />
+                                </dxc:BarSideBySideStackedSeries2D.Label>
+                            </dxc:BarSideBySideStackedSeries2D>
+                        </dxc:XYDiagram2D.SeriesTemplate>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center">Population: Age Structure</dxc:Title>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center" FontSize="16">Data estimate for mid-2000</dxc:Title>
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0">From www.geohive.com</dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

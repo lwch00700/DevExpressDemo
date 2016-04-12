@@ -1,0 +1,59 @@
+﻿<local:SchedulerDemoModule x:Class="SchedulerDemo.ObjectDataProvider" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+    xmlns:local="clr-namespace:SchedulerDemo"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase">
+    <dxdb:DemoModuleControl>
+        <Grid>
+            <dxsch:SchedulerControl x:Name="scheduler" ActiveViewType="Day" VerticalAlignment="Stretch" SnapsToDevicePixels="False" GroupType="Resource">
+                <dxsch:SchedulerControl.FullWeekView>
+                    <dxsch:FullWeekView Enabled="True"/>
+                </dxsch:SchedulerControl.FullWeekView>
+                <dxsch:SchedulerControl.WeekView>
+                    <dxsch:WeekView Enabled="False"/>
+                </dxsch:SchedulerControl.WeekView>
+                <dxsch:SchedulerControl.Storage>
+                    <dxsch:SchedulerStorage>
+                        <dxsch:SchedulerStorage.ResourceStorage>
+                            <dxsch:ResourceStorage>
+                                <dxsch:ResourceStorage.Mappings>
+                                    <dxsch:ResourceMapping Caption="Caption" Id="Id" />
+                                </dxsch:ResourceStorage.Mappings>
+                                <dxsch:ResourceStorage.DataSource>
+                                    <ObjectDataProvider ObjectType="{x:Type local:CustomResourceProvider}" MethodName="GetCustomResources" />
+                                </dxsch:ResourceStorage.DataSource>
+
+
+                            </dxsch:ResourceStorage>
+                        </dxsch:SchedulerStorage.ResourceStorage>
+                        <dxsch:SchedulerStorage.AppointmentStorage>
+                            <dxsch:AppointmentStorage>
+                                <dxsch:AppointmentStorage.Mappings>
+                                    <dxsch:AppointmentMapping Start="StartTime"
+                                    End="EndTime"
+                                    AllDay="AllDay"
+                                    Description="Description"
+                                    Label="Label"
+                                    Location="Location"
+                                    Subject="Subject"
+                                    RecurrenceInfo="RecurrenceInfo"
+                                    ReminderInfo="ReminderInfo"
+                                    ResourceId="OwnerId"
+                                    Status="Status"
+                                    Type="EventType" />
+                                </dxsch:AppointmentStorage.Mappings>
+                                <dxsch:AppointmentStorage.DataSource>
+                                    <ObjectDataProvider ObjectType="{x:Type local:CustomEventProvider}" MethodName="GetCustomEvents" />
+                                </dxsch:AppointmentStorage.DataSource>
+                            </dxsch:AppointmentStorage>
+                        </dxsch:SchedulerStorage.AppointmentStorage>
+                    </dxsch:SchedulerStorage>
+                </dxsch:SchedulerControl.Storage>
+            </dxsch:SchedulerControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:SchedulerDemoModule>

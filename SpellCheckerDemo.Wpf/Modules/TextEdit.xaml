@@ -1,0 +1,34 @@
+﻿<local:SpellCheckerDemoModule x:Class="SpellCheckerDemo.TextEdit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:local="clr-namespace:SpellCheckerDemo"
+             xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+             xmlns:dxsc="clr-namespace:DevExpress.Xpf.SpellChecker;assembly=DevExpress.Xpf.SpellChecker.v15.2"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors">
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel>
+                <dxe:CheckEdit x:Name="editCheckAsYouType" Content="CheckAsYouType Mode" EditValueChanged="editCheckAsYouType_EditValueChanged" EditValue="True" />
+                <Button Content="Check Spelling" Margin="10" Padding="10,5,10,5" Click="Button_Click" dx:StyleManager.ApplyApplicationTheme="True" />
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxe:TextEdit x:Name="textEdit" SelectAllOnGotFocus="False" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" Text="Strickland Xtra Co. (www.stricklandfire.somecompany.com) is an independent business unit of Strickland Corporation, a leading versatile accessories supplier in ArlenHill, Texas.&#x0a;
+We are currently in the process of designing an information systenm tosupport placing and billing ordres.&#x0a;
+We are contrcting indeoendent software wendors, amnd slecting the basic set of programming controls required to support our framework. There are several promenet vendors in the software compnents markeplace from which we will select a component suite to meet our demands.&#x0a;
+The the spellchecking capabiltis are of our top priorietes since we baddly need them.&#x0a;
+&#x0a;
+Our requirements  are asfollows:&#x0a;
+&#x0a;
+The phonetic suggestion algorithm shuld be used thaT takes into account the pronunciation of a word. wE ARE AWARE that the SpellChecker component utilizes the implementation of the Double Metaphone search algorithm.  It can be brifly described as it implements two phonetic codes (primary and secondary) that are calculated for each word. The calculation rules are different for different languages. and are bazed on the set of pronunciation rules for that lagnuage.&#x0a;
+&#x0a;
+Then, the phonetic strategy compares the phonetic code of the misspelled word to all the words in the word list. If the phonetic codes match, then the word is added to the suggestion list.&#x0a;
+&#x0a;
+Please imform us whether your suite can meet our high standarts.&#x0a;
+&#x0a;
+Sincerely yours,&#x0a;
+Nathan M. Boyes, CIO" Margin="10" dxsc:SpellingSettings.CheckAsYouType="True" dxsc:SpellingSettings.SpellChecker="{Binding}" dxsc:SpellingSettings.ShowSpellCheckMenu="True" Loaded="textEdit_Loaded" />
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:SpellCheckerDemoModule>

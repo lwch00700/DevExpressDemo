@@ -1,0 +1,200 @@
+﻿<local:EditorsDemoModule x:Class="EditorsDemo.ImageEditModule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:EditorsDemo"
+ xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:utils="clr-namespace:EditorsDemo.Utils"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors">
+    <local:EditorsDemoModule.Resources>
+        <Style TargetType="dxe:ImageEdit">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="ShowMenu" Value="{Binding Path=IsChecked, ElementName=chkShowMenu}" />
+            <Setter Property="Stretch" Value="{Binding Path=EditValue, ElementName=cmbStretch}" />
+            <Setter Property="ShowLoadDialogOnClickMode" Value="{Binding Path=EditValue, ElementName=cmbLoadDialogMode}" />
+        </Style>
+    </local:EditorsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Width="250">
+                <dx:GroupFrame Header="Properties">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <dxe:CheckEdit x:Name="chkShowMenu" Content="Show menu" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,4" IsChecked="True" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Stretch:" VerticalAlignment="Center" Margin="0,0,6,4" />
+                        <dxe:ComboBoxEdit x:Name="cmbStretch" Grid.Row="1" Grid.Column="1" IsTextEditable="False" Margin="0,0,0,4" SelectedIndex="0" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Load image on click:" VerticalAlignment="Center" Margin="0,0,6,4" />
+                        <dxe:ComboBoxEdit x:Name="cmbLoadDialogMode" Grid.Row="2" Grid.Column="1" IsTextEditable="False" Margin="0,0,0,4" SelectedIndex="0" />
+                    </Grid>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <RenderOptions.BitmapScalingMode>HighQuality</RenderOptions.BitmapScalingMode>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Image Source="{Binding Path=Source, ElementName=popupImageEdit}" Stretch="Fill" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.1*" />
+                            <RowDefinition Height="0.8*" />
+                            <RowDefinition Height="0.1*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.05*" />
+                            <ColumnDefinition Width="0.9*" />
+                            <ColumnDefinition Width="0.05*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.20*" />
+                                <RowDefinition Height="0.05*" />
+                                <RowDefinition Height="0.30*" />
+                                <RowDefinition Height="0.05*" />
+                                <RowDefinition Height="0.4*" />
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.05*" />
+                                    <ColumnDefinition Width="0.9*" />
+                                    <ColumnDefinition Width="0.05*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.45*" />
+                                        <ColumnDefinition Width="0.1*" />
+                                        <ColumnDefinition Width="0.45*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.45*" />
+                                            <ColumnDefinition Width="0.1*" />
+                                            <ColumnDefinition Width="0.45*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.49*" />
+                                                <ColumnDefinition Width="0.02*" />
+                                                <ColumnDefinition Width="0.49*" />
+                                            </Grid.ColumnDefinitions>
+                                            <dxe:ImageEdit Source="../Images/Persons/w22.jpg" HorizontalAlignment="Center" />
+                                            <dxe:ImageEdit Grid.Column="2" Source="../Images/Persons/m13.jpg" HorizontalAlignment="Center" />
+                                        </Grid>
+                                        <Grid Grid.Column="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.49*" />
+                                                <ColumnDefinition Width="0.02*" />
+                                                <ColumnDefinition Width="0.49*" />
+                                            </Grid.ColumnDefinitions>
+                                            <dxe:ImageEdit Source="../Images/Persons/w16.jpg" HorizontalAlignment="Center" />
+                                            <dxe:ImageEdit Grid.Column="2" Source="../Images/Persons/m24.jpg" HorizontalAlignment="Center" />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.45*" />
+                                            <ColumnDefinition Width="0.1*" />
+                                            <ColumnDefinition Width="0.45*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.49*" />
+                                                <ColumnDefinition Width="0.02*" />
+                                                <ColumnDefinition Width="0.49*" />
+                                            </Grid.ColumnDefinitions>
+                                            <dxe:ImageEdit Source="../Images/Persons/m03.jpg" HorizontalAlignment="Center" />
+                                            <dxe:ImageEdit Grid.Column="2" Source="../Images/Persons/w30.jpg" HorizontalAlignment="Center" />
+                                        </Grid>
+                                        <Grid Grid.Column="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.49*" />
+                                                <ColumnDefinition Width="0.02*" />
+                                                <ColumnDefinition Width="0.49*" />
+                                            </Grid.ColumnDefinitions>
+                                            <dxe:ImageEdit Source="../Images/Persons/m02.jpg" HorizontalAlignment="Center" />
+                                            <dxe:ImageEdit Grid.Column="2" Source="../Images/Persons/w29.jpg" HorizontalAlignment="Center" />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.1*" />
+                                    <ColumnDefinition Width="0.8*" />
+                                    <ColumnDefinition Width="0.1*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.45*" />
+                                        <ColumnDefinition Width="0.1*" />
+                                        <ColumnDefinition Width="0.45*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.49*" />
+                                            <ColumnDefinition Width="0.02*" />
+                                            <ColumnDefinition Width="0.49*" />
+                                        </Grid.ColumnDefinitions>
+                                        <dxe:ImageEdit Source="../Images/Persons/w26.jpg" HorizontalAlignment="Center" />
+                                        <dxe:ImageEdit Grid.Column="2" Source="../Images/Persons/m19.jpg" HorizontalAlignment="Center" />
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.49*" />
+                                            <ColumnDefinition Width="0.02*" />
+                                            <ColumnDefinition Width="0.49*" />
+                                        </Grid.ColumnDefinitions>
+                                        <dxe:ImageEdit Source="../Images/Persons/m18.jpg" HorizontalAlignment="Center" />
+                                        <dxe:ImageEdit Grid.Column="2" Source="../Images/Persons/w03.jpg" HorizontalAlignment="Center" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*" />
+                                    <ColumnDefinition Width="0.6*" />
+                                    <ColumnDefinition Width="0.2*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.49*" />
+                                        <ColumnDefinition Width="0.02*" />
+                                        <ColumnDefinition Width="0.49*" />
+                                    </Grid.ColumnDefinitions>
+                                    <dxe:ImageEdit Source="../Images/Persons/w09.jpg" HorizontalAlignment="Center" />
+                                    <dxe:ImageEdit Grid.Column="2" Source="../Images/Persons/m25.jpg" HorizontalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="12">
+                    <TextBlock Text="Background tree: " VerticalAlignment="Center" />
+                    <dxe:PopupImageEdit
+                        Name="popupImageEdit"
+                        VerticalAlignment="Center"
+                        Width="300"
+                        PopupMaxHeight="600"
+                        PopupMaxWidth="800"
+                        ShowMenu="{Binding Path=IsChecked, ElementName=chkShowMenu}"
+                        Source="../Images/Icons/Tree.png" Stretch="{Binding Path=EditValue, ElementName=cmbStretch}"
+                        ShowLoadDialogOnClickMode="{Binding Path=EditValue, ElementName=cmbLoadDialogMode}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:EditorsDemoModule>

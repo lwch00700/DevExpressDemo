@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <Thickness x:Key="GroupMargin">0,10,0,0</Thickness>
+    <Thickness x:Key="ElementMargin">0,4,0,0</Thickness>
+    <Thickness x:Key="ListMargin">0,0,30,0</Thickness>
+    <Thickness x:Key="TextMargin">0,0,8,0</Thickness>
+    <sys:Double x:Key="GroupIndent">10.0</sys:Double>
+    <sys:Double x:Key="ElementIndent">4.0</sys:Double>
+
+
+</ResourceDictionary>

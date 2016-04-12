@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<GSPs>
+  <GSP>
+    <Region>New England</Region>
+    <Year>2000</Year>
+    <Product>0.568212</Product>
+  </GSP>
+  <GSP>
+    <Region>New England</Region>
+    <Year>2001</Year>
+    <Product>0.584487</Product>
+  </GSP>
+  <GSP>
+    <Region>New England</Region>
+    <Year>2002</Year>
+    <Product>0.596017</Product>
+  </GSP>
+  <GSP>
+    <Region>New England</Region>
+    <Year>2003</Year>
+    <Product>0.620136</Product>
+  </GSP>
+  <GSP>
+    <Region>New England</Region>
+    <Year>2004</Year>
+    <Product>0.664181</Product>
+  </GSP>
+  <GSP>
+    <Region>Mideast</Region>
+    <Year>2000</Year>
+    <Product>1.785625</Product>
+  </GSP>
+  <GSP>
+    <Region>Mideast</Region>
+    <Year>2001</Year>
+    <Product>1.868057</Product>
+  </GSP>
+  <GSP>
+    <Region>Mideast</Region>
+    <Year>2002</Year>
+    <Product>1.922516</Product>
+  </GSP>
+  <GSP>
+    <Region>Mideast</Region>
+    <Year>2003</Year>
+    <Product>2.010011</Product>
+  </GSP>
+  <GSP>
+    <Region>Mideast</Region>
+    <Year>2004</Year>
+    <Product>2.140662</Product>
+  </GSP>
+  <GSP>
+    <Region>Great Lakes</Region>
+    <Year>2000</Year>
+    <Product>1.543596</Product>
+  </GSP>
+  <GSP>
+    <Region>Great Lakes</Region>
+    <Year>2001</Year>
+    <Product>1.565557</Product>
+  </GSP>
+  <GSP>
+    <Region>Great Lakes</Region>
+    <Year>2002</Year>
+    <Product>1.611658</Product>
+  </GSP>
+  <GSP>
+    <Region>Great Lakes</Region>
+    <Year>2003</Year>
+    <Product>1.669527</Product>
+  </GSP>
+  <GSP>
+    <Region>Great Lakes</Region>
+    <Year>2004</Year>
+    <Product>1.758915</Product>
+  </GSP>
+  <GSP>
+    <Region>Plains</Region>
+    <Year>2000</Year>
+    <Product>0.633151</Product>
+  </GSP>
+  <GSP>
+    <Region>Plains</Region>
+    <Year>2001</Year>
+    <Product>0.653388</Product>
+  </GSP>
+  <GSP>
+    <Region>Plains</Region>
+    <Year>2002</Year>
+    <Product>0.680449</Product>
+  </GSP>
+  <GSP>
+    <Region>Plains</Region>
+    <Year>2003</Year>
+    <Product>0.714007</Product>
+  </GSP>
+  <GSP>
+    <Region>Plains</Region>
+    <Year>2004</Year>
+    <Product>0.763082</Product>
+  </GSP>
+  <GSP>
+    <Region>Southeast</Region>
+    <Year>2000</Year>
+    <Product>2.116572</Product>
+  </GSP>
+  <GSP>
+    <Region>Southeast</Region>
+    <Year>2001</Year>
+    <Product>2.209061</Product>
+  </GSP>
+  <GSP>
+    <Region>Southeast</Region>
+    <Year>2002</Year>
+    <Product>2.298332</Product>
+  </GSP>
+  <GSP>
+    <Region>Southeast</Region>
+    <Year>2003</Year>
+    <Product>2.422079</Product>
+  </GSP>
+  <GSP>
+    <Region>Southeast</Region>
+    <Year>2004</Year>
+    <Product>2.581437</Product>
+  </GSP>
+  <GSP>
+    <Region>Southwest</Region>
+    <Year>2000</Year>
+    <Product>1.020741</Product>
+  </GSP>
+  <GSP>
+    <Region>Southwest</Region>
+    <Year>2001</Year>
+    <Product>1.059186</Product>
+  </GSP>
+  <GSP>
+    <Region>Southwest</Region>
+    <Year>2002</Year>
+    <Product>1.097268</Product>
+  </GSP>
+  <GSP>
+    <Region>Southwest</Region>
+    <Year>2003</Year>
+    <Product>1.16346</Product>
+  </GSP>
+  <GSP>
+    <Region>Southwest</Region>
+    <Year>2004</Year>
+    <Product>1.248772</Product>
+  </GSP>
+  <GSP>
+    <Region>Rocky Mountain</Region>
+    <Year>2000</Year>
+    <Product>0.313252</Product>
+  </GSP>
+  <GSP>
+    <Region>Rocky Mountain</Region>
+    <Year>2001</Year>
+    <Product>0.326361</Product>
+  </GSP>
+  <GSP>
+    <Region>Rocky Mountain</Region>
+    <Year>2002</Year>
+    <Product>0.337408</Product>
+  </GSP>
+  <GSP>
+    <Region>Rocky Mountain</Region>
+    <Year>2003</Year>
+    <Product>0.353292</Product>
+  </GSP>
+  <GSP>
+    <Region>Rocky Mountain</Region>
+    <Year>2004</Year>
+    <Product>0.377666</Product>
+  </GSP>
+  <GSP>
+    <Region>Far West</Region>
+    <Year>2000</Year>
+    <Product>1.767955</Product>
+  </GSP>
+  <GSP>
+    <Region>Far West</Region>
+    <Year>2001</Year>
+    <Product>1.792059</Product>
+  </GSP>
+  <GSP>
+    <Region>Far West</Region>
+    <Year>2002</Year>
+    <Product>1.868597</Product>
+  </GSP>
+  <GSP>
+    <Region>Far West</Region>
+    <Year>2003</Year>
+    <Product>1.971337</Product>
+  </GSP>
+  <GSP>
+    <Region>Far West</Region>
+    <Year>2004</Year>
+    <Product>2.115111</Product>
+  </GSP>
+</GSPs>

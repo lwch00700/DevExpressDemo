@@ -1,0 +1,126 @@
+﻿<local:PivotGridDemoModule x:Class="PivotGridDemo.PivotGrid.PrintTemplates"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:PivotGridDemo.PivotGrid"
+    xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"
+    xmlns:dxpgp="clr-namespace:DevExpress.Xpf.PivotGrid.Printing;assembly=DevExpress.Xpf.PivotGrid.v15.2"
+                               xmlns:dxpgi="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid/internal"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxp="http://schemas.devexpress.com/winfx/2008/xaml/printing"
+xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase">
+    <local:PivotGridDemoModule.Resources>
+        <ResourceDictionary>
+            <local:MoonPhaseImageConverter x:Key="MoonPhaseImageConverter" />
+            <DataTemplate x:Key="cellTemplate">
+                <dxe:TextEdit x:Name="Editor" IsPrintingMode="True"
+                   Padding="4,2"
+                       EditValue="{Binding Path=DisplayText, Mode=OneWay}"
+                       BorderThickness="{Binding Path=Border}"
+                       HorizontalContentAlignment="{Binding HorizontalContentAlignment}"
+                       BorderBrush="#C6D7ED"
+                       dxp:TextExportSettings.Text="{Binding DisplayText, Mode=OneWay}"
+                       dxp:TextExportSettings.TextValue="{Binding Value, Mode=OneWay}"
+                       dxp:TextExportSettings.TextValueFormatString="{Binding ValueFormat, Mode=OneWay}"
+                       dxp:TextExportSettings.XlsExportNativeFormat="{Binding UseNativeFormat, Mode=OneWay}"
+                       />
+            </DataTemplate>
+            <DataTemplate x:Key="cellTotalTemplate">
+                <dxe:TextEdit x:Name="Editor" IsPrintingMode="True"
+                   Padding="4,2"
+                       EditValue="{Binding Path=DisplayText, Mode=OneWay}"
+                       BorderThickness="{Binding Path=Border}"
+                       HorizontalContentAlignment="{Binding HorizontalContentAlignment}"
+                       BorderBrush="#C6D7ED"
+                       Background="#F4F8FE"
+                       dxp:TextExportSettings.Text="{Binding DisplayText, Mode=OneWay}"
+                       dxp:TextExportSettings.TextValue="{Binding Value, Mode=OneWay}"
+                       dxp:TextExportSettings.TextValueFormatString="{Binding ValueFormat, Mode=OneWay}"
+                       dxp:TextExportSettings.XlsExportNativeFormat="{Binding UseNativeFormat, Mode=OneWay}"
+                       />
+            </DataTemplate>
+            <local:CellTemplateSelector x:Key="cellTemplateSelector" CellTemplate="{StaticResource cellTemplate}" CellTotalTemplate="{StaticResource cellTotalTemplate}" />
+            <DataTemplate x:Key="valueTemplate">
+                <dxe:TextEdit x:Name="Editor" IsPrintingMode="True"
+                   Padding="4,2"
+                       EditValue="{Binding Path=DisplayText, Mode=OneWay}"
+                       BorderThickness="{Binding Path=Border}"
+                       BorderBrush="#C6D7ED"
+                       Background="#EFF5FE"
+                       />
+            </DataTemplate>
+            <DataTemplate x:Key="valueTotalTemplate">
+                <dxe:TextEdit x:Name="Editor" IsPrintingMode="True"
+                   Padding="4,2"
+                       EditValue="{Binding Path=DisplayText, Mode=OneWay}"
+                       BorderThickness="{Binding Path=Border}"
+                       BorderBrush="#C6D7ED"
+                       Background="#DCEAFB"
+                       />
+            </DataTemplate>
+            <local:FieldValueTemplateSelector x:Key="fieldValueTemplateSelector" ValueTemplate="{StaticResource valueTemplate}" ValueTotalTemplate="{StaticResource valueTotalTemplate}" />
+            <DataTemplate x:Key="headerTemplate">
+                <dxe:TextEdit x:Name="TextBlock" IsPrintingMode="True"
+                   EditValue="{Binding DisplayText, Mode=OneWay}"
+                   BorderThickness="{Binding BorderThickness}" Padding="{Binding Padding}"
+                   Background="#E0EDFF"
+                   BorderBrush="#ADC9FF"
+                   dxp:TextExportSettings.XlsExportNativeFormat="False"
+                   />
+            </DataTemplate>
+            <DataTemplate x:Key="MoonPhaseTemplate" DataType="{x:Type dxpgi:FieldValueItem}">
+                <Border>
+                    <Image Source="{Binding Converter={StaticResource MoonPhaseImageConverter}}" />
+                </Border>
+            </DataTemplate>
+            <DataTemplate x:Key="MoonPhaseExportTemplate">
+                <Border BorderThickness="{Binding Border}" HorizontalAlignment="Stretch"
+                        BorderBrush="#808080"
+                        dxp:ExportSettings.TargetType="Panel"
+                        dxp:ExportSettings.BorderThickness="{Binding Border}"
+                        dxp:ExportSettings.BorderColor="#808080">
+                    <Image dxp:ExportSettings.TargetType="Image" dxp:ExportSettings.BorderThickness="0" Source="{Binding Converter={StaticResource MoonPhaseImageConverter}}" />
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </local:PivotGridDemoModule.Resources>
+
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical">
+                <dx:GroupFrame Header="Templates" Margin="0,0,0,12">
+                    <dxe:ListBoxEdit x:Name="templatesList" ShowBorder="False" SelectedIndex="0" Background="{x:Null}" SelectedIndexChanged="templatesList_SelectedIndexChanged">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                        <dxe:ListBoxEdit.Items>
+                            <TextBlock Text="Default" />
+                            <TextBlock Text="Moon Phase" />
+                            <TextBlock Text="Custom Print Theme" />
+                        </dxe:ListBoxEdit.Items>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <Button Content="Print Preview" Click="Button_Click" Height="22" />
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+
+        <dxpg:PivotGridControl x:Name="pivotGrid" local:FieldAreaHelper.FixAreas="True" RowTreeWidth="135"
+                          CustomGroupInterval="pivotGrid_CustomGroupInterval" AllowDragInCustomizationForm="False" AllowDrag="False"
+                               PrintFieldCellTemplateSelector="{StaticResource cellTemplateSelector}"
+                            PrintFieldValueTemplateSelector="{StaticResource fieldValueTemplateSelector}"
+                          ShowBorder="False">
+            <dxpg:PivotGridControl.Fields>
+                <dxpg:PivotGridField x:Name="fieldCategory" FieldName="CategoryName" Area="RowArea" Width="100" Caption="Category Name" />
+                <dxpg:PivotGridField x:Name="fieldMoonPhase" FieldName="ShippedDate" Area="ColumnArea" GroupInterval="Custom" Caption="Moon Phase"
+                                 Width="80" Height="52" ValueTemplate="{StaticResource MoonPhaseTemplate}"
+                                 PrintValueTemplate="{StaticResource MoonPhaseExportTemplate}" Visible="False" />
+                <dxpg:PivotGridField x:Name="fieldYear" FieldName="ShippedDate" Area="ColumnArea" GroupInterval="DateYear" Caption="Year"
+                                 Width="80" />
+                <dxpg:PivotGridField x:Name="fieldQuarter" FieldName="ShippedDate" Area="ColumnArea" GroupInterval="DateQuarter" Caption="Quarter"
+                                 Width="80" ValueFormat="Quarter {0}" />
+                <dxpg:PivotGridField x:Name="fieldSales" FieldName="ProductSales" Area="DataArea" Width="100" Caption="Sales" />
+            </dxpg:PivotGridControl.Fields>
+        </dxpg:PivotGridControl>
+    </dxdb:DemoModuleControl>
+</local:PivotGridDemoModule>

@@ -1,0 +1,83 @@
+﻿<local:GridDemoModule x:Class="GridDemo.CardView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:GridDemo"
+    xmlns:dxdemo="clr-namespace:GridDemo"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="800">
+    <local:GridDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/GridDemo;component/Themes/generic.xaml" />
+                <ResourceDictionary Source="/GridDemo;component/ModuleResources/CardViewTemplates.xaml" />
+                <ResourceDictionary Source="/GridDemo;component/ModuleResources/CardViewPrintingTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:DemoValuesProvider x:Key="DemoValuesProvider" />
+        </ResourceDictionary>
+    </local:GridDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <ContentControl>
+                <StackPanel Orientation="Vertical">
+                    <dx:GroupFrame Header="Scroll Mode" Margin="0,0,0,12">
+                        <dxe:ComboBoxEdit ItemsSource="{dxe:EnumItemsSource EnumType=dxg:ScrollMode}" IsTextEditable="False" EditValue="{Binding Path=View.ScrollMode, Mode=TwoWay}" />
+                    </dx:GroupFrame>
+                    <dx:GroupFrame Header="Appearance" Margin="0,0,0,12">
+                        <StackPanel>
+                            <Label Margin="0,0,0,0" Content="Layout:" />
+                            <dxe:ComboBoxEdit Margin="0,4,0,0" EditValueChanged="ComboBoxEdit_EditValueChanged" ItemsSource="{Binding CardLayouts, Source={StaticResource DemoValuesProvider}}" IsTextEditable="False" SelectedItem="{Binding Path=View.CardLayout, Mode=TwoWay}" />
+                            <Label Margin="0,8,0,0" Content="Alignment:" />
+                            <dxe:ComboBoxEdit Margin="0,0,0,0" ItemsSource="{Binding Alignments, Source={StaticResource DemoValuesProvider}}" IsTextEditable="False" SelectedItem="{Binding Path=View.CardAlignment, Mode=TwoWay}" />
+                        </StackPanel>
+                    </dx:GroupFrame>
+                    <dx:GroupFrame Header="Column/Row Size" Margin="0,0,0,12">
+                        <StackPanel>
+                            <dxe:CheckEdit Content="Allow Resizing" IsChecked="{Binding Path=View.AllowCardResizing}" Margin="0,0,0,4" />
+                            <dxdb:SliderControl Header="Fixed Size" EditValue="{Binding Path=View.FixedSize, Mode=TwoWay}" Minimum="{Binding Path=View.MinFixedSize}" Maximum="500" ValueMinWidth="20" SmallStep="10" Width="150" />
+                        </StackPanel>
+                    </dx:GroupFrame>
+                    <dx:GroupFrame Header="Cards in a Row" Margin="0,0,0,12">
+                        <StackPanel Orientation="Vertical">
+                            <RadioButton Margin="0,0,0,4" Name="maxCardCountInRowNoLimitRadioButton" Content="Unlimited" IsChecked="True" Checked="maxCardCountInRowNoLimitRadioButton_Checked" />
+                            <RadioButton Margin="0,0,0,12" Name="maxCardCountInRowValueRadioButton" Content="Maximum Value:" Checked="maxCardCountInRowValueRadioButton_Checked" />
+                            <dxe:SpinEdit x:Name="maxCardCountInRowSpinEdit" EditValue="1" MinValue="1" MaxValue="10" Width="150" IsEnabled="False" EditValueChanged="maxCardCountInRowSpinEdit_EditValueChanged" />
+                        </StackPanel>
+                    </dx:GroupFrame>
+                    <dx:GroupFrame Header="Navigation Style" Margin="0,0,0,12">
+                        <dxe:ListBoxEdit Background="{x:Null}" Margin="0,0,30,0" ShowBorder="False" x:Name="NavigationStyleComboBox"
+                                         ItemsSource="{Binding NavigationStyles, Source={StaticResource DemoValuesProvider}}" SelectedIndex="0"
+                                         SelectedItem="{Binding Path=View.NavigationStyle}" ItemTemplate="{StaticResource navigationStyleTemplate}">
+                            <dxe:ListBoxEdit.StyleSettings>
+                                <dxe:RadioListBoxEditStyleSettings />
+                            </dxe:ListBoxEdit.StyleSettings>
+                        </dxe:ListBoxEdit>
+                    </dx:GroupFrame>
+                </StackPanel>
+            </ContentControl>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxg:GridControl Name="grid">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="Category" />
+                <dxg:GridColumn FieldName="Trademark" />
+                <dxg:GridColumn FieldName="Model" />
+                <dxg:GridColumn FieldName="Icon" AllowColumnFiltering="False" CellTemplate="{StaticResource iconTemplate}" />
+                <dxg:GridColumn FieldName="Price">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings DisplayFormat="$0" MaskType="Numeric" />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Cyl" />
+                <dxg:GridColumn FieldName="Description" AllowGrouping="False" MinWidth="100" EditSettings="{dxe:MemoSettings ShowIcon=False, PopupWidth=500, PopupHeight=300, MemoTextWrapping=Wrap, MemoVerticalScrollBarVisibility=Auto}" />
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:CardView AllowEditing="True" ShowGroupedColumns="True" NavigationStyle="Cell" FixedSize="250" MinFixedSize="150" Name="view" CardHeaderBinding="{Binding Path=Data.Model, RelativeSource={RelativeSource Self}}" PrintAutoCardWidth="True" PrintMaximumCardColumns="2" PrintCardTemplate="{StaticResource CardView_PrintCardTemplate}" PrintCardHeaderTemplate="{StaticResource PrintCardHeaderTemplate}"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </dxdb:DemoModuleControl>
+</local:GridDemoModule>

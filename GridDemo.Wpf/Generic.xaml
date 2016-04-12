@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:local="clr-namespace:GridDemo">
+	<ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/DevExpress.Xpf.DemoBase.v15.2;component/Themes/Generic.xaml" /> <!--do not replace it with DemoBaseResourceExtension-->
+        <ResourceDictionary Source="/GridDemo;component/Controls/ControlStyles/SharedTemplates.xaml" />
+        <ResourceDictionary Source="/GridDemo;component/Controls/ControlStyles/Panel.xaml" />
+		<ResourceDictionary Source="/GridDemo;component/Controls/ControlStyles/InplaceProgressBar.xaml" />
+        <ResourceDictionary Source="/GridDemo;component/Controls/ControlStyles/DemoColumnChooserControl.xaml" />
+        <ResourceDictionary Source="/GridDemo;component/Controls/ControlStyles/NameTextControl.xaml" />
+        <ResourceDictionary Source="/GridDemo;component/Controls/ControlStyles/HintControl.xaml" />
+        <ResourceDictionary Source="/GridDemo;component/Controls/ControlStyles/SummaryComboBox.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

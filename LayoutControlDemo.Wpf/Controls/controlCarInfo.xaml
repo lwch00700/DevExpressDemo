@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="DevExpress.Xpf.LayoutControlDemo.controlCarInfo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+    >
+    <UserControl.Resources>
+        <Style x:Key="NameStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+        <Style x:Key="InfoHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+        <Style x:Key="InfoValueStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+    </UserControl.Resources>
+
+    <Border x:Name="LayoutRoot" CornerRadius="3">
+        <Border.Background>
+            <LinearGradientBrush EndPoint="1,0" Opacity="0.9">
+                <GradientStop Offset="0" Color="LightSkyBlue" />
+                <GradientStop Offset="0.5" Color="LightCyan" />
+                <GradientStop Offset="1" Color="DeepSkyBlue" />
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <dxlc:FlowLayoutControl x:Name="layoutBase" ItemSpace="3" ScrollBars="None">
+            <TextBlock Text="{Binding Name}" Style="{StaticResource NameStyle}" />
+            <Image Source="{Binding Image}" Width="180" />
+            <TextBlock Text="Engine:" Style="{StaticResource InfoHeaderStyle}" Tag="DetailInfo" />
+            <TextBlock Text="{Binding Engine}" Style="{StaticResource InfoValueStyle}" Tag="DetailInfo" />
+            <TextBlock Text="Power:" Style="{StaticResource InfoHeaderStyle}" Tag="DetailInfo" />
+            <TextBlock Text="{Binding Power}" Style="{StaticResource InfoValueStyle}" Tag="DetailInfo" />
+            <TextBlock Text="Torque:" Style="{StaticResource InfoHeaderStyle}" Tag="DetailInfo" />
+            <TextBlock Text="{Binding Torque}" Style="{StaticResource InfoValueStyle}" Tag="DetailInfo" />
+        </dxlc:FlowLayoutControl>
+    </Border>
+</UserControl>

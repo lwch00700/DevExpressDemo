@@ -1,0 +1,66 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.SeriesTitlesControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:ChartsDemo"
+    ModuleAppear="ChartsDemoModule_ModuleAppear">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                              CustomDrawSeriesPoint="Chart_CustomDrawSeriesPoint"
+                              BorderThickness="0"
+                              AnimationMode="OnLoad"
+                              ToolTipEnabled="False">
+                <dxc:ChartControl.Diagram>
+                    <dxc:SimpleDiagram2D>
+                        <dxc:SimpleDiagram2D.Series>
+                            <dxc:PieSeries2D DisplayName="GSP in 2002" ArgumentDataMember="Region" ValueDataMember="Product" AnimationAutoStartMode="SetStartState" LegendTextPattern="{}{A}">
+                                <dxc:PieSeries2D.PointAnimation>
+                                    <dxc:Pie2DFlyInAnimation Duration="0:0:1" PointOrder="Random" />
+                                </dxc:PieSeries2D.PointAnimation>
+                                <dxc:PieSeries2D.DataFilters>
+                                    <dxc:DataFilter ColumnName="Year" Condition="Equal" Value="2002" />
+                                </dxc:PieSeries2D.DataFilters>
+                                <dxc:PieSeries2D.Titles>
+                                    <dxc:Title Content="GSP in 2002" HorizontalAlignment="Center" Margin="0,10,0,0" />
+                                </dxc:PieSeries2D.Titles>
+                                <dxc:PieSeries2D.Model>
+                                    <dxc:GlassPie2DModel />
+                                </dxc:PieSeries2D.Model>
+                            </dxc:PieSeries2D>
+                            <dxc:PieSeries2D DisplayName="GSP in 2004" ArgumentDataMember="Region" ValueDataMember="Product" AnimationAutoStartMode="SetStartState" LegendTextPattern="{}{A}">
+                                <dxc:PieSeries2D.PointAnimation>
+                                    <dxc:Pie2DFlyInAnimation Duration="0:0:1" PointOrder="Random" />
+                                </dxc:PieSeries2D.PointAnimation>
+                                <dxc:PieSeries2D.DataFilters>
+                                    <dxc:DataFilter ColumnName="Year" Condition="Equal" Value="2004" />
+                                </dxc:PieSeries2D.DataFilters>
+                                <dxc:PieSeries2D.Titles>
+                                    <dxc:Title Content="GSP in 2004" HorizontalAlignment="Center" Margin="0,10,0,0" />
+                                </dxc:PieSeries2D.Titles>
+                                <dxc:PieSeries2D.Model>
+                                    <dxc:GlassPie2DModel />
+                                </dxc:PieSeries2D.Model>
+                            </dxc:PieSeries2D>
+                        </dxc:SimpleDiagram2D.Series>
+                    </dxc:SimpleDiagram2D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend HorizontalPosition="Center" VerticalPosition="BottomOutside" Orientation="Horizontal" />
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center" FontSize="24">US Regions Gross State Product</dxc:Title>
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0">From www.bea.gov</dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

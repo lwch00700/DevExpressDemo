@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<DrawingImage x:Key="Layer_1">
+		<DrawingImage.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 0,190L 250,190L 250,60L 0,60L 0,190 Z "/>
+					<GeometryDrawing Brush="#FF08086B" Geometry="F1 M 0,75.4L 0,104L 55.1,104L 0,75.4 Z "/>
+					<GeometryDrawing Brush="#FF08086B" Geometry="F1 M 0,175.6L 0,147L 55.1,147L 0,175.6 Z "/>
+					<GeometryDrawing Brush="#FF08086B" Geometry="F1 M 250,75.4L 250,104L 194.9,104L 250,75.4 Z "/>
+					<GeometryDrawing Brush="#FF08086B" Geometry="F1 M 250,174.6L 250,146L 194.9,146L 250,174.6 Z "/>
+					<GeometryDrawing Brush="#FF08086B" Geometry="F1 M 105,60L 105,99.6L 28.6,60L 105,60 Z "/>
+					<GeometryDrawing Brush="#FF08086B" Geometry="F1 M 105,190L 105,150.4L 28.6,190L 105,190 Z "/>
+					<GeometryDrawing Brush="#FF08086B" Geometry="F1 M 145,60L 145,99.6L 221.4,60L 145,60 Z "/>
+					<GeometryDrawing Brush="#FF08086B" Geometry="F1 M 145,190L 145,150.4L 221.4,190L 145,190 Z "/>
+					<GeometryDrawing Brush="#FFD60818" Geometry="F1 M 64.4473,103.979L 83.0695,103.979L -0.00828044,60.8064L 0.0243327,70.5688L 64.4473,103.979 Z "/>
+					<GeometryDrawing Brush="#FFD60818" Geometry="F1 M 64.4473,147.014L 83.0695,147.014L -0.00828044,190.186L 0.0243327,180.423L 64.4473,147.014 Z "/>
+					<GeometryDrawing Brush="#FFD60818" Geometry="F1 M 185.577,103.979L 166.955,103.979L 250.033,60.8064L 250,70.5688L 185.577,103.979 Z "/>
+					<GeometryDrawing Brush="#FFD60818" Geometry="F1 M 185.577,147.014L 166.955,147.014L 250.033,190.186L 250,180.423L 185.577,147.014 Z "/>
+					<GeometryDrawing Brush="#FFD60818" Geometry="F1 M 112,60L 138,60L 138,190L 112,190L 112,60 Z "/>
+					<GeometryDrawing Brush="#FFD60818" Geometry="F1 M 250,112L 250,139L 1.1762e-005,139L 1.1762e-005,112L 250,112 Z "/>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
+</ResourceDictionary>

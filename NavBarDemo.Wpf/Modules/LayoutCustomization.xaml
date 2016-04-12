@@ -1,0 +1,261 @@
+﻿<local:NavBarDemoModule x:Class="NavBarDemo.LayoutCustomization"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="clr-namespace:NavBarDemo"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+ xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+    xmlns:dxnt="http://schemas.devexpress.com/winfx/2008/xaml/navbar/themekeys"
+ xmlns:dxca="http://schemas.devexpress.com/winfx/2008/xaml/carousel"
+ xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+ xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+ xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                        x:Name="navBarDemoModuleControl"
+                        >
+    <local:NavBarDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NavBarDemo;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <collections:ArrayList x:Key="navBarViews">
+                <sys:String>Explorer Bar</sys:String>
+                <sys:String>Navigation Pane</sys:String>
+                <sys:String>Side Bar</sys:String>
+            </collections:ArrayList>
+            <collections:ArrayList x:Key="Orientation">
+                <Orientation>Vertical</Orientation>
+                <Orientation>Horizontal</Orientation>
+            </collections:ArrayList>
+            <collections:ArrayList x:Key="HorizontalAlignment">
+                <HorizontalAlignment>Left</HorizontalAlignment>
+                <HorizontalAlignment>Center</HorizontalAlignment>
+                <HorizontalAlignment>Right</HorizontalAlignment>
+                <HorizontalAlignment>Stretch</HorizontalAlignment>
+            </collections:ArrayList>
+            <collections:ArrayList x:Key="VerticalAlignment">
+                <VerticalAlignment>Top</VerticalAlignment>
+                <VerticalAlignment>Center</VerticalAlignment>
+                <VerticalAlignment>Bottom</VerticalAlignment>
+                <VerticalAlignment>Stretch</VerticalAlignment>
+            </collections:ArrayList>
+            <collections:ArrayList x:Key="DisplayMode">
+                <sys:String>Image and Text</sys:String>
+                <sys:String>Image</sys:String>
+                <sys:String>Text</sys:String>
+            </collections:ArrayList>
+            <collections:ArrayList x:Key="ImageDocking">
+                <Dock>Left</Dock>
+                <Dock>Right</Dock>
+                <Dock>Top</Dock>
+                <Dock>Bottom</Dock>
+            </collections:ArrayList>
+            <collections:ArrayList x:Key="ItemsPanelExplorerBar">
+                <sys:String>Stack Panel</sys:String>
+                <sys:String>Wrap Panel</sys:String>
+                <sys:String>Carousel Panel</sys:String>
+            </collections:ArrayList>
+            <collections:ArrayList x:Key="ItemsPanel">
+                <sys:String>Stack Panel</sys:String>
+                <sys:String>Carousel Panel</sys:String>
+            </collections:ArrayList>
+            <ItemsPanelTemplate x:Key="stackPanel">
+                <StackPanel
+     Orientation="{Binding Path=ItemsPanelOrientation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxn:NavBarViewBase}}}"
+     HorizontalAlignment="{Binding Path=SelectedItem, ElementName=horizontalPanelAlignment}"
+     VerticalAlignment="{Binding Path=SelectedItem, ElementName=verticalPanelAlignment}">
+                </StackPanel>
+            </ItemsPanelTemplate>
+            <ItemsPanelTemplate x:Key="wrapPanel">
+                <WrapPanel
+     Orientation="{Binding Path=ItemsPanelOrientation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxn:NavBarViewBase}}}"
+     HorizontalAlignment="{Binding Path=SelectedItem, ElementName=horizontalPanelAlignment}"
+     VerticalAlignment="{Binding Path=SelectedItem, ElementName=verticalPanelAlignment}">
+                </WrapPanel>
+            </ItemsPanelTemplate>
+            <ItemsPanelTemplate x:Key="carouselPanel">
+                <dxca:CarouselPanel ItemSize="300, 300" MaxWidth="340" AnimationTime="400" PathVisible="False" PathPadding="20" PathSizingMode="Stretch"
+          AttractorPointIndex="{Binding Path=Items.Count, Converter={local:VisibleItemCountToActiveElementIndexConverter}}"
+          VisibleItemCount="{Binding Path=Items.Count}"
+          HorizontalAlignment="{Binding Path=SelectedItem, ElementName=horizontalPanelAlignment}"
+     VerticalAlignment="{Binding Path=SelectedItem, ElementName=verticalPanelAlignment}">
+                    <dxca:CarouselPanel.ParameterSet>
+                        <dxca:ParameterCollection>
+                            <dxca:Parameter Name="Scale">
+                                <dxca:Parameter.DistributionFunction>
+                                    <dxca:PieceLinearFunction>
+                                        <dxca:PieceLinearFunction.Points>
+                                            <dxca:PointCollection>
+                                                <Point X="0" Y="0"/>
+                                                <Point X="0.4" Y="0.5"/>
+                                                <Point X="0.5" Y="1"/>
+                                                <Point X="0.6" Y="0.5"/>
+                                                <Point X="1" Y="0"/>
+                                            </dxca:PointCollection>
+                                        </dxca:PieceLinearFunction.Points>
+                                    </dxca:PieceLinearFunction>
+                                </dxca:Parameter.DistributionFunction>
+                            </dxca:Parameter>
+                            <dxca:Parameter Name="Opacity">
+                                <dxca:Parameter.DistributionFunction>
+                                    <dxca:PieceLinearFunction>
+                                        <dxca:PieceLinearFunction.Points>
+                                            <dxca:PointCollection>
+                                                <Point X="0" Y="0.3"/>
+                                                <Point X="0.5" Y="1"/>
+                                                <Point X="1" Y="0.3"/>
+                                            </dxca:PointCollection>
+                                        </dxca:PieceLinearFunction.Points>
+                                    </dxca:PieceLinearFunction>
+                                </dxca:Parameter.DistributionFunction>
+                            </dxca:Parameter>
+
+                        </dxca:ParameterCollection>
+                    </dxca:CarouselPanel.ParameterSet>
+                </dxca:CarouselPanel>
+            </ItemsPanelTemplate>
+            <sys:Double x:Key="NaNDouble">NaN</sys:Double>
+            <Style x:Key="itemVisualStyle" TargetType="dxn:NavBarItemControl">
+                <Setter Property="ImageSettings" Value="{dxn:NavBarImageSettings Width={StaticResource NaNDouble}, Height={StaticResource NaNDouble}}"/>
+                <Setter Property="DisplayMode">
+                    <Setter.Value>
+                        <Binding Path="SelectedItem" ElementName="displayModeComboBox" Mode="OneWay">
+                            <Binding.Converter>
+                                <local:StringToDisplayModeConverter/>
+                            </Binding.Converter>
+                        </Binding>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="LayoutSettings">
+                    <Setter.Value>
+                        <MultiBinding>
+                            <Binding Path="SelectedItem" ElementName="textAlignment"/>
+                            <Binding Path="SelectedItem" ElementName="imageAlignment"/>
+                            <Binding Path="SelectedItem" ElementName="imageDocking"/>
+                            <MultiBinding.Converter>
+                                <local:SelectedItemsToLayoutSettingsConverter/>
+                            </MultiBinding.Converter>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="nonStretchImageItemVisualStyle" BasedOn="{StaticResource itemVisualStyle}" TargetType="dxn:NavBarItemControl">
+                <Setter Property="ImageSettings" Value="{dxn:NavBarImageSettings Width=64, Height=32}"/>
+            </Style>
+            <Style x:Key="carouselItemVisualStyle" BasedOn="{StaticResource itemVisualStyle}" TargetType="{x:Type dxn:NavBarItemControl}">
+                <Setter Property="ImageSettings" Value="{dxn:NavBarImageSettings Width=128, Height=64}"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="ClickMode" Value="Press"/>
+                <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                <Setter Property="Opacity" Value="{Binding Path=(dxca:CarouselPanel.Parameters).Opacity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}"/>
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <TransformGroup>
+                            <TranslateTransform
+                                   X="{Binding Path=(dxca:CarouselPanel.Parameters).OffsetX, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}"
+                                   Y="{Binding Path=(dxca:CarouselPanel.Parameters).OffsetY, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}"
+                              />
+                        </TransformGroup>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="dxn:NavBarGroup">
+                <Setter Property="Header" Value="{Binding}"/>
+            </Style>
+            <Style TargetType="dxn:NavBarItem">
+                <Setter Property="ImageSource" Value="{Binding Path=Icon}"/>
+                <Setter Property="Content" Value="{Binding Path=Model}"/>
+            </Style>
+        </ResourceDictionary>
+    </local:NavBarDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical" MinWidth="200" >
+                <dx:GroupFrame Header="View" Margin="{DynamicResource groupMargin}">
+                    <dxe:ListBoxEdit ItemsSource="{DynamicResource navBarViews}" SelectedIndexChanged="SelectView" SelectedIndex="0" ShowBorder="False" Background="{x:Null}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings/>
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+
+                <dx:GroupFrame Header="Orientation" Margin="{DynamicResource groupMargin}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="View: " Margin="0,0,6,4" VerticalAlignment="Center"/>
+                        <dxe:ComboBoxEdit x:Name="orientationComboBox" IsTextEditable="False" Grid.Column="1" Grid.Row="0" Margin="0,0,0,4" SelectedItem="{Binding Path=View.Orientation, ElementName=navBar}"
+           ItemsSource="{StaticResource Orientation}" SelectedIndexChanged="OrientationChanged"/>
+                        <Label Grid.Column="0" Grid.Row="1" Content="Item Panel: " Margin="0,0,6,0" VerticalAlignment="Center"/>
+                        <dxe:ComboBoxEdit IsTextEditable="False" x:Name="panelOrientation" Grid.Column="1" Grid.Row="1"
+           ItemsSource="{StaticResource Orientation}" SelectedItem="{Binding Path=View.ItemsPanelOrientation, ElementName=navBar}"/>
+                    </Grid>
+                </dx:GroupFrame>
+
+                <dx:GroupFrame x:Name="alignmentGroupBox" Header="Layout" Margin="{DynamicResource groupMargin}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="Text Alignment: " Margin="0,0,6,4" VerticalAlignment="Center"/>
+                        <dxe:ComboBoxEdit x:Name="textAlignment" IsTextEditable="False" Grid.Column="1" Grid.Row="0" Margin="0,0,0,4" ItemsSource="{StaticResource HorizontalAlignment}" SelectedIndex="0"/>
+                        <Label Grid.Column="0" Grid.Row="1" Content="Image Alignment: " Margin="0,0,6,4" VerticalAlignment="Center"/>
+                        <dxe:ComboBoxEdit x:Name="imageAlignment" IsTextEditable="False" Margin="0,0,0,4" Grid.Column="1" Grid.Row="1" ItemsSource="{StaticResource HorizontalAlignment}" SelectedIndex="0" SelectedIndexChanged="imageAlignment_SelectedIndexChanged"/>
+                        <Label Grid.Column="0" Grid.Row="2" Content="Image Docking: " Margin="0,0,6,0" VerticalAlignment="Center"/>
+                        <dxe:ComboBoxEdit x:Name="imageDocking" IsTextEditable="False" Grid.Column="1" Grid.Row="2" ItemsSource="{StaticResource ImageDocking}" SelectedIndex="0" SelectedIndexChanged="itemImageDocking_SelectionChanged" />
+                    </Grid>
+                </dx:GroupFrame>
+
+                <dx:GroupFrame x:Name="displayModeGroupBox" Header="Display Mode"  Margin="{DynamicResource groupMargin}">
+                    <dxe:ComboBoxEdit IsTextEditable="False" x:Name="displayModeComboBox" ItemsSource="{StaticResource DisplayMode}" SelectedIndex="0" SelectedIndexChanged="displayMode_SelectionChanged"/>
+                </dx:GroupFrame>
+
+                <dx:GroupFrame Header="Item Panel Type"  Margin="{DynamicResource groupMargin}">
+                    <dxe:ComboBoxEdit IsTextEditable="False" x:Name="itemsPanelListBox" ItemsSource="{StaticResource ItemsPanelExplorerBar}" SelectedIndexChanged="itemsPanelListBox_SelectionChanged"/>
+                </dx:GroupFrame>
+
+                <dx:GroupFrame Margin="{DynamicResource groupMargin}" Header="Item Panel Alignment"  x:Name="itemsPanelAlignment">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="Horizontal: " Margin="0,0,6,4" VerticalAlignment="Center"/>
+                        <dxe:ComboBoxEdit IsTextEditable="False" Grid.Column="1" Grid.Row="0" Margin="0,0,0,4" x:Name="horizontalPanelAlignment"
+          ItemsSource="{StaticResource HorizontalAlignment}" SelectedIndex="3"/>
+
+                        <Label Grid.Column="0" Grid.Row="1" Content="Vertical: " Margin="0,0,6,0" VerticalAlignment="Center"/>
+                        <dxe:ComboBoxEdit IsTextEditable="False" Grid.Column="1" Grid.Row="1" x:Name="verticalPanelAlignment"
+          IsEnabled="False" ItemsSource="{StaticResource VerticalAlignment}" SelectedIndex="3"/>
+
+
+                    </Grid>
+                </dx:GroupFrame>
+
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <local:NavBarDemoGridControl ContentMinWidth="260">
+            <dxn:NavBarControl Name="navBar" GroupDescription="Category"/>
+        </local:NavBarDemoGridControl>
+    </dxdb:DemoModuleControl>
+</local:NavBarDemoModule>

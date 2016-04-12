@@ -1,0 +1,76 @@
+﻿<local:PivotGridDemoModule x:Class="PivotGridDemo.PivotGrid.ProductReports"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:local="clr-namespace:PivotGridDemo.PivotGrid"
+    xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core">
+
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical">
+                <dx:GroupFrame Header="Product Reports">
+                    <dxe:ListBoxEdit x:Name="reportsList" ShowBorder="False" SelectedIndex="0" Background="{x:Null}" SelectedIndexChanged="ReportsList_SelectionChanged">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                        <dxe:ListBoxEdit.Items>
+                            <sys:String>Category Sales</sys:String>
+                            <sys:String>Product Sales</sys:String>
+                            <sys:String>Interval Grouping</sys:String>
+                            <sys:String>Multiple Subtotals</sys:String>
+                            <sys:String>Average Sales</sys:String>
+                            <sys:String>Top 3 Products</sys:String>
+                        </dxe:ListBoxEdit.Items>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Options" Margin="0,5,0,0" Name="gbxOptions">
+                    <StackPanel>
+                        <dxe:CheckEdit IsChecked="True" Content="Show Drill Down Form on Cell Double Click" Name="showDrillDown" />
+                        <dxe:CheckEdit Content="Show Categories" Name="cbxShowCategories" Checked="cbxShowCategories_Checked" Unchecked="cbxShowCategories_Checked" Visibility="Collapsed" Margin="0,4,0,0" />
+                        <Grid Name="spGroupingLayout" Visibility="Collapsed" Margin="0,4,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Grouping Layout" x:Name="tbGroupingLayout" VerticalAlignment="Center" />
+                            <dxe:ComboBoxEdit Grid.Column="1" Margin="0,0,0,0" IsTextEditable="False" SelectedIndex="1" SelectedIndexChanged="ComboBoxEdit_SelectedIndexChanged" Name="cbeGroupingLayout">
+                                <dxe:ComboBoxEdit.Items>
+                                    <sys:String>by Years</sys:String>
+                                    <sys:String>by Quarters</sys:String>
+                                    <sys:String>by Month</sys:String>
+                                    <sys:String>by Years, Quarters, Month</sys:String>
+                                </dxe:ComboBoxEdit.Items>
+                            </dxe:ComboBoxEdit>
+                        </Grid>
+                    </StackPanel>
+                </dx:GroupFrame>
+
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+
+        <dxpg:PivotGridControl x:Name="pivotGrid" local:FieldAreaHelper.FixAreas="True" CellDoubleClick="pivotGrid_CellDblClick"
+            RowTreeWidth="230" ShowBorder="False">
+            <dxpg:PivotGridControl.Fields>
+                <dxpg:PivotGridField x:Name="fieldCategory" FieldName="CategoryName" Area="RowArea" Width="130" Caption="Category Name" />
+                <dxpg:PivotGridField x:Name="fieldProduct" FieldName="ProductName" Area="FilterArea"
+                                 Width="200" Caption="Product Name" />
+                <dxpg:PivotGridField x:Name="fieldSales" CellFormat="c" FieldName="ProductSales" Area="DataArea" Width="135" Caption="Product Sales" />
+                <dxpg:PivotGridField x:Name="fieldAverageSale" CellFormat="c" FieldName="ProductSales" Area="DataArea" Width="90" Caption="Average Sale" SummaryType="Average" Visible="False"
+                                 />
+                <dxpg:PivotGridField x:Name="fieldMinimumSale" CellFormat="c" FieldName="ProductSales" Area="DataArea" Width="90" Caption="Minimum Sale" SummaryType="Min" Visible="False"
+                                 />
+                <dxpg:PivotGridField x:Name="fieldYear" FieldName="ShippedDate" Area="FilterArea"
+                                 GroupInterval="DateYear" Caption="Shipped Year" Width="150" />
+                <dxpg:PivotGridField x:Name="fieldQuarter" FieldName="ShippedDate" Area="FilterArea"
+                                 GroupInterval="DateQuarter" ValueFormat="Qtr {0}" Caption="Shipped Quarter" Width="150" />
+                <dxpg:PivotGridField x:Name="fieldMonth" FieldName="ShippedDate" Area="FilterArea"
+                                 Visible="False"
+                                 GroupInterval="DateMonth" Caption="Shipped Month" Width="70" />
+            </dxpg:PivotGridControl.Fields>
+        </dxpg:PivotGridControl>
+    </dxdb:DemoModuleControl>
+</local:PivotGridDemoModule>

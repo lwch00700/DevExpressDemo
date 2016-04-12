@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Genders>
+  <Gender>
+    <Name>Male</Name>
+    <Ages>
+      <Age>
+        <Value>0 - 14 years</Value>
+        <Countries>
+          <Country>
+            <Name>United States</Name>
+            <Population>29.956</Population>
+          </Country>
+          <Country>
+            <Name>Brazil</Name>
+            <Population>25.607</Population>
+          </Country>
+          <Country>
+            <Name>Russia</Name>
+            <Population>13.493</Population>
+          </Country>
+          <Country>
+            <Name>Japan</Name>
+            <Population>9.575</Population>
+          </Country>
+          <Country>
+            <Name>Mexico</Name>
+            <Population>17.306</Population>
+          </Country>
+          <Country>
+            <Name>Germany</Name>
+            <Population>6.679</Population>
+          </Country>
+          <Country>
+            <Name>United Kingdom</Name>
+            <Population>5.816</Population>
+          </Country>
+        </Countries>
+      </Age>
+      <Age>
+        <Value>15 - 64 years</Value>
+        <Countries>
+          <Country>
+            <Name>United States</Name>
+            <Population>90.354</Population>
+          </Country>
+          <Country>
+            <Name>Brazil</Name>
+            <Population>55.793</Population>
+          </Country>
+          <Country>
+            <Name>Russia</Name>
+            <Population>48.983</Population>
+          </Country>
+          <Country>
+            <Name>Japan</Name>
+            <Population>43.363</Population>
+          </Country>
+          <Country>
+            <Name>Mexico</Name>
+            <Population>30.223</Population>
+          </Country>
+          <Country>
+            <Name>Germany</Name>
+            <Population>28.638</Population>
+          </Country>
+          <Country>
+            <Name>United Kingdom</Name>
+            <Population>19.622</Population>
+          </Country>
+        </Countries>
+      </Age>
+      <Age>
+        <Value>65 years and older</Value>
+        <Countries>
+          <Country>
+            <Name>United States</Name>
+            <Population>14.472</Population>
+          </Country>
+          <Country>
+            <Name>Brazil</Name>
+            <Population>3.727</Population>
+          </Country>
+          <Country>
+            <Name>Russia</Name>
+            <Population>5.802</Population>
+          </Country>
+          <Country>
+            <Name>Japan</Name>
+            <Population>9.024</Population>
+          </Country>
+          <Country>
+            <Name>Mexico</Name>
+            <Population>1.927</Population>
+          </Country>
+          <Country>
+            <Name>Germany</Name>
+            <Population>5.133</Population>
+          </Country>
+          <Country>
+            <Name>United Kingdom</Name>
+            <Population>3.864</Population>
+          </Country>
+        </Countries>
+      </Age>
+    </Ages>
+  </Gender>
+  <Gender>
+    <Name>Female</Name>
+    <Ages>
+      <Age>
+        <Value>0 - 14 years</Value>
+        <Countries>
+          <Country>
+            <Name>United States</Name>
+            <Population>28.597</Population>
+          </Country>
+          <Country>
+            <Name>Brazil</Name>
+            <Population>24.67</Population>
+          </Country>
+          <Country>
+            <Name>Russia</Name>
+            <Population>12.971</Population>
+          </Country>
+          <Country>
+            <Name>Japan</Name>
+            <Population>9.105</Population>
+          </Country>
+          <Country>
+            <Name>Mexico</Name>
+            <Population>16.632</Population>
+          </Country>
+          <Country>
+            <Name>Germany</Name>
+            <Population>6.333</Population>
+          </Country>
+          <Country>
+            <Name>United Kingdom</Name>
+            <Population>5.519</Population>
+          </Country>
+        </Countries>
+      </Age>
+      <Age>
+        <Value>15 - 64 years</Value>
+        <Countries>
+          <Country>
+            <Name>United States</Name>
+            <Population>91.827</Population>
+          </Country>
+          <Country>
+            <Name>Brazil</Name>
+            <Population>57.598</Population>
+          </Country>
+          <Country>
+            <Name>Russia</Name>
+            <Population>52.14</Population>
+          </Country>
+          <Country>
+            <Name>Japan</Name>
+            <Population>42.98</Population>
+          </Country>
+          <Country>
+            <Name>Mexico</Name>
+            <Population>31.868</Population>
+          </Country>
+          <Country>
+            <Name>Germany</Name>
+            <Population>27.693</Population>
+          </Country>
+          <Country>
+            <Name>United Kingdom</Name>
+            <Population>19.228</Population>
+          </Country>
+        </Countries>
+      </Age>
+      <Age>
+        <Value>65 years and older</Value>
+        <Countries>
+          <Country>
+            <Name>United States</Name>
+            <Population>20.362</Population>
+          </Country>
+          <Country>
+            <Name>Brazil</Name>
+            <Population>5.462</Population>
+          </Country>
+          <Country>
+            <Name>Russia</Name>
+            <Population>12.61</Population>
+          </Country>
+          <Country>
+            <Name>Japan</Name>
+            <Population>12.501</Population>
+          </Country>
+          <Country>
+            <Name>Mexico</Name>
+            <Population>2.391</Population>
+          </Country>
+          <Country>
+            <Name>Germany</Name>
+            <Population>8.318</Population>
+          </Country>
+          <Country>
+            <Name>United Kingdom</Name>
+            <Population>5.459</Population>
+          </Country>
+        </Countries>
+      </Age>
+    </Ages>
+  </Gender>
+</Genders>

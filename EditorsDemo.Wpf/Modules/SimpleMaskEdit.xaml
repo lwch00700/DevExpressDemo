@@ -1,0 +1,93 @@
+﻿<local:EditorsDemoModule x:Class="EditorsDemo.SimpleMaskEdit"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:local="clr-namespace:EditorsDemo"
+ xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+ xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+ xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Height="400" Width="800"
+ HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsTopText>
+            Type inside edit fields to see the masked data input feature in action.
+        </dxdb:DemoModuleControl.OptionsTopText>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <local:MaskPropertiesEdit x:Name="mask" />
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.15*" />
+                <RowDefinition Height="0.85*" />
+            </Grid.RowDefinitions>
+            <StackPanel Margin="30,0,30,0" MaxWidth="300" Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Phone:" Grid.Row="0" Grid.Column="0" />
+                    <TextBlock Text="Date:" Grid.Row="1" Grid.Column="0" Margin="0,4,0,0" />
+                    <TextBlock Text="Long Time:" Grid.Row="2" Grid.Column="0" Margin="0,4,0,0" />
+                    <TextBlock Text="Short Time:" Grid.Row="3" Grid.Column="0" Margin="0,4,0,0" />
+                    <TextBlock Text="Extension:" Grid.Row="4" Grid.Column="0" Margin="0,4,0,0" />
+                    <TextBlock Text="Social Security:" Grid.Row="5" Grid.Column="0" Margin="0,4,0,0" />
+                    <TextBlock Text="Long Zip Code:" Grid.Row="6" Grid.Column="0" Margin="0,4,0,0" />
+                    <TextBlock Text="Short Zip Code:" Grid.Row="7" Grid.Column="0" Margin="0,4,0,0" />
+                    <dxe:TextEdit Grid.Row="0" Grid.Column="1"
+     GotFocus="EditorGotFocus"
+     x:Name="editor"
+     MaskType="Simple"
+     Mask="(999)000-00-00" />
+                    <dxe:TextEdit Margin="0,4,0,0"
+                    Grid.Row="1" Grid.Column="1"
+     GotFocus="EditorGotFocus"
+     MaskType="Simple"
+     Mask="99/99/00" />
+                    <dxe:TextEdit Margin="0,4,0,0"
+                    Grid.Row="2" Grid.Column="1"
+     GotFocus="EditorGotFocus"
+     MaskType="Simple"
+     Mask="90:00:00 &gt;LL" />
+                    <dxe:TextEdit Margin="0,4,0,0"
+                    Grid.Row="3" Grid.Column="1"
+     GotFocus="EditorGotFocus"
+     MaskType="Simple"
+     Mask="90:00" />
+                    <dxe:TextEdit Margin="0,4,0,0"
+                    Grid.Row="4" Grid.Column="1"
+     GotFocus="EditorGotFocus"
+     MaskType="Simple"
+     Mask="99999" />
+                    <dxe:TextEdit Margin="0,4,0,0"
+                    Grid.Row="5" Grid.Column="1"
+     GotFocus="EditorGotFocus"
+     MaskType="Simple"
+     Mask="000-00-0000" />
+                    <dxe:TextEdit Margin="0,4,0,0"
+                    Grid.Row="6" Grid.Column="1"
+     GotFocus="EditorGotFocus"
+     MaskType="Simple"
+     Mask="00000-9999" />
+                    <dxe:TextEdit Margin="0,4,0,0"
+                    Grid.Row="7" Grid.Column="1"
+     GotFocus="EditorGotFocus"
+     MaskType="Simple"
+     Mask="00000" />
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:EditorsDemoModule>

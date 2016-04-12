@@ -1,0 +1,137 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.FullStackedArea3DControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:local="clr-namespace:ChartsDemo">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Storyboard x:Key="InitialAnimation" TargetProperty="Opacity" TargetName="chart">
+                <DoubleAnimation From="0" To="1" Duration="0:0:2" />
+            </Storyboard>
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <local:ChartsDemoModule.Triggers>
+        <EventTrigger RoutedEvent="local:ChartsDemoModule.ModuleAppear">
+            <EventTrigger.Actions>
+                <BeginStoryboard Storyboard="{StaticResource InitialAnimation}" />
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </local:ChartsDemoModule.Triggers>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel HorizontalAlignment="Left" Orientation="Vertical" MinWidth="120">
+                <dxe:CheckEdit Name="chbVisible"
+                               Content="Show Labels"
+                               Checked="chbVisible_Checked"
+                               Unchecked="chbVisible_UnChecked"
+                               IsChecked="True" />
+                <dxe:CheckEdit Name="chbPercent"
+                               Content="Values as Percent"
+                               Margin="0,3,0,0"
+                               Checked="chbPercent_Checked"
+                               Unchecked="chbPercent_UnChecked" IsChecked="True" />
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                              Opacity="0"
+                              BorderThickness="0"
+                              IsManipulationEnabled="True">
+                <dxc:ChartControl.ToolTipOptions>
+                    <dxc:ToolTipOptions ShowForPoints="False" ShowForSeries="True"/>
+                </dxc:ChartControl.ToolTipOptions>
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram3D ZoomPercent="125">
+                        <dxc:XYDiagram3D.AxisY>
+                            <dxc:AxisY3D>
+                                <dxc:AxisY3D.WholeRange>
+                                    <dxc:Range MinValue="0" MaxValue="1"  SideMarginsValue="0"/>
+                                </dxc:AxisY3D.WholeRange>
+                                <dxc:AxisY3D.Label>
+                                    <dxc:AxisLabel />
+                                </dxc:AxisY3D.Label>
+                                <dxc:AxisY3D.NumericOptions>
+                                    <dxc:NumericOptions Format="Percent" Precision="0" />
+                                </dxc:AxisY3D.NumericOptions>
+                            </dxc:AxisY3D>
+                        </dxc:XYDiagram3D.AxisY>
+                        <dxc:XYDiagram3D.AxisX>
+                            <dxc:AxisX3D DateTimeMeasureUnit="Year">
+                                <dxc:AxisX3D.WholeRange>
+                                    <dxc:Range SideMarginsValue="0" />
+                                </dxc:AxisX3D.WholeRange>
+                                <dxc:AxisX3D.Label>
+                                    <dxc:AxisLabel TextPattern="{}{A:yyyy}"/>
+                                </dxc:AxisX3D.Label>
+                            </dxc:AxisX3D>
+                        </dxc:XYDiagram3D.AxisX>
+                        <dxc:XYDiagram3D.Series>
+                            <dxc:AreaFullStackedSeries3D x:Name="Cluster" DisplayName="Cluster" ArgumentScaleType="DateTime" LabelsVisibility="True">
+                                <dxc:AreaFullStackedSeries3D.Label>
+                                    <dxc:SeriesLabel RenderMode="CustomShape" TextPattern="{}{VP:P0}"/>
+                                </dxc:AreaFullStackedSeries3D.Label>
+                                <dxc:AreaFullStackedSeries3D.Points>
+                                    <dxc:SeriesPoint Argument="11/01/1997" Value="10" />
+                                    <dxc:SeriesPoint Argument="11/01/1999" Value="962" />
+                                    <dxc:SeriesPoint Argument="11/01/2001" Value="18832" />
+                                    <dxc:SeriesPoint Argument="11/01/2003" Value="264332" />
+                                    <dxc:SeriesPoint Argument="11/01/2005" Value="1112753" />
+                                    <dxc:SeriesPoint Argument="11/01/2007" Value="4169758" />
+                                </dxc:AreaFullStackedSeries3D.Points>
+                            </dxc:AreaFullStackedSeries3D>
+                            <dxc:AreaFullStackedSeries3D x:Name="Constellations" DisplayName="Constellations" ArgumentScaleType="DateTime" LabelsVisibility="True">
+                                <dxc:AreaFullStackedSeries3D.Label>
+                                    <dxc:SeriesLabel RenderMode="CustomShape" TextPattern="{}{VP:P0}"/>
+                                </dxc:AreaFullStackedSeries3D.Label>
+                                <dxc:AreaFullStackedSeries3D.Points>
+                                    <dxc:SeriesPoint Argument="11/01/1997" Value="391" />
+                                    <dxc:SeriesPoint Argument="11/01/1999" Value="4082" />
+                                    <dxc:SeriesPoint Argument="11/01/2001" Value="21932" />
+                                    <dxc:SeriesPoint Argument="11/01/2003" Value="64195" />
+                                    <dxc:SeriesPoint Argument="11/01/2005" Value="78473" />
+                                    <dxc:SeriesPoint Argument="11/01/2007" Value="101830" />
+                                </dxc:AreaFullStackedSeries3D.Points>
+                            </dxc:AreaFullStackedSeries3D>
+                            <dxc:AreaFullStackedSeries3D x:Name="MPP" DisplayName="MPP" ArgumentScaleType="DateTime" LabelsVisibility="True">
+                                <dxc:AreaFullStackedSeries3D.Label>
+                                    <dxc:SeriesLabel RenderMode="CustomShape" TextPattern="{}{VP:P0}"/>
+                                </dxc:AreaFullStackedSeries3D.Label>
+                                <dxc:AreaFullStackedSeries3D.Points>
+                                    <dxc:SeriesPoint Argument="11/01/1997" Value="11994" />
+                                    <dxc:SeriesPoint Argument="11/01/1999" Value="38377" />
+                                    <dxc:SeriesPoint Argument="11/01/2001" Value="88395" />
+                                    <dxc:SeriesPoint Argument="11/01/2003" Value="200715" />
+                                    <dxc:SeriesPoint Argument="11/01/2005" Value="1107271" />
+                                    <dxc:SeriesPoint Argument="11/01/2007" Value="2694582" />
+                                </dxc:AreaFullStackedSeries3D.Points>
+                            </dxc:AreaFullStackedSeries3D>
+                            <dxc:AreaFullStackedSeries3D x:Name="SMP" DisplayName="SMP" ArgumentScaleType="DateTime" LabelsVisibility="True">
+                                <dxc:AreaFullStackedSeries3D.Label>
+                                    <dxc:SeriesLabel RenderMode="CustomShape" TextPattern="{}{VP:P0}"/>
+                                </dxc:AreaFullStackedSeries3D.Label>
+                                <dxc:AreaFullStackedSeries3D.Points>
+                                    <dxc:SeriesPoint Argument="11/01/1997" Value="4502" />
+                                    <dxc:SeriesPoint Argument="11/01/1999" Value="7518" />
+                                    <dxc:SeriesPoint Argument="11/01/2001" Value="5818" />
+                                    <dxc:SeriesPoint Argument="11/01/2003" Value="0" />
+                                </dxc:AreaFullStackedSeries3D.Points>
+                            </dxc:AreaFullStackedSeries3D>
+                        </dxc:XYDiagram3D.Series>
+                    </dxc:XYDiagram3D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend HorizontalPosition="Right" ReverseItems="True" />
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center">Architecture Share Over Time (GF)</dxc:Title>
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0">From www.top500.org</dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

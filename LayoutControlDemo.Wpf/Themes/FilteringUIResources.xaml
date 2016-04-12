@@ -1,0 +1,95 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+                    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+                    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+                    xmlns:helpers="clr-namespace:LayoutControlDemo.Helpers">
+    <DataTemplate x:Key="dataRowTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <dxlc:LayoutControl Orientation="Horizontal" Padding="4" ItemSpace="10" ScrollBars="None" DragScrolling="False">
+                <dxmvvm:Interaction.Behaviors>
+                    <helpers:MouseWheelScrollingBehavior DisableScrolling="True"/>
+                </dxmvvm:Interaction.Behaviors>
+                <dxe:ImageEdit Source="{Binding Path=Row.Photo}" IsReadOnly="True" ShowBorder="False" HorizontalAlignment="Left" Width="150" ShowMenu="False"/>
+                <dxlc:LayoutGroup Orientation="Vertical" VerticalAlignment="Top">
+                    <TextBlock FontSize="18" HorizontalAlignment="Left">
+                        <Run Text="{Binding Row.Trademark.Name}"/>
+                        <Run Text="{Binding Row.Name}"/>
+                    </TextBlock>
+                    <dxlc:LayoutGroup Orientation="Horizontal" HorizontalAlignment="Left">
+                        <dxlc:LayoutGroup Orientation="Vertical" Width="170" VerticalAlignment="Top">
+                            <TextBlock>
+                                <Run Text="{Binding Row.Modification}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="{Binding Row.Category.Name}"/>
+                                <LineBreak/>
+                                <Run Text="{Binding Row.BodyStyle.Name}"/>, 
+                                <Run Text="{Binding Row.Doors, StringFormat='{}{0}-door'}"/>
+                            </TextBlock>
+                        </dxlc:LayoutGroup>
+                        <dxlc:LayoutGroup Orientation="Vertical" VerticalAlignment="Top">
+                            <TextBlock>
+                                <Run Text="{Binding Row.Cilinders, StringFormat='{}{0}-cylinder'}"/>, 
+                                <Run Text="{Binding Row.Horsepower, StringFormat='{}{0} hp'}"/>, 
+                                <Run Text="{Binding Row.Torque, StringFormat='{}{0} N·m/s'}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="{Binding Row.TransmissionType.Name, StringFormat='{}{0} transmission'}"/>
+                                <Run Text="{Binding Row.TransmissionSpeeds, StringFormat='{}({0}-speed)'}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="{Binding Row.MPGCity, StringFormat='{}{0} city MPG'}"/>, 
+                                <Run Text="{Binding Row.MPGHighway, StringFormat='{}{0} highway MPG'}"/>
+                            </TextBlock>
+                        </dxlc:LayoutGroup>
+                    </dxlc:LayoutGroup>
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutControl>
+            <TextBlock Grid.Column="1" FontSize="18" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Run Text="{Binding Row.Price, StringFormat=c, ConverterCulture=en-US}"/>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
+
+    <Style x:Key="groupStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Margin" Value="0,0,0,5"/>
+    </Style>
+    <Style x:Key="indentBorderStyle" TargetType="Border">
+        <Setter Property="Width" Value="15"/>
+        <Setter Property="Height" Value="15"/>
+    </Style>
+    <DataTemplate x:Key="filteringUICustom">
+        <dxlc:DataLayoutControl CurrentItem="{Binding}" GroupBoxDisplayMode="Light" ItemSpace="10" AutoGenerateItems="False" AllowBringChildIntoView="False">
+            <dxlc:DataLayoutControl.ItemStyle>
+                <Style TargetType="dxlc:DataLayoutItem">
+                    <Setter Property="Margin" Value="0,0,0,0"/>
+                    <Setter Property="VerticalAlignment" Value="Top"/>
+                </Style>
+            </dxlc:DataLayoutControl.ItemStyle>
+            <dxlc:DataLayoutControl.GroupBoxStyle>
+                <Style TargetType="dxlc:GroupBox">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </dxlc:DataLayoutControl.GroupBoxStyle>
+            <TextBlock Style="{StaticResource groupStyle}" Text="Main Parameters"/>
+            <dxlc:DataLayoutItem Binding="{Binding Price}"/>
+            <dxlc:DataLayoutItem Binding="{Binding TrademarkID}"/>
+            <dxlc:DataLayoutItem Binding="{Binding TransmissionTypeID}"/>
+            <Border Style="{StaticResource indentBorderStyle}"/>
+            <TextBlock Style="{StaticResource groupStyle}" Text="Body"/>
+            <dxlc:DataLayoutItem Binding="{Binding BodyStyleID}"/>
+            <dxlc:DataLayoutItem Binding="{Binding Doors}"/>
+            <Border Style="{StaticResource indentBorderStyle}"/>
+            <TextBlock Style="{StaticResource groupStyle}" Text="Engine"/>
+            <dxlc:DataLayoutItem Binding="{Binding MPGCity}"/>
+            <dxlc:DataLayoutItem Binding="{Binding MPGHighway}"/>
+        </dxlc:DataLayoutControl>
+    </DataTemplate>
+</ResourceDictionary>

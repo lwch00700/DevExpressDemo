@@ -1,0 +1,754 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A8C2C9AA-ADAC-4FA6-8B4D-604D2167BE3B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SchedulerDemo</RootNamespace>
+    <AssemblyName>SchedulerDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PlatformTarget>x86</PlatformTarget>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'ClickOnce Debug' OR '$(Configuration)' == 'ClickOnce Release' ">
+    <HostInBrowser>False</HostInBrowser>
+    <Install>False</Install>
+    <TargetZone>Internet</TargetZone>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(WINDIR)\System32\PresentationHost.exe</StartProgram>
+    <ApplicationExtension>.xbap</ApplicationExtension>
+    <BootstrapperEnabled>false</BootstrapperEnabled>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+    <StartArguments>-debug "$(MSBuildProjectDirectory)\bin\$(Configuration)\$(AssemblyName)$(ApplicationExtension)"</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <ApplicationIcon>demoicon.ico</ApplicationIcon>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WPF;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <ApplicationIcon>demoicon.ico</ApplicationIcon>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;WPF;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ClickOnce Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <IntermediateOutputPath>.\obj\ClickOnce Debug\</IntermediateOutputPath>
+    <OutputPath>.\bin\ClickOnce Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WPF;CLICKONCE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ClickOnce Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <IntermediateOutputPath>.\obj\ClickOnce Release\</IntermediateOutputPath>
+    <OutputPath>.\bin\ClickOnce Release\</OutputPath>
+    <DefineConstants>TRACE;WPF;CLICKONCE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>DemoIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="DevExpress.Build.XamlResourceProcessing.targets" />
+    <Content Include="Dll\EntityFramework.dll" />
+    <Content Include="Dll\System.Data.SQLite.dll" />
+    <Content Include="Dll\System.Data.SQLite.EF6.dll" />
+    <Content Include="Themes.WPF.targets" />
+    <Reference Include="DevExpress.Data.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Utils.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.DemoData.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.DemoData.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Printing.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Core.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.DemoBase.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Printing.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Ribbon.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.Scheduler.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraScheduler.v15.2.Core"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraReports.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraScheduler.v15.2.Reporting"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraScheduler.v15.2.Reporting.Extensions"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Xpf.LayoutControl.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="DevExpress.Mvvm.v15.2"><HintPath></HintPath><Private>False</Private></Reference>
+    <Reference Include="PresentationCore"><Private>False</Private></Reference>
+    <Reference Include="PresentationFramework"><Private>False</Private></Reference>
+    <Reference Include="System"><Private>False</Private></Reference>
+    <Reference Include="System.Core"><Private>False</Private></Reference>
+    <Reference Include="System.Data"><Private>False</Private></Reference>
+    <Reference Include="System.Data.DataSetExtensions"><Private>False</Private></Reference>
+    <Reference Include="System.Drawing"><Private>False</Private></Reference>
+    <Reference Include="System.Printing"><Private>False</Private></Reference>
+    <Reference Include="System.Xaml"><Private>False</Private></Reference>
+    <Reference Include="System.Xml"><Private>False</Private></Reference>
+    <Reference Include="System.Xml.Linq"><Private>False</Private></Reference>
+    <Reference Include="UIAutomationClient"><Private>False</Private></Reference>
+    <Reference Include="UIAutomationProvider"><Private>False</Private></Reference>
+    <Reference Include="UIAutomationTypes"><Private>False</Private></Reference>
+    <Reference Include="WindowsBase"><Private>False</Private></Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations"><Private>False</Private></Reference>
+    <Reference Include="EntityFramework">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath></HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.97.0, Culture=neutral, PublicKeyToken=4c3bc44151be4b47">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath></HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.97.0, Culture=neutral, PublicKeyToken=4c3bc44151be4b47">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath></HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CarsContext.cs" />
+    <Compile Include="DataUtils.cs" />
+    <Compile Include="Forms\HospitalAppointmentForm.xaml.cs">
+      <DependentUpon>HospitalAppointmentForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\HospitalRecurrenceForm.xaml.cs">
+      <DependentUpon>HospitalRecurrenceForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\HospitalRecurrenceTypeControl.xaml.cs">
+      <DependentUpon>HospitalRecurrenceTypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\EntityBoundMode.xaml.cs">
+      <DependentUpon>EntityBoundMode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FullWeekView.xaml.cs">
+      <DependentUpon>FullWeekView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\MVVMAppointmentForm.xaml.cs">
+      <DependentUpon>MVVMAppointmentForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DocumentPreview.xaml.cs">
+      <DependentUpon>DocumentPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RangeControl.xaml.cs">
+      <DependentUpon>RangeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ReportTemplates.xaml.cs">
+      <DependentUpon>ReportTemplates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\DefaultDemoViewModel.cs" />
+    <Compile Include="DemoTesting\Fixtures.cs" />
+    <Compile Include="Forms\CustomAppointmentInplaceEditor.xaml.cs">
+      <DependentUpon>CustomAppointmentInplaceEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MyAppointmentEditForm.xaml.cs">
+      <DependentUpon>MyAppointmentEditForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AppointmentCustomization.xaml.cs">
+      <DependentUpon>AppointmentCustomization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AppointmentFiltering.xaml.cs">
+      <DependentUpon>AppointmentFiltering.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\AppointmentStyles.xaml.cs">
+      <DependentUpon>AppointmentStyles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SchedulerBars.xaml.cs">
+      <DependentUpon>SchedulerBars.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\BoundMode.xaml.cs">
+      <DependentUpon>BoundMode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CellStyles.xaml.cs">
+      <DependentUpon>CellStyles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CustomInplaceEditor.xaml.cs">
+      <DependentUpon>CustomInplaceEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CustomAppointmentForm.xaml.cs">
+      <DependentUpon>CustomAppointmentForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DateNavigator.xaml.cs">
+      <DependentUpon>DateNavigator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DragDropData.xaml.cs">
+      <DependentUpon>DragDropData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\iCalendarExchange.xaml.cs">
+      <DependentUpon>iCalendarExchange.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ListBoundMode.xaml.cs">
+      <DependentUpon>ListBoundMode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ImportFromOutlook.xaml.cs">
+      <DependentUpon>ImportFromOutlook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SynchronizeWithOutlook.xaml.cs">
+      <DependentUpon>SynchronizeWithOutlook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reminders.xaml.cs">
+      <DependentUpon>Reminders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ResourceSharing.xaml.cs">
+      <DependentUpon>ResourceSharing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SchedulerRibbonBars.xaml.cs">
+      <DependentUpon>SchedulerRibbonBars.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TimeZones.xaml.cs">
+      <DependentUpon>TimeZones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\UnboundMode.xaml.cs">
+      <DependentUpon>UnboundMode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\VisualElementStyles.xaml.cs">
+      <DependentUpon>VisualElementStyles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\VerticalResourceHeaderStyles.xaml.cs">
+      <DependentUpon>VerticalResourceHeaderStyles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\HorizontalResourceHeaderStyles.xaml.cs">
+      <DependentUpon>HorizontalResourceHeaderStyles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CustomMenu.xaml.cs">
+      <DependentUpon>CustomMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\DateHeaderStyleModule.xaml.cs">
+      <DependentUpon>DateHeaderStyleModule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CustomWorkTime.xaml.cs">
+      <DependentUpon>CustomWorkTime.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\GroupByResource.xaml.cs">
+      <DependentUpon>GroupByResource.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\EndUserRestrictions.xaml.cs">
+      <DependentUpon>EndUserRestrictions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ObjectDataProvider.xaml.cs">
+      <DependentUpon>ObjectDataProvider.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils.cs" />
+    <Page Include="Generic.xaml">
+      
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\CustomAppointmentInplaceEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\HospitalAppointmentForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\HospitalRecurrenceForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\HospitalRecurrenceTypeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\MyAppointmentEditForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\AppointmentCustomization.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\EntityBoundMode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\FullWeekView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\MVVMAppointmentForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\SchedulerBars.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\BoundMode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\CustomInplaceEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\CustomAppointmentForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\DateNavigator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\DocumentPreview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DragDropData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\iCalendarExchange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\ImportFromOutlook.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\SynchronizeWithOutlook.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\RangeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Reminders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ReportTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ResourceSharing.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\SchedulerRibbonBars.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\TimeZones.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\HeaderTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\AppointmentFiltering.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\AppointmentStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\CellStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ListBoundMode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\UnboundMode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\VisualElementStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\VerticalResourceHeaderStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\HorizontalResourceHeaderStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\CustomMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\DateHeaderStyleModule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\CustomWorkTime.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\DayView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\GroupByDate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\GroupByResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\MonthView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\TimeLineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\EndUserRestrictions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\WeekView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\WorkWeekView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ObjectDataProvider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Margin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Modules\DayView.xaml.cs">
+      <DependentUpon>DayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\GroupByDate.xaml.cs">
+      <DependentUpon>GroupByDate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\MonthView.xaml.cs">
+      <DependentUpon>MonthView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TimeLineView.xaml.cs">
+      <DependentUpon>TimeLineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\WeekView.xaml.cs">
+      <DependentUpon>WeekView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\WorkWeekView.xaml.cs">
+      <DependentUpon>WorkWeekView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SchedulerDemoModuleControl.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="clickonce.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DemoIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Sports.xml" />
+    <EmbeddedResource Include="Data\Events.xml" />
+    <Resource Include="Images\AppointmentExport.png" />
+    <Resource Include="Images\AppointmentImport.png" />
+    <EmbeddedResource Include="Data\Images\Beige.png" />
+    <EmbeddedResource Include="Data\Images\Blue.png" />
+    <EmbeddedResource Include="Data\Images\Lilac.png" />
+    <EmbeddedResource Include="Data\Images\Red.png" />
+    <EmbeddedResource Include="Data\Images\Yellow.png" />
+    <Resource Include="Images\ribbon-application-32x32.png" />
+    <EmbeddedResource Include="Data\Images\CheckUp.png" />
+    <EmbeddedResource Include="Data\Images\Free.png" />
+    <EmbeddedResource Include="Data\Images\Maintance.png" />
+    <EmbeddedResource Include="Data\Images\Rent.png" />
+    <EmbeddedResource Include="Data\Images\Wash.png" />
+    <EmbeddedResource Include="Data\Images\tv2.png" />
+    <EmbeddedResource Include="Data\Images\tv3.png" />
+    <EmbeddedResource Include="Data\Images\tv4.png" />
+    <EmbeddedResource Include="Data\Images\tv5.png" />
+    <EmbeddedResource Include="Data\Images\tv6.png" />
+    <EmbeddedResource Include="Data\Images\tv7.png" />
+    <EmbeddedResource Include="Data\Images\tv8.png" />
+    <EmbeddedResource Include="Data\Images\tv1.png" />
+    <EmbeddedResource Include="Data\sportevents.xml" />
+    <EmbeddedResource Include="Data\Appointments.xml" />
+    <EmbeddedResource Include="Data\Cars.xml" />
+    <EmbeddedResource Include="Data\Resources.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\EmbeddedData.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="DevExpress.Xpf.Themes.DXStyle.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.DXStyle.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.HybridApp.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.HybridApp.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.LightGray.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.LightGray.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.MetropolisDark.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.MetropolisDark.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.MetropolisLight.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.MetropolisLight.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2007Black.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2007Black.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2007Blue.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2007Blue.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2007Silver.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2007Silver.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2010Black.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2010Black.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2010Blue.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2010Blue.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2010Silver.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2010Silver.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2013.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2013.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2013DarkGray.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2013DarkGray.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Office2013LightGray.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Office2013LightGray.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.Seven.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.Seven.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.TouchlineDark.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.TouchlineDark.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Xpf.Themes.VS2010.v15.2">
+      <Visible>False</Visible>
+      <Group>DevExpress.Xpf.Themes.VS2010.v15.2</Group>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <TargetPath>
+      </TargetPath>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="DevExpress.Build.XamlResourceProcessing.targets" />
+  <ItemGroup><PublishFile Include="DevExpress.Xpf.Themes.LightGray.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.LightGray.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.MetropolisDark.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.MetropolisDark.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.TouchlineDark.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.TouchlineDark.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2013.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2013.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.HybridApp.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.HybridApp.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.MetropolisLight.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.MetropolisLight.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2013LightGray.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2013LightGray.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2013DarkGray.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2013DarkGray.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2007Black.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2007Black.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2007Blue.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2007Blue.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2007Silver.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2007Silver.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2010Black.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2010Black.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2010Blue.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2010Blue.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Office2010Silver.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Office2010Silver.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.Seven.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.Seven.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.VS2010.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.VS2010.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile><PublishFile Include="DevExpress.Xpf.Themes.DXStyle.v15.2"><Visible>False</Visible><Group>DevExpress.Xpf.Themes.DXStyle.v15.2</Group><TargetPath /><PublishState>Include</PublishState><IncludeHash>True</IncludeHash><FileType>Assembly</FileType></PublishFile></ItemGroup><ItemGroup><Reference Include="DevExpress.Xpf.Themes.LightGray.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2007Black.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2007Blue.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2007Silver.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Seven.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2010Black.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2010Blue.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2010Silver.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.MetropolisDark.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.TouchlineDark.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2013.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.HybridApp.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.MetropolisLight.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2013LightGray.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.Office2013DarkGray.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.VS2010.v15.2"><Private>True</Private><HintPath></HintPath></Reference><Reference Include="DevExpress.Xpf.Themes.DXStyle.v15.2"><Private>True</Private><HintPath></HintPath></Reference></ItemGroup>
+  <PropertyGroup>
+    
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

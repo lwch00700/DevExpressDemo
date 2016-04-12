@@ -1,0 +1,273 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.PanesControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:ChartsDemo"
+    ModuleAppear="ChartsDemoModule_ModuleAppear">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                AnimationMode="OnLoad"
+                IsManipulationEnabled="True">
+                <dxc:ChartControl.CrosshairOptions>
+                    <dxc:CrosshairOptions ShowArgumentLine="True" ArgumentLineBrush="DeepSkyBlue" ShowOnlyInFocusedPane="False">
+                        <dxc:CrosshairOptions.ArgumentLineStyle>
+                            <dxc:LineStyle Thickness="2"/>
+                        </dxc:CrosshairOptions.ArgumentLineStyle>
+                    </dxc:CrosshairOptions>
+                </dxc:ChartControl.CrosshairOptions>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend VerticalPosition="BottomOutside" HorizontalPosition="Left" Orientation="Horizontal" IndentFromDiagram="1" Padding="1" Margin="10" />
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Content="Weather in London" HorizontalAlignment="Center" />
+                </dxc:ChartControl.Titles>
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D EnableAxisXNavigation="True">
+                        <dxc:XYDiagram2D.PanesPanel>
+                            <ItemsPanelTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="1.7*"/>
+                                    </Grid.RowDefinitions>
+                                </Grid>
+                            </ItemsPanelTemplate>
+                        </dxc:XYDiagram2D.PanesPanel>
+                        <dxc:XYDiagram2D.DefaultPane>
+                            <dxc:Pane x:Name="temperaturePane" Grid.Row="0">
+                                <dxc:Pane.AxisXScrollBarOptions>
+                                    <dxc:ScrollBarOptions Visible="False" />
+                                </dxc:Pane.AxisXScrollBarOptions>
+                            </dxc:Pane>
+                        </dxc:XYDiagram2D.DefaultPane>
+                        <dxc:XYDiagram2D.Panes>
+                            <dxc:Pane x:Name="pressurePane" Grid.Row="1">
+                                <dxc:Pane.AxisXScrollBarOptions>
+                                    <dxc:ScrollBarOptions Visible="False" />
+                                </dxc:Pane.AxisXScrollBarOptions>
+                            </dxc:Pane>
+                            <dxc:Pane x:Name="humidityPane" Grid.Row="2"/>
+                        </dxc:XYDiagram2D.Panes>
+                        <dxc:XYDiagram2D.AxisY>
+                            <dxc:AxisY2D MinorCount="1" GridLinesMinorVisible="True">
+                                <dxc:AxisY2D.Title>
+                                    <dxc:AxisTitle Content="Temperature" />
+                                </dxc:AxisY2D.Title>
+                                <dxc:AxisY2D.WholeRange>
+                                    <dxc:Range dxc:AxisY2D.AlwaysShowZeroLevel="False" />
+                                </dxc:AxisY2D.WholeRange>
+                            </dxc:AxisY2D>
+                        </dxc:XYDiagram2D.AxisY>
+                        <dxc:XYDiagram2D.SecondaryAxesY>
+                            <dxc:SecondaryAxisY2D x:Name="pressureAxis" Alignment="Near" GridLinesVisible="True" GridLinesMinorVisible="True" MinorCount="3">
+                                <dxc:SecondaryAxisY2D.Title>
+                                    <dxc:AxisTitle Content="Pressure"/>
+                                </dxc:SecondaryAxisY2D.Title>
+                                <dxc:SecondaryAxisY2D.WholeRange>
+                                    <dxc:Range MaxValue="1025" MinValue="1014" SideMarginsValue="0"/>
+                                </dxc:SecondaryAxisY2D.WholeRange>
+                            </dxc:SecondaryAxisY2D>
+                            <dxc:SecondaryAxisY2D x:Name="humidityAxis" Alignment="Near" GridLinesVisible="True" GridLinesMinorVisible="True" MinorCount="2">
+                                <dxc:SecondaryAxisY2D.Title>
+                                    <dxc:AxisTitle Content="Humidity"/>
+                                </dxc:SecondaryAxisY2D.Title>
+                                <dxc:SecondaryAxisY2D.WholeRange>
+                                    <dxc:Range MaxValue="120" MinValue="0" SideMarginsValue="0"/>
+                                </dxc:SecondaryAxisY2D.WholeRange>
+                            </dxc:SecondaryAxisY2D>
+                        </dxc:XYDiagram2D.SecondaryAxesY>
+                        <dxc:XYDiagram2D.AxisX>
+                            <dxc:AxisX2D Visible="True" GridLinesVisible="True" Interlaced="True">
+                                <dxc:AxisX2D.DateTimeScaleOptions>
+                                    <dxc:ManualDateTimeScaleOptions AutoGrid="False" MeasureUnit="Hour" GridAlignment="Hour" GridSpacing="6"/>
+                                </dxc:AxisX2D.DateTimeScaleOptions>
+                                <dxc:AxisX2D.Label>
+                                    <dxc:AxisLabel TextPattern="{}{A:dd/MM HH:mm}"/>
+                                </dxc:AxisX2D.Label>
+                                <dxc:AxisX2D.VisualRange>
+                                    <dxc:Range MaxValue="06/08/2008 21:00:00.000"/>
+                                </dxc:AxisX2D.VisualRange>
+                                <dxc:AxisX2D.VisibilityInPanes>
+                                    <dxc:VisibilityInPane Pane="{Binding ElementName=pressurePane}" Visible="False" />
+                                    <dxc:VisibilityInPane Pane="{Binding ElementName=temperaturePane}" Visible="False" />
+                                </dxc:AxisX2D.VisibilityInPanes>
+                            </dxc:AxisX2D>
+                        </dxc:XYDiagram2D.AxisX>
+                        <dxc:XYDiagram2D.Series>
+                            <dxc:LineSeries2D DisplayName="Temperature (F)" ArgumentScaleType="DateTime" AnimationAutoStartMode="SetStartState">
+                                <dxc:LineSeries2D.SeriesAnimation>
+                                    <dxc:Line2DStretchFromNearAnimation Duration="0:0:2"/>
+                                </dxc:LineSeries2D.SeriesAnimation>
+                                <dxc:LineSeries2D.PointAnimation>
+                                    <dxc:Marker2DSlideFromTopAnimation Duration="0:0:2"/>
+                                </dxc:LineSeries2D.PointAnimation>
+                                <dxc:LineSeries2D.Label>
+                                    <dxc:SeriesLabel dxc:MarkerSeries2D.Angle="90"/>
+                                </dxc:LineSeries2D.Label>
+                                <dxc:LineSeries2D.Points>
+                                    <dxc:SeriesPoint Value="56.48" Argument="06/11/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="53.78" Argument="06/11/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="57.74" Argument="06/11/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="64.4" Argument="06/10/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="72.5" Argument="06/10/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="72.68" Argument="06/10/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="69.62" Argument="06/10/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="67.28" Argument="06/10/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="62.42" Argument="06/10/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="60.62" Argument="06/10/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="62.6" Argument="06/10/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="71.96" Argument="06/09/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="77.9" Argument="06/09/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="78.98" Argument="06/09/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="76.28" Argument="06/09/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="71.06" Argument="06/09/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="60.8" Argument="06/09/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="58.64" Argument="06/09/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="63.14" Argument="06/09/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="68.54" Argument="06/08/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="75.2" Argument="06/08/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="77.18" Argument="06/08/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="74.48" Argument="06/08/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="64.58" Argument="06/08/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="59.36" Argument="06/08/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="60.08" Argument="06/08/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="61.16" Argument="06/08/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="63.86" Argument="06/07/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="65.66" Argument="06/07/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="65.12" Argument="06/07/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="63.86" Argument="06/07/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="61.52" Argument="06/07/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="51.8" Argument="06/07/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="52.34" Argument="06/07/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="57.2" Argument="06/07/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="60.44" Argument="06/06/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="65.48" Argument="06/06/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="66.56" Argument="06/06/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="64.04" Argument="06/06/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="60.26" Argument="06/06/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="51.44" Argument="06/06/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="50.18" Argument="06/06/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="56.12" Argument="06/06/2008 00:00:00.000"/>
+                                </dxc:LineSeries2D.Points>
+                            </dxc:LineSeries2D>
+                            <dxc:AreaSeries2D DisplayName="Pressure (mbar)" ArgumentScaleType="DateTime" MarkerVisible="False" dxc:XYDiagram2D.SeriesAxisY="{Binding ElementName=pressureAxis}"
+                                              dxc:XYDiagram2D.SeriesPane="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=dxc:XYDiagram2D}, Path=Panes[0]}" AnimationAutoStartMode="SetStartState">
+                                <dxc:AreaSeries2D.SeriesAnimation>
+                                    <dxc:Area2DUnwindAnimation Duration="0:0:2"/>
+                                </dxc:AreaSeries2D.SeriesAnimation>
+                                <dxc:AreaSeries2D.Points>
+                                    <dxc:SeriesPoint Value="1023" Argument="06/11/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1021" Argument="06/11/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1023" Argument="06/11/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1021" Argument="06/10/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1020" Argument="06/10/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1021" Argument="06/10/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1023" Argument="06/10/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1023" Argument="06/10/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1023" Argument="06/10/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1021" Argument="06/10/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1023" Argument="06/10/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1023" Argument="06/09/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1021" Argument="06/09/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1023" Argument="06/09/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1024" Argument="06/09/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1024" Argument="06/09/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1024" Argument="06/09/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1023" Argument="06/09/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1024" Argument="06/09/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1023" Argument="06/08/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1021" Argument="06/08/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1021" Argument="06/08/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1021" Argument="06/08/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1021" Argument="06/08/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1020" Argument="06/08/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1019" Argument="06/08/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1019" Argument="06/08/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1019" Argument="06/07/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1017" Argument="06/07/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1017" Argument="06/07/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1017" Argument="06/07/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1017" Argument="06/07/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1017" Argument="06/07/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1016" Argument="06/07/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1016" Argument="06/07/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1016" Argument="06/06/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1015" Argument="06/06/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1015" Argument="06/06/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1015" Argument="06/06/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1015" Argument="06/06/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1015" Argument="06/06/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1015" Argument="06/06/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="1015" Argument="06/06/2008 00:00:00.000"/>
+                                </dxc:AreaSeries2D.Points>
+                            </dxc:AreaSeries2D>
+                            <dxc:BarSideBySideSeries2D DisplayName="Relative humidity (%)" ArgumentScaleType="DateTime" BarWidth="1.5" dxc:XYDiagram2D.SeriesAxisY="{Binding ElementName=humidityAxis}"
+                                                       dxc:XYDiagram2D.SeriesPane="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=dxc:XYDiagram2D}, Path=Panes[1]}" AnimationAutoStartMode="SetStartState">
+                                <dxc:BarSideBySideSeries2D.PointAnimation>
+                                    <dxc:Bar2DGrowUpAnimation PointDelay="0" Duration="0:0:2"/>
+                                </dxc:BarSideBySideSeries2D.PointAnimation>
+                                <dxc:BarSideBySideSeries2D.Points>
+                                    <dxc:SeriesPoint Value="69" Argument="06/11/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="76" Argument="06/11/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="66" Argument="06/11/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="49" Argument="06/10/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="45" Argument="06/10/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="48" Argument="06/10/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="57" Argument="06/10/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="66" Argument="06/10/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="78" Argument="06/10/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="83" Argument="06/10/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="72" Argument="06/10/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="52" Argument="06/09/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="40" Argument="06/09/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="41" Argument="06/09/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="37" Argument="06/09/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="41" Argument="06/09/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="68" Argument="06/09/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="78" Argument="06/09/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="71" Argument="06/09/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="63" Argument="06/08/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="47" Argument="06/08/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="44" Argument="06/08/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="48" Argument="06/08/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="68" Argument="06/08/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="81" Argument="06/08/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="85" Argument="06/08/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="76" Argument="06/08/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="65" Argument="06/07/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="57" Argument="06/07/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="62" Argument="06/07/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="53" Argument="06/07/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="62" Argument="06/07/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="76" Argument="06/07/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="80" Argument="06/07/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="82" Argument="06/07/2008 00:00:00.000"/>
+                                    <dxc:SeriesPoint Value="73" Argument="06/06/2008 21:00:00.000"/>
+                                    <dxc:SeriesPoint Value="57" Argument="06/06/2008 18:00:00.000"/>
+                                    <dxc:SeriesPoint Value="55" Argument="06/06/2008 15:00:00.000"/>
+                                    <dxc:SeriesPoint Value="64" Argument="06/06/2008 12:00:00.000"/>
+                                    <dxc:SeriesPoint Value="74" Argument="06/06/2008 09:00:00.000"/>
+                                    <dxc:SeriesPoint Value="89" Argument="06/06/2008 06:00:00.000"/>
+                                    <dxc:SeriesPoint Value="87" Argument="06/06/2008 03:00:00.000"/>
+                                    <dxc:SeriesPoint Value="80" Argument="06/06/2008 00:00:00.000"/>
+                                </dxc:BarSideBySideSeries2D.Points>
+                            </dxc:BarSideBySideSeries2D>
+                        </dxc:XYDiagram2D.Series>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

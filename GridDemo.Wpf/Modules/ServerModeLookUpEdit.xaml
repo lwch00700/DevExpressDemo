@@ -1,0 +1,63 @@
+﻿<local:GridDemoModule x:Class="GridDemo.ServerModeLookUpEdit"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxdd="clr-namespace:DevExpress.DemoData"
+    xmlns:local="clr-namespace:GridDemo"
+    xmlns:dxdemo="clr-namespace:GridDemo"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="800" DataContext="{dxmvvm:ViewModelSource Type=local:ServerModeLookUpEditViewModel}">
+    <local:GridDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/GridDemo;component/ModuleResources/ServerModeLookUpEditResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </local:GridDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel>
+                <Button Content="Configuration..." Height="22" VerticalAlignment="Top" Command="{Binding Path=ConfigureCommand}" />
+                <dx:LinqServerModeDataSource Name="dataSource" KeyExpression="PersonID" QueryableSource="{Binding Path=People}" />
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxg:GridControl Name="grid" ItemsSource="{Binding Orders}">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="OrderId" Header="ID" Width="50" MinWidth="30" />
+                <dxg:GridColumn FieldName="CustomerID" MinWidth="50" Width="180">
+                    <dxg:GridColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Customer" FontWeight="Bold"/>
+                        </DataTemplate>
+                    </dxg:GridColumn.HeaderTemplate>
+                    <dxg:GridColumn.EditSettings>
+                        <dxg:LookUpEditSettings ItemsSource="{Binding ElementName=dataSource, Path=Data}" PopupContentTemplate="{StaticResource pesonGridTemplate}"
+                                                AutoPopulateColumns="False" IsPopupAutoWidth="False" IncrementalFiltering="False"
+                                                ValueMember="PersonID" DisplayMember="FullName" />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="ProductName" />
+                <dxg:GridColumn FieldName="Price" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:SpinEditSettings MaskType="Numeric" MaskUseAsDisplayFormat="True" Mask="c" MaskCulture="en-US" />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="OrderDate" />
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView Name="view" AutoWidth="true">
+                </dxg:TableView>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </dxdb:DemoModuleControl>
+    <dxmvvm:Interaction.Triggers>
+        <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding OnLoadedCommand}" ProcessEventsFromDisabledEventOwner="True"/>
+    </dxmvvm:Interaction.Triggers>
+</local:GridDemoModule>

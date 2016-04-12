@@ -1,0 +1,3 @@
+DevExpress.Xpf.Docking.v{DXVersion}
+DevExpress.Xpf.Layout.v{DXVersion}.Core
+DevExpress.Xpf.NavBar.v{DXVersion}

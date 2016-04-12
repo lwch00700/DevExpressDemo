@@ -1,0 +1,98 @@
+﻿<local:GridDemoModule x:Class="GridDemo.DataAwareExport"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:local="clr-namespace:GridDemo"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="800"
+    DataContext="{dxmvvm:ViewModelSource local:DataAwareExportViewModel}">
+    <local:GridDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/GridDemo;component/Themes/generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <dx:FormatStringConverter x:Key="converter" FormatString="#,#" />
+            <DataTemplate x:Key="countInfoTemplate">
+                <dx:DXDockPanel LastChildFill="False" Width="150">
+                    <TextBlock Text="{Binding Description}" dx:DXDockPanel.Dock="Left" />
+                    <TextBlock Text="{Binding Value, Converter={StaticResource converter}}" dx:DXDockPanel.Dock="Right" />
+                </dx:DXDockPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </local:GridDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel>
+                <dx:GroupFrame Header="Rows" Margin="0,0,0,12">
+                    <dxe:ListBoxEdit ValueMember="Value" DisplayMember="Description" EditValue="{Binding ItemCount, Mode=OneWayToSource}" ItemTemplate="{StaticResource countInfoTemplate}" ShowBorder="False" Background="{x:Null}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                        <dxe:ListBoxEdit.Items>
+                            <local:CountInfo Value="5000" Description="Small" />
+                            <local:CountInfo Value="20000" Description="Medium" />
+                            <local:CountInfo Value="50000" Description="Large" />
+                        </dxe:ListBoxEdit.Items>
+                        <dxe:ListBoxEdit.SelectedIndex>1</dxe:ListBoxEdit.SelectedIndex>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Export Options" Margin="0,0,0,12">
+                    <StackPanel Orientation="Vertical">
+                        <dxe:CheckEdit IsChecked="{Binding Path=PrintColumnHeaders, Mode=TwoWay, ElementName=view}" Content="Export Column Headers" Margin="0,0,6,4" />
+                        <dxe:CheckEdit IsChecked="{Binding Path=PrintTotalSummary, Mode=TwoWay, ElementName=view}" Content="Export Total Summary" Margin="0,0,6,4" />
+                        <dxe:CheckEdit IsChecked="{Binding Path=PrintFixedTotalSummary, Mode=TwoWay, ElementName=view}" Content="Export Fixed Total Summary" Margin="0,0,6,4" />
+                        <dxe:CheckEdit IsChecked="{Binding Path=PrintAllGroups, Mode=TwoWay, ElementName=view}" Content="Expand All Groups" Margin="0,0,6,4" />
+                    </StackPanel>
+                </dx:GroupFrame>
+                <Button Content="Export To Excel" Click="ExportButtonClick"/>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxg:GridControl x:Name="grid" ItemsSource="{Binding Items}">
+            <dxg:GridControl.GroupSummary>
+                <dxg:GridSummaryItem FieldName="Sales" SummaryType="Average"/>
+                <dxg:GridSummaryItem FieldName="Profit" SummaryType="Sum"/>
+            </dxg:GridControl.GroupSummary>
+            <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem FieldName="Sales" SummaryType="Average"/>
+                <dxg:GridSummaryItem FieldName="Profit" SummaryType="Sum"/>
+                <dxg:GridSummaryItem FieldName="MarketShare" SummaryType="Count" Alignment="Right" />
+            </dxg:GridControl.TotalSummary>
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="Country" IsSmart="True" GroupIndex="0" />
+                <dxg:GridColumn FieldName="ProductName" IsSmart="True" SortIndex="0" Fixed="Left" AllowCellMerge="True" />
+                <dxg:GridColumn FieldName="Year" />
+                <dxg:GridColumn FieldName="Sales" IsSmart="True"/>
+                <dxg:GridColumn FieldName="SalesVsTarget" IsSmart="True" FixedWidth="True"/>
+                <dxg:GridColumn FieldName="Profit" IsSmart="True"/>
+                <dxg:GridColumn FieldName="CustomersSatisfaction" IsSmart="True" FixedWidth="True"/>
+                <dxg:GridColumn FieldName="MarketShare" IsSmart="True" FixedWidth="True"/>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView x:Name="view" AutoWidth="True" NavigationStyle="None" ShowTotalSummary="True" ShowFixedTotalSummary="True" AllowConditionalFormattingMenu="True">
+                    <dxg:TableView.FormatConditions>
+                        <dxg:ColorScaleFormatCondition FieldName="Sales">
+                            <dx:ColorScaleFormat ColorMin="White" ColorMax="#FF83B5F1"/>
+                        </dxg:ColorScaleFormatCondition>
+
+                        <dxg:FormatCondition FieldName="Profit" Expression="[Profit]&lt;0" PredefinedFormatName="RedText"/>
+                        <dxg:FormatCondition FieldName="Profit" Expression="[Profit]>=0" PredefinedFormatName="GreenText"/>
+
+                        <dxg:FormatCondition FieldName="SalesVsTarget" Expression="[SalesVsTarget]&lt;0" PredefinedFormatName="RedText"/>
+                        <dxg:FormatCondition FieldName="SalesVsTarget" Expression="[SalesVsTarget]>=0" PredefinedFormatName="GreenText"/>
+                        <dxg:IconSetFormatCondition FieldName="SalesVsTarget" PredefinedFormatName="PositiveNegativeTrianglesIconSet"/>
+
+                        <dxg:FormatCondition FieldName="CustomersSatisfaction" Expression="[CustomersSatisfaction]&gt;4" PredefinedFormatName="GreenFillWithDarkGreenText"/>
+                        <dxg:FormatCondition FieldName="CustomersSatisfaction" Expression="[CustomersSatisfaction]&lt;3" PredefinedFormatName="LightRedFillWithDarkRedText"/>
+
+                        <dxg:IconSetFormatCondition PredefinedFormatName="Arrows3ColoredIconSet" FieldName="MarketShare"/>
+                    </dxg:TableView.FormatConditions>
+                </dxg:TableView>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </dxdb:DemoModuleControl>
+</local:GridDemoModule>

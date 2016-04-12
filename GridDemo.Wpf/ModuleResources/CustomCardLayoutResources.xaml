@@ -1,0 +1,141 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                    xmlns:dxp="http://schemas.devexpress.com/winfx/2008/xaml/printing"
+                    xmlns:local="clr-namespace:GridDemo"
+                 xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/GridDemo;component/Themes/generic.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <dxg:PrintCardMarginConverter x:Key="PrintCardMarginConverter"/>
+    <local:FullNameConverter x:Key="FullNameConverter"/>
+
+    <DataTemplate x:Key="headerTemplateFullName">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Path=Data.FirstName}" />
+            <TextBlock Text=" " />
+            <TextBlock Text="{Binding Path=Data.LastName}" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="cardTemplate2">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <dxe:ImageEdit Stretch="Fill" Height="70" Width="64" VerticalAlignment="Top" Source="{Binding Path=DataContext.Photo}" ShowMenu="False" IsReadOnly="True"/>
+                <Grid Margin="12,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Title: " VerticalAlignment="Center" />
+                    <Border Grid.Row="0" Grid.Column="1">
+                        <dxg:CardCellContentPresenter NavigationIndex="0" FieldName="Title" Style="{Binding Path=View.CellStyle}" />
+                    </Border>
+                    <TextBlock Grid.Row="1" Text="First Name: " VerticalAlignment="Center" />
+                    <Border Grid.Row="1" Grid.Column="1">
+                        <dxg:CardCellContentPresenter NavigationIndex="1" FieldName="FirstName" Style="{Binding Path=View.CellStyle}" />
+                    </Border>
+                    <TextBlock Grid.Row="2" Text="Last Name: " VerticalAlignment="Center" />
+                    <Border Grid.Row="2" Grid.Column="1">
+                        <dxg:CardCellContentPresenter NavigationIndex="2" FieldName="LastName" Style="{Binding Path=View.CellStyle}" />
+                    </Border>
+                    <TextBlock Grid.Row="3" Text="Birth Date: " VerticalAlignment="Center" />
+                    <Border Grid.Row="3" Grid.Column="1">
+                        <dxg:CardCellContentPresenter NavigationIndex="3" FieldName="BirthDate" Style="{Binding Path=View.CellStyle}" />
+                    </Border>
+                    <TextBlock Grid.Row="4" Text="Notes: " VerticalAlignment="Center" />
+                    <Border Grid.Row="4" Grid.Column="1">
+                        <dxg:CardCellContentPresenter MaxWidth="200" NavigationIndex="4" FieldName="Notes" Style="{Binding Path=View.CellStyle}" />
+                    </Border>
+                </Grid>
+            </StackPanel>
+            <GroupBox Header="Contact Info" Margin="0,12,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Address: " VerticalAlignment="Center" />
+                    <Border Grid.Row="0" Grid.Column="1">
+                        <dxg:CardCellContentPresenter NavigationIndex="5" FieldName="Address" Style="{Binding Path=View.CellStyle}" />
+                    </Border>
+                    <TextBlock Grid.Row="1" Text="City: " VerticalAlignment="Center" />
+                    <Border Grid.Row="1" Grid.Column="1">
+                        <dxg:CardCellContentPresenter NavigationIndex="6" FieldName="City" Style="{Binding Path=View.CellStyle}" />
+                    </Border>
+                    <TextBlock Grid.Row="2" Text="Postal Code: " VerticalAlignment="Center" />
+                    <Border Grid.Row="2" Grid.Column="1">
+                        <dxg:CardCellContentPresenter NavigationIndex="7" FieldName="PostalCode" Style="{Binding Path=View.CellStyle}" />
+                    </Border>
+                    <TextBlock Grid.Row="3" Text="Country: " VerticalAlignment="Center" />
+                    <Border Grid.Row="3" Grid.Column="1">
+                        <dxg:CardCellContentPresenter NavigationIndex="8" FieldName="Country" Style="{Binding Path=View.CellStyle}" />
+                    </Border>
+                    <TextBlock Grid.Row="4" Text="Home Phone: " VerticalAlignment="Center" />
+                    <Border Grid.Row="4" Grid.Column="1">
+                        <dxg:CardCellContentPresenter NavigationIndex="9" FieldName="HomePhone" Style="{Binding Path=View.CellStyle}" />
+                    </Border>
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomCardLayout_PrintCardHeaderTemplate">
+        <dxe:TextEdit IsPrintingMode="True" AllowUpdateTextBlockWhenPrinting="False" FontSize="16" Margin="0" dxp:TextExportSettings.TextTrimming="None">
+            <dxe:TextEdit.EditValue>
+                <MultiBinding Converter="{StaticResource FullNameConverter}">
+                    <Binding Path="RowData.Row.FirstName" Mode="OneWay"/>
+                    <Binding Path="RowData.Row.LastName" Mode="OneWay"/>
+                </MultiBinding>
+            </dxe:TextEdit.EditValue>
+        </dxe:TextEdit>
+    </DataTemplate>
+    <DataTemplate x:Key="CustomCardLayout_PrintCardTemplate">
+        <StackPanel dxp:ExportSettings.TargetType="Panel" dxp:ExportSettings.Background="White">
+            <StackPanel Orientation="Vertical" dxp:ExportSettings.TargetType="Panel" dxp:ExportSettings.Background="White" dxp:ExportSettings.BorderColor="#FF989898" dxp:ExportSettings.BorderThickness="1" Width="{Binding Path=(dxg:CardViewPrintingHelper.PrintCardInfo).PrintCardWidth}">
+                <StackPanel.Margin>
+                    <MultiBinding Converter="{StaticResource PrintCardMarginConverter}">
+                        <Binding Path="(dxg:CardViewPrintingHelper.PrintCardInfo).PrintCardMargin"/>
+                        <Binding Path="(dxg:CardViewPrintRowPanel.IsFirstCardInRow)"/>
+                    </MultiBinding>
+                </StackPanel.Margin>
+                <ContentControl Content="{Binding Path=CardHeaderData, Mode=OneWay}" ContentTemplate="{Binding Path=(dxg:CardViewPrintingHelper.PrintCardInfo).PrintCardHeaderTemplate}" Margin="17,14,8,7"/>
+                <Grid Margin="17,9,17,17">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel dxp:ExportSettings.TargetType="Panel" dxp:ExportSettings.BorderThickness="1" dxp:ExportSettings.BorderColor="#FFCCCCCC" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <dxe:ImageEdit Width="102" Height="127" IsPrintingMode="True" EditValue="{Binding Path=Row.Photo}" Margin="-10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="9,0,0,0">
+                        <dxe:TextEdit EditValue="FIRST NAME" IsPrintingMode="True" Foreground="#FF666666" AllowUpdateTextBlockWhenPrinting="False"/>
+                        <dxe:TextEdit EditValue="{Binding Path=Row.FirstName}" IsPrintingMode="True" Margin="0,0,0,10" dxp:TextExportSettings.TextTrimming="None" VerticalContentAlignment="Top" TextTrimming="None" PrintTextWrapping="Wrap"/>
+                        <dxe:TextEdit EditValue="LAST NAME" IsPrintingMode="True" Foreground="#FF666666" AllowUpdateTextBlockWhenPrinting="False"/>
+                        <dxe:TextEdit EditValue="{Binding Path=Row.LastName}" IsPrintingMode="True" Margin="0,0,0,10" dxp:TextExportSettings.TextTrimming="None" VerticalContentAlignment="Top" TextTrimming="None" PrintTextWrapping="Wrap"/>
+                        <dxe:TextEdit EditValue="TITLE" IsPrintingMode="True" Foreground="#FF666666" AllowUpdateTextBlockWhenPrinting="False"/>
+                        <dxe:TextEdit EditValue="{Binding Path=Row.Title}" IsPrintingMode="True" Margin="0" dxp:TextExportSettings.TextTrimming="None" VerticalContentAlignment="Top" TextTrimming="None" PrintTextWrapping="Wrap"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

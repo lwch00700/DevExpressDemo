@@ -1,0 +1,183 @@
+﻿<local:SpellCheckerDemoModule x:Class="SpellCheckerDemo.CheckAsYouType" x:Name="CheckAsYouTypeModule"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:local="clr-namespace:SpellCheckerDemo"
+             xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+             xmlns:dxsc="clr-namespace:DevExpress.Xpf.SpellChecker;assembly=DevExpress.Xpf.SpellChecker.v15.2"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             Loaded="CheckAsYouTypeModule_Loaded">
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Height="Auto">
+                <dx:GroupFrame Name="gf_EditorSettings" Header="{Binding Path=GroupSettingsHeader, Mode=OneWay, ElementName=CheckAsYouTypeModule}">
+                    <dx:GroupFrame.Resources>
+                        <local:UnderlineStyleConverter x:Key="UnderlineStyleConverter"/>
+                        <local:DefaultBooleanConverter x:Key="DefaultBooleanConverter"/>
+                    </dx:GroupFrame.Resources>
+                    <StackPanel>
+                        <dxe:CheckEdit Name="ce_AsYouType" Content="CheckAsYouType Mode" EditValue="{Binding Path=ActiveEditor.(dxsc:SpellingSettings.CheckAsYouType), Mode=TwoWay, ElementName=CheckAsYouTypeModule}"/>
+                        <dxe:CheckEdit Content="Show Spell Check Menu" EditValue="{Binding ActiveEditor.(dxsc:SpellingSettings.ShowSpellCheckMenu), Mode=TwoWay, ElementName=CheckAsYouTypeModule}"/>
+                        <dx:GroupFrame Header="Underline Style">
+                            <dxe:ComboBoxEdit ItemsSource="{Binding UnderlineStyles, Mode=OneTime, ElementName=CheckAsYouTypeModule}" IsTextEditable="False" EditValue="{Binding ActiveEditor.(dxsc:SpellingSettings.UnderlineStyle), Mode=TwoWay, Converter={StaticResource UnderlineStyleConverter}, UpdateSourceTrigger=PropertyChanged, ElementName=CheckAsYouTypeModule}"/>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="Underline Color">
+                            <dxe:PopupColorEdit EditValue="{Binding ActiveEditor.(dxsc:SpellingSettings.UnderlineColor), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=CheckAsYouTypeModule}" ShowMoreColorsButton="False" ShowDefaultColorButton="False"/>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="Culture">
+                            <dxe:ComboBoxEdit ItemsSource="{Binding Cultures, Mode=OneTime, ElementName=CheckAsYouTypeModule}" IsTextEditable="False" EditValue="{Binding ActiveEditor.(dxsc:SpellingSettings.Culture), Mode=TwoWay, ElementName=CheckAsYouTypeModule, UpdateSourceTrigger=PropertyChanged}"/>
+                        </dx:GroupFrame>
+                        <dx:GroupFrame Header="Options Spelling">
+                            <StackPanel>
+                                <dxe:CheckEdit Content="Ignore Words In UPPERCASE" EditValue="{Binding ActiveEditor.(dxsc:SpellingSettings.IgnoreUpperCaseWords), Mode=TwoWay, Converter={StaticResource DefaultBooleanConverter}, ElementName=CheckAsYouTypeModule}"/>
+                                <dxe:CheckEdit Content="Ignore Words In MiXEdcAse" EditValue="{Binding ActiveEditor.(dxsc:SpellingSettings.IgnoreMixedCaseWords), Mode=TwoWay, Converter={StaticResource DefaultBooleanConverter}, ElementName=CheckAsYouTypeModule}"/>
+                                <dxe:CheckEdit Content="Ignore Words With Numbers" EditValue="{Binding ActiveEditor.(dxsc:SpellingSettings.IgnoreWordsWithNumbers), Mode=TwoWay, Converter={StaticResource DefaultBooleanConverter}, ElementName=CheckAsYouTypeModule}"/>
+                                <dxe:CheckEdit Content="Ignore Repeated Words" EditValue="{Binding ActiveEditor.(dxsc:SpellingSettings.IgnoreRepeatedWords), Mode=TwoWay, Converter={StaticResource DefaultBooleanConverter}, ElementName=CheckAsYouTypeModule}"/>
+                                <dxe:CheckEdit Content="Ignore E-Mails" EditValue="{Binding ActiveEditor.(dxsc:SpellingSettings.IgnoreEmails), Mode=TwoWay, Converter={StaticResource DefaultBooleanConverter}, ElementName=CheckAsYouTypeModule}"/>
+                                <dxe:CheckEdit Content="Ignore Internet and file addresses" EditValue="{Binding ActiveEditor.(dxsc:SpellingSettings.IgnoreUri), Mode=TwoWay, Converter={StaticResource DefaultBooleanConverter}, ElementName=CheckAsYouTypeModule}"/>
+                            </StackPanel>
+                        </dx:GroupFrame>
+                        <Button Content="Reset To Container Settings"  Click="Button_Click" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid Name="grid">
+            <dxsc:SpellingSettings.SpellChecker>
+                <Binding Path="SpellChecker" ElementName="CheckAsYouTypeModule"/>
+            </dxsc:SpellingSettings.SpellChecker>
+            <dxsc:SpellingSettings.CheckAsYouType>True</dxsc:SpellingSettings.CheckAsYouType>
+            <dxsc:SpellingSettings.ShowSpellCheckMenu>True</dxsc:SpellingSettings.ShowSpellCheckMenu>
+            <dxsc:SpellingSettings.UnderlineColor>Red</dxsc:SpellingSettings.UnderlineColor>
+            <dxsc:SpellingSettings.UnderlineStyle>WavyLine</dxsc:SpellingSettings.UnderlineStyle>
+            <dxsc:SpellingSettings.IgnoreEmails>True</dxsc:SpellingSettings.IgnoreEmails>
+            <dxsc:SpellingSettings.IgnoreMixedCaseWords>True</dxsc:SpellingSettings.IgnoreMixedCaseWords>
+            <dxsc:SpellingSettings.IgnoreRepeatedWords>False</dxsc:SpellingSettings.IgnoreRepeatedWords>
+            <dxsc:SpellingSettings.IgnoreUpperCaseWords>True</dxsc:SpellingSettings.IgnoreUpperCaseWords>
+            <dxsc:SpellingSettings.IgnoreUri>True</dxsc:SpellingSettings.IgnoreUri>
+            <dxsc:SpellingSettings.IgnoreWordsWithNumbers>True</dxsc:SpellingSettings.IgnoreWordsWithNumbers>
+            <dxsc:SpellingSettings.DictionarySourceCollection>
+                <dxsc:DictionarySourceCollection>
+                    <dxsc:HunspellDictionarySource Culture="en-US" DictionaryUri="pack://application:,,,/SpellCheckerDemo;component//Data/Dictionaries/en/en_US.dic" GrammarUri="pack://application:,,,/SpellCheckerDemo;component//Data/Dictionaries/en/en_US.aff"/>
+                    <dxsc:HunspellDictionarySource Culture="ru-RU" DictionaryUri="pack://application:,,,/SpellCheckerDemo;component//Data/Dictionaries/ru/ru_RU.dic" GrammarUri="pack://application:,,,/SpellCheckerDemo;component//Data/Dictionaries/ru/ru_RU.aff"/>
+                    <dxsc:HunspellDictionarySource Culture="de-DE" DictionaryUri="pack://application:,,,/SpellCheckerDemo;component//Data/Dictionaries/de/de_DE.dic" GrammarUri="pack://application:,,,/SpellCheckerDemo;component//Data/Dictionaries/de/de_DE.aff"/>
+                </dxsc:DictionarySourceCollection>
+            </dxsc:SpellingSettings.DictionarySourceCollection>
+            <Grid.Resources>
+                <local:OpacityConverter x:Key="OpacityConverter"/>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <dx:GroupFrame Header="TextBox" Margin="10, 10, 10, 5" Grid.Row="0">
+                <TextBox Name="textBox" AcceptsReturn="True" Opacity="{Binding ActiveEditor, ElementName=CheckAsYouTypeModule, Converter={StaticResource OpacityConverter}, ConverterParameter=textBox}" VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Top" Text="HANS IN LYCK
+&#x0a;&#x0a;Hans had served his master forseven years, so he said to him, &quot;Master, my time is up; now I should be glad to to go back home to my mother; give me my wages.&quot;
+The master answered, &quot;You have served me faithfully and honesly; as the service was so shall the reward be;&quot; and he gave Hans a piece of gold as big as his head.
+Hans pulled his handkerchief out of his pocket, wrapped up the lump init, put it on his shoulder, and set out on the way home.
+&#x0a;&#x0a;As he went on, always puting one foot before the other, he saw a horseman trotting quickly and merrily by on a lively horse.
+&quot;Ah!&quot; said Hans quite loud, &quot;what a fine thing it is to ride! There you sit as on a chair; you stumble over no stones, you save your shoes, and get on, you don&quot;t know how.&quot;
+&#x0a;&#x0a;The rider, who had heard him, stopped and called out, &quot;Hollo! Hans, why do you go on foot, then?&quot;
+&quot;I must,&quot; answered he, &quot;for I have this lump to carry home; it is true that it is gold, but I cannot hold my head straight for it, and it hurts my shoulder.&quot;
+&#x0a;&#x0a;&quot;I will tell you what,&quot; said the rider, &quot;we will exchange: I will give you my horse, and you can give me your lump.&quot;
+&#x0a;&#x0a;&quot;With all my heart,&quot; said Hans, &quot;but I can tell you, you will have to crawl along with it.&quot;
+&#x0a;&#x0a;The rider got down, took the gold, and helped Hans up; then gave him the briddle tight in his hands and said, &quot;If you want to go at a really good pace, you must click your tongue and call out, &quot;Jup! Jup!&quot;
+" TextWrapping="Wrap">
+                    <dxsc:SpellingSettings.Culture>en-US</dxsc:SpellingSettings.Culture>
+                    <dxsc:SpellingSettings.UnderlineColor>Orange</dxsc:SpellingSettings.UnderlineColor>
+                    <dxsc:SpellingSettings.IgnoreUpperCaseWords>False</dxsc:SpellingSettings.IgnoreUpperCaseWords>
+                    <dxsc:SpellingSettings.IgnoreRepeatedWords>False</dxsc:SpellingSettings.IgnoreRepeatedWords>
+                </TextBox>
+            </dx:GroupFrame>
+            <dx:GroupFrame Header="TextEdit" Margin="10, 5, 10, 5" Grid.Row="1">
+                <dxe:TextEdit Name="textEdit" AcceptsReturn="True" Opacity="{Binding ActiveEditor, ElementName=CheckAsYouTypeModule, Converter={StaticResource OpacityConverter}, ConverterParameter=textEdit}" VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Top" Text="Сачстливчик Ганс
+&#x0a;&#x0a;Ганс прослужил семь лет у своего господина и стал говорить ему: &quot;Срок моей службы, сударь, миновал уже, и я бы очень охотно вернулся теперь к моей матери; а потому пожалуйте мне мое жалованье&quot;.
+&#x0a;&#x0a;Хозяин его отвечал: &quot;Ты служил мне верно и честно; по твоей службе должна быть тебе и награда&quot;, — и дал ему кусок золото величиной с его голову. Ганс вытащил платочек из кармана, завернул в него слиток золота, положил его на плечо и пустился домой.
+&#x0a;&#x0a;Шел он своей дорогой, плелся нога за ногу и увидел всадника, который бодро и весело прорысил мимо него на славной лошади. &quot;Ах, — сказал Ганс вслух, — что за славная штука эта верховая езда! Сидишь словно на стуле, ни на какой камень не спотыкаешься, обуви не изнашиваешь, и едешь себе вперед да вперед, сам того не замечая&quot;.
+&#x0a;&#x0a;Всадник, услышав это, сдержал коня и крикнул: &quot;Эй, Ганс, так зачем же ты пешком-то идешь?&quot; — &quot;Приходится идти пешком, коли нужно домой снести вот этот слиток: оно, положим, и золото, однако вот голову приходится набок держать, да и плечо оттянуло&quot;. — &quot;А знаешь ли что? — сказал всадник. — Давай меняться: я тебе отдам своего коня, а ты мне свой слиток&quot;. — &quot;С удовольствием, — сказал Ганс, — но только предупреждаю, что придется тебе с ним тащиться».
+&#x0a;&#x0a;Всадник спешился, взял у ГАнса слиток золота и помог ему взобраться на седло; потом дал ему поводья в руки и добавил: &quot;Если хочешь, чтобы конь бежал быстро, тебе надо только языком прищелкнуть да крикнуть: гоп, гоп&quot;.
+" TextWrapping="Wrap">
+                    <dxsc:SpellingSettings.Culture>ru-RU</dxsc:SpellingSettings.Culture>
+                    <dxsc:SpellingSettings.UnderlineStyle>Line</dxsc:SpellingSettings.UnderlineStyle>
+                    <dxsc:SpellingSettings.IgnoreMixedCaseWords>False</dxsc:SpellingSettings.IgnoreMixedCaseWords>
+                    <dxe:TextEdit.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Cut" Command="ApplicationCommands.Cut">
+                                <MenuItem.Icon>
+                                    <Image>
+                                        <Image.Source>
+                                            <BitmapImage UriSource="pack://application:,,,/SpellCheckerDemo;component//Data/Cut_16x16.png"/>
+                                        </Image.Source>
+                                    </Image>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Copy" Command="ApplicationCommands.Copy">
+                                <MenuItem.Icon>
+                                    <Image>
+                                        <Image.Source>
+                                            <BitmapImage UriSource="pack://application:,,,/SpellCheckerDemo;component//Data/Copy_16x16.png"/>
+                                        </Image.Source>
+                                    </Image>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Command="ApplicationCommands.Paste">
+                                <MenuItem.Icon>
+                                    <Image>
+                                        <Image.Source>
+                                            <BitmapImage UriSource="pack://application:,,,/SpellCheckerDemo;component//Data/Paste_16x16.png"/>
+                                        </Image.Source>
+                                    </Image>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </dxe:TextEdit.ContextMenu>
+
+                </dxe:TextEdit>
+            </dx:GroupFrame>
+            <dx:GroupFrame Header="RichTextBox" Margin="10, 5, 10, 10" Grid.Row="2">
+                <RichTextBox Name="richTextBox" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Visible" Opacity="{Binding ActiveEditor, ElementName=CheckAsYouTypeModule, Converter={StaticResource OpacityConverter}, ConverterParameter=richTextBox}">
+                    <dxsc:SpellingSettings.Culture>de-DE</dxsc:SpellingSettings.Culture>
+                    <dxsc:SpellingSettings.UnderlineColor>Green</dxsc:SpellingSettings.UnderlineColor>
+                    <FlowDocument>
+                        <Paragraph FontWeight="Bold" TextAlignment="Center">
+                            Hans im Glück
+                        </Paragraph>
+                        <Paragraph TextIndent="20">
+                            Hans hatte sieben Jahre bei seinem Herrn gedient, da sprach er zu ihm „Herr, meine Zeit ist herum, nun wollte ich gerne wieder heim zu meiner Mutter, gebt mir meinen Lohn.“ Der Herr antwortete „du hast mir treu und ehrlich gedient, wie der Dienst war, so soll der Lohn sein,“ und gab ihm ein Stück Gold, das so groß als Hansens Kopf war. Hans zog sein Tüchlein aus der Tasche, wickelte den Klumpen hinein, setzte ihn auf die Schulter und machte sich auf den Weg nach Haus.
+                        </Paragraph>
+                        <Paragraph TextIndent="20">
+                            Wie er so dahin gieng und immer ein Bein vor das andere setzte, kam ihm ein Reiter in die Augen, der frisch und fröhlich auf einem muntern Pferd vorbei trabte. „Ach,“ sprach Hans ganz laut, „was ist das Reiten ein schönes Ding! da sitzt einer wie auf einem Stuhl, stößt sich an keinen Stein, spart die Schuh, und kommt fort, er weiß nicht wie.“
+                        </Paragraph>
+                        <Paragraph TextIndent="20">
+                            Der Reiter, der das gehört hatte, hielt an und rief „ei, Hans, warum laufst du auch zu Fuß?“
+                        </Paragraph>
+                        <Paragraph TextIndent="20">
+                            „Ich muß ja wohl,“ antwortete er, „da habe ich einen Klumpen heim zu tragen: es ist zwar Gold, aber ich kann den Kopf dabei nicht gerad halten, auch drückt mirs auf die Schulter.“
+                        </Paragraph>
+                        <Paragraph TextIndent="20">
+                            „Weißt du was,“ sagte der Reiter, „wir wollen tauschen: ich gebe dir mein Pferd, und du gibst mir deinen Klumpen.“
+                        </Paragraph>
+                        <Paragraph TextIndent="20">
+                            „Von Herzen gern,“ sprach Hans, „aber ich sage euch ihr müßt euch damit schleppen.“
+                        </Paragraph>
+                        <Paragraph TextIndent="20">
+                            Der Reiter stieg ab, nahm das Gold und half dem Hans hinauf, gab ihm die Zügel fest in die Hände und sprach „wenns nun recht geschwind soll gehen, so mußt du mit der Zunge schnalzen, und hopp hopp rufen.“
+                        </Paragraph>
+                    </FlowDocument>
+                    <dxb:BarManager.DXContextMenu>
+                        <dxb:PopupMenu>
+                            <dxb:PopupMenu.Items>
+                                <dxb:BarButtonItem Content="Cut" Command="ApplicationCommands.Cut" Glyph="pack://application:,,,/SpellCheckerDemo;component//Data/Cut_16x16.png"/>
+                                <dxb:BarButtonItem Content="Copy" Command="ApplicationCommands.Copy" Glyph="pack://application:,,,/SpellCheckerDemo;component//Data/Copy_16x16.png"/>
+                                <dxb:BarButtonItem Content="Paste" Command="ApplicationCommands.Paste" Glyph="pack://application:,,,/SpellCheckerDemo;component//Data/Paste_16x16.png"/>
+                            </dxb:PopupMenu.Items>
+                        </dxb:PopupMenu>
+                    </dxb:BarManager.DXContextMenu>
+
+                </RichTextBox>
+            </dx:GroupFrame>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:SpellCheckerDemoModule>

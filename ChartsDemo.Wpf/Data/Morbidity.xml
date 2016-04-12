@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Morbidity>
+  <IndustryBubblePoint>
+    <Name>Transportation
+equipment</Name>
+    <NumberOfCases>1000</NumberOfCases>
+    <Rate>5.9</Rate>
+  </IndustryBubblePoint>
+  <IndustryBubblePoint>
+    <Name>Transportation
+by air</Name>
+    <NumberOfCases>500</NumberOfCases>
+    <Rate>4.9</Rate>
+  </IndustryBubblePoint>
+  <IndustryBubblePoint>
+    <Name>Local and interurban
+passenger transit</Name>
+    <NumberOfCases>200</NumberOfCases>
+    <Rate>4.6</Rate>
+  </IndustryBubblePoint>
+  <IndustryBubblePoint>
+    <Name>Food and kindred
+products</Name>
+    <NumberOfCases>500</NumberOfCases>
+    <Rate>3.0</Rate>
+  </IndustryBubblePoint>
+  <IndustryBubblePoint>
+    <Name>Instruments and
+related products</Name>
+    <NumberOfCases>200</NumberOfCases>
+    <Rate>2.9</Rate>
+  </IndustryBubblePoint>
+  <IndustryBubblePoint>
+    <Name>Electronic
+equipment</Name>
+    <NumberOfCases>400</NumberOfCases>
+    <Rate>2.8</Rate>
+  </IndustryBubblePoint>
+  <IndustryBubblePoint>
+    <Name>Primary metal
+industries</Name>
+    <NumberOfCases>200</NumberOfCases>
+    <Rate>2.6</Rate>
+  </IndustryBubblePoint>
+  <IndustryBubblePoint>
+    <Name>Chemical and
+allied products</Name>
+    <NumberOfCases>300</NumberOfCases>
+    <Rate>2.5</Rate>
+  </IndustryBubblePoint>
+  <IndustryBubblePoint>
+    <Name>Fabricated metal
+products</Name>
+    <NumberOfCases>400</NumberOfCases>
+    <Rate>2.4</Rate>
+  </IndustryBubblePoint>
+</Morbidity>

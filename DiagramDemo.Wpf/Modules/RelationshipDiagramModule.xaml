@@ -1,0 +1,45 @@
+﻿<local:DiagramDemoModule
+    x:Class="DiagramDemo.RelationshipDiagramModule"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+        xmlns:local="clr-namespace:DiagramDemo"
+        xmlns:demodata="clr-namespace:DiagramDemo.Data"
+        xmlns:dxdiagcore="clr-namespace:DevExpress.Diagram.Core;assembly=DevExpress.Diagram.v15.2.Core"
+        xmlns:dxdiag="clr-namespace:DevExpress.Xpf.Diagram;assembly=DevExpress.Xpf.Diagram.v15.2">
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/DiagramDemo;component/Resources/RelationshipDiagramModuleResources.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </dxdb:DemoModuleControl.Resources>
+        <DockPanel>
+            <Grid Margin="12" Width="300" DockPanel.Dock="Right" >
+                <StackPanel Visibility="{Binding SelectedEmployee, Converter={dx:NullableToVisibilityConverter}}">
+                    <ContentPresenter Content="{Binding Path=SelectedEmployee}" ContentTemplate="{StaticResource employeeDetailsTemplate}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="Friends" Margin="8,8,0,0" FontWeight="SemiBold" />
+                            <ItemsControl ItemsSource="{Binding FriendsCollection}" BorderThickness="0" ItemTemplate="{StaticResource listBoxEmployeeTemplate}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Known Persons" Margin="8,8,0,0" FontWeight="SemiBold" />
+                            <ItemsControl ItemsSource="{Binding KnownPersonsCollection}" BorderThickness="0" ItemTemplate="{StaticResource listBoxEmployeeTemplate}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+                <TextBlock TextAlignment="Center" Visibility="{Binding SelectedEmployee, Converter={dx:NullableToVisibilityConverter Invert=True}}" FontWeight="SemiBold" Text="Select a person to see relationships." />
+            </Grid>
+            <dxdiag:DiagramDesignerControl x:Name="diagramControl" Theme="Linear" PageSize="1000,800" ZoomFactor="0.85" SelectionChanged="diagramControl_SelectionChanged" PropertiesPanelVisibility="Collapsed" DefaultStencils="BasicShapes,ArrowShapes">
+                <dxdiag:DiagramContentItem Position="800,26" CustomStyleId="diagramLegendStyle" CanSelect="False" />
+            </dxdiag:DiagramDesignerControl>
+        </DockPanel>
+    </dxdb:DemoModuleControl>
+</local:DiagramDemoModule>

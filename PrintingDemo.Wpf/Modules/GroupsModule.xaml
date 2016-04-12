@@ -1,0 +1,139 @@
+﻿<local:ModuleBase x:Class="PrintingDemo.GroupsModule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxp="http://schemas.devexpress.com/winfx/2008/xaml/printing"
+    xmlns:local="clr-namespace:PrintingDemo"
+    mc:Ignorable="d"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignWidth="800" d:DesignHeight="400">
+
+    <local:ModuleBase.Resources>
+        <ResourceDictionary>
+            <Style x:Key="pageInfoStyle" TargetType="dxe:TextEdit">
+                <Setter Property="dxp:ExportSettings.TargetType" Value="PageNumber" />
+                <Setter Property="FontFamily" Value="Tahoma"></Setter>
+                <Setter Property="FontSize" Value="8.25pt"></Setter>
+                <Setter Property="Foreground" Value="Black"></Setter>
+                <Setter Property="IsPrintingMode" Value="True"></Setter>
+            </Style>
+            <Style x:Key="detailTextStyle" TargetType="dxe:TextEdit">
+                <Setter Property="BorderThickness" Value="1,0,0,1" />
+                <Setter Property="BorderBrush" Value="#C7D1E4" />
+                <Setter Property="Padding" Value="4,0,4,0" />
+                <Setter Property="FontFamily" Value="Tahoma" />
+                <Setter Property="FontSize" Value="8.25pt" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="Height" Value="22" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="IsPrintingMode" Value="True"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsEven, Mode=OneWay}" Value="true">
+                        <Setter Property="Background" Value="#EFF3FA" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <DataTemplate x:Key="groupHeaderTemplate">
+                <dxe:TextEdit x:Name="groupHeader"
+                              Text="{Binding Content.Name, Mode=OneWay}"
+                              dxp:ExportSettings.Bookmark="{Binding Content.Name}"
+                              Width="{Binding Path=UsablePageWidth, Mode=OneWay}"
+                              Height="35"
+                              Background="#C9D6ED"
+                              BorderBrush="#AFBED8"
+                              BorderThickness="1"
+                              FontFamily="Tahoma"
+                              FontSize="14.25pt"
+                              FontWeight="Bold"
+                              HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center"
+                              IsPrintingMode="True"/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="reportHeaderTemplate">
+                <dxe:TextEdit Width="{Binding Path=UsablePageWidth, Mode=OneWay}"
+                              Height="65"
+                              Background="#EBE3D6"
+                              FontFamily="Tahoma"
+                              FontSize="21.75pt"
+                              IsPrintingMode="True"
+                              HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center"
+                              Text="Product List by Category" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="detailTemplate">
+                <Grid Width="{Binding Path=UsablePageWidth, Mode=OneWay}"
+                      Margin="0"
+                      HorizontalAlignment="Stretch"
+                      dxp:ExportSettings.TargetType="Panel"
+                      dxp:ExportSettings.Bookmark="{Binding Content.ProductName}"
+                      dxp:ExportSettings.BookmarkParentName="groupHeader">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <dxe:TextEdit Style="{StaticResource detailTextStyle}"
+                                  Margin="10,0,0,0"
+                                  Text="{Binding Content.ProductName}"/>
+                    <dxe:TextEdit Grid.Column="1"
+                                  Style="{StaticResource detailTextStyle}"
+                                  Text="{Binding Content.QuantityPerUnit}" />
+                    <dxe:TextEdit Grid.Column="2"
+                                  Style="{StaticResource detailTextStyle}"
+                                  BorderThickness="1,0,1,1"
+                                  HorizontalContentAlignment="Right">
+                        <dxe:TextEdit.Text>
+                            <Binding Path="Content.UnitPrice" StringFormat="{}{0:C}" />
+                        </dxe:TextEdit.Text>
+                    </dxe:TextEdit>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="pageFooterTemplate">
+                <dxe:TextEdit Style="{StaticResource pageInfoStyle}"
+                                      dxp:PageNumberExportSettings.Kind="NumberOfTotal"
+                                      dxp:PageNumberExportSettings.Format="{}{0} / {1}"
+                                      Width="{Binding Path=UsablePageWidth, Mode=OneWay}"
+                                      HorizontalContentAlignment="Right" />
+            </DataTemplate>
+        </ResourceDictionary>
+    </local:ModuleBase.Resources>
+
+    <local:ModuleBase.DataContext>
+        <local:GroupsViewModel GroupHeaderTemplate="{StaticResource groupHeaderTemplate}"
+                                            ReportHeaderTemplate="{StaticResource reportHeaderTemplate}"
+                                            DetailTemplate="{StaticResource detailTemplate}"
+                                            PageFooterTemplate="{StaticResource pageFooterTemplate}"/>
+    </local:ModuleBase.DataContext>
+
+    <dxdb:DemoModuleControl>
+        <dxp:DocumentPreviewControl DocumentSource="{Binding Link}" CommandBarStyle="Bars" />
+        <dxdb:DemoModuleControl.OptionsContent>
+            <dx:GroupFrame Header="Group Options">
+                <StackPanel Margin="0,0,12,0">
+                    <dxe:CheckEdit Name="keepTogether"
+                               Margin="0,0,0,4"
+                               Content="Keep Together"
+                               IsChecked="{Binding Path=ViewModel.KeepTogether, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:ModuleBase}}"
+                               IsEnabled="{Binding Path=ViewModel.IsKeepTogetherEnabled, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:ModuleBase}}"/>
+                    <dxe:CheckEdit Name="repeatHeaderEveryPage"
+                               Margin="0,0,0,4"
+                               Content="Repeat Header Every Page"
+                               IsChecked="{Binding Path=ViewModel.RepeatHeaderEveryPage, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:ModuleBase}}"
+                               IsEnabled="{Binding Path=ViewModel.IsRepeatHeaderEveryPageEnabled, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:ModuleBase}}"/>
+                    <dxe:CheckEdit Name="pageBreakAfter"
+                               Margin="0"
+                               Content="Page Break After"
+                               IsChecked="{Binding Path=ViewModel.PageBreakAfter, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:ModuleBase}}"
+                               IsEnabled="{Binding Path=ViewModel.IsPageBreakAfterEnabled, Mode=OneWay, RelativeSource={RelativeSource AncestorType=local:ModuleBase}}"/>
+                </StackPanel>
+            </dx:GroupFrame>
+        </dxdb:DemoModuleControl.OptionsContent>
+    </dxdb:DemoModuleControl>
+</local:ModuleBase>

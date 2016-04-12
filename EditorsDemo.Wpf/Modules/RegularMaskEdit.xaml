@@ -1,0 +1,96 @@
+﻿<local:EditorsDemoModule x:Class="EditorsDemo.RegularMaskEdit"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:local="clr-namespace:EditorsDemo"
+ xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+ xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+ xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Height="400" Width="800"
+ HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsTopText>
+            Type inside edit fields to see the masked data input feature in action.
+        </dxdb:DemoModuleControl.OptionsTopText>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <local:MaskPropertiesEdit x:Name="mask" />
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.15*" />
+                <RowDefinition Height="0.85*" />
+            </Grid.RowDefinitions>
+            <StackPanel Margin="30,0,30,0" MaxWidth="300" Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Phone:" Grid.Column="0" Grid.Row="0" />
+                    <TextBlock Text="Phone Alternative:" Grid.Column="0" Grid.Row="1" Margin="0,4,0,0" />
+                    <TextBlock Text="Date:" Grid.Column="0" Grid.Row="2" Margin="0,4,0,0" />
+                    <TextBlock Text="Long Time:" Grid.Column="0" Grid.Row="3" Margin="0,4,0,0" />
+                    <TextBlock Text="Short Time:" Grid.Column="0" Grid.Row="4" Margin="0,4,0,0" />
+                    <TextBlock Text="Extension:" Grid.Column="0" Grid.Row="5" Margin="0,4,0,0" />
+                    <TextBlock Text="Social Security:" Grid.Column="0" Grid.Row="6" Margin="0,4,0,0" />
+                    <TextBlock Text="Long Zip Code:" Grid.Column="0" Grid.Row="7" Margin="0,4,0,0" />
+                    <TextBlock Text="Short Zip Code:" Grid.Column="0" Grid.Row="8" Margin="0,4,0,0" />
+                    <dxe:TextEdit Grid.Column="1" Grid.Row="0"
+                    Margin="0,4,0,0"
+     GotFocus="EditorGotFocus"
+     x:Name="editor"
+     MaskType="Regular"
+     Mask="(\d?\d?\d?)\d\d\d-\d\d-\d\d" />
+                    <dxe:TextEdit Grid.Column="1" Grid.Row="1"
+                    Margin="0,4,0,0"
+     GotFocus="EditorGotFocus"
+     MaskType="Regular"
+     Mask="(\d{0,3})\d{3}-\d{2}-\d{2}" />
+                    <dxe:TextEdit Grid.Column="1" Grid.Row="2"
+                    Margin="0,4,0,0"
+     GotFocus="EditorGotFocus"
+     MaskType="Regular"
+     Mask="\d?\d?/\d\d/\d\d" />
+                    <dxe:TextEdit Grid.Column="1" Grid.Row="3"
+                    Margin="0,4,0,0"
+     GotFocus="EditorGotFocus"
+     MaskType="Regular"
+     Mask="\d?\d:\d\d:\d\d &gt;[PA]M" />
+                    <dxe:TextEdit Grid.Column="1" Grid.Row="4" Margin="0,4,0,0"
+     GotFocus="EditorGotFocus"
+     MaskType="Regular"
+     Mask="\d?\d:\d\d" />
+                    <dxe:TextEdit Grid.Column="1" Grid.Row="5" Margin="0,4,0,0"
+     GotFocus="EditorGotFocus"
+     MaskType="Regular"
+     Mask="\d?\d?\d?\d?\d?" />
+                    <dxe:TextEdit Grid.Column="1" Grid.Row="6" Margin="0,4,0,0"
+     GotFocus="EditorGotFocus"
+     MaskType="Regular"
+     Mask="\d\d\d-\d\d-\d\d\d\d" />
+                    <dxe:TextEdit Grid.Column="1" Grid.Row="7" Margin="0,4,0,0"
+     GotFocus="EditorGotFocus"
+     MaskType="Regular"
+     Mask="\d\d\d\d\d-\d?\d?\d?\d?" />
+                    <dxe:TextEdit Grid.Column="1" Grid.Row="8" Margin="0,4,0,0"
+     GotFocus="EditorGotFocus"
+     MaskType="Regular"
+     Mask="\d\d\d\d\d" />
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:EditorsDemoModule>

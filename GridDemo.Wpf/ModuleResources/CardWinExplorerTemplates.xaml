@@ -1,0 +1,185 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+                    xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
+                    xmlns:dxp="http://schemas.devexpress.com/winfx/2008/xaml/printing"
+                    xmlns:converter="clr-namespace:GridDemo.ModuleResources">
+    <converter:ResourceKeyThemeConverter x:Key="ResourceKeyConverter" />
+    <converter:EnumBooleanConverter x:Key="EnumBooleanConverter" />
+    <converter:BoolToIndexConverter x:Key="BoolToIndexConverter" />
+    <converter:IncrementInt x:Key="IncrementInt" />
+    <dxg:PrintCardMarginConverter x:Key="PrintCardMarginConverter"/>
+
+    <DataTemplate x:Key="printCardTemplate">
+        <StackPanel dxp:ExportSettings.TargetType="Panel" dxp:ExportSettings.Background="White" Width="120">
+            <StackPanel Orientation="Vertical" dxp:ExportSettings.TargetType="Panel">
+                <StackPanel.Margin>
+                    <MultiBinding Converter="{StaticResource PrintCardMarginConverter}">
+                        <Binding Path="(dxg:CardViewPrintingHelper.PrintCardInfo).PrintCardMargin"/>
+                        <Binding Path="(dxg:CardViewPrintRowPanel.IsFirstCardInRow)"/>
+                    </MultiBinding>
+                </StackPanel.Margin>
+                <dxe:ImageEdit Width="80" Height="80" IsPrintingMode="True" EditValue="{Binding Path=Row.Icon}" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <dxe:TextEdit EditValue="{Binding Path=Row.FileName}" IsPrintingMode="True" dxp:TextExportSettings.TextTrimming="None" VerticalContentAlignment="Top" TextTrimming="None" PrintTextWrapping="Wrap" HorizontalAlignment="Center" Height="32" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="cardTemplate">
+        <dx:DoubleClicker Command="{Binding Path=DataContext.OpenCommand, RelativeSource={RelativeSource AncestorType=dxg:CardView}}" HorizontalContentAlignment="Stretch" >
+            <Grid Width="{Binding Path=Row.Size, Converter={StaticResource IncrementInt}}" ClipToBounds="False" UseLayoutRounding="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+                <dxe:ImageEdit
+                    Height="{Binding Path=Row.Size}"
+                    Width="{Binding Path=Row.Size}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    EditValue="{Binding Path=Row.Icon}"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    SnapsToDevicePixels="True"
+                    ShowMenu="False"
+                    IsReadOnly="True"
+                    EditMode="InplaceInactive"
+                    ShowBorder="False"  />
+                <TextBlock  x:Name="lblFileName" Grid.Row="1" TextAlignment="Center"  TextWrapping="Wrap" HorizontalAlignment="Center" Text="{Binding Path=Row.FileName}"
+                            Width="{Binding Path=Row.Size, Converter={StaticResource IncrementInt}}" >
+                <TextBlock.Style>
+                        <Style>
+                            <Setter Property="TextBlock.Foreground">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource ResourceKeyConverter}">
+                                        <Binding ElementName="lblFileName" />
+                                        <Binding Source="{dxgt:GridRowThemeKey ResourceKey=TextUnfocusedBrush}" />
+                                        <Binding Path="(dx:ThemeManager.TreeWalker)" RelativeSource="{RelativeSource AncestorType=Window}" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border}}"   Value="True">
+                                    <Setter Property="TextBlock.Foreground" >
+                                        <Setter.Value>
+                                            <MultiBinding Converter="{StaticResource ResourceKeyConverter}">
+                                                <Binding ElementName="lblFileName" />
+                                                <Binding Source="{dxgt:GridRowThemeKey ResourceKey=TextRowSelectedBrush}" />
+                                                <Binding Path="(dx:ThemeManager.TreeWalker)" RelativeSource="{RelativeSource AncestorType=Window}" />
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <Trigger Property="dxg:TableView.IsFocusedRow" Value="True">
+                                    <Setter Property="TextBlock.Foreground">
+                                        <Setter.Value>
+                                            <MultiBinding Converter="{StaticResource ResourceKeyConverter}">
+                                                <Binding ElementName="lblFileName" />
+                                                <Binding Source="{dxgt:GridRowThemeKey ResourceKey=TextFocusedBrush}" />
+                                                <Binding Path="(dx:ThemeManager.TreeWalker)" RelativeSource="{RelativeSource AncestorType=Window}" />
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <DataTrigger Binding="{Binding IsSelected}"   Value="True">
+                                    <Setter Property="TextBlock.Foreground">
+                                        <Setter.Value>
+                                            <MultiBinding Converter="{StaticResource ResourceKeyConverter}">
+                                                <Binding ElementName="lblFileName" />
+                                                <Binding Source="{dxgt:GridRowThemeKey ResourceKey=TextFocusedBrush}" />
+                                                <Binding Path="(dx:ThemeManager.TreeWalker)" RelativeSource="{RelativeSource AncestorType=Window}" />
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <Grid.ContextMenu>
+                    <ContextMenu DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                        <MenuItem Header="Open" Command="{Binding Path=DataContext.View.DataContext.OpenCommand}" />
+                        <Separator />
+                        <MenuItem Header="Properties" Command="{Binding Path=DataContext.View.DataContext.PropertyCommand}" />
+                    </ContextMenu>
+                </Grid.ContextMenu>
+            </Grid>
+        </dx:DoubleClicker>
+    </DataTemplate>
+
+    <ControlTemplate x:Key="{dxgt:GridCardThemeKey ResourceKey=ContainerTemplate}" TargetType="{x:Type ContentControl}">
+        <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClipToBounds="False">
+            <Border x:Name="borderCard" Width="Auto" Height="Auto"  >
+                <Border.Style>
+                    <Style>
+                        <Setter Property="Control.Background" >
+                            <Setter.Value>
+                                <MultiBinding Converter="{StaticResource ResourceKeyConverter}">
+                                    <Binding ElementName="borderCard" />
+                                    <Binding Source="{dxgt:GridRowThemeKey ResourceKey=BorderNoneBrush}" />
+                                    <Binding Path="(dx:ThemeManager.TreeWalker)" RelativeSource="{RelativeSource AncestorType=Window}" />
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Control.IsMouseOver" Value="True" />
+                                    <Condition Property="dxg:TableView.IsFocusedRow" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Control.Background" >
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource ResourceKeyConverter}">
+                                            <Binding ElementName="borderCard" />
+                                            <Binding Source="{dxgt:GridRowThemeKey ResourceKey=BorderSelectedBrush}" />
+                                            <Binding Path="(dx:ThemeManager.TreeWalker)" RelativeSource="{RelativeSource AncestorType=Window}" />
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger>
+                            <Trigger Property="dxg:TableView.IsFocusedRow" Value="True">
+                                <Setter Property="Control.Background">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource ResourceKeyConverter}">
+                                            <Binding ElementName="borderCard" />
+                                            <Binding Source="{dxgt:GridRowThemeKey ResourceKey=BorderFocusedBrush}" />
+                                            <Binding Path="(dx:ThemeManager.TreeWalker)" RelativeSource="{RelativeSource AncestorType=Window}" />
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding IsSelected}"   Value="True">
+                                <Setter Property="Control.Background">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource ResourceKeyConverter}">
+                                            <Binding ElementName="borderCard" />
+                                            <Binding Source="{dxgt:GridRowThemeKey ResourceKey=BorderFocusedBrush}" />
+                                            <Binding Path="(dx:ThemeManager.TreeWalker)" RelativeSource="{RelativeSource AncestorType=Window}" />
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <ContentPresenter />
+            </Border>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type dxg:GridCard}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <ContentControl x:Name="card" Template="{DynamicResource {dxgt:GridCardThemeKey ResourceKey=ContainerTemplate}}"
+                        Style="{Binding Path=(dxg:GridControl.ActiveView).CardStyle, RelativeSource={RelativeSource TemplatedParent}}" >
+                        <ContentControl Template="{DynamicResource {dxgt:GridCardThemeKey ResourceKey=DataContentTemplate}}" ClipToBounds="False">
+                            <dxg:GridCardContentPresenter x:Name="presenter" Style="{DynamicResource {dxgt:GridCardThemeKey ResourceKey=ContentPresenterStyle}}" ClipToBounds="False" />
+                        </ContentControl>
+                    </ContentControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

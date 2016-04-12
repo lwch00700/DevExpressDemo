@@ -1,0 +1,48 @@
+﻿<Page x:Class="CarouselTutorial.TutorialPage6"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxca="http://schemas.devexpress.com/winfx/2008/xaml/carousel"
+    >
+    <dxca:CarouselPanel Name="carousel" PathPadding="20" VisibleItemCount="3" AttractorPointIndex="1">
+        <dxca:CarouselPanel.Resources>
+            <Style TargetType="{x:Type Rectangle}">
+                <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <TransformGroup>
+                            <RotateTransform Angle="{Binding Path=(dxca:CarouselPanel.Parameters).Angle, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type FrameworkElement}}}"
+						    />
+                            <TranslateTransform X="{Binding Path=(dxca:CarouselPanel.Parameters).OffsetX, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type FrameworkElement}}}" 
+							    Y="{Binding Path=(dxca:CarouselPanel.Parameters).OffsetY, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type FrameworkElement}}}" 
+						    />
+                        </TransformGroup>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </dxca:CarouselPanel.Resources>
+        <dxca:CarouselPanel.ItemMovingPath>
+            <PathGeometry Figures="M0,0L50,0" />
+        </dxca:CarouselPanel.ItemMovingPath>
+        <dxca:CarouselPanel.ParameterSet>
+            <dxca:ParameterCollection>
+                <dxca:Parameter Name="Angle" DistributionFunction="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Constant0}}">
+                    <dxca:Parameter.AnimationAddFunction>
+                        <dxca:PieceLinearFunction>
+                            <dxca:PieceLinearFunction.Points>
+                                <dxca:PointCollection>
+                                    <Point X="0" Y="0" />
+                                    <Point X="1" Y="360" />
+                                </dxca:PointCollection>
+                            </dxca:PieceLinearFunction.Points>
+                        </dxca:PieceLinearFunction>
+                    </dxca:Parameter.AnimationAddFunction>
+                </dxca:Parameter>
+            </dxca:ParameterCollection>
+        </dxca:CarouselPanel.ParameterSet>
+        <Rectangle Fill="Blue" />
+        <Rectangle Fill="Blue" />
+        <Rectangle Fill="Blue" />
+        <Rectangle Fill="Blue" />
+        <Rectangle Fill="Blue" />
+    </dxca:CarouselPanel>
+</Page>

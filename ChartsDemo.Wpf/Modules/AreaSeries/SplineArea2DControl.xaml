@@ -1,0 +1,219 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.SplineArea2DControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:ChartsDemo"
+    ModuleAppear="ChartsDemoModule_ModuleAppear">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:DemoValuesProvider x:Key="DemoValuesProvider" />
+            <local:Marker2DKindToMarker2DModelConverter x:Key="Marker2DKindToMarker2DModelConverter" />
+            <local:MarkerSizeToLabelIndentConverter x:Key="MarkerSizeToLabelIndentConverter" />
+            <dxmvvm:BooleanNegationConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical" MinWidth="120">
+                <dxe:CheckEdit Name="chbVisible"
+                               Content="Show Labels"
+                               IsChecked="True" />
+                <dx:GroupFrame Header="Angle" Margin="0,2,0,10" IsEnabled="{Binding ElementName=chbVisible, Path=IsChecked}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="0" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Column="1" Text="180" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Text="360" HorizontalAlignment="Right" />
+                        </Grid>
+                        <dxe:TrackBarEdit Name="slAngle"
+                            Value="45"
+                            Minimum="0"
+                            Maximum="360"
+                            TickPlacement="None"/>
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Line Tension" Margin="0,2,0,10">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="0" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Column="1" Text="0.5" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Text="1.0" HorizontalAlignment="Right" />
+                        </Grid>
+                        <dxe:TrackBarEdit Name="slLineTension"
+                            Value="0.8"
+                            Minimum="0"
+                            Maximum="1.0"
+                            SmallStep="0.1"
+                            TickPlacement="None"/>
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Transparency" Margin="0,0,0,10">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="0" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Column="1" Text="0.5" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Text="1" HorizontalAlignment="Right" />
+                        </Grid>
+                        <dxe:TrackBarEdit Name="slTransparency"
+                            Value="0.3"
+                            Minimum="0"
+                            Maximum="1"
+                            SmallStep="0.01"
+                            LargeStep="0.1"
+                            TickPlacement="None"/>
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dxe:CheckEdit Name="chbMarkers"
+                               Margin="0,2,0,0"
+                               Content="Show Markers"
+                               IsChecked="True" />
+                <dx:GroupFrame Header="Marker Size" Margin="0,2,0,0" IsEnabled="{Binding ElementName=chbMarkers, Path=IsChecked}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="10" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Column="1" Text="25" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Text="40" HorizontalAlignment="Right" />
+                        </Grid>
+                        <dxe:TrackBarEdit Name="slMarkerSize"
+                            Value="20"
+                            Minimum="10"
+                            Maximum="40"
+                            EditValue="20"
+                            TickPlacement="None"/>
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Marker Kind" Margin="0,2,0,0">
+                    <dxe:ListBoxEdit Name="lbMarker"
+                                     Background="{x:Null}"
+                                     ShowBorder="False"
+                                     IsEnabled="{Binding ElementName=chbMarkers, Path=IsChecked}"
+                                     ItemsSource="{Binding PredefinedMarker2DKinds, Source={StaticResource DemoValuesProvider}}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                              AnimationMode="OnLoad"
+                              BorderThickness="0"
+                              CrosshairEnabled="{Binding ElementName=chbVisible, Path=IsChecked, Converter={StaticResource InvertedBoolConverter}}">
+                <dxc:ChartControl.CrosshairOptions>
+                    <dxc:CrosshairOptions GroupHeaderPattern="{}Corporation: {A}">
+                        <dxc:CrosshairOptions.CommonLabelPosition>
+                            <dxc:CrosshairFreePosition DockTarget="{Binding ElementName=pane}" DockCorner="TopRight"/>
+                        </dxc:CrosshairOptions.CommonLabelPosition>
+                    </dxc:CrosshairOptions>
+                </dxc:ChartControl.CrosshairOptions>
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D>
+                        <dxc:XYDiagram2D.DefaultPane>
+                            <dxc:Pane Name="pane"/>
+                        </dxc:XYDiagram2D.DefaultPane>
+                        <dxc:XYDiagram2D.AxisY>
+                            <dxc:AxisY2D>
+                                <dxc:AxisY2D.WholeRange>
+                                    <dxc:Range dxc:AxisY2D.AlwaysShowZeroLevel="False" MaxValue="390" MinValue="125" SideMarginsValue="0" />
+                                </dxc:AxisY2D.WholeRange>
+                                <dxc:AxisY2D.Title>
+                                    <dxc:AxisTitle Content="Market value (billion US$)" />
+                                </dxc:AxisY2D.Title>
+                            </dxc:AxisY2D>
+                        </dxc:XYDiagram2D.AxisY>
+                        <dxc:XYDiagram2D.AxisX>
+                            <dxc:AxisX2D>
+                                <dxc:AxisX2D.WholeRange>
+                                    <dxc:Range SideMarginsValue="0" />
+                                </dxc:AxisX2D.WholeRange>
+                                <dxc:Axis2D.Label>
+                                    <dxc:AxisLabel Staggered="True" />
+                                </dxc:Axis2D.Label>
+                            </dxc:AxisX2D>
+                        </dxc:XYDiagram2D.AxisX>
+                        <dxc:XYDiagram2D.Series>
+                            <dxc:SplineAreaSeries2D x:Name="year2005"
+                                              DisplayName="2005"
+                                              LineTension="{Binding ElementName=slLineTension, Path=Value}"
+                                              Transparency="{Binding ElementName=slTransparency, Path=Value}"
+                                              MarkerSize="{Binding ElementName=slMarkerSize, Path=Value}"
+                                              MarkerVisible="{Binding ElementName=chbMarkers, Path=IsChecked}"
+                                              MarkerModel="{Binding ElementName=lbMarker, Path=SelectedItem, Converter={StaticResource Marker2DKindToMarker2DModelConverter}}"
+                                              AnimationAutoStartMode="SetStartState">
+                                <dxc:SplineAreaSeries2D.Label>
+                                    <dxc:SeriesLabel ConnectorVisible="False" ResolveOverlappingMode="Default"
+                                                     Indent="{Binding ElementName=slMarkerSize, Path=Value, Converter={StaticResource MarkerSizeToLabelIndentConverter}}"
+                                                     Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                                     dxc:MarkerSeries2D.Angle="{Binding ElementName=slAngle, Path=Value}" />
+                                </dxc:SplineAreaSeries2D.Label>
+                                <dxc:SplineAreaSeries2D.Points>
+                                    <dxc:SeriesPoint Argument="ExxonMobil" Value="362.53" />
+                                    <dxc:SeriesPoint Argument="General Electric" Value="348.45" />
+                                    <dxc:SeriesPoint Argument="Microsoft" Value="279.02" />
+                                    <dxc:SeriesPoint Argument="Citigroup" Value="230.93" />
+                                    <dxc:SeriesPoint Argument="Royal Dutch Shell plc" Value="203.52" />
+                                    <dxc:SeriesPoint Argument="Procter &amp; Gamble" Value="197.12" />
+                                </dxc:SplineAreaSeries2D.Points>
+                            </dxc:SplineAreaSeries2D>
+                            <dxc:SplineAreaSeries2D x:Name="year2004"
+                                              DisplayName="2004"
+                                              LineTension="{Binding ElementName=slLineTension, Path=Value}"
+                                              Transparency="{Binding ElementName=slTransparency, Path=Value}"
+                                              MarkerSize="{Binding ElementName=slMarkerSize, Path=Value}"
+                                              MarkerVisible="{Binding ElementName=chbMarkers, Path=IsChecked}"
+                                              MarkerModel="{Binding ElementName=lbMarker, Path=SelectedItem, Converter={StaticResource Marker2DKindToMarker2DModelConverter}}"
+                                              AnimationAutoStartMode="SetStartState">
+                                <dxc:SplineAreaSeries2D.Label>
+                                    <dxc:SeriesLabel ConnectorVisible="False" ResolveOverlappingMode="Default"
+                                                     Indent="{Binding ElementName=slMarkerSize, Path=Value, Converter={StaticResource MarkerSizeToLabelIndentConverter}}"
+                                                     Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                                     dxc:MarkerSeries2D.Angle="{Binding ElementName=slAngle, Path=Value}" />
+                                </dxc:SplineAreaSeries2D.Label>
+                                <dxc:SplineAreaSeries2D.Points>
+                                    <dxc:SeriesPoint Argument="ExxonMobil" Value="277.02" />
+                                    <dxc:SeriesPoint Argument="General Electric" Value="328.54" />
+                                    <dxc:SeriesPoint Argument="Microsoft" Value="297.02" />
+                                    <dxc:SeriesPoint Argument="Citigroup" Value="255.3" />
+                                    <dxc:SeriesPoint Argument="Royal Dutch Shell plc" Value="173.54" />
+                                    <dxc:SeriesPoint Argument="Procter &amp; Gamble" Value="131.89" />
+                                </dxc:SplineAreaSeries2D.Points>
+                            </dxc:SplineAreaSeries2D>
+                        </dxc:XYDiagram2D.Series>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center">Corporations with Highest Market Value</dxc:Title>
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0">From www.geohive.com</dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

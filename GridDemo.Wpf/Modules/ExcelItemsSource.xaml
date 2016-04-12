@@ -1,0 +1,68 @@
+﻿<local:PrintViewGridDemoModule x:Class="GridDemo.ExcelItemsSource"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
+                      xmlns:local="clr-namespace:GridDemo"
+                      xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                      xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+                      xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                      xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+                      xmlns:dxsps="http://schemas.devexpress.com/winfx/2008/xaml/spreadsheet"
+                      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                      xmlns:dd="clr-namespace:DevExpress.DemoData">
+    <local:GridDemoModule.Resources>
+        <dx:ExcelItemsSource x:Key="ExcelItemsSource" FileUri="pack://application:,,,/GridDemo;component/Data/Orders.xls" StreamDocumentFormat="Xls" WorksheetName="Sheet">
+            <dx:ExcelItemsSource.Columns>
+                <dx:ExcelColumn Name="ID" ColumnType="{x:Type sys:Double}" IsSelected="False"/>
+                <dx:ExcelColumn Name="Product Name" ColumnType="{x:Type sys:String}"/>
+                <dx:ExcelColumn Name="Customer Name" ColumnType="{x:Type sys:String}"/>
+                <dx:ExcelColumn Name="Country" ColumnType="{x:Type sys:String}"/>
+                <dx:ExcelColumn Name="City" ColumnType="{x:Type sys:String}"/>
+                <dx:ExcelColumn Name="Order Date" ColumnType="{x:Type sys:DateTime}"/>
+                <dx:ExcelColumn Name="Unit Price" ColumnType="{x:Type sys:Double}"/>
+                <dx:ExcelColumn Name="Quantity" ColumnType="{x:Type sys:Double}"/>
+            </dx:ExcelItemsSource.Columns>
+        </dx:ExcelItemsSource>
+    </local:GridDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dx:DXTabControl Margin="-1,2,-1,-1" Padding="1" x:Name="tabControl">
+            <dx:DXTabItem Padding="12,4,12,4">
+                <dx:DXTabItem.Header>
+                    <TextBlock FontWeight="Bold" Text="Grid"/>
+                </dx:DXTabItem.Header>
+                <dxg:GridControl x:Name="grid" ItemsSource="{Binding Path=Data, Source={StaticResource ExcelItemsSource}}">
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn FieldName="Product Name"/>
+                        <dxg:GridColumn FieldName="Customer Name"/>
+                        <dxg:GridColumn FieldName="Country"/>
+                        <dxg:GridColumn FieldName="City"/>
+                        <dxg:GridColumn FieldName="Order Date"/>
+                        <dxg:GridColumn FieldName="Unit Price">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings DisplayFormat="c"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Quantity"/>
+                        <dxg:GridColumn FieldName="Total" UnboundType="Decimal" UnboundExpression="[Unit Price]*[Quantity]">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings DisplayFormat="c"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl.Columns>
+                    <dxg:GridControl.TotalSummary>
+                        <dxg:GridSummaryItem SummaryType="Count" Alignment="Right"/>
+                    </dxg:GridControl.TotalSummary>
+                    <dxg:GridControl.View>
+                        <dxg:TableView x:Name="view" AutoWidth="True" ShowFixedTotalSummary="True"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+            </dx:DXTabItem>
+            <dx:DXTabItem Padding="12,4,12,4" Header="Excel Document">
+                <dxsps:SpreadsheetControl x:Name="spreadsheetControl"/>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+
+    </dxdb:DemoModuleControl>
+</local:PrintViewGridDemoModule>

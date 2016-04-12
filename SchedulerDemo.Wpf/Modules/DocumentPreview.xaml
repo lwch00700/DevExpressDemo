@@ -1,0 +1,61 @@
+﻿<local:SchedulerDemoModule x:Class="SchedulerDemo.DocumentPreview" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxp="http://schemas.devexpress.com/winfx/2008/xaml/printing"
+    xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:local="clr-namespace:SchedulerDemo">
+
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.Resources>
+            <local:DefaultDemoViewModel x:Key="SchedulerDemoModel" />
+            <local:AppointmentDictionaryToMappingConverter x:Key="AppointmentConverter" />
+            <local:ResourceDictionaryToMappingConverter x:Key="ResourceConverter" />
+        </dxdb:DemoModuleControl.Resources>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <dx:GroupFrame Grid.Row="0"  Header="Report Template" MinWidth="250">
+                    <dxe:ComboBoxEdit Margin="0,0,0,4" x:Name="cbe_reportTemplate"
+                            ShowSizeGrip="False"
+                            IsTextEditable="False"
+                            ItemsSource="{Binding ReportTemplateInfoSource, Mode=OneWay}"
+                            DisplayMember="DisplayName" ValueMember="ReportTemplatePath"
+                            SelectedIndex="{Binding ActiveReportTemplateIndex, Mode=TwoWay}"
+                            DataContextChanged="DataContextChangedMethod" EditValueChanged="cbe_reportTemplate_EditValueChanged"/>
+                </dx:GroupFrame>
+
+                <dx:GroupFrame Grid.Row="1" Header="Time Interval" MinWidth="250" Margin="0,8,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Start date:" Margin="0,0,4,4"/>
+                        <dxe:DateEdit x:Name="dte_StartDate" Grid.Row="0" Grid.Column="1" EditValue="{Binding IntervalStart, Mode=TwoWay}" Margin="40,0,0,4" DataContextChanged="DataContextChangedMethod"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="End date:" Margin="0,4,4,4"/>
+                        <dxe:DateEdit x:Name="dte_EndDate" Grid.Row="1" Grid.Column="1" EditValue="{Binding IntervalEnd, Mode=TwoWay}" Margin="40,4,0,4" DataContextChanged="DataContextChangedMethod"/>
+                    </Grid>
+                </dx:GroupFrame>
+            </Grid>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxsch:DXSchedulerStoragePrintAdapter x:Name="adapter" TimeInterval="{Binding PrintInterval, Mode=OneWay}"/>
+            <dxsch:SchedulerStorage x:Name="storage"/>
+            <dxp:DocumentPreview x:Name="documentPreview" Model="{Binding Path=PreviewModel}"/>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:SchedulerDemoModule>

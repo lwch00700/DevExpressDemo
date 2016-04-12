@@ -1,0 +1,102 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.Area3DControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:ChartsDemo">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Storyboard x:Key="InitialAnimation" TargetProperty="Opacity" TargetName="chart">
+                <DoubleAnimation From="0" To="1" Duration="0:0:2" />
+            </Storyboard>
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <local:ChartsDemoModule.Triggers>
+        <EventTrigger RoutedEvent="local:ChartsDemoModule.ModuleAppear">
+            <EventTrigger.Actions>
+                <BeginStoryboard Storyboard="{StaticResource InitialAnimation}" />
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </local:ChartsDemoModule.Triggers>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="120">
+                <dxe:CheckEdit Name="chbVisible" Content="Show Labels" IsChecked="True" />
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                              Opacity="0"
+                              BorderThickness="0"
+                              IsManipulationEnabled="True"
+                              ToolTipEnabled="False">
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram3D SeriesDistance="1.6" ZoomPercent="130" VerticalScrollPercent="10">
+                        <dxc:XYDiagram3D.ContentTransform>
+                            <Transform3DGroup>
+                                <RotateTransform3D>
+                                    <RotateTransform3D.Rotation>
+                                        <AxisAngleRotation3D Angle="-30" />
+                                    </RotateTransform3D.Rotation>
+                                </RotateTransform3D>
+                            </Transform3DGroup>
+                        </dxc:XYDiagram3D.ContentTransform>
+                        <dxc:XYDiagram3D.AxisY>
+                            <dxc:AxisY3D>
+                                <dxc:AxisY3D.Title>
+                                    <dxc:AxisTitle Content="Market value (billion US$)" />
+                                </dxc:AxisY3D.Title>
+                            </dxc:AxisY3D>
+                        </dxc:XYDiagram3D.AxisY>
+                        <dxc:XYDiagram3D.AxisX>
+                            <dxc:AxisX3D>
+                                <dxc:AxisX3D.Label>
+                                    <dxc:AxisLabel Staggered="True" />
+                                </dxc:AxisX3D.Label>
+                            </dxc:AxisX3D>
+                        </dxc:XYDiagram3D.AxisX>
+                        <dxc:XYDiagram3D.Series>
+                            <dxc:AreaSeries3D x:Name="year2005" DisplayName="2005">
+                                <dxc:AreaSeries3D.Label>
+                                    <dxc:SeriesLabel Visible="{Binding ElementName=chbVisible, Path=IsChecked}" ConnectorVisible="False" RenderMode="CustomShape" />
+                                </dxc:AreaSeries3D.Label>
+                                <dxc:AreaSeries3D.Points>
+                                    <dxc:SeriesPoint Argument="ExxonMobil" Value="362.53" />
+                                    <dxc:SeriesPoint Argument="General Electric" Value="348.45" />
+                                    <dxc:SeriesPoint Argument="Microsoft" Value="279.02" />
+                                    <dxc:SeriesPoint Argument="Citigroup" Value="230.93" />
+                                    <dxc:SeriesPoint Argument="Royal Dutch Shell plc" Value="203.52" />
+                                    <dxc:SeriesPoint Argument="Procter &amp; Gamble" Value="197.12" />
+                                </dxc:AreaSeries3D.Points>
+                            </dxc:AreaSeries3D>
+                            <dxc:AreaSeries3D x:Name="year2004" DisplayName="2004">
+                                <dxc:AreaSeries3D.Label>
+                                    <dxc:SeriesLabel Visible="{Binding ElementName=chbVisible, Path=IsChecked}" ConnectorVisible="False" RenderMode="CustomShape" />
+                                </dxc:AreaSeries3D.Label>
+                                <dxc:AreaSeries3D.Points>
+                                    <dxc:SeriesPoint Argument="ExxonMobil" Value="277.02" />
+                                    <dxc:SeriesPoint Argument="General Electric" Value="328.54" />
+                                    <dxc:SeriesPoint Argument="Microsoft" Value="297.02" />
+                                    <dxc:SeriesPoint Argument="Citigroup" Value="255.3" />
+                                    <dxc:SeriesPoint Argument="Royal Dutch Shell plc" Value="173.54" />
+                                    <dxc:SeriesPoint Argument="Procter &amp; Gamble" Value="131.89" />
+                                </dxc:AreaSeries3D.Points>
+                            </dxc:AreaSeries3D>
+                        </dxc:XYDiagram3D.Series>
+                    </dxc:XYDiagram3D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend HorizontalPosition="Right" />
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center">Corporations with Highest Market Value</dxc:Title>
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0">From www.geohive.com</dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

@@ -1,0 +1,57 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.CurrencyExchangeRates" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:local="clr-namespace:ChartsDemo"
+    Loaded="ChartsDemoModule_Loaded">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:DemoValuesProvider x:Key="DemoValuesProvider" />
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                BorderThickness="0"
+                IsManipulationEnabled="True">
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D EnableAxisXNavigation="True">
+                        <dxc:XYDiagram2D.AxisY>
+                            <dxc:AxisY2D x:Name="AxisY">
+                                <dxc:AxisY2D.Label>
+                                    <dxc:AxisLabel TextPattern="{}{V}" />
+                                </dxc:AxisY2D.Label>
+                            </dxc:AxisY2D>
+                        </dxc:XYDiagram2D.AxisY>
+                        <dxc:XYDiagram2D.AxisX>
+                            <dxc:AxisX2D x:Name="AxisX">
+                                <dxc:AxisX2D.DateTimeScaleOptions>
+                                    <dxc:AutomaticDateTimeScaleOptions/>
+                                </dxc:AxisX2D.DateTimeScaleOptions>
+                            </dxc:AxisX2D>
+                        </dxc:XYDiagram2D.AxisX>
+                        <dxc:XYDiagram2D.Series>
+                            <dxc:LineSeries2D DataSource="{Binding Path=Rate1}" ArgumentDataMember="TradeDate" ValueDataMember="Price"
+                                              ArgumentScaleType="DateTime" MarkerVisible="False" DisplayName="{Binding Path=Rate1Title}"
+                                              CrosshairLabelPattern="{}{S} : {V:F4}">
+                            </dxc:LineSeries2D>
+                            <dxc:LineSeries2D DataSource="{Binding Path=Rate2}" ArgumentDataMember="TradeDate" ValueDataMember="Price"
+                                              ArgumentScaleType="DateTime" MarkerVisible="False" DisplayName="{Binding Path=Rate2Title}"
+                                              CrosshairLabelPattern="{}{S} : {V:F4}">
+                            </dxc:LineSeries2D>
+                        </dxc:XYDiagram2D.Series>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend HorizontalPosition="Right" VerticalPosition="Top"/>
+                </dxc:ChartControl.Legend>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

@@ -1,0 +1,79 @@
+﻿<local:SpellCheckerDemoModule x:Class="SpellCheckerDemo.RichTextBox"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+            xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+            xmlns:dxsc="clr-namespace:DevExpress.Xpf.SpellChecker;assembly=DevExpress.Xpf.SpellChecker.v15.2"
+            xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+            xmlns:local="clr-namespace:SpellCheckerDemo">
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel>
+                <dxe:CheckEdit x:Name="editCheckAsYouType" Content="CheckAsYouType Mode" EditValueChanged="editCheckAsYouType_EditValueChanged" EditValue="True" />
+                <Button Content="Check Spelling" Margin="10" Padding="10,5,10,5" Click="Button_Click" dx:StyleManager.ApplyApplicationTheme="True" />
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <RichTextBox x:Name="richTextBox" VerticalAlignment="Stretch" dxsc:SpellingSettings.CheckAsYouType="True" dxsc:SpellingSettings.SpellChecker="{Binding}" dxsc:SpellingSettings.ShowSpellCheckMenu="True" Loaded="richTextBox_Loaded">
+            <FlowDocument>
+                <Paragraph TextAlignment="Center" FontFamily="Calibri" FontWeight="Bold" FontSize="14.666666666666666" Margin="0,0,0,13.33">
+                    <Span FontSize="26.666666666666664">
+                        <Run>Multimodal, Stochastic Symmetries for E-Commerce</Run>
+                    </Span>
+                    <Span FontSize="26.666666666666664">
+                        <LineBreak />
+                    </Span>
+                    <Span Foreground="#FF0000C0">
+                        <Run>Elliot Gnatcher and Diana Gracey</Run>
+                    </Span>
+                </Paragraph>
+                <Paragraph FontFamily="Calibri" FontSize="14.666666666666666" Margin="48,32,0,0">
+                    <Span FontWeight="Bold" FontSize="18.666666666666664" Foreground="#FF1F497D">
+                        <Run>I.</Run>
+                    </Span>
+                    <Span FontWeight="Bold" FontSize="18.666666666666664" Foreground="#FF365F91">
+                        <Run>Implementation</Run>
+                    </Span>
+                    <Span FontWeight="Bold" FontSize="18.666666666666664" Foreground="#FF365F91">
+                        <LineBreak />
+                    </Span>
+                    <Span>
+                        <Run>After several months of dificult coding, we finally have a working iplementation of our algorithm. It was necessary to cap the signal-to-noise ratio used by our heyristic to 43 man-hours. The client-side library and the the centralized logging facility must run with the same permissions. Further, since our methodology is derived from the simulation of the Internet, architecting the collection of shell scripts was relatively straightforward. Continuing with this rationale, even though we have not yet optimized for usability, this shouldbe simple once we finish designing the hand-otimized compiler. Overall, TOPEK adds only modest overhead and complexity to previus pseudorandom solutions.</Run>
+                    </Span>
+                </Paragraph>
+                <Paragraph FontFamily="Calibri" FontSize="14.666666666666666" Margin="48,32,0,0">
+                    <Span FontWeight="Bold" FontSize="18.666666666666664" Foreground="#FF1F497D">
+                        <Run>II.</Run>
+                    </Span>
+                    <Span FontWeight="Bold" FontSize="18.666666666666664" Foreground="#FF365F91">
+                        <Run>Evaluation</Run>
+                    </Span>
+                    <Span FontWeight="Bold" FontSize="18.666666666666664" Foreground="#FF365F91">
+                        <LineBreak />
+                    </Span>
+                    <Span>
+                        <Run>We now discuss our evlauation. Our overall evaluation seeks to prove three hypotheses: (1) that the Macintosh SE of yesteryear actually exhibits better effective interrupt rate than today's hardware; (2) that we can do much to affect a method's median response time; and finally (3) that voice-over-IP no longer ajusts effective throughput. We are grateful for wireless Lamport clocks; without them, we could not optimize for complexity simultameously with performance constraints. Second, thereason for this is that studies have shown that signal-to-noise ratio is roughly 74% higher than we might expect. Along these same lines, only with the benefit of our system's highly-available software architecture might we optimize for security at the cost of latency. Our evaluation strives to make these points clear.</Run>
+                    </Span>
+                </Paragraph>
+                <Paragraph TextAlignment="Center" FontFamily="Calibri" Margin="0,32,0,13.33">
+                    <Image x:Name="imgDiagram" Stretch="None"/>
+                </Paragraph>
+                <Paragraph TextAlignment="Center" FontFamily="Calibri" Margin="50,0,50,0">
+                    <Span xml:lang="ru-ru">
+                        <Run>Figure 1 illustrates tThe average interrupt rate of our method, as a function of work factor. The data shown here, in particular, proves that four years of hard work were wasted on this project.</Run>
+                        <Run>Gaussian electromagnetic distubances in our XBox network caused unstable experimental results.</Run>
+                    </Span>
+                </Paragraph>
+                <Paragraph TextAlignment="Right" FontFamily="Calibri" FontStyle="Italic" FontSize="13.333333333333332" Margin="0,50,0,50">
+                    <Span>
+                        <Run>For more information please contact</Run>
+                    </Span>
+                    <Hyperlink Foreground="#FF808080" NavigateUri="mailto:brian@devexpress.com" TextDecorations="Underline">
+                        <Span Foreground="#FF0000FF" TextDecorations="Underline">
+                            <Run>brian@devexpress.com</Run>
+                        </Span>
+                    </Hyperlink>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+    </dxdb:DemoModuleControl>
+</local:SpellCheckerDemoModule>

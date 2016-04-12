@@ -1,0 +1,74 @@
+﻿<local:SchedulerDemoModule x:Class="SchedulerDemo.ResourceSharing"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+    xmlns:local="clr-namespace:SchedulerDemo" xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase">
+
+    <local:SchedulerDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/SchedulerDemo;component/Themes/Margin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:UsedAppointmentTypeToBoolConverter x:Key="usedAptTypeToBoolConverter"></local:UsedAppointmentTypeToBoolConverter>
+            <local:AppointmentConflictsModeToBoolConverter x:Key="aptConflictsModeToBoolConverter"></local:AppointmentConflictsModeToBoolConverter>
+        </ResourceDictionary>
+    </local:SchedulerDemoModule.Resources>
+
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical">
+                <dx:GroupFrame Header="Users" MinWidth="150" Margin="{DynamicResource GroupMargin}">
+                    <dxsch:ResourcesCheckedListBoxControl SchedulerControl="{Binding}" Margin="{DynamicResource ElementMargin}" ShowBorder="False">
+                        <dxsch:ResourcesCheckedListBoxControl.Background>
+                            <SolidColorBrush Color="Transparent"></SolidColorBrush>
+                        </dxsch:ResourcesCheckedListBoxControl.Background>
+                    </dxsch:ResourcesCheckedListBoxControl>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Group by" MinWidth="150" Margin="{DynamicResource GroupMargin}">
+                    <dxe:ListBoxEdit x:Name="groupType" Background="{x:Null}" ShowBorder="False" ValueMember="GroupType" DisplayMember="Caption" EditValue="{Binding Path=GroupType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                        <dxe:ListBoxEdit.Items>
+                            <local:DemoGroupingListItem Caption="None" GroupType="None" />
+                            <local:DemoGroupingListItem Caption="Date" GroupType="Date" />
+                            <local:DemoGroupingListItem Caption="Resource" GroupType="Resource" />
+                        </dxe:ListBoxEdit.Items>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxsch:SchedulerControl x:Name="scheduler" ActiveViewType="Timeline" VerticalAlignment="Stretch" GroupType="Resource">
+            <dxsch:SchedulerControl.Storage>
+                <dxsch:SchedulerStorage>
+                    <dxsch:SchedulerStorage.AppointmentStorage>
+                        <dxsch:AppointmentStorage ResourceSharing="True" />
+                    </dxsch:SchedulerStorage.AppointmentStorage>
+                </dxsch:SchedulerStorage>
+            </dxsch:SchedulerControl.Storage>
+            <dxsch:SchedulerControl.DayView>
+                <dxsch:DayView ResourcesPerPage="3"></dxsch:DayView>
+            </dxsch:SchedulerControl.DayView>
+            <dxsch:SchedulerControl.WorkWeekView>
+                <dxsch:WorkWeekView ResourcesPerPage="2"></dxsch:WorkWeekView>
+            </dxsch:SchedulerControl.WorkWeekView>
+            <dxsch:SchedulerControl.WeekView>
+                <dxsch:WeekView ResourcesPerPage="3" Enabled="False"></dxsch:WeekView>
+            </dxsch:SchedulerControl.WeekView>
+            <dxsch:SchedulerControl.FullWeekView>
+                <dxsch:FullWeekView ResourcesPerPage="3" Enabled="True"/>
+            </dxsch:SchedulerControl.FullWeekView>
+            <dxsch:SchedulerControl.MonthView>
+                <dxsch:MonthView ResourcesPerPage="3"></dxsch:MonthView>
+            </dxsch:SchedulerControl.MonthView>
+            <dxsch:SchedulerControl.TimelineView>
+                <dxsch:TimelineView ResourcesPerPage="4" IntervalCount="3"></dxsch:TimelineView>
+            </dxsch:SchedulerControl.TimelineView>
+        </dxsch:SchedulerControl>
+    </dxdb:DemoModuleControl>
+</local:SchedulerDemoModule>

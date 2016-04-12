@@ -1,0 +1,72 @@
+﻿<local:GaugesDemoModule x:Class="GaugesDemo.DigitalModels"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+        xmlns:dxga="http://schemas.devexpress.com/winfx/2008/xaml/gauges"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:GaugesDemo"
+      mc:Ignorable="d" d:DesignHeight="557" d:DesignWidth="887">
+    <dxdb:DemoModule.Resources>
+        <ResourceDictionary>
+            <local:DemoValuesProvider x:Key="DemoValuesProvider" />
+            <local:PredefinedElementKindToDigitalGaugeModel x:Key="GaugeModelConverter" />
+        </ResourceDictionary>
+    </dxdb:DemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel>
+                <dx:GroupFrame Header="Model" Margin="0,0,0,10">
+                    <dxe:ListBoxEdit Name="lbModel" Background="{x:Null}" ShowBorder="False" ItemsSource="{Binding PredefinedDigitalGaugeModelKinds, Source={StaticResource DemoValuesProvider}}" SelectedIndex="0" SelectedIndexChanged="lbModel_SelectedIndexChanged">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="70"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <dxga:DigitalGaugeControl Grid.Row="0" Name="FourteenSegmentsGauge" FlowDirection="LeftToRight"
+                                      VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                                      Model="{Binding ElementName=lbModel, Path=SelectedItem, Converter={StaticResource GaugeModelConverter}}"
+                                      SymbolCount="15" Text="DEFAULT"  EnableAnimation="True" Margin="50, 0, 50, 0">
+                <dxga:DigitalGaugeControl.Layers>
+                    <dxga:DigitalGaugeLayer/>
+                </dxga:DigitalGaugeControl.Layers>
+                <dxga:DigitalGaugeControl.SymbolView>
+                    <dxga:FourteenSegmentsView Height="70">
+                        <dxga:FourteenSegmentsView.Animation>
+                            <dxga:CreepingLineAnimation RefreshTime="00:00:00.5" Repeat="True"/>
+                        </dxga:FourteenSegmentsView.Animation>
+                    </dxga:FourteenSegmentsView>
+                </dxga:DigitalGaugeControl.SymbolView>
+            </dxga:DigitalGaugeControl>
+
+            <dxga:DigitalGaugeControl Grid.Row="2" Name="Matrix8x14Gauge" FlowDirection="LeftToRight"
+                                      VerticalAlignment="Top" HorizontalAlignment="Center"
+                                      Model="{Binding ElementName=lbModel, Path=SelectedItem, Converter={StaticResource GaugeModelConverter}}"
+                                      SymbolCount="15" Text="Default" EnableAnimation="True">
+                <dxga:DigitalGaugeControl.Layers>
+                    <dxga:DigitalGaugeLayer/>
+                </dxga:DigitalGaugeControl.Layers>
+                <dxga:DigitalGaugeControl.SymbolView>
+                    <dxga:MatrixView8x14 Height="70">
+                        <dxga:MatrixView8x14.Animation>
+                            <dxga:CreepingLineAnimation RefreshTime="00:00:00.5" Repeat="True"/>
+                        </dxga:MatrixView8x14.Animation>
+                    </dxga:MatrixView8x14>
+                </dxga:DigitalGaugeControl.SymbolView>
+            </dxga:DigitalGaugeControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:GaugesDemoModule>

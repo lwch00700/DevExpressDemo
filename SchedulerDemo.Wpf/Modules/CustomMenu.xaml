@@ -1,0 +1,83 @@
+﻿<local:SchedulerDemoModule x:Class="SchedulerDemo.CustomMenu" Height="400" Width="800" x:Name="CustomMenuModule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:local="clr-namespace:SchedulerDemo"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase">
+    <dxdb:DemoModuleControl>
+        <Grid>
+            <dxb:BarManager>
+                <dxb:BarManager.Items>
+                    <dxb:BarButtonItem x:Name="changeToCheckEngineOil" Content="Check engine oil" Command="{Binding Path=CommandsCollection.ChangeCheckEngineOilCommand, Mode=OneWay}"/>
+                    <dxb:BarButtonItem x:Name="changeToWashCar" Content="Wash the car" Command="{Binding Path=CommandsCollection.ChangeWashTheCarCommand, Mode=OneWay}"/>
+                    <dxb:BarButtonItem x:Name="changeToWaxCar" Content="Wax the car" Command="{Binding Path=CommandsCollection.ChangeWaxTheCarCommand, Mode=OneWay}"/>
+                    <dxb:BarButtonItem x:Name="changeToCheckTransmissionFluid" Content="Check transmission fluid" Command="{Binding Path=CommandsCollection.ChangeCheckTransmissionFluidCommand, Mode=OneWay}"/>
+                    <dxb:BarButtonItem x:Name="changeToInspectByMechanic" Content="Inspect by mechanic" Command="{Binding Path=CommandsCollection.ChangeInspectByMechanicCommand, Mode=OneWay}"/>
+                    <dxb:BarSubItem x:Name="changeAppointment" Content="Schedule Change Event" dxb:BarItemLinkActionBase.ItemLinkIndex="0">
+                        <dxb:BarSubItem.ItemLinks>
+                            <dxb:BarButtonItemLink BarItemName="changeToCheckEngineOil" />
+                            <dxb:BarButtonItemLink BarItemName="changeToWashCar" />
+                            <dxb:BarButtonItemLink BarItemName="changeToWaxCar" />
+                            <dxb:BarButtonItemLink BarItemName="changeToCheckTransmissionFluid" />
+                            <dxb:BarButtonItemLink BarItemName="changeToInspectByMechanic" />
+                        </dxb:BarSubItem.ItemLinks>
+                    </dxb:BarSubItem>
+                    <dxb:BarButtonItem x:Name="createCheckEngineOil" Content="Check engine oil" Command="{Binding Path=CommandsCollection.CreateCheckEngineOilCommand, Mode=OneWay}"/>
+                    <dxb:BarButtonItem x:Name="createWashCar" Content="Wash the car" Command="{Binding Path=CommandsCollection.CreateWashTheCarCommand, Mode=OneWay}"/>
+                    <dxb:BarButtonItem x:Name="createWaxCar" Content="Wax the car" Command="{Binding Path=CommandsCollection.CreateWaxTheCarCommand, Mode=OneWay}"/>
+                    <dxb:BarButtonItem x:Name="createCheckTransmissionFluid" Content="Check transmission fluid" Command="{Binding Path=CommandsCollection.CreateCheckTransmissionFluidCommand, Mode=OneWay}"/>
+                    <dxb:BarButtonItem x:Name="createInspectByMechanic" Content="Inspect by mechanic" Command="{Binding Path=CommandsCollection.CreateInspectByMechanicCommand, Mode=OneWay}"/>
+                </dxb:BarManager.Items>
+                <dxsch:SchedulerControl x:Name="scheduler" ActiveViewType="Day" VerticalAlignment="Stretch" SnapsToDevicePixels="False">
+                    <dxsch:SchedulerControl.DayView>
+                        <dxsch:DayView DayCount="3" />
+                    </dxsch:SchedulerControl.DayView>
+                    <dxsch:SchedulerControl.FullWeekView>
+                        <dxsch:FullWeekView Enabled="True"/>
+                    </dxsch:SchedulerControl.FullWeekView>
+                    <dxsch:SchedulerControl.WeekView>
+                        <dxsch:WeekView Enabled="False"/>
+                    </dxsch:SchedulerControl.WeekView>
+                    <dxsch:SchedulerControl.Storage>
+                        <dxsch:SchedulerStorage>
+                        </dxsch:SchedulerStorage>
+                    </dxsch:SchedulerControl.Storage>
+                    <dxsch:SchedulerControl.DefaultMenuCustomizations>
+                        <dxb:RemoveBarItemAndLinkAction ItemName="NewAppointment" />
+                        <dxb:RemoveBarItemAndLinkAction ItemName="NewAllDayEvent" />
+                        <dxb:RemoveBarItemAndLinkAction ItemName="NewRecurringAppointment" />
+                        <dxb:RemoveBarItemAndLinkAction ItemName="NewRecurringEvent" />
+                        <dxb:BarSubItem x:Name="createAppointment" Content="Schedule Change Event" dxb:BarItemLinkActionBase.ItemLinkIndex="0" IsPrivate="True">
+                            <dxb:BarSubItem.ItemLinks>
+                                <dxb:BarButtonItemLink BarItemName="createCheckEngineOil" />
+                                <dxb:BarButtonItemLink BarItemName="createWashCar" />
+                                <dxb:BarButtonItemLink BarItemName="createWaxCar" />
+                                <dxb:BarButtonItemLink BarItemName="createCheckTransmissionFluid" />
+                                <dxb:BarButtonItemLink BarItemName="createInspectByMechanic" />
+                            </dxb:BarSubItem.ItemLinks>
+                        </dxb:BarSubItem>
+                    </dxsch:SchedulerControl.DefaultMenuCustomizations>
+                    <dxsch:SchedulerControl.TimeRulerMenuCustomizations>
+                        <dxb:RemoveBarItemAndLinkAction ItemName="NewAppointment"/>
+                        <dxb:RemoveBarItemAndLinkAction ItemName="NewAllDayEvent"/>
+                        <dxb:RemoveBarItemAndLinkAction ItemName="NewRecurringAppointment"/>
+                        <dxb:RemoveBarItemAndLinkAction ItemName="NewRecurringEvent"/>
+                        <dxb:BarSubItem x:Name="createAppointmentTimeRuler" Content="Schedule Change Event" dxb:BarItemLinkActionBase.ItemLinkIndex="0" IsPrivate="True">
+                            <dxb:BarSubItem.ItemLinks>
+                                <dxb:BarButtonItemLink BarItemName="createCheckEngineOil" />
+                                <dxb:BarButtonItemLink BarItemName="createWashCar" />
+                                <dxb:BarButtonItemLink BarItemName="createWaxCar" />
+                                <dxb:BarButtonItemLink BarItemName="createCheckTransmissionFluid" />
+                                <dxb:BarButtonItemLink BarItemName="createInspectByMechanic" />
+                            </dxb:BarSubItem.ItemLinks>
+                        </dxb:BarSubItem>
+                    </dxsch:SchedulerControl.TimeRulerMenuCustomizations>
+                </dxsch:SchedulerControl>
+            </dxb:BarManager>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:SchedulerDemoModule>

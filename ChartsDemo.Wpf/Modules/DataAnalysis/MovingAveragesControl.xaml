@@ -1,0 +1,235 @@
+﻿<local:ChartsDemoModule
+    x:Class="ChartsDemo.MovingAveragesControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:ChartsDemo">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:SelectedMovingAverageToVisibleConverter
+                x:Key="selectedMoingAverageToVisibleConverter" />
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <Grid>
+                <StackPanel>
+                    <dx:GroupFrame
+                        Header="Indicator">
+                        <dxe:ListBoxEdit
+                            x:Name="cbeIndicatorKind"
+                            ShowBorder="False"
+                            SelectedIndex="0">
+                            <dxe:ListBoxEdit.StyleSettings>
+                                <dxe:RadioListBoxEditStyleSettings />
+                            </dxe:ListBoxEdit.StyleSettings>
+                            <dxe:ListBoxEdit.Items>
+                                <dxe:ListBoxEditItem
+                                    Content="Simple Moving Average"
+                                    Tag="{x:Type dxc:SimpleMovingAverage}" />
+                                <dxe:ListBoxEditItem
+                                    Content="Weighted Moving Average"
+                                    Tag="{x:Type dxc:WeightedMovingAverage}" />
+                                <dxe:ListBoxEditItem
+                                    Content="Exponential Moving Average"
+                                    Tag="{x:Type dxc:ExponentialMovingAverage}" />
+                                <dxe:ListBoxEditItem
+                                    Content="Triangular Moving Average"
+                                    Tag="{x:Type dxc:TriangularMovingAverage}" />
+                                <dxe:ListBoxEditItem
+                                    Content="Triple Exponential Moving Average"
+                                    Tag="{x:Type dxc:TripleExponentialMovingAverageTema}" />
+                            </dxe:ListBoxEdit.Items>
+                        </dxe:ListBoxEdit>
+                    </dx:GroupFrame>
+                    <dx:GroupFrame
+                        x:Name="gfMovingAverageKind"
+                        Header="Moving Average Kind">
+                        <dxe:ListBoxEdit
+                            x:Name="cbeMovingAverageKind"
+                            SelectedIndex="0"
+                            ShowBorder="False">
+                            <dxe:ListBoxEdit.StyleSettings>
+                                <dxe:RadioListBoxEditStyleSettings />
+                            </dxe:ListBoxEdit.StyleSettings>
+                            <dxe:ListBoxEditItem
+                                Content="Moving Average"
+                                Tag="{x:Static dxc:MovingAverageKind.MovingAverage}"/>
+                            <dxe:ListBoxEditItem
+                                Content="Envelope"
+                                Tag="{x:Static dxc:MovingAverageKind.Envelope}"/>
+                            <dxe:ListBoxEditItem
+                                Content="Moving Average and Envelope"
+                                Tag="{x:Static dxc:MovingAverageKind.MovingAverageAndEnvelope}" />
+                        </dxe:ListBoxEdit>
+                    </dx:GroupFrame>
+                    <dxe:CheckEdit
+                        x:Name="cheShowInLegend"
+                        Content="Show indicator in legend"
+                        Margin="0,3,0,10" />
+                </StackPanel>
+            </Grid>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl
+                Name="chart"
+                BorderThickness="0"
+                CrosshairEnabled="True"
+                ToolTipEnabled="False">
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D EnableAxisXNavigation="True">
+                        <dxc:XYDiagram2D.NavigationOptions>
+                            <dxc:NavigationOptions AxisXMaxZoomPercent="150"/>
+                        </dxc:XYDiagram2D.NavigationOptions>
+                        <dxc:XYDiagram2D.AxisY>
+                            <dxc:AxisY2D
+                                GridLinesMinorVisible="True">
+                                <dxc:AxisY2D.WholeRange>
+                                    <dxc:Range
+                                        dxc:AxisY2D.AlwaysShowZeroLevel="False"
+                                        MinValue="0.74"
+                                        MaxValue="0.84"/>
+                                </dxc:AxisY2D.WholeRange>
+                            </dxc:AxisY2D>
+                        </dxc:XYDiagram2D.AxisY>
+                        <dxc:XYDiagram2D.AxisX>
+                            <dxc:AxisX2D
+                                GridLinesVisible="True"/>
+                        </dxc:XYDiagram2D.AxisX>
+                        <dxc:XYDiagram2D.Series>
+                            <dxc:StockSeries2D
+                                DisplayName="AUDUSD"
+                                ArgumentScaleType="DateTime"
+                                ArgumentDataMember="DateTimeArgument"
+                                HighValueDataMember="HighValue"
+                                LowValueDataMember="LowValue"
+                                LevelLineLength="0.3"
+                                OpenValueDataMember="OpenValue"
+                                CloseValueDataMember="CloseValue">
+                                <dxc:StockSeries2D.Indicators>
+                                    <dxc:SimpleMovingAverage
+                                        x:Name="simpleMovingAverage"
+                                        ValueLevel="Close"
+                                        LegendText="Simple Moving Average"
+                                        ShowInLegend="{Binding ElementName=cheShowInLegend, Path=IsChecked}"
+                                        MovingAverageKind="{Binding ElementName=cbeMovingAverageKind, Path=SelectedItem.Tag}"
+                                        Brush="#00C29B">
+                                        <dxc:SimpleMovingAverage.Visible>
+                                            <MultiBinding
+                                                Converter="{StaticResource selectedMoingAverageToVisibleConverter}">
+                                                <MultiBinding.Bindings>
+                                                    <Binding
+                                                        RelativeSource="{RelativeSource Self}" />
+                                                    <Binding
+                                                        ElementName="cbeIndicatorKind"
+                                                        Path="SelectedItem" />
+                                                </MultiBinding.Bindings>
+                                            </MultiBinding>
+                                        </dxc:SimpleMovingAverage.Visible>
+                                    </dxc:SimpleMovingAverage>
+                                    <dxc:WeightedMovingAverage
+                                        x:Name="weightedMovingAverage"
+                                        ValueLevel="Close"
+                                        LegendText=" Weighted Moving Average"
+                                        ShowInLegend="{Binding ElementName=cheShowInLegend, Path=IsChecked}"
+                                        MovingAverageKind="{Binding ElementName=cbeMovingAverageKind, Path=SelectedItem.Tag}"
+                                        Brush="#00C29B">
+                                        <dxc:WeightedMovingAverage.Visible>
+                                            <MultiBinding
+                                                Converter="{StaticResource selectedMoingAverageToVisibleConverter}">
+                                                <MultiBinding.Bindings>
+                                                    <Binding
+                                                        RelativeSource="{RelativeSource Self}" />
+                                                    <Binding
+                                                        ElementName="cbeIndicatorKind"
+                                                        Path="SelectedItem" />
+                                                </MultiBinding.Bindings>
+                                            </MultiBinding>
+                                        </dxc:WeightedMovingAverage.Visible>
+                                    </dxc:WeightedMovingAverage>
+                                    <dxc:ExponentialMovingAverage
+                                        x:Name="exponentialMovingAverage"
+                                        ValueLevel="Close"
+                                        LegendText="Exponential Moving Average"
+                                        ShowInLegend="{Binding ElementName=cheShowInLegend, Path=IsChecked}"
+                                        MovingAverageKind="{Binding ElementName=cbeMovingAverageKind, Path=SelectedItem.Tag}"
+                                        Brush="#00C29B">
+                                        <dxc:ExponentialMovingAverage.Visible>
+                                            <MultiBinding
+                                                Converter="{StaticResource selectedMoingAverageToVisibleConverter}">
+                                                <MultiBinding.Bindings>
+                                                    <Binding
+                                                        RelativeSource="{RelativeSource Self}" />
+                                                    <Binding
+                                                        ElementName="cbeIndicatorKind"
+                                                        Path="SelectedItem" />
+                                                </MultiBinding.Bindings>
+                                            </MultiBinding>
+                                        </dxc:ExponentialMovingAverage.Visible>
+                                    </dxc:ExponentialMovingAverage>
+                                    <dxc:TriangularMovingAverage
+                                        x:Name="triangularMovingAverage"
+                                        ValueLevel="Close"
+                                        LegendText="Triangular Moving Average"
+                                        ShowInLegend="{Binding ElementName=cheShowInLegend, Path=IsChecked}"
+                                        MovingAverageKind="{Binding ElementName=cbeMovingAverageKind, Path=SelectedItem.Tag}"
+                                        Brush="#00C29B">
+                                        <dxc:TriangularMovingAverage.Visible>
+                                            <MultiBinding
+                                                Converter="{StaticResource selectedMoingAverageToVisibleConverter}">
+                                                <MultiBinding.Bindings>
+                                                    <Binding
+                                                        RelativeSource="{RelativeSource Self}" />
+                                                    <Binding
+                                                        ElementName="cbeIndicatorKind"
+                                                        Path="SelectedItem" />
+                                                </MultiBinding.Bindings>
+                                            </MultiBinding>
+                                        </dxc:TriangularMovingAverage.Visible>
+                                    </dxc:TriangularMovingAverage>
+                                    <dxc:TripleExponentialMovingAverageTema
+                                        x:Name="tripleExponentialMovingAverage"
+                                        ValueLevel="Close"
+                                        LegendText="Triple Exponential Moving Average"
+                                        ShowInLegend="{Binding ElementName=cheShowInLegend, Path=IsChecked}"
+                                        MovingAverageKind="{Binding ElementName=cbeMovingAverageKind, Path=SelectedItem.Tag}"
+                                        Brush="#00C29B">
+                                        <dxc:TripleExponentialMovingAverageTema.Visible>
+                                            <MultiBinding
+                                                Converter="{StaticResource selectedMoingAverageToVisibleConverter}">
+                                                <MultiBinding.Bindings>
+                                                    <Binding
+                                                        RelativeSource="{RelativeSource Self}" />
+                                                    <Binding
+                                                        ElementName="cbeIndicatorKind"
+                                                        Path="SelectedItem" />
+                                                </MultiBinding.Bindings>
+                                            </MultiBinding>
+                                        </dxc:TripleExponentialMovingAverageTema.Visible>
+                                    </dxc:TripleExponentialMovingAverageTema>
+                                </dxc:StockSeries2D.Indicators>
+                            </dxc:StockSeries2D>
+                        </dxc:XYDiagram2D.Series>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend
+                        HorizontalPosition="Right" />
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title
+                        Dock="Top"
+                        HorizontalAlignment="Center">AUDUSD Daily</dxc:Title>
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

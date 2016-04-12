@@ -1,0 +1,190 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.CandleStick2DControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:ChartsDemo"
+    ModuleAppear="ChartsDemoModule_ModuleAppear">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ChartsDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:DemoValuesProvider x:Key="DemoValuesProvider" />
+            <local:CandleStick2DKindToCandleStick2DModelConverter x:Key="CandleStick2DKindToCandleStick2DModelConverter" />
+            <dxmvvm:BooleanNegationConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="120">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition MinWidth="61" Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <dxe:CheckEdit Grid.Row="0" Grid.ColumnSpan="2" Name="chbVisible" Content="Show Labels" Margin="0,0,0,10" IsChecked="False" />
+                    <TextBlock Grid.Row="1" Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Name="lblLabelLevel"
+                           Text="Label Level:"
+                           Margin="0,2,3,2" />
+                    <dxe:ComboBoxEdit Grid.Row="1" Grid.Column="1"
+                                      Name="cbLabelLevel"
+                                      Margin="3,2,0,2"
+                                      SelectedIndex="3"
+                                      IsEnabled="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                      IsTextEditable="False"
+                                      DisplayMember="Text"
+                                      ValueMember="Value">
+                        <dxe:ComboBoxEdit.Items>
+                            <local:ComboBoxItem Text="Low" Value="{}{LV:F2}"/>
+                            <local:ComboBoxItem Text="High" Value="{}{HV:F2}"/>
+                            <local:ComboBoxItem Text="Open" Value="{}{OV:F2}"/>
+                            <local:ComboBoxItem Text="Close" Value="{}{CV:F2}"/>
+                        </dxe:ComboBoxEdit.Items>
+                    </dxe:ComboBoxEdit>
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Name="lblReductionLevel"
+                           Text="Reduction Level:"
+                           Margin="0,2,3,2" />
+                    <dxe:ComboBoxEdit Grid.Row="2" Grid.Column="1"
+                                  Name="cbReductionLevel"
+                                  Margin="3,2,0,2"
+                                  SelectedIndexChanged="cbReductionLevel_SelectionChanged"
+                                  SelectedIndex="3"
+                                  IsTextEditable="False">
+                        <dxe:ComboBoxEdit.Items>
+                            <sys:String>Low</sys:String>
+                            <sys:String>High</sys:String>
+                            <sys:String>Open</sys:String>
+                            <sys:String>Close</sys:String>
+                        </dxe:ComboBoxEdit.Items>
+                    </dxe:ComboBoxEdit>
+                </Grid>
+                <dx:GroupFrame Header="Model" Margin="0,10,0,10">
+                    <dxe:ListBoxEdit Name="lbModel"
+                                     Background="{x:Null}"
+                                     ShowBorder="False"
+                                     ItemsSource="{Binding PredefinedCandleStick2DKinds, Source={StaticResource DemoValuesProvider}}">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                              BorderThickness="0"
+                              AnimationMode="OnLoad"
+                              ToolTipEnabled="True"
+                              CrosshairEnabled="False">
+                <dxc:ChartControl.ToolTipOptions>
+                    <dxc:ToolTipOptions>
+                        <dxc:ToolTipOptions.ToolTipPosition>
+                            <dxc:ToolTipRelativePosition/>
+                        </dxc:ToolTipOptions.ToolTipPosition>
+                    </dxc:ToolTipOptions>
+                </dxc:ChartControl.ToolTipOptions>
+                <dxc:ChartControl.Diagram>
+                    <dxc:XYDiagram2D>
+                        <dxc:XYDiagram2D.AxisY>
+                            <dxc:AxisY2D GridLinesMinorVisible="True">
+                                <dxc:AxisY2D.WholeRange>
+                                    <dxc:Range dxc:AxisY2D.AlwaysShowZeroLevel="False" />
+                                </dxc:AxisY2D.WholeRange>
+                                <dxc:AxisY2D.Title>
+                                    <dxc:AxisTitle Content="US Dollars" />
+                                </dxc:AxisY2D.Title>
+                            </dxc:AxisY2D>
+                        </dxc:XYDiagram2D.AxisY>
+                        <dxc:XYDiagram2D.AxisX>
+                            <dxc:AxisX2D GridLinesVisible="True" />
+                        </dxc:XYDiagram2D.AxisX>
+                        <dxc:XYDiagram2D.Series>
+                            <dxc:CandleStickSeries2D x:Name="Dell"
+                                                     DisplayName="Dell"
+                                                     ArgumentScaleType="DateTime"
+                                                     CandleWidth="0.9"
+                                                     ArgumentDataMember="TradeDate"
+                                                     HighValueDataMember="High"
+                                                     LowValueDataMember="Low"
+                                                     OpenValueDataMember="Open"
+                                                     CloseValueDataMember="Close"
+                                                     Model="{Binding ElementName=lbModel, Path=SelectedItem, Converter={StaticResource CandleStick2DKindToCandleStick2DModelConverter}}"
+                                                     AnimationAutoStartMode="SetStartState"
+                                                     ToolTipHintDataMember="ToolTipData">
+                                <dxc:CandleStickSeries2D.ToolTipPointTemplate>
+                                    <DataTemplate>
+                                        <Grid UseLayoutRounding="True">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="75"/>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Border Background="#FFA1A1A1" Grid.ColumnSpan="3" Grid.Row="4" Margin="1,8,1,0">
+                                                <TextBlock TextAlignment="Center"
+                                                           Text="{Binding Hint.Owner.TradeDate, StringFormat='{}{0:d}'}"
+                                                           Height="30"
+                                                           Foreground="White"
+                                                           FontSize="14"
+                                                           Padding="3,5,3,3"
+                                                           FontWeight="Thin"/>
+                                            </Border>
+                                            <Image Stretch="None" Source="{Binding Hint.HighDynamic}"  Grid.Row="0" Grid.Column="2" Margin="2,0,5,0" VerticalAlignment="Center"/>
+                                            <Image Stretch="None" Source="{Binding Hint.LowDynamic}"   Grid.Row="1" Grid.Column="2" Margin="2,0,5,0" VerticalAlignment="Center"/>
+                                            <Image Stretch="None" Source="{Binding Hint.OpenDynamic}"  Grid.Row="2" Grid.Column="2" Margin="2,0,5,0" VerticalAlignment="Center"/>
+                                            <Image Stretch="None" Source="{Binding Hint.CloseDynamic}" Grid.Row="3" Grid.Column="2" Margin="2,0,5,0" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Foreground="#FF404040" Margin="10,2,10,2">High:</TextBlock>
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Foreground="#FF404040" Margin="10,2,10,2">Low:</TextBlock>
+                                            <TextBlock Grid.Row="2" Grid.Column="0" Foreground="#FF404040" Margin="10,2,10,2">Open:</TextBlock>
+                                            <TextBlock Grid.Row="3" Grid.Column="0" Foreground="#FF404040" Margin="10,2,10,2">Close:</TextBlock>
+                                            <TextBlock VerticalAlignment="Center"  Grid.Row="0" Grid.Column="1" Margin="3,2,3,2" Text="{Binding Hint.Owner.High}"  TextAlignment="Right" FontWeight="Bold" Foreground="{Binding Hint.HighFontBrush}"/>
+                                            <TextBlock VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="3,2,3,2" Text="{Binding Hint.Owner.Low}"   TextAlignment="Right" FontWeight="Bold" Foreground="{Binding Hint.LowFontBrush}"/>
+                                            <TextBlock VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="3,2,3,2" Text="{Binding Hint.Owner.Open}"  TextAlignment="Right" FontWeight="Bold" Foreground="{Binding Hint.OpenFontBrush}"/>
+                                            <TextBlock VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Margin="3,2,3,2" Text="{Binding Hint.Owner.Close}" TextAlignment="Right" FontWeight="Bold" Foreground="{Binding Hint.CloseFontBrush}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </dxc:CandleStickSeries2D.ToolTipPointTemplate>
+                                <dxc:CandleStickSeries2D.ReductionOptions>
+                                    <dxc:ReductionStockOptions />
+                                </dxc:CandleStickSeries2D.ReductionOptions>
+                                <dxc:CandleStickSeries2D.Label>
+                                    <dxc:SeriesLabel Indent="3" Visible="{Binding ElementName=chbVisible, Path=IsChecked}"
+                                                     TextPattern ="{Binding Path=EditValue, ElementName=cbLabelLevel}"/>
+                                </dxc:CandleStickSeries2D.Label>
+                            </dxc:CandleStickSeries2D>
+                        </dxc:XYDiagram2D.Series>
+                    </dxc:XYDiagram2D>
+                </dxc:ChartControl.Diagram>
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend HorizontalPosition="Right" />
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center">Stock Prices</dxc:Title>
+                    <dxc:Title Dock="Bottom" HorizontalAlignment="Right" FontSize="12" Foreground="Silver" Margin="0,10,0,0">From bigcharts.marketwatch.com</dxc:Title>
+                </dxc:ChartControl.Titles>
+                <dxc:ChartControl.ToolTipController>
+                    <dxc:ChartToolTipController AutoPopDelay="0" ContentMargin="8"/>
+                </dxc:ChartControl.ToolTipController>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

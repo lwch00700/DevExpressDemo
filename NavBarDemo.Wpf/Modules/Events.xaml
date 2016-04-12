@@ -1,0 +1,88 @@
+﻿<local:NavBarDemoModule x:Class="NavBarDemo.Events"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="clr-namespace:NavBarDemo"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+ xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+ xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib" Height="407"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <local:NavBarDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NavBarDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <collections:ArrayList x:Key="navBarViews">
+                <sys:String>Explorer Bar</sys:String>
+                <sys:String>Navigation Pane</sys:String>
+                <sys:String>Side Bar</sys:String>
+            </collections:ArrayList>
+            <dxn:ExplorerBarView x:Key="explorerBar" Click="View_Click" GroupExpandedChanging="view_GroupExpandedChanging" GroupExpandedChanged="view_GroupExpandedChanged"
+         ItemSelecting="Selection_Changing" ItemSelected="Selection_Changed" ActiveGroupChanging="View_ActiveGroupChanging" ActiveGroupChanged="View_ActiveGroupChanged" />
+            <dxn:NavigationPaneView x:Key="navigationPane" Click="View_Click" NavPaneExpandedChanging="navPane_NavPaneExpandedChanging" NavPaneExpandedChanged="navPane_NavPaneExpandingChanged"
+         ItemSelecting="Selection_Changing" ItemSelected="Selection_Changed" ActiveGroupChanging="View_ActiveGroupChanging" ActiveGroupChanged="View_ActiveGroupChanged" />
+            <dxn:SideBarView x:Key="sideBar" Click="View_Click" ItemSelecting="Selection_Changing" ItemSelected="Selection_Changed" ActiveGroupChanging="View_ActiveGroupChanging" ActiveGroupChanged="View_ActiveGroupChanged" />
+        </ResourceDictionary>
+    </local:NavBarDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="200">
+                <dx:GroupFrame Header="View" Margin="{DynamicResource groupMargin}">
+                    <dxe:ListBoxEdit x:Name="viewsList" ItemsSource="{DynamicResource navBarViews}" SelectedIndexChanged="SelectView" SelectedIndex="0" Background="{x:Null}" ShowBorder="False">
+                        <dxe:ListBoxEdit.StyleSettings>
+                            <dxe:RadioListBoxEditStyleSettings />
+                        </dxe:ListBoxEdit.StyleSettings>
+                    </dxe:ListBoxEdit>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Track Events" Margin="{DynamicResource groupMargin}">
+                    <StackPanel>
+                        <dxe:CheckEdit x:Name="mouseDownCheckbox" Content="MouseDown" Margin="{DynamicResource controlMargin}" IsChecked="True" />
+                        <dxe:CheckEdit x:Name="mouseMoveCheckbox" Content="MouseMove" Margin="{DynamicResource controlMargin}" />
+                        <dxe:CheckEdit x:Name="mouseUpCheckbox" Content="MouseUp" Margin="{DynamicResource controlMargin}" IsChecked="True" />
+                        <dxe:CheckEdit x:Name="clickCheckbox" Content="Click" Margin="{DynamicResource controlMargin}" IsChecked="True" />
+                        <dxe:CheckEdit x:Name="selectionChangingCheckbox" Margin="{DynamicResource controlMargin}" Content="ItemSelecting" IsChecked="True" />
+                        <dxe:CheckEdit x:Name="selectionChangedCheckbox" Margin="{DynamicResource controlMargin}" Content="ItemSelected" IsChecked="True" />
+                        <dxe:CheckEdit x:Name="activeGroupChangingCheckbox" Margin="{DynamicResource controlMargin}" Content="ActiveGroupChanging" IsChecked="True" />
+                        <dxe:CheckEdit x:Name="activeGroupChangedCheckbox" Margin="{DynamicResource controlMargin}" Content="ActiveGroupChanged" IsChecked="True" />
+                        <dxe:CheckEdit x:Name="groupExpandedChangingCheckbox" Margin="{DynamicResource controlMargin}" Content="GroupExpandedChanging" IsChecked="true" />
+                        <dxe:CheckEdit x:Name="groupExpandedChangedCheckbox" Margin="{DynamicResource controlMargin}" Content="GroupExpandedChanged" IsChecked="True" />
+                        <dxe:CheckEdit x:Name="navPaneExpandedChangingCheckbox" Margin="{DynamicResource controlMargin}" Content="NavPaneExpandedChanging" />
+                        <dxe:CheckEdit x:Name="navPaneExpandedChangedCheckbox" Content="NavPaneExpandedChanged" />
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <dxn:NavBarControl Name="navBar" MaxWidth="200" Margin="20" Grid.Column="0" View="{StaticResource explorerBar}">
+                <dxn:NavBarControl.Groups>
+                    <dxn:NavBarGroup Header="Group 1">
+                        <dxn:NavBarItem>Item 1</dxn:NavBarItem>
+                        <dxn:NavBarItem IsEnabled="False">Item 2</dxn:NavBarItem>
+                        <dxn:NavBarItem>Item 3</dxn:NavBarItem>
+                        <dxn:NavBarItem IsEnabled="False">Item 4</dxn:NavBarItem>
+                        <dxn:NavBarItem>Item 5</dxn:NavBarItem>
+                    </dxn:NavBarGroup>
+                    <dxn:NavBarGroup Header="Group 2">
+                        <dxn:NavBarItem>Item 1</dxn:NavBarItem>
+                        <dxn:NavBarItem IsEnabled="False">Item 2</dxn:NavBarItem>
+                        <dxn:NavBarItem>Item 3</dxn:NavBarItem>
+                        <dxn:NavBarItem IsEnabled="False">Item 4</dxn:NavBarItem>
+                        <dxn:NavBarItem>Item 5</dxn:NavBarItem>
+                    </dxn:NavBarGroup>
+                </dxn:NavBarControl.Groups>
+            </dxn:NavBarControl>
+            <dx:GroupFrame Header="Event Log" Grid.Column="1" Margin="0,12,20,20">
+                <DockPanel>
+                    <Button x:Name="clearButton" Height="22" Width="80" HorizontalAlignment="Center" DockPanel.Dock="Bottom" Content="Clear log" Click="Button_Click" />
+                    <dxe:TextEdit x:Name="textBox" Focusable="False" IsReadOnly="True" Margin="{DynamicResource groupMargin}"
+       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" />
+                </DockPanel>
+            </dx:GroupFrame>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:NavBarDemoModule>

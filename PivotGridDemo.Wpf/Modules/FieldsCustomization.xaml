@@ -1,0 +1,179 @@
+﻿<local:PivotGridDemoModule x:Class="PivotGridDemo.PivotGrid.FieldsCustomization"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:local="clr-namespace:PivotGridDemo.PivotGrid"
+    xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core">
+    <local:PivotGridDemoModule.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="SalesPersonFieldHeaderTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/PivotGridDemo;component/Images/HeaderIcons/Person.png" Stretch="None" HorizontalAlignment="Left"
+                           VerticalAlignment="Center"  />
+                    <TextBlock Name="textBlock" Text="{Binding Path=DisplayText, Mode=OneWay}" HorizontalAlignment="Right"
+                           Style="{Binding Path=ActualHeaderContentStyle}" />
+                    </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="OrderFieldHeaderTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/PivotGridDemo;component/Images/HeaderIcons/Order.png" Stretch="None" HorizontalAlignment="Left"
+                           VerticalAlignment="Center" />
+                    <TextBlock Name="textBlock" Text="{Binding Path=DisplayText, Mode=OneWay}" HorizontalAlignment="Right"
+                           Style="{Binding Path=ActualHeaderContentStyle}" />
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </local:PivotGridDemoModule.Resources>
+
+    <dxdb:DemoModuleControl>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ShowLayoutListGroup">
+                <VisualState x:Name="ShowAdvancedOptions">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="advancedOptions" BeginTime="00:00:00" Duration="00:00:00"  Storyboard.TargetProperty="(UIElement.Visibility)" >
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Visible</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Storyboard.TargetName="advancedOptions" Storyboard.TargetProperty="Opacity"
+                                                 To="1" BeginTime="00:00:00" Duration="00:00:03" />
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="HideAdvancedOptions">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="advancedOptions" Storyboard.TargetProperty="Opacity"
+                                                 To="0" BeginTime="00:00:00" Duration="00:00:01" />
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="advancedOptions" BeginTime="00:00:01" Storyboard.TargetProperty="(UIElement.Visibility)" >
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical" Width="240">
+                <dx:GroupFrame Header="Customization Settings" Margin="0,0,0,4">
+                    <StackPanel>
+                        <dxe:CheckEdit IsChecked="{Binding Path=AllowCustomizationForm, ElementName=pivotGrid, Mode=TwoWay}"
+                                       EditValueChanged="OnAllowCustomizationFormChanged" Content="Allow Field List" Margin="0,0,6,4" />
+                        <dxe:CheckEdit IsChecked="{Binding Path=FieldListIncludeVisibleFields, ElementName=pivotGrid, Mode=TwoWay}"
+                                       Content="Include Visible Fields In Field List" Margin="0,0,6,4" />
+                        <dxe:CheckEdit IsChecked="{Binding Path=GroupFieldsInFieldList, ElementName=pivotGrid, Mode=TwoWay}"
+                                       Content="Group Fields In Field List" Margin="0,0,6,4" />
+                        <TextBlock VerticalAlignment="Center">Allow Hiding Fields:</TextBlock>
+                        <dxe:ComboBoxEdit VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                      IsTextEditable="False" Margin="0,4,0,0"
+                                      SelectedItem="{Binding Path=AllowHideFields, ElementName=pivotGrid}">
+                            <dxe:ComboBoxEdit.Items>
+                                <dxpg:AllowHideFieldsType>Never</dxpg:AllowHideFieldsType>
+                                <dxpg:AllowHideFieldsType>Always</dxpg:AllowHideFieldsType>
+                                <dxpg:AllowHideFieldsType>WhenFieldListVisible</dxpg:AllowHideFieldsType>
+                            </dxe:ComboBoxEdit.Items>
+                        </dxe:ComboBoxEdit>
+                        <TextBlock VerticalAlignment="Center" Margin="0,4,0,0">Customization Style:</TextBlock>
+                        <dxe:ComboBoxEdit x:Name="customizationStyle" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                      IsTextEditable="False" Margin="0,4,0,0"
+                                      SelectedIndex="0" SelectedIndexChanged="customizationStyle_SelectedIndexChanged">
+                            <dxe:ComboBoxEdit.Items>
+                                <dxpg:FieldListStyle>Simple</dxpg:FieldListStyle>
+                                <dxpg:FieldListStyle>Excel2007</dxpg:FieldListStyle>
+                            </dxe:ComboBoxEdit.Items>
+                        </dxe:ComboBoxEdit>
+                        <Button x:Name="ShowHideFieldList" Margin="0,8,0,0" Click="ShowHideFieldList_Click" IsEnabled="{Binding Path=AllowCustomizationForm, ElementName=pivotGrid}"
+                            Content="{Binding Path=IsFieldListVisible, ElementName=pivotGrid, Converter={local:FieldListVisibleToCommandTextConverter}}" />
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Advanced Customization Settings" Margin="0,4,0,4" x:Name="advancedOptions" Opacity="0" Visibility="Collapsed">
+                    <StackPanel>
+                        <dxe:CheckEdit IsChecked="{Binding ElementName=pivotGrid, Path=AllowFilterInFieldList, Mode=TwoWay}"
+                                   Content="Allow Filtering In Field List" Margin="0,0,4,4" />
+                        <dxe:CheckEdit IsChecked="{Binding ElementName=pivotGrid, Path=AllowSortInFieldList, Mode=TwoWay}"
+                                   Content="Allow Sorting In Field List" Margin="0,0,4,4" />
+                        <dxe:CheckEdit IsChecked="{Binding ElementName=pivotGrid, Path=IsFieldListMenuEnabled, Mode=TwoWay}"
+                                   Content="Is Field List Menu Enabled" Margin="0,0,4,4" />
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock VerticalAlignment="Center" Margin="0,4,0,0">Field List Layout:</TextBlock>
+                            <dxe:ComboBoxEdit VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="currentLayout" EditValueChanged="OnCurrentLayoutEditValueChanged"
+                                      IsTextEditable="False" Margin="0,4,0,0" SelectedItem="{Binding Path=FieldListLayout, ElementName=pivotGrid, Mode=TwoWay}">
+                                <dxe:ComboBoxEdit.Items>
+                                    <dxpg:FieldListLayout>StackedDefault</dxpg:FieldListLayout>
+                                    <dxpg:FieldListLayout>StackedSideBySide</dxpg:FieldListLayout>
+                                    <dxpg:FieldListLayout>TopPanelOnly</dxpg:FieldListLayout>
+                                    <dxpg:FieldListLayout>BottomPanelOnly2by2</dxpg:FieldListLayout>
+                                    <dxpg:FieldListLayout>BottomPanelOnly1by4</dxpg:FieldListLayout>
+                                </dxe:ComboBoxEdit.Items>
+                            </dxe:ComboBoxEdit>
+                            <TextBlock VerticalAlignment="Center" Margin="0,4,0,0">Allowed Customization Layouts:</TextBlock>
+                            <dxe:ComboBoxEdit x:Name="customizationLayouts" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                      IsTextEditable="False" Margin="0,4,0,0"
+                                      SelectedIndex="0" EditValueChanged="OnCustomizationLayoutsEditValueChanged"
+                                              PopupContentSelectionChanged="OnCustomizationLayoutsPopupContentSelectionChanged">
+                                <dxe:ComboBoxEdit.Items>
+                                    <dxpg:FieldListAllowedLayouts>StackedDefault</dxpg:FieldListAllowedLayouts>
+                                    <dxpg:FieldListAllowedLayouts>StackedSideBySide</dxpg:FieldListAllowedLayouts>
+                                    <dxpg:FieldListAllowedLayouts>TopPanelOnly</dxpg:FieldListAllowedLayouts>
+                                    <dxpg:FieldListAllowedLayouts>BottomPanelOnly2by2</dxpg:FieldListAllowedLayouts>
+                                    <dxpg:FieldListAllowedLayouts>BottomPanelOnly1by4</dxpg:FieldListAllowedLayouts>
+                                </dxe:ComboBoxEdit.Items>
+                                <dxe:ComboBoxEdit.SelectedItems>
+                                    <dxpg:FieldListAllowedLayouts>StackedDefault</dxpg:FieldListAllowedLayouts>
+                                    <dxpg:FieldListAllowedLayouts>StackedSideBySide</dxpg:FieldListAllowedLayouts>
+                                    <dxpg:FieldListAllowedLayouts>TopPanelOnly</dxpg:FieldListAllowedLayouts>
+                                    <dxpg:FieldListAllowedLayouts>BottomPanelOnly2by2</dxpg:FieldListAllowedLayouts>
+                                    <dxpg:FieldListAllowedLayouts>BottomPanelOnly1by4</dxpg:FieldListAllowedLayouts>
+                                </dxe:ComboBoxEdit.SelectedItems>
+                                <dxe:ComboBoxEdit.StyleSettings>
+                                    <dxe:CheckedComboBoxStyleSettings/>
+                                </dxe:ComboBoxEdit.StyleSettings>
+                            </dxe:ComboBoxEdit>
+                        </StackPanel>
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxpg:PivotGridControl x:Name="pivotGrid" local:FieldAreaHelper.FixAreas="True" ShowBorder="False" RowTreeWidth="157">
+   <dxpg:PivotGridControl.ExcelFieldListState>
+    <dx:DefaultColumnChooserState Size="400, 550" />
+   </dxpg:PivotGridControl.ExcelFieldListState>
+            <dxpg:PivotGridControl.Fields>
+                <dxpg:PivotGridField x:Name="fieldOrderYear" FieldName="OrderDate" DisplayFolder="Date" Area="FilterArea" AreaIndex="0" Visible="False" GroupInterval="DateYear" Caption="Year" />
+                <dxpg:PivotGridField x:Name="fieldOrderMonth" FieldName="OrderDate" DisplayFolder="Date" Area="FilterArea" Visible="False" AreaIndex="2" GroupInterval="DateMonth" Caption="Month" />
+                <dxpg:PivotGridField x:Name="fieldOrderDay" FieldName="OrderDate" DisplayFolder="Date" Area="FilterArea" Visible="False" AreaIndex="3" GroupInterval="DateDay" Caption="Day" />
+                <dxpg:PivotGridField x:Name="fieldOrderDayOfWeek" FieldName="OrderDate" DisplayFolder="Date" Area="FilterArea" Visible="False" AreaIndex="4" GroupInterval="DateDayOfWeek" Caption="Day Of Week" />
+                <dxpg:PivotGridField x:Name="fieldOrderDayOfYear" FieldName="OrderDate" DisplayFolder="Date" Area="FilterArea" Visible="False" AreaIndex="5" GroupInterval="DateDayOfYear" Caption="Day Of Year" />
+                <dxpg:PivotGridField x:Name="fieldOrderAmount" FieldName="ExtendedPrice" Area="DataArea" AreaIndex="0" CellFormat="c" DisplayFolder="Orders" Caption="Order Amount" />
+                <dxpg:PivotGridField x:Name="fieldOrderQuarter" FieldName="OrderDate" DisplayFolder="Date" Area="RowArea" AreaIndex="0" GroupInterval="DateQuarter"
+                                 Caption="Quarter" ValueFormat="Quarter {0}" />
+
+                <dxpg:PivotGridField x:Name="fieldCategoryName" FieldName="CategoryName" Area="RowArea" AreaIndex="1" Caption="Category" DisplayFolder="Products" />
+
+                <dxpg:PivotGridField x:Name="fieldCountry" FieldName="Country" Area="ColumnArea" AreaIndex="0" Caption="Country" DisplayFolder="Geography" />
+                <dxpg:PivotGridField x:Name="fieldSalesPerson" FieldName="FullName" Area="ColumnArea" AreaIndex="1" Caption="Sales Person"  DisplayFolder="Sales Person"
+                                 HeaderTemplate="{StaticResource SalesPersonFieldHeaderTemplate}" HeaderListTemplate="{StaticResource SalesPersonFieldHeaderTemplate}" />
+                <dxpg:PivotGridField x:Name="fieldFirstName" FieldName="FirstName" Area="ColumnArea" AreaIndex="1" Caption="First Name"  DisplayFolder="Sales Person\Name" Visible="False"/>
+                <dxpg:PivotGridField x:Name="fieldLastName" FieldName="LastName" Area="ColumnArea" AreaIndex="1" Caption="Last Name"  DisplayFolder="Sales Person\Name" Visible="False" />
+
+                <dxpg:PivotGridField x:Name="fieldOrderID" FieldName="OrderID" Area="FilterArea" Caption="Order ID" Visible="False"  DisplayFolder="Orders"
+                                 HeaderTemplate="{StaticResource OrderFieldHeaderTemplate}" HeaderListTemplate="{StaticResource OrderFieldHeaderTemplate}" />
+                <dxpg:PivotGridField x:Name="fieldQuantity" FieldName="Quantity" Area="DataArea" Caption="Quantity" Visible="False"  DisplayFolder="Orders" />
+                <dxpg:PivotGridField x:Name="fieldUnitPrice" FieldName="UnitPrice" Area="DataArea" Caption="Unit Price" Visible="False"  DisplayFolder="Orders" />
+                <dxpg:PivotGridField x:Name="fieldDiscount" FieldName="Discount" Area="DataArea" Caption="Discount" Visible="False"  DisplayFolder="Orders" />
+                <dxpg:PivotGridField x:Name="fieldExtendedPrice" FieldName="ExtendedPrice" Area="DataArea" Caption="Extended Price" Visible="False"  DisplayFolder="Orders" />
+            </dxpg:PivotGridControl.Fields>
+        </dxpg:PivotGridControl>
+    </dxdb:DemoModuleControl>
+</local:PivotGridDemoModule>

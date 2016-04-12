@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="EditorsDemo.ValidationSettings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+ xmlns:local="clr-namespace:EditorsDemo"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+  xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <dx:BooleanToVisibilityConverter x:Key="boolToVisibilityConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock VerticalAlignment="Center" Margin="12,0,0,0" Text="Edit value:" Grid.Column="0" Grid.Row="0"/>
+            <dxe:TextEdit VerticalAlignment="Center" Margin="0,0,12,0" x:Name="txtEditValue" EditValue="{Binding Path=EditValue}" IsReadOnly="True" Grid.Column="1" Grid.Row="0"/>
+            <TextBlock VerticalAlignment="Center" Margin="12,4,0,0" Text="Invalid value behavior:" Grid.Column="0" Grid.Row="1"/>
+            <dxe:ComboBoxEdit
+                VerticalAlignment="Center"
+                Margin="0,4,12,0"
+                Grid.Column="1" Grid.Row="1"
+    IsTextEditable="False"
+    EditValue="{Binding Path=(local:InvalidValueBehaviorHelper.InvalidValueBehavior), Mode=TwoWay}">
+                <dxe:ComboBoxEdit.Items>
+                    <sys:String>AllowLeaveEditor</sys:String>
+                    <sys:String>WaitForValidValue</sys:String>
+                </dxe:ComboBoxEdit.Items>
+            </dxe:ComboBoxEdit>
+        </Grid>
+        <dx:GroupFrame Margin="0,12,0,0" Header="Validate Current Editor" x:Name="editorSettings">
+            <StackPanel>
+                <dxe:CheckEdit Margin="0,0,0,0" x:Name="chCausedValidation" EditValue="{Binding Path=CausesValidation, Mode=TwoWay}" Content="Causes validation"/>
+                <dxe:CheckEdit Margin="0,12,0,0" x:Name="chValidateOnTextInput" EditValue="{Binding Path=ValidateOnTextInput, Mode=TwoWay}" Content="On text input" Visibility="{Binding Path=IsChecked, ElementName=chCausedValidation, Converter={StaticResource boolToVisibilityConverter}}"/>
+                <dxe:CheckEdit Margin="0,4,0,0" x:Name="chValidateOnEnterPressed" EditValue="{Binding Path=ValidateOnEnterKeyPressed, Mode=TwoWay}" Content="On press enter" Visibility="{Binding Path=IsChecked, ElementName=chCausedValidation, Converter={StaticResource boolToVisibilityConverter}}"/>
+            </StackPanel>
+        </dx:GroupFrame>
+    </StackPanel>
+</UserControl>

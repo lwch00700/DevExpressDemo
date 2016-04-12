@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:local="clr-namespace:PivotGridDemo.PivotGrid">
+	<ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="{dx:DemoBaseResource Themes/Generic.xaml}" />
+        <ResourceDictionary Source="/PivotGridDemo;component/Controls/ControlStyles/Panel.xaml" />
+		<ResourceDictionary Source="/PivotGridDemo;component/Controls/ControlStyles/InplaceProgressBar.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

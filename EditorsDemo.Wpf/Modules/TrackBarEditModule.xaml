@@ -1,0 +1,141 @@
+﻿<local:EditorsDemoModule x:Class="EditorsDemo.TrackBarEditModule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:EditorsDemo"
+    xmlns:utils="clr-namespace:EditorsDemo.Utils"
+    xmlns:dxet="http://schemas.devexpress.com/winfx/2008/xaml/editors/themekeys"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    >
+    <local:EditorsDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Controls/ControlStyles/RangedEditors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <utils:IConvertibleConverter ToType="System.Double" FromType="System.Decimal" x:Key="DecimalToConverter"/>
+        </ResourceDictionary>
+    </local:EditorsDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Width="240">
+                <dx:GroupFrame Header="Value Properties" Margin="{StaticResource groupBoxMargin}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="120" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Value: " VerticalAlignment="Center" Margin="0,0,0,4" />
+                        <dxe:SpinEdit Grid.Column="1"
+                        Grid.Row="0" x:Name="txtValue"
+                        VerticalAlignment="Center" Margin="0,0,0,4"
+                        MaxValue="{Binding Path=Maximum, ElementName=editor, Converter={StaticResource DecimalToConverter}}"
+                        MinValue="{Binding Path=Minimum, ElementName=editor, Converter={StaticResource DecimalToConverter}}"
+                        EditValue="{Binding Path=Value, ElementName=editor, Converter={StaticResource DecimalToConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        </dxe:SpinEdit>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Minimum: " VerticalAlignment="Center" Margin="0,0,0,4" />
+                        <dxe:SpinEdit Grid.Column="1"
+                        Grid.Row="1" x:Name="txtMinValue"
+                        VerticalAlignment="Center" Margin="0,0,0,4"
+                        MaxValue="{Binding Value, ElementName=editor,  Converter={StaticResource DecimalToConverter}}"
+                        EditValue="{Binding Minimum, ElementName=editor,  Converter={StaticResource DecimalToConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        </dxe:SpinEdit>
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Maximum: " VerticalAlignment="Center" Margin="0,0,0,4" />
+                        <dxe:SpinEdit Grid.Column="1"
+                        Grid.Row="2" x:Name="txtMaxValue"
+                        VerticalAlignment="Center" Margin="0,0,0,4"
+                        EditValue="{Binding Maximum, ElementName=editor,  Converter={StaticResource DecimalToConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        MinValue="{Binding EditValue, ElementName=editor, Converter={StaticResource DecimalToConverter}}"
+                            >
+                        </dxe:SpinEdit>
+                        <TextBlock Grid.Column="0" Grid.Row="3" Text="Small step: " VerticalAlignment="Center" Margin="0,0,0,4" />
+                        <dxe:SpinEdit ShowError="False" Grid.Column="1"
+                        Grid.Row="3" x:Name="txtSmallStep" IsFloatValue="False"
+                        EditValue="{Binding Path=SmallStep, ElementName=editor, Converter={StaticResource DecimalToConverter}, ConverterParameter=sys:Double, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinValue="1" VerticalAlignment="Center" Margin="0,0,0,4"
+                        >
+                        </dxe:SpinEdit>
+                        <TextBlock Grid.Column="0" Grid.Row="4" Text="Large step:" VerticalAlignment="Center" Margin="0,0,0,4" />
+                        <dxe:SpinEdit ShowError="False" Grid.Column="1"
+                        Grid.Row="4" x:Name="txtLargeStep" IsFloatValue="False"
+                        EditValue="{Binding Path=LargeStep, ElementName=editor, Converter={StaticResource DecimalToConverter}, ConverterParameter=sys:Double, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinValue="1" VerticalAlignment="Center" Margin="0,0,0,4"
+                        >
+                        </dxe:SpinEdit>
+                    </Grid>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Layout Properties" Margin="{StaticResource groupBoxMargin}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="120" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,0,4" Text="Tick placement: " />
+                        <dxe:ComboBoxEdit Grid.Row="1"
+                        Grid.Column="1"
+                        VerticalAlignment="Center" Margin="0,0,0,4"
+                        x:Name="cbTickPlacement"
+                        EditValue="{Binding Path=TickPlacement, ElementName=editor, UpdateSourceTrigger=PropertyChanged}"
+                        IsTextEditable="False">
+                        </dxe:ComboBoxEdit>
+                        <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="0,0,0,12" Text="Tick frequency: " />
+                        <dxe:SpinEdit Grid.Row="2" Grid.Column="1"
+                        VerticalAlignment="Center" Margin="0,0,0,12" MinValue="1" IsFloatValue="False"
+                        EditValue="{Binding Path=TickFrequency, ElementName=editor, Converter={StaticResource DecimalToConverter}, ConverterParameter=sys:Double, UpdateSourceTrigger=PropertyChanged}">
+                        </dxe:SpinEdit>
+                        <dxe:CheckEdit Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Content="Zoomed" Checked="CheckEdit_Checked" Unchecked="CheckEdit_Unchecked" />
+                    </Grid>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid Margin="48,40,48,48">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.25*" />
+                <RowDefinition Height="0.75*" />
+            </Grid.RowDefinitions>
+            <dx:GroupFrame Header="Configurable Editor" Grid.Row="0">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid MaxWidth="420">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding ElementName=editor, Path=Minimum}" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,2,0" />
+                            <ContentControl Template="{StaticResource rangeEditorPanel}" Grid.Column="1">
+                                <dxe:TrackBarEdit x:Name="editor" SmallStep="5" LargeStep="10" Value="55" Minimum="-30" Maximum="200" />
+                            </ContentControl>
+                            <TextBlock Text="{Binding ElementName=editor, Path=Maximum}" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" />
+                        </Grid>
+                        <TextBlock Grid.Row="1" Text="{Binding ElementName=editor, Path=Value}" HorizontalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </dx:GroupFrame>
+            <local:Safe Grid.Row="1" Margin="0,12,0,0" />
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:EditorsDemoModule>

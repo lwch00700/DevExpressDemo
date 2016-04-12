@@ -1,0 +1,47 @@
+﻿<local:ChartsDemoModule x:Class="ChartsDemo.EmptyPointsControl" Height="400" Width="800"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:local="clr-namespace:ChartsDemo"
+    ModuleAppear="ChartsDemoModule_ModuleAppear">
+    <local:ChartsDemoModule.Resources>
+        <ResourceDictionary>
+            <dxmvvm:BooleanNegationConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </local:ChartsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="130">
+                <dxe:CheckEdit Name="cheLabelsVisible" Content="Show Series Labels" Margin="0,0,0,10" IsChecked="True" Checked="cheLabelsVisible_Checked" Unchecked="cheLabelsVisible_Unchecked" />
+                <StackPanel Margin="0,2,0,10">
+                    <dx:GroupFrame Header="Series Type">
+                        <dxe:ListBoxEdit Name="lbSeriesType"
+                                         Background="{x:Null}"
+                                         ShowBorder="False"
+                                         SelectedIndexChanged="lbSeriesType_SelectedIndexChanged">
+                            <dxe:ListBoxEdit.StyleSettings>
+                                <dxe:RadioListBoxEditStyleSettings />
+                            </dxe:ListBoxEdit.StyleSettings>
+                        </dxe:ListBoxEdit>
+                    </dx:GroupFrame>
+                </StackPanel>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <dxc:ChartControl Name="chart"
+                              BorderThickness="0"
+                              CrosshairEnabled="{Binding ElementName=cheLabelsVisible, Path=IsChecked, Converter={StaticResource InvertedBoolConverter}}"
+                              AnimationMode="OnLoad">
+                <dxc:ChartControl.Legend>
+                    <dxc:Legend />
+                </dxc:ChartControl.Legend>
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Dock="Top" HorizontalAlignment="Center" FontSize="24" Content="News Website Popularity" />
+                </dxc:ChartControl.Titles>
+            </dxc:ChartControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:ChartsDemoModule>

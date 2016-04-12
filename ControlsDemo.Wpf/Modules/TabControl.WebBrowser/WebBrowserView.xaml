@@ -1,0 +1,168 @@
+﻿<UserControl x:Class="ControlsDemo.TabControl.WebBrowser.WebBrowserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="600"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxi="http://schemas.devexpress.com/winfx/2008/xaml/core/internal"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:local="clr-namespace:ControlsDemo.TabControl.WebBrowser"
+             xmlns:helpers="clr-namespace:ControlsDemo.Helpers"
+             DataContext="{dxmvvm:ViewModelSource local:WebBrowserMainViewModel}">
+    <UserControl.Resources>
+        <local:UrlToImageConverter x:Key="UrlToImageConverter"/>
+
+        <DataTemplate x:Key="speedDialTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <dxlc:TileLayoutControl ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=dx:DXTabControl}, Path=DataContext.SpeedDials}"
+                                        Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" ScrollBars="None" ItemSpace="0">
+                    <dxlc:TileLayoutControl.Resources>
+                        <Style x:Key="speedDialItemStyle" TargetType="Image">
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="0" Color="#FF2980D1" Opacity="0" BlurRadius="0"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Effect.BlurRadius" To="14" Duration="0:0:0.25"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="Effect.Opacity" To="0.6" Duration="0:0:0.20"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Effect.BlurRadius" To="0" Duration="0:0:0.14"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="Effect.Opacity" To="0" Duration="0:0:0.14"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </dxlc:TileLayoutControl.Resources>
+                    <dxlc:TileLayoutControl.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Icon}" Stretch="Fill" Width="160" Height="160" Cursor="Hand" Margin="30,16,30,16"
+                                   Style="{StaticResource speedDialItemStyle}">
+                                <dxmvvm:Interaction.Behaviors>
+                                    <dxmvvm:EventToCommand Command="{Binding RelativeSource={RelativeSource AncestorType=dx:DXTabControl}, Path=SelectedContainer.DataContext.LoadSpeedDialCommand}"
+                                                           CommandParameter="{Binding}" EventName="MouseLeftButtonDown" />
+                                </dxmvvm:Interaction.Behaviors>
+                            </Image>
+                        </DataTemplate>
+                    </dxlc:TileLayoutControl.ItemTemplate>
+                </dxlc:TileLayoutControl>
+                <dxwui:AppBar Grid.Row="1" IsOpen="True" HideMode="AlwaysVisible" Alignment="Bottom" ItemSpacing="50">
+                    <dxwui:AppBarToggleButton Label="Speed Dial" HorizontalAlignment="Center" EllipseDiameter="28" GroupName="appBarGroup" IsChecked="True"/>
+                    <dxwui:AppBarToggleButton Label="Bookmarks" HorizontalAlignment="Center" EllipseDiameter="28" GroupName="appBarGroup"/>
+                    <dxwui:AppBarToggleButton Label="Discover" HorizontalAlignment="Center" EllipseDiameter="28" GroupName="appBarGroup"/>
+                    <dxwui:AppBarToggleButton Label="Tabs" HorizontalAlignment="Center" EllipseDiameter="28" GroupName="appBarGroup"/>
+                    <dxwui:AppBarToggleButton Label="History" HorizontalAlignment="Center" EllipseDiameter="28" GroupName="appBarGroup"/>
+                </dxwui:AppBar>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="tabTemplate">
+            <Grid>
+                <ContentPresenter ContentTemplate="{StaticResource speedDialTemplate}" Visibility="{Binding IsNewTab, Converter={dxmvvm:BooleanToVisibilityConverter}}"/>
+                <WebBrowser Visibility="{Binding IsNewTab, Converter={dxmvvm:BooleanToVisibilityConverter Inverse=True}}">
+                    <dxmvvm:Interaction.Behaviors>
+                        <dxmvvm:DependencyPropertyBehavior PropertyName="Source" Binding="{Binding Url, Mode=OneWay}"/>
+                        <helpers:WebBrowserSupressScriptErrorsBehavior/>
+                    </dxmvvm:Interaction.Behaviors>
+                </WebBrowser>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <dx:DXTabControl ItemsSource="{Binding Tabs}" ItemTemplate="{StaticResource tabTemplate}" Padding="0" TabContentCacheMode="CacheAllTabs">
+            <dx:DXTabControl.ControlBoxRightTemplate>
+                <DataTemplate>
+                    <dxb:ToolBarControl BackgroundTemplate="{x:Null}" GlyphSize="Small" ShowDragWidget="False" AllowCollapse="False" AllowCustomizationMenu="False" AllowHide="False" AllowQuickCustomization="False" AllowRename="False">
+                        <dxb:BarSubItem Glyph="{dx:DXImage Image=Properties_16x16.png}" LargeGlyph="{dx:DXImage Image=Properties_32x32.png}">
+                            <dxb:BarSubItem Content="Themes">
+                                <dxmvvm:Interaction.Behaviors>
+                                    <dxb:BarSubItemThemeSelectorBehavior />
+                                </dxmvvm:Interaction.Behaviors>
+                            </dxb:BarSubItem>
+                            <dxb:BarSubItem Content="Window Settings">
+                                <dxb:BarCheckItem Content="Show Window Title">
+                                    <dxb:BarCheckItem.IsChecked>
+                                        <MultiBinding>
+                                            <MultiBinding.Converter>
+                                                <helpers:WindowShowTitleAndIconConverter/>
+                                            </MultiBinding.Converter>
+                                            <Binding RelativeSource="{RelativeSource AncestorType=dx:DXTabbedWindow}" Path="ShowTitle"/>
+                                            <Binding RelativeSource="{RelativeSource AncestorType=dx:DXTabbedWindow}" Path="ShowIcon"/>
+                                        </MultiBinding>
+                                    </dxb:BarCheckItem.IsChecked>
+                                </dxb:BarCheckItem>
+                                <dxb:BarCheckItem Content="Is Compact Mode">
+                                    <dxb:BarCheckItem.IsChecked>
+                                        <Binding RelativeSource="{RelativeSource AncestorType=dx:DXTabbedWindow}" Path="TabbedWindowMode">
+                                            <Binding.Converter>
+                                                <dxmvvm:ObjectToObjectConverter>
+                                                    <dxmvvm:MapItem Source="Normal" Target="False"/>
+                                                    <dxmvvm:MapItem Source="Compact" Target="True"/>
+                                                </dxmvvm:ObjectToObjectConverter>
+                                            </Binding.Converter>
+                                        </Binding>
+                                    </dxb:BarCheckItem.IsChecked>
+                                </dxb:BarCheckItem>
+                            </dxb:BarSubItem>
+                        </dxb:BarSubItem>
+                    </dxb:ToolBarControl>
+                </DataTemplate>
+            </dx:DXTabControl.ControlBoxRightTemplate>
+            <dx:DXTabControl.ItemContainerStyle>
+                <Style TargetType="dx:DXTabItem">
+                    <Setter Property="dxi:TabControlDragWidgetHelper.UseWPFMethod" Value="False"/>
+                    <Setter Property="Header" Value="{Binding Title}"/>
+                    <Setter Property="Glyph" Value="{Binding Url, Converter={StaticResource UrlToImageConverter}}"/>
+                    <Setter Property="GlyphTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <Image Source="{Binding}" Width="16" Height="16"/>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="IsNew" Value="{Binding IsNewTab}"/>
+                </Style>
+            </dx:DXTabControl.ItemContainerStyle>
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="TabAdding" Command="{Binding AddNewTabCommand}" PassEventArgsToCommand="True"/>
+            </dxmvvm:Interaction.Behaviors>
+            <dx:DXTabControl.View>
+                <dx:TabControlStretchView RemoveTabItemsOnHiding="True" NewButtonShowMode="InTabPanel" HideButtonShowMode="InAllTabs" SingleTabItemHideMode="HideAndShowNewItem" CloseWindowOnSingleTabItemHiding="True" DragDropMode="Full">
+                    <dx:TabControlStretchView.NewTabControlStyle>
+                        <Style TargetType="dx:DXTabControl">
+                            <Setter Property="dxmvvm:Interaction.BehaviorsTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <ContentControl>
+                                            <dxmvvm:EventToCommand EventName="TabAdding" Command="{Binding AddNewTabCommand}" PassEventArgsToCommand="True"/>
+                                        </ContentControl>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </dx:TabControlStretchView.NewTabControlStyle>
+                </dx:TabControlStretchView>
+            </dx:DXTabControl.View>
+        </dx:DXTabControl>
+    </Grid>
+</UserControl>

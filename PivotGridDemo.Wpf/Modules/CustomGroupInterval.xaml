@@ -1,0 +1,36 @@
+﻿<local:PivotGridDemoModule x:Class="PivotGridDemo.PivotGrid.CustomGroupInterval"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:local="clr-namespace:PivotGridDemo.PivotGrid"
+    xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core">
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical" Width="260">
+                <dx:GroupFrame Header="Custom Group Settings" Margin="0,0,0,4">
+                    <StackPanel>
+                        <TextBlock VerticalAlignment="Center" Margin="0,4,0,4">Select Group Interval:</TextBlock>
+                        <dxe:ComboBoxEdit Name="cbGroup" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                      IsTextEditable="False" Margin="0,4,0,4" SelectedIndexChanged="cbGroup_SelectedIndexChanged" />
+                    </StackPanel>
+                </dx:GroupFrame>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <dxpg:PivotGridControl local:FieldAreaHelper.FixAreas="True" x:Name="pivotGrid"
+                               RowTreeWidth="215" CustomGroupInterval="pivotGrid_CustomGroupInterval" ShowBorder="False">
+            <dxpg:PivotGridControl.Fields>
+                <dxpg:PivotGridField x:Name="pivotGridField1" FieldName="ProductName" UnboundFieldName="pivotGridField1"
+                                 Area="RowArea" AreaIndex="0" Caption="Product Group" />
+                <dxpg:PivotGridField x:Name="pivotGridField2" FieldName="ProductName" Area="RowArea" AreaIndex="1" Caption="Product" />
+                <dxpg:PivotGridField x:Name="pivotGridField3" FieldName="ProductSales" Area="DataArea" AreaIndex="0" Caption="Sales" />
+                <dxpg:PivotGridField x:Name="pivotGridField4" FieldName="ShippedDate" Area="ColumnArea" AreaIndex="0" Caption="Year - Quarter"
+                                 Visible="False" />
+                <dxpg:PivotGridField x:Name="pivotGridField5" FieldName="ShippedDate" Area="ColumnArea" AreaIndex="0" Caption="Shipped Date" />
+            </dxpg:PivotGridControl.Fields>
+        </dxpg:PivotGridControl>
+    </dxdb:DemoModuleControl>
+</local:PivotGridDemoModule>

@@ -1,0 +1,195 @@
+﻿<local:NavBarDemoModule x:Class="NavBarDemo.NavigationPaneOptions"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:local="clr-namespace:NavBarDemo"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+ xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+    xmlns:dxnt="http://schemas.devexpress.com/winfx/2008/xaml/navbar/themekeys"
+ xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+ xmlns:dxt="http://schemas.devexpress.com/winfx/2008/xaml/core/themekeys">
+    <local:NavBarDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NavBarDemo;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="RadioButton">
+                <Setter Property="Foreground" Value="{Binding ElementName=navBar, Path=Foreground}"/>
+            </Style>
+            <DataTemplate x:Key="ImageTreeViewItemTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image SnapsToDevicePixels="True" Grid.Column="0" Source="{Binding ImageSource}" Width="16" Height="16" Margin="0,2,2,2" />
+                    <TextBlock x:Name="item" Grid.Column="1" Text="{Binding Header}" Margin="4,0,0,0" />
+                </Grid>
+                <DataTemplate.Triggers>
+                    <DataTrigger  Value="true">
+                        <DataTrigger.Binding>
+                            <MultiBinding Converter="{local:BooleanInvertAndMultiValueConverter}">
+                                <Binding Path="IsMouseOver" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                <Binding Path="IsSelected" RelativeSource="{RelativeSource TemplatedParent}"/>
+                            </MultiBinding>
+                        </DataTrigger.Binding>
+                        <Setter Property="Foreground" TargetName="item" Value="{Binding ElementName=navBar, Path=Foreground}" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </ResourceDictionary>
+    </local:NavBarDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel MinWidth="200">
+                <dx:GroupFrame Header="Max Visible Group Count" Margin="{DynamicResource groupMargin}">
+                    <dxe:TrackBarEdit HorizontalAlignment="Stretch" SmallStep="1" LargeStep="1"
+      Value="{Binding Path=View.MaxVisibleGroupCount, ElementName=navBar, Mode=TwoWay}" Maximum="4" TickFrequency="1" TickPlacement="Both" IsSnapToTickEnabled="True" />
+                </dx:GroupFrame>
+                <dx:GroupFrame Margin="{DynamicResource groupMargin}" Header="Active Group Min Height">
+                    <dxe:TrackBarEdit HorizontalAlignment="Stretch" SmallStep="50" LargeStep="50"
+      Value="{Binding Path=View.ActiveGroupMinHeight, ElementName=navBar, Mode=TwoWay}" Minimum="50" TickFrequency="50" Maximum="500" />
+                </dx:GroupFrame>
+                <StackPanel Orientation="Vertical" Margin="12,0,0,0">
+                    <dxe:CheckEdit Margin="{DynamicResource controlMargin}" Content="Expanded" IsChecked="{Binding Path=View.IsExpanded, ElementName=navBar}" />
+                    <dxe:CheckEdit Margin="{DynamicResource controlMargin}" x:Name="ShowExpandButton" Content="Show Expand Button" IsChecked="{Binding Path=View.IsExpandButtonVisible, ElementName=navBar}" />
+                    <dxe:CheckEdit Margin="{DynamicResource controlMargin}" Content="Show Overflow Panel" IsChecked="{Binding Path=View.IsOverflowPanelVisible, ElementName=navBar}" />
+                    <dxe:CheckEdit Content="Show Splitter" IsChecked="{Binding Path=View.IsSplitterVisible, ElementName=navBar}" />
+                </StackPanel>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <local:NavBarDemoGridControl ContentMinWidth="280" ContentMaxWidth="400">
+            <dxn:NavBarControl Name="navBar">
+                <dxn:NavBarControl.View>
+                    <dxn:NavigationPaneView dxn:ScrollingSettings.ScrollMode="Buttons" />
+                </dxn:NavBarControl.View>
+                <dxn:NavBarControl.Groups>
+                    <dxn:NavBarGroup Header="Mail" DisplaySource="Content" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Mail_25.png">
+                        <dxn:NavBarGroup.Content>
+                            <dxn:NavBarControl Margin="1,0,1,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <dxn:NavBarControl.View>
+                                    <dxn:ExplorerBarView />
+                                </dxn:NavBarControl.View>
+                                <dxn:NavBarControl.Groups>
+                                    <dxn:NavBarGroup Header="Favorite Folders">
+                                        <dxn:NavBarGroup.Items>
+                                            <dxn:NavBarItem ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Inbox_17.png" Content="Inbox" />
+                                            <dxn:NavBarItem ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Sent-Items_17.png" Content="Sent Items" />
+                                        </dxn:NavBarGroup.Items>
+                                    </dxn:NavBarGroup>
+                                    <dxn:NavBarGroup Header="Mail Folders" DisplaySource="Content">
+                                        <dxn:NavBarGroup.Content>
+                                            <StackPanel  VerticalAlignment="Stretch">
+                                                <Grid Margin="0,3,0,3">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Source="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/All-Mail-Items_17.png" Width="16" Height="16" />
+                                                    <TextBlock Grid.Column="1" Margin="3,0,0,0" Text="All Mail Items" />
+                                                </Grid>
+                                                <TreeView ItemTemplate="{StaticResource ImageTreeViewItemTemplate}" Background="Transparent">
+                                                    <TreeView.Template>
+                                                        <ControlTemplate>
+                                                                <ItemsPresenter/>
+                                                        </ControlTemplate>
+                                                    </TreeView.Template>
+                                                    <TreeView.Items>
+                                                        <local:RootDemoTreeViewItem Header="Personal Folders" AlternateForeground="{Binding ElementName=navBar, Path=Foreground}"  ItemTemplate="{StaticResource ImageTreeViewItemTemplate}">
+                                                            <TreeViewItem.Items>
+                                                                <local:ImageTreeViewItem Header="Deleted Items" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Deleted-Items_17.png" />
+                                                                <local:ImageTreeViewItem Header="Drafts" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Drafts_17.png" />
+                                                                <local:ImageTreeViewItem Header="Junk E-mail" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Junk-E-mail_17.png" />
+                                                                <local:ImageTreeViewItem Header="Outbox" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Outbox_17.png" />
+                                                                <local:ImageTreeViewItem Header="RSS Feeds" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/RSS-Feeds_17.png" />
+                                                                <local:ImageTreeViewItem Header="Sent Items" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Sent-Items_17.png" />
+                                                                <local:ImageTreeViewItem Header="Search Folders" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Search-Folders_17.png" />
+                                                            </TreeViewItem.Items>
+                                                        </local:RootDemoTreeViewItem>
+                                                    </TreeView.Items>
+                                                </TreeView>
+                                            </StackPanel>
+                                        </dxn:NavBarGroup.Content>
+                                    </dxn:NavBarGroup>
+                                </dxn:NavBarControl.Groups>
+                            </dxn:NavBarControl>
+                        </dxn:NavBarGroup.Content>
+                    </dxn:NavBarGroup>
+                    <dxn:NavBarGroup Header="Calendar" DisplaySource="Content" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Calendar_25.png">
+                        <dxn:NavBarGroup.Content>
+                            <dxe:DateEditCalendar x:Name="calendar" ShowClearButton="False" />
+                        </dxn:NavBarGroup.Content>
+                    </dxn:NavBarGroup>
+                    <dxn:NavBarGroup Header="Contacts" DisplaySource="Content" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Contacts_25.png">
+                        <dxn:NavBarGroup.Content>
+                            <dxn:NavBarControl Margin="1,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <dxn:NavBarControl.View>
+                                    <dxn:ExplorerBarView >
+                                    </dxn:ExplorerBarView>
+                                </dxn:NavBarControl.View>
+                                <dxn:NavBarControl.Groups>
+                                    <dxn:NavBarGroup Header="My Contacts">
+                                        <dxn:NavBarGroup.Items>
+                                            <dxn:NavBarItem Content="Contacts" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Contacts_17.png" />
+                                        </dxn:NavBarGroup.Items>
+                                    </dxn:NavBarGroup>
+                                    <dxn:NavBarGroup Header="Current View" DisplaySource="Content">
+                                        <dxn:NavBarGroup.Content>
+                                            <StackPanel  VerticalAlignment="Stretch">
+                                                <RadioButton>Business Card</RadioButton>
+                                                <RadioButton>Address Card</RadioButton>
+                                                <RadioButton>Detailed Address Card</RadioButton>
+                                                <RadioButton>Phone List</RadioButton>
+                                                <RadioButton>By Category</RadioButton>
+                                                <RadioButton>By Company</RadioButton>
+                                                <RadioButton>By Location</RadioButton>
+                                                <RadioButton>Outlook Data Files</RadioButton>
+                                            </StackPanel>
+                                        </dxn:NavBarGroup.Content>
+                                    </dxn:NavBarGroup>
+                                </dxn:NavBarControl.Groups>
+                            </dxn:NavBarControl>
+                        </dxn:NavBarGroup.Content>
+                    </dxn:NavBarGroup>
+                    <dxn:NavBarGroup Header="Tasks" DisplaySource="Content" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Tasks_25.png">
+                        <dxn:NavBarGroup.Content>
+                            <dxn:NavBarControl Margin="1,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <dxn:NavBarControl.View>
+                                    <dxn:ExplorerBarView/>
+                                </dxn:NavBarControl.View>
+                                <dxn:NavBarControl.Groups>
+                                    <dxn:NavBarGroup Header="My Tasks">
+                                        <dxn:NavBarGroup.Items>
+                                            <dxn:NavBarItem Content="To-Do List" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/To-Do-List_17.png" />
+                                            <dxn:NavBarItem Content="Tasks" ImageSource="/NavBarDemo;component/Images/NavigationPaneOptionsDemo/Tasks_17.png" />
+                                        </dxn:NavBarGroup.Items>
+                                    </dxn:NavBarGroup>
+                                    <dxn:NavBarGroup Header="Current View" DisplaySource="Content">
+                                        <dxn:NavBarGroup.Content>
+                                            <StackPanel VerticalAlignment="Stretch" >
+                                                <RadioButton>Simple List</RadioButton>
+                                                <RadioButton>Detailed List</RadioButton>
+                                                <RadioButton>Active Tasks</RadioButton>
+                                                <RadioButton>Next Seven Days</RadioButton>
+                                                <RadioButton>Overdue Tasks</RadioButton>
+                                                <RadioButton>By Category</RadioButton>
+                                                <RadioButton>Assignment</RadioButton>
+                                                <RadioButton>By Person Responsible</RadioButton>
+                                                <RadioButton>Completed Tasks</RadioButton>
+                                                <RadioButton>Task Timeline</RadioButton>
+                                                <RadioButton>Server Tasks</RadioButton>
+                                                <RadioButton>Outlook Data Files</RadioButton>
+                                                <RadioButton>To-Do List</RadioButton>
+                                            </StackPanel>
+                                        </dxn:NavBarGroup.Content>
+                                    </dxn:NavBarGroup>
+                                </dxn:NavBarControl.Groups>
+                            </dxn:NavBarControl>
+                        </dxn:NavBarGroup.Content>
+                    </dxn:NavBarGroup>
+                </dxn:NavBarControl.Groups>
+            </dxn:NavBarControl>
+        </local:NavBarDemoGridControl>
+    </dxdb:DemoModuleControl>
+</local:NavBarDemoModule>

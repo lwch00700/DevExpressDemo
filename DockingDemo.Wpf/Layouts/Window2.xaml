@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="DockingDemo.Window2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        >
+    <Grid>
+        <dxb:BarManager>
+            <dxb:BarManager.Categories>
+                <dxb:BarManagerCategory Name="Standard" />
+                <dxb:BarManagerCategory Name="File" />
+                <dxb:BarManagerCategory Name="Edit" />
+            </dxb:BarManager.Categories>
+            <dxb:BarManager.Items>
+                <dxb:BarButtonItem Name="biFlipHorz" CategoryName="Edit" Content="Flip Horizontal" ItemClick="biFlipHorz_ItemClick" />
+                <dxb:BarButtonItem Name="biFlipVert" CategoryName="Edit" Content="Flip Vertical" ItemClick="biFlipVert_ItemClick" />
+                <dxb:BarButtonItem Name="biRotateCW" CategoryName="Edit" Content="Rotate Clockwise" ItemClick="biRotateCW_ItemClick" />
+                <dxb:BarButtonItem Name="biRotateCCW" CategoryName="Edit" Content="Rotate Counterclockwise" ItemClick="biRotateCCW_ItemClick" />
+
+                <dxb:BarButtonItem Name="bClose" CategoryName="File" Content="Close" Glyph="/DockingDemo;component/Images/Icons/close-16x16.png" ItemClick="bClose_ItemClick" Hint="Close" />
+
+                <dxb:BarSubItem Name="smEdit" CategoryName="Standard" Content="Edit">
+                    <dxb:BarSubItem.ItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="biFlipHorz" />
+                        <dxb:BarButtonItemLink BarItemName="biFlipVert" />
+                        <dxb:BarButtonItemLink BarItemName="biRotateCW" />
+                        <dxb:BarButtonItemLink BarItemName="biRotateCCW" />
+                    </dxb:BarSubItem.ItemLinks>
+                </dxb:BarSubItem>
+                <dxb:BarSubItem Name="bsFile" CategoryName="Standard" Content="File">
+                    <dxb:BarSubItem.ItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="bClose" />
+                    </dxb:BarSubItem.ItemLinks>
+                </dxb:BarSubItem>
+            </dxb:BarManager.Items>
+            <dxb:BarManager.Bars>
+                <dxb:Bar Caption="childMenu" x:Name="childMenu" IsMainMenu="True" UseWholeRow="True">
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" />
+                    </dxb:Bar.DockInfo>
+                    <dxb:Bar.ItemLinks>
+                        <dxb:BarSubItemLink BarItemName="bsFile" MergeType="MergeItems" />
+                        <dxb:BarSubItemLink BarItemName="smEdit" MergeOrder="1" />
+                    </dxb:Bar.ItemLinks>
+                </dxb:Bar>
+                <dxb:Bar Caption="childBar" x:Name="childBar">
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" />
+                    </dxb:Bar.DockInfo>
+                    <dxb:Bar.ItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="biFlipHorz" />
+                        <dxb:BarButtonItemLink BarItemName="biFlipVert" />
+                        <dxb:BarButtonItemLink BarItemName="biRotateCW" />
+                        <dxb:BarButtonItemLink BarItemName="biRotateCCW" />
+                    </dxb:Bar.ItemLinks>
+                </dxb:Bar>
+            </dxb:BarManager.Bars>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FlowDirection="LeftToRight">
+                <Image x:Name="image" Source="/DockingDemo;component/Images/Audi_TT_Roadster.jpg" />
+            </ScrollViewer>
+        </dxb:BarManager>
+    </Grid>
+</UserControl>

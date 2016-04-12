@@ -1,0 +1,181 @@
+﻿<local:EditorsDemoModule x:Class="EditorsDemo.InputValidationModule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:local="clr-namespace:EditorsDemo"
+ xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+ xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+ xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <local:EditorsDemoModule.Resources>
+        <ResourceDictionary>
+            <dx:NegationConverterExtension x:Key="negationConverter"/>
+        </ResourceDictionary>
+    </local:EditorsDemoModule.Resources>
+    <dxdb:DemoModuleControl SupressGroupFramePaddingInOptions="False">
+        <dxdb:DemoModuleControl.OptionsContent>
+            <local:ValidationSettings x:Name="settings" Width="280"/>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid Margin="12,24,12,12" MaxWidth="350">
+            <StackPanel VerticalAlignment="Top" x:Name="validationContainer" dxe:ValidationService.IsValidationContainer="True">
+                <dx:GroupFrame Header="Login Information">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Login:" Grid.Column="0" Grid.Row="0"/>
+                            <dxe:TextEdit
+                              x:Name="txtLogin"
+                              Grid.Column="1" Grid.Row="0"
+         GotFocus="TextEdit_GotFocus"
+         EditValue="{Binding Login}"
+         Validate="LoginValidate">
+                                <dxe:TextEdit.InvalidValueBehavior>
+                                    <Binding Path="(local:InvalidValueBehaviorHelper.InvalidValueBehavior)" RelativeSource="{RelativeSource Self}"/>
+                                </dxe:TextEdit.InvalidValueBehavior>
+                            </dxe:TextEdit>
+                            <TextBlock Margin="0,4,0,0" Text="e-mail:" Grid.Column="0" Grid.Row="1"/>
+                            <dxe:TextEdit
+                              Margin="0,4,0,0"
+                              Grid.Column="1" Grid.Row="1"
+         x:Name="txtMail"
+         EditValue="{Binding Mail}"
+         GotFocus="TextEdit_GotFocus"
+         EditValueChanged="txtMail_EditValueChanged"
+         MaskType="RegEx"
+         Mask="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+         MaskIgnoreBlank="False">
+                                <dxe:TextEdit.InvalidValueBehavior>
+                                    <Binding Path="(local:InvalidValueBehaviorHelper.InvalidValueBehavior)" RelativeSource="{RelativeSource Self}"/>
+                                </dxe:TextEdit.InvalidValueBehavior>
+                            </dxe:TextEdit>
+                            <TextBlock Margin="0,4,0,0" Text="Confirm e-mail:" Grid.Column="0" Grid.Row="2"/>
+                            <dxe:TextEdit
+                              Margin="0,4,0,0"
+                              Grid.Column="1" Grid.Row="2"
+                   x:Name="txtConfirmMail"
+         EditValue="{Binding ConfirmMail}"
+         Validate="ConfirmMailValidate"
+         GotFocus="TextEdit_GotFocus"
+         MaskType="RegEx"
+         Mask="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+         MaskIgnoreBlank="False">
+                                <dxe:TextEdit.InvalidValueBehavior>
+                                    <Binding Path="(local:InvalidValueBehaviorHelper.InvalidValueBehavior)" RelativeSource="{RelativeSource Self}"/>
+                                </dxe:TextEdit.InvalidValueBehavior>
+                            </dxe:TextEdit>
+                        </Grid>
+                    </StackPanel>
+                </dx:GroupFrame>
+                <dx:GroupFrame Header="Contact Information" Margin="0,12,0,0">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="First name:" Grid.Column="0" Grid.Row="0"/>
+                            <dxe:TextEdit
+                              Grid.Column="1" Grid.Row="0"
+                              x:Name="txtFirstName"
+                              EditValue="{Binding FirstName}"
+                              Validate="FirstNameValidate"
+                              GotFocus="TextEdit_GotFocus">
+                                <dxe:TextEdit.InvalidValueBehavior>
+                                    <Binding Path="(local:InvalidValueBehaviorHelper.InvalidValueBehavior)" RelativeSource="{RelativeSource Self}"/>
+                                </dxe:TextEdit.InvalidValueBehavior>
+                            </dxe:TextEdit>
+                            <TextBlock Margin="0,4,0,0" Text="Last name:" Grid.Column="0" Grid.Row="1"/>
+                            <dxe:TextEdit
+                              Margin="0,4,0,0"
+                              Grid.Column="1" Grid.Row="1"
+                              x:Name="txtLastName"
+                              EditValue="{Binding LastName}"
+                              Validate="SecondNameValidate"
+                              GotFocus="TextEdit_GotFocus">
+                                <dxe:TextEdit.InvalidValueBehavior>
+                                    <Binding Path="(local:InvalidValueBehaviorHelper.InvalidValueBehavior)" RelativeSource="{RelativeSource Self}"/>
+                                </dxe:TextEdit.InvalidValueBehavior>
+                            </dxe:TextEdit>
+                            <TextBlock Text="Age:" Grid.Column="0" Grid.Row="2" Margin="0,12,0,0"/>
+                            <dxe:SpinEdit
+                              Margin="0,12,0,0"
+                              Grid.Column="1" Grid.Row="2"
+                              x:Name="txtAge"
+                              EditValue="{Binding Age}"
+                              IsFloatValue="False"
+                              MinValue="21"
+                              MaxValue="200"
+                              GotFocus="TextEdit_GotFocus">
+                                <dxe:SpinEdit.InvalidValueBehavior>
+                                    <Binding Path="(local:InvalidValueBehaviorHelper.InvalidValueBehavior)" RelativeSource="{RelativeSource Self}"/>
+                                </dxe:SpinEdit.InvalidValueBehavior>
+                            </dxe:SpinEdit>
+                            <TextBlock Margin="0,12,0,0" Text="Card type:" Grid.Column="0" Grid.Row="3"/>
+                            <dxe:ComboBoxEdit
+                              Margin="0,12,0,0"
+                              Grid.Column="1" Grid.Row="3"
+                  x:Name="txtCardType"
+                  IsTextEditable="False"
+                  SelectedIndex="0"
+                  Validate="txtCardType_Validate"
+                  SelectedIndexChanged="txtCardType_SelectedIndexChanged"
+                  DisplayMember="DisplayName"
+                  ValueMember="Name"
+                  GotFocus="TextEdit_GotFocus">
+                                <dxe:ComboBoxEdit.InvalidValueBehavior>
+                                    <Binding Path="(local:InvalidValueBehaviorHelper.InvalidValueBehavior)" RelativeSource="{RelativeSource Self}"/>
+                                </dxe:ComboBoxEdit.InvalidValueBehavior>
+                            </dxe:ComboBoxEdit>
+                            <TextBlock Margin="0,4,0,0" Text="Card number:" Grid.Column="0" Grid.Row="4"/>
+                            <dxe:TextEdit
+                              Margin="0,4,0,0"
+                              Grid.Column="1" Grid.Row="4"
+               x:Name="txtCardNumber"
+               Validate="txtCardNumber_Validate"
+         GotFocus="TextEdit_GotFocus"
+         MaskType="RegEx"
+         Mask="[0-9]*"
+         MaskShowPlaceHolders="False"
+         MaskUseAsDisplayFormat="True">
+                                <dxe:TextEdit.InvalidValueBehavior>
+                                    <Binding Path="(local:InvalidValueBehaviorHelper.InvalidValueBehavior)" RelativeSource="{RelativeSource Self}"/>
+                                </dxe:TextEdit.InvalidValueBehavior>
+                            </dxe:TextEdit>
+                            <TextBlock Margin="0,4,0,0" Text="Card exp. date:" Grid.Column="0" Grid.Row="5"/>
+                            <dxe:DateEdit
+                              Margin="0,4,0,0"
+                              Grid.Column="1" Grid.Row="5"
+               AllowNullInput="false"
+         x:Name="txtCardExpDate"
+         DateTime="{Binding CardExpDate}"
+         Validate="txtCardExpDate_Validate"
+         GotFocus="TextEdit_GotFocus">
+                                <dxe:DateEdit.InvalidValueBehavior>
+                                    <Binding Path="(local:InvalidValueBehaviorHelper.InvalidValueBehavior)" RelativeSource="{RelativeSource Self}"/>
+                                </dxe:DateEdit.InvalidValueBehavior>
+                            </dxe:DateEdit>
+                        </Grid>
+                    </StackPanel>
+                </dx:GroupFrame>
+                <Button x:Name="btnJoin" Width="100" Margin="0,12,0,0" Content="Join" Click="Button_Click"/>
+            </StackPanel>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:EditorsDemoModule>

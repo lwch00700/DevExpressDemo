@@ -1,0 +1,194 @@
+﻿<local:CarouselDemoModule x:Class="CarouselDemo.AnimationEffects" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxca="http://schemas.devexpress.com/winfx/2008/xaml/carousel"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:local="clr-namespace:CarouselDemo"
+    xmlns:collection="clr-namespace:System.Collections;assembly=mscorlib"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    
+    >
+    <local:CarouselDemoModule.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="functionComboBoxTemplate">
+                <TextBlock Text="{Binding Path=Name}" />
+            </DataTemplate>
+            <collection:ArrayList x:Key="scaleXEffectsArray">
+                <local:FunctionContainer Name="None" FunctionBase="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Constant1}}" />
+                <local:FunctionContainer Name="Stretch" FunctionBase="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Linear3PConcaveNr}}" />
+            </collection:ArrayList>
+            <collection:ArrayList x:Key="scaleYEffectsArray">
+                <local:FunctionContainer Name="None" FunctionBase="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Constant1}}" />
+                <local:FunctionContainer Name="Stretch" FunctionBase="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Linear3PConcaveNr}}" />
+            </collection:ArrayList>
+            <collection:ArrayList x:Key="angleEffectsArray">
+                <local:FunctionContainer Name="None" FunctionBase="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Constant0}}" />
+                <local:FunctionContainer Name="Full Spin">
+                    <local:FunctionContainer.FunctionBase>
+                        <dxca:PieceLinearFunction>
+                            <dxca:PieceLinearFunction.Points>
+                                <dxca:PointCollection>
+                                    <Point X="0" Y="0" />
+                                    <Point X="1" Y="360" />
+                                </dxca:PointCollection>
+                            </dxca:PieceLinearFunction.Points>
+                        </dxca:PieceLinearFunction>
+                    </local:FunctionContainer.FunctionBase>
+                </local:FunctionContainer>
+                <local:FunctionContainer Name="Quarter Spin">
+                    <local:FunctionContainer.FunctionBase>
+                        <dxca:PieceLinearFunction>
+                            <dxca:PieceLinearFunction.Points>
+                                <dxca:PointCollection>
+                                    <Point X="0" Y="0" />
+                                    <Point X="0.5" Y="45" />
+                                    <Point X="1" Y="0" />
+                                </dxca:PointCollection>
+                            </dxca:PieceLinearFunction.Points>
+                        </dxca:PieceLinearFunction>
+                    </local:FunctionContainer.FunctionBase>
+                </local:FunctionContainer>
+            </collection:ArrayList>
+            <collection:ArrayList x:Key="opacityEffectsArray">
+                <local:FunctionContainer Name="None" FunctionBase="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Constant1}}" />
+                <local:FunctionContainer Name="Flash Once" FunctionBase="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Linear3PConcaveNr}}" />
+                <local:FunctionContainer Name="Flash Multiple">
+                    <local:FunctionContainer.FunctionBase>
+                        <dxca:PieceLinearFunction>
+                            <dxca:PieceLinearFunction.Points>
+                                <dxca:PointCollection>
+                                    <Point X="0" Y="1" />
+                                    <Point X="0.125" Y="0" />
+                                    <Point X="0.25" Y="1" />
+                                    <Point X="0.375" Y="0" />
+                                    <Point X="0.5" Y="1" />
+                                    <Point X="0.625" Y="0" />
+                                    <Point X="0.75" Y="1" />
+                                    <Point X="0.875" Y="0" />
+                                    <Point X="1" Y="1" />
+                                </dxca:PointCollection>
+                            </dxca:PieceLinearFunction.Points>
+                        </dxca:PieceLinearFunction>
+                    </local:FunctionContainer.FunctionBase>
+                </local:FunctionContainer>
+            </collection:ArrayList>
+        </ResourceDictionary>
+    </local:CarouselDemoModule.Resources>
+    <dxdb:DemoModuleControl>
+        <dxdb:DemoModuleControl.OptionsContent>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Stretch" Width="200">
+                <StackPanel>
+                    <dx:GroupFrame Header="Scale X">
+                        <dxe:ListBoxEdit Background="{x:Null}"
+                        Name="scaleXComboBox"
+                        DisplayMember="Name"
+						ItemsSource="{StaticResource scaleXEffectsArray}"
+						HorizontalAlignment="Stretch"
+                        SelectedIndex="0"
+                        SelectedItem="{Binding ElementName=carousel, Path=ParameterSet[0].AnimationMulFunction, Mode=TwoWay, Converter={local:FunctionContainerConverter}, ConverterParameter={StaticResource scaleXEffectsArray}}"
+			            ShowBorder="False"
+                        StyleSettings="{dxe:RadioListBoxEditStyleSettings}"
+                        />
+                    </dx:GroupFrame>
+                    <dx:GroupFrame Header="Scale Y" Margin="0,12,0,0">
+                        <dxe:ListBoxEdit Background="{x:Null}"
+                        Name="scaleYComboBox"
+                        DisplayMember="Name"
+						ItemsSource="{StaticResource scaleYEffectsArray}"
+						HorizontalAlignment="Stretch"
+                        SelectedIndex="0"
+                        SelectedItem="{Binding ElementName=carousel, Path=ParameterSet[1].AnimationMulFunction, Mode=TwoWay, Converter={local:FunctionContainerConverter}, ConverterParameter={StaticResource scaleYEffectsArray}}"
+			            ShowBorder="False"
+                        StyleSettings="{dxe:RadioListBoxEditStyleSettings}"
+                        />
+                    </dx:GroupFrame>
+                    <dx:GroupFrame Header="Angle" Margin="0,12,0,0">
+                        <dxe:ListBoxEdit Background="{x:Null}"
+                        Name="angleComboBox"
+                        DisplayMember="Name"
+						ItemsSource="{StaticResource angleEffectsArray}"
+						HorizontalAlignment="Stretch"
+                        SelectedIndex="0"
+                        SelectedItem="{Binding ElementName=carousel, Path=ParameterSet[2].AnimationAddFunction, Mode=TwoWay, Converter={local:FunctionContainerConverter}, ConverterParameter={StaticResource angleEffectsArray}}"
+			            ShowBorder="False"
+                        StyleSettings="{dxe:RadioListBoxEditStyleSettings}"
+                        />
+                    </dx:GroupFrame>
+                    <dx:GroupFrame Header="Opacity" Margin="0,12,0,0">
+                        <dxe:ListBoxEdit Background="{x:Null}"
+                        Name="opacityComboBox"
+                        DisplayMember="Name"
+						ItemsSource="{StaticResource opacityEffectsArray}"
+						HorizontalAlignment="Stretch"
+                        SelectedIndex="0"
+                        SelectedItem="{Binding ElementName=carousel, Path=ParameterSet[3].AnimationMulFunction, Mode=TwoWay, Converter={local:FunctionContainerConverter}, ConverterParameter={StaticResource opacityEffectsArray}}"
+			            ShowBorder="False"
+                        StyleSettings="{dxe:RadioListBoxEditStyleSettings}"
+                        />
+                    </dx:GroupFrame>
+                </StackPanel>
+            </StackPanel>
+        </dxdb:DemoModuleControl.OptionsContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="80" />
+            </Grid.RowDefinitions>
+            <dxca:CarouselPanel RenderOptions.BitmapScalingMode="HighQuality"
+                x:Name="carousel"
+                AnimationTime="500"
+                VisibleItemCount="7"
+                AttractorPointIndex="3"
+                PathPadding="10, 5, 10, 20"
+                ItemSize="150,150"
+                IsAutoSizeItem="True"
+                Margin="50"
+                ClipToBounds="True"
+                PathVisible="False"
+                IsInvertedDirection="True"
+                IsRepeat="False"
+            >
+                <dxca:CarouselPanel.Resources>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Panel.ZIndex" Value="{Binding Path=(dxca:CarouselPanel.Parameters).ZIndex, Converter={local:DoubleToIntConverter},RelativeSource={RelativeSource Self}}" />
+                        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+                        <Setter Property="Opacity" Value="{Binding Path=(dxca:CarouselPanel.Parameters).Opacity, RelativeSource={RelativeSource Self}}" />
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="{Binding Path=(dxca:CarouselPanel.Parameters).ScaleX, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type FrameworkElement}}}"
+							ScaleY="{Binding Path=(dxca:CarouselPanel.Parameters).ScaleY, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type FrameworkElement}}}"
+						/>
+                                    <RotateTransform Angle="{Binding Path=(dxca:CarouselPanel.Parameters).Angle, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type FrameworkElement}}}"
+						/>
+                                    <TranslateTransform X="{Binding Path=(dxca:CarouselPanel.Parameters).OffsetX, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type FrameworkElement}}}" 
+							Y="{Binding Path=(dxca:CarouselPanel.Parameters).OffsetY, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type FrameworkElement}}}" 
+						/>
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </dxca:CarouselPanel.Resources>
+                <dxca:CarouselPanel.ParameterSet>
+                    <dxca:ParameterCollection>
+                        <dxca:Parameter Name="ScaleX" DistributionFunction="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Linear3PConvexNr}}" />
+                        <dxca:Parameter Name="ScaleY" DistributionFunction="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Linear3PConvexNr}}" />
+                        <dxca:Parameter Name="Angle" DistributionFunction="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Constant0}}" />
+                        <dxca:Parameter Name="Opacity" DistributionFunction="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Constant1}}" />
+                        <dxca:Parameter Name="ZIndex" DistributionFunction="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type dxca:CarouselPanel}, ResourceId=Linear3PConvexERIntMax}}" />
+                    </dxca:ParameterCollection>
+                </dxca:CarouselPanel.ParameterSet>
+            </dxca:CarouselPanel>
+            <dxca:CarouselNavigator
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                MinHeight="24"
+                MinWidth="300"
+                Grid.Row="1"
+                Carousel="{Binding ElementName=carousel}"
+            />
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:CarouselDemoModule>

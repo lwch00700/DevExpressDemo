@@ -1,0 +1,275 @@
+﻿<Button x:Class="EditorsDemo.Map"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxet="http://schemas.devexpress.com/winfx/2008/xaml/editors/themekeys"
+             xmlns:local="clr-namespace:EditorsDemo"
+             d:DesignHeight="300" d:DesignWidth="300"
+             x:Name="map"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             Foreground="White"
+             >
+    <Button.Resources>
+        <ImageBrush x:Key="imageBrush" ImageSource="../Images/Map/Shd.png" Stretch="Fill" Opacity="0.5"/>
+        <dx:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <dxe:GridLengthConverter x:Key="GridLengthConverter" />
+        <local:MapDataToTextConverter x:Key="mapDataToTextConverter"/>
+        <ControlTemplate x:Key="{dxet:TrackBarEditThemeKey ResourceKey=HorizontalBackgroundTemplate}" TargetType="ContentControl">
+            <Grid Margin="6,0,6,0">
+                <Border Background="#FF16161D" CornerRadius="5,5,5,5" VerticalAlignment="Center" Height="11" Opacity="0.75">
+                    <Border VerticalAlignment="Center" Grid.Column="0" Background="White" Height="1" Margin="6,0,6,0" />
+                </Border>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="{dxet:TrackBarEditThemeKey ResourceKey=HorizontalSelectionRangeBackgroundTemplate}" TargetType="ContentControl">
+            <Border Background="#FFFFB002" Height="1"/>
+        </ControlTemplate>
+        <Style x:Key="{dxet:TrackBarEditThumbThemeKey ResourceKey=LeftHorizontalThumbStyle}" TargetType="Thumb">
+            <Setter Property="Background" Value="#FF1F3B53"/>
+            <Setter Property="ClipToBounds" Value="False"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFA3AEB9" Offset="0"/>
+                        <GradientStop Color="#FF8399A9" Offset="0.375"/>
+                        <GradientStop Color="#FF718597" Offset="0.375"/>
+                        <GradientStop Color="#FF617584" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Grid Tag="{Binding Path=MapData, ElementName=map}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0.5" To="MouseOver"/>
+                                        <VisualTransition From="MouseOver" GeneratedDuration="0:0:0.5"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0" To="#FFFFBD00" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0" To="#FFDE7D07" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Placement="Top" Foreground="White">
+
+                                    <ToolTip.Template>
+                                        <ControlTemplate TargetType="ToolTip">
+                                            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Opacity="0.75" Margin="11,0,0,0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="64"/>
+                                                </Grid.RowDefinitions>
+                                                <Border Padding="3,1,3,3" Background="{StaticResource imageBrush}" Margin="0,3,0,-3">
+                                                    <Grid>
+                                                        <Border x:Name="border1" Background="Black"  CornerRadius="3">
+                                                            <Border Background="#FF595959" Margin="4" CornerRadius="2">
+                                                                <Border Background="#FF16161D" Margin="1" CornerRadius="1"/>
+                                                            </Border>
+                                                        </Border>
+                                                        <Grid x:Name="grid3" Margin="12">
+                                                            <TextBlock Grid.Row="1" Text="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource mapDataToTextConverter}, ConverterParameter=Start}"/>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Border>
+                                                <Path x:Name="pathBottom1" Stretch="Fill" Fill="Black" Data="F1 M196,174 L162,238 L178,238 L196,174 z" HorizontalAlignment="Left" UseLayoutRounding="False" Width="34" RenderTransformOrigin="0.5,0.5"  Grid.Row="1" Height="64" Margin="0">
+                                                    <Path.RenderTransform>
+                                                        <ScaleTransform ScaleY="-1" ScaleX="-1"/>
+                                                    </Path.RenderTransform>
+                                                </Path>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </ToolTip.Template>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <Path Data="M0.5,0.5 L0.5,399.5614" HorizontalAlignment="Right" Margin="0,-195" Stroke="Black" StrokeMiterLimit="1" UseLayoutRounding="False" Width="1" StrokeDashArray="2 2" VerticalAlignment="Center" Opacity="0.75"/>
+                            <Grid Height="25" VerticalAlignment="Center" Width="11" Margin="-1,0,1,0">
+                                <Path Stretch="Fill" Fill="#FF474747" Data="F1 M 276,334L 276,340L 276,346L 276,352L 276,357L 287,346L 287,345L 276,334" Margin="0" UseLayoutRounding="False"/>
+                                <Path Stretch="Fill" Fill="#FF474747" Data="F1 M 276,334L 276,340L 276,346L 276,352L 276,357L 287,346L 287,345L 276,334" Margin="0" UseLayoutRounding="False"/>
+                                <Path x:Name="path" Stretch="Fill" Fill="#FFEDF5E7" Data="F1 M 277,336L 277,342L 277,348L 277,354L 277,355L 286,346L 286,345L 277,336" Margin="1,2" UseLayoutRounding="False"/>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{dxet:TrackBarEditThumbThemeKey ResourceKey=RightHorizontalThumbStyle}" TargetType="Thumb">
+            <Setter Property="Background" Value="#FF1F3B53"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFA3AEB9" Offset="0"/>
+                        <GradientStop Color="#FF8399A9" Offset="0.375"/>
+                        <GradientStop Color="#FF718597" Offset="0.375"/>
+                        <GradientStop Color="#FF617584" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Grid Tag="{Binding Path=MapData, ElementName=map}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0.5" To="MouseOver"/>
+                                        <VisualTransition From="MouseOver" GeneratedDuration="0:0:0.5"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0" To="#FFFFBD00" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0" To="#FFDE7D07" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Placement="Left" Foreground="White">
+
+                                    <ToolTip.Template>
+                                        <ControlTemplate TargetType="ToolTip">
+                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.75" Margin="0,25,0,0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="64"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Border Padding="3,1,3,3" Grid.Row="1" Background="{StaticResource imageBrush}" Margin="0,-1,0,1">
+                                                    <Grid>
+                                                        <Border x:Name="border" Background="Black"  CornerRadius="3" Grid.Row="1">
+                                                            <Border Background="#FF595959" Margin="4" CornerRadius="2">
+                                                                <Border Background="#FF16161D" Margin="1" CornerRadius="1"/>
+                                                            </Border>
+                                                        </Border>
+                                                        <Grid x:Name="grid1" Margin="12" Grid.Row="1">
+                                                            <TextBlock Text="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource mapDataToTextConverter}, ConverterParameter=End}"/>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Border>
+                                                <Path x:Name="pathTop" Stretch="Fill" Fill="Black" Data="F1 M196,174 L162,238 L178,238 L196,174 z" HorizontalAlignment="Right"  UseLayoutRounding="False" Width="34" RenderTransformOrigin="0.5,0.5" Height="64" VerticalAlignment="Top" Margin="0"/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </ToolTip.Template>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <Path Data="M0.5,0.5 L0.5,399.5614" HorizontalAlignment="Left" Margin="0,-195" Stroke="Black" StrokeMiterLimit="1" UseLayoutRounding="False" Width="1" StrokeDashArray="2 2" VerticalAlignment="Center" Opacity="0.75"/>
+                            <Grid HorizontalAlignment="Right" Height="25" VerticalAlignment="Center" Width="11" Margin="1,0,-1,0">
+                                <Path Stretch="Fill" Fill="#FF474747" Data="F1 M 307,334L 307,340L 307,346L 307,352L 307,357L 296,346L 296,345L 307,334" Margin="0" UseLayoutRounding="False"/>
+                                <Path Stretch="Fill" Fill="#FF474747" Data="F1 M 307,334L 307,340L 307,346L 307,352L 307,357L 296,346L 296,345L 307,334" Margin="0" UseLayoutRounding="False"/>
+                                <Path x:Name="path" Stretch="Fill" Fill="#FFEDF5E7" Data="F1 M 306,336L 306,342L 306,348L 306,354L 306,355L 297,346L 297,345L 306,336" Margin="1,2" UseLayoutRounding="False"/>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{dxet:TrackBarEditStyleThemeKey ResourceKey=TrackBarEditPanelHorizontalStyle}" TargetType="{x:Type dxe:RangeEditBasePanel}" BasedOn="{StaticResource {dxet:TrackBarEditStyleThemeKey ResourceKey=TrackBarEditPanelHorizontalStyle}}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+        </Style>
+        <Style TargetType="{x:Type dxe:TrackBarEdit}" BasedOn="{StaticResource {x:Type dxe:TrackBarEdit}}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+        </Style>
+    </Button.Resources>
+    <Button.Template>
+        <ControlTemplate TargetType="Button">
+            <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Width="481" Height="411">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualStateGroup.Transitions>
+                            <VisualTransition GeneratedDuration="0:0:1" To="MouseOver">
+                                <VisualTransition.GeneratedEasingFunction>
+                                    <CircleEase EasingMode="EaseOut"/>
+                                </VisualTransition.GeneratedEasingFunction>
+                            </VisualTransition>
+                            <VisualTransition From="MouseOver" GeneratedDuration="0:0:1">
+                                <VisualTransition.GeneratedEasingFunction>
+                                    <CircleEase EasingMode="EaseOut"/>
+                                </VisualTransition.GeneratedEasingFunction>
+                            </VisualTransition>
+                        </VisualStateGroup.Transitions>
+                        <VisualState x:Name="Disabled"/>
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <DoubleAnimation Duration="0" To="0.75" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="InfoScreen"/>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Pressed"/>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <dx:PixelSnapper>
+                    <Grid>
+                        <Grid Margin="-2,-2,-2,-3" Opacity="0.5">
+                            <Grid.Background>
+                                <ImageBrush Stretch="Fill" ImageSource="../Images/Map/main_shadow.png"/>
+                            </Grid.Background>
+                        </Grid>
+                        <Border BorderBrush="#FF9A9AA8" BorderThickness="1" Background="White">
+                            <Grid Margin="4">
+                                <Image Source="../Images/Map/RangeBar_16red.png" Grid.RowSpan="3" Grid.ColumnSpan="3" Stretch="Uniform" Width="471" Height="401"/>
+                                <Border x:Name="tbBorder" Opacity="0.75" VerticalAlignment="Center" Padding="0,2,0,0" UseLayoutRounding="True">
+                                    <dxe:TrackBarEdit UseLayoutRounding="False" x:Name="tb" EditValueChanged="TrackBarEdit_EditValueChanged" HorizontalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="3" Minimum="0" Maximum="8" SmallStep="1" LargeStep="1" Margin="16,0,17,0" SelectionEnd="8" FlowDirection="LeftToRight">
+                                        <dxe:TrackBarEdit.TickPlacement>
+                                            None
+                                        </dxe:TrackBarEdit.TickPlacement>
+                                        <dxe:TrackBarEdit.StyleSettings>
+                                            <dxe:TrackBarRangeStyleSettings/>
+                                        </dxe:TrackBarEdit.StyleSettings>
+
+                                    </dxe:TrackBarEdit>
+                                </Border>
+                                <Grid x:Name="InfoScreen" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="4" Opacity="0">
+                                    <Grid Margin="-2,-2,-2,-3" Opacity="0.5">
+                                        <Grid.Background>
+                                            <ImageBrush ImageSource="../Images/Map/sh.png" Stretch="Fill"/>
+                                        </Grid.Background>
+                                    </Grid>
+                                    <Border x:Name="border" Background="Black">
+                                        <Border Background="#FF595959" Margin="4">
+                                            <Border Background="#FF16161D" Margin="1"/>
+                                        </Border>
+                                    </Border>
+                                    <Grid Margin="8">
+                                        <TextBlock Grid.Row="1" Text="{Binding Path=MapData, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource mapDataToTextConverter}, ConverterParameter=Total}"/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </dx:PixelSnapper>
+            </Grid>
+        </ControlTemplate>
+    </Button.Template>
+</Button>

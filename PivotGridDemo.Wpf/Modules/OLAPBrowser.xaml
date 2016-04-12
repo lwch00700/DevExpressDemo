@@ -1,0 +1,98 @@
+﻿<local:PivotGridDemoModule x:Class="PivotGridDemo.PivotGrid.OLAPBrowser"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:PivotGridDemo.PivotGrid"
+    xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+    xmlns:dxdb="http://schemas.devexpress.com/winfx/2008/xaml/demobase"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Height="515" Width="937">
+    <local:PivotGridDemoModule.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PivotGridDemo;component/Controls/ControlStyles/DataSourceDialog.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <dx:BoolToObjectConverter x:Key="inverseBoolConverter" >
+                <dx:BoolToObjectConverter.TrueValue>
+                    <sys:Boolean>False</sys:Boolean>
+                </dx:BoolToObjectConverter.TrueValue>
+                <dx:BoolToObjectConverter.FalseValue>
+                    <sys:Boolean>True</sys:Boolean>
+                </dx:BoolToObjectConverter.FalseValue>
+            </dx:BoolToObjectConverter>
+        </ResourceDictionary>
+    </local:PivotGridDemoModule.Resources>
+
+    <dxdb:DemoModuleControl>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ShowErrorMessageGroup">
+                <VisualState x:Name="ShowErrorMessage">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="errorBorder" Storyboard.TargetProperty="Opacity" From="0" To="1" BeginTime="00:00:00" Duration="00:00:0.7" />
+                        <DoubleAnimation Storyboard.TargetName="errorBorder" Storyboard.TargetProperty="Height" From="0" To="70" BeginTime="00:00:00" Duration="00:00:0.7" />
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="errorBorder" BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Visible</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="HideErrorMessage">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="errorBorder" Storyboard.TargetProperty="Opacity" From="1" To="0" BeginTime="00:00:00" Duration="00:00:0.7" />
+                        <DoubleAnimation Storyboard.TargetName="errorBorder" Storyboard.TargetProperty="Height" From="70" To="0" BeginTime="00:00:00" Duration="00:00:0.7" />
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="errorBorder" BeginTime="00:00:0.7" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border x:Name="errorBorder" Visibility="Collapsed">
+                <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="14" Margin="3">
+                    <TextBlock x:Name="errorText" />
+                </Border>
+            </Border>
+            <dxlc:DockLayoutControl Grid.Row="1">
+                <Border dxlc:DockLayoutControl.Dock="Right" dxlc:DockLayoutControl.AllowHorizontalSizing="True" Padding="6,8,12,12"
+                        Width="300"  Background="{Binding Background, ElementName=pivotGrid}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="showConnectionButton" Content="New Connection" Grid.Row="1" Click="OnShowConnectionClick" Margin="0,0,0,7" IsEnabled="{Binding IsMainWaitIndicatorVisible, ElementName=pivotGrid, Converter={StaticResource inverseBoolConverter}}" />
+                        <dxpg:PivotExcelFieldListControl Grid.Row="2"
+                                             x:Name="fieldList"
+                                             Owner="{Binding ElementName=pivotGrid}" HorizontalAlignment="Stretch" />
+                    </Grid>
+                </Border>
+                <dxpg:PivotGridControl ShowFilterHeaders="False" ShowDataHeaders="False" ShowColumnHeaders="False" ShowRowHeaders="False"
+                                       dxlc:DockLayoutControl.AllowHorizontalSizing="True" dxlc:DockLayoutControl.Dock="Client" Margin="0,0,6,0"
+                                       CellDoubleClick="pivotGrid_CellDoubleClick" RowTreeWidth="202" SizeChanged="OnPivotGridSizeChanged"
+                                    OlapException="OnPivotGridOlapException" FieldListSplitterY="200"
+                                   Grid.RowSpan="2" x:Name="pivotGrid" VerticalAlignment="Stretch" ShowBorder="False" Loaded="OnPivotGridLoaded">
+                </dxpg:PivotGridControl>
+            </dxlc:DockLayoutControl>
+        </Grid>
+    </dxdb:DemoModuleControl>
+</local:PivotGridDemoModule>

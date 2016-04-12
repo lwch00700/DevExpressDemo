@@ -1,0 +1,230 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:RibbonDemo"
+                    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+                    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+                    xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+                    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RibbonDemo;component/Modules/RibbonSimplePad/Views/BackstageViewCommonStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+    <local:EnumToIndexConverter x:Key="EnumToIndexConverter" />
+
+    <ControlTemplate x:Key="RecentControlPaneTemplate" TargetType="{x:Type ContentControl}">
+        <Grid SnapsToDevicePixels="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Margin="27,15,27,0" SnapsToDevicePixels="True">
+                <ContentControl Template="{StaticResource HeaderTemplate}" Content="Recent Documents" SnapsToDevicePixels="True" />
+                <dxe:ListBoxEdit ShowBorder="False" AllowItemHighlighting="True" Style="{StaticResource ListBoxEditStyleBase}" ItemsSource="{Binding RecentDocuments}" ItemTemplate="{StaticResource RecentDocumentsItemTemplate}" />
+            </StackPanel>
+            <ContentControl Grid.Column="1" Template="{StaticResource VerticalSeparatorTemplate}" />
+            <StackPanel Grid.Column="2" Margin="17,15,27,0">
+                <ContentControl Template="{StaticResource HeaderTemplate}" Content="Recent Places" />
+                <dxe:ListBoxEdit ShowBorder="False" AllowItemHighlighting="True" Style="{StaticResource ListBoxEditStyleBase}" ItemsSource="{Binding RecentPlaces}" ItemTemplate="{StaticResource RecentDocumentsItemTemplate}" />
+            </StackPanel>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="HelpControlPaneTemplate" TargetType="{x:Type ContentControl}">
+        <Grid SnapsToDevicePixels="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Margin="27,15,27,0" SnapsToDevicePixels="True">
+                <ContentControl Template="{StaticResource HeaderTemplate}" Content="Support" SnapsToDevicePixels="True" />
+                <dxe:ListBoxEdit ShowBorder="False" AllowItemHighlighting="True" SelectionMode="Single" Style="{StaticResource ListBoxEditStyleBase}">
+                    <dxe:ListBoxEditItem ContentTemplate="{StaticResource RecentHelpItemViewModel}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:EventToCommand EventName="MouseLeftButtonUp" Command="{Binding DataContext.NavigateToOnlineHelpCommand}"/>
+                        </dxmvvm:Interaction.Behaviors>
+                        <local:RecentItemViewModel Caption="DevExpress Online Help" Description="Get help using DevExpress components" Glyph="../../../Images/Online_Help.png"  />
+                    </dxe:ListBoxEditItem>
+                    <dxe:ListBoxEditItem ContentTemplate="{StaticResource RecentHelpItemViewModel}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:EventToCommand EventName="MouseLeftButtonUp" Command="{Binding DataContext.NavigateToCodeCentralCommand}"/>
+                        </dxmvvm:Interaction.Behaviors>
+                        <local:RecentItemViewModel Caption="Code Central Examples" Description="Find more examples in our online knowledge base" Glyph="../../../Images/Code_Central.png"  />
+                    </dxe:ListBoxEditItem>
+                    <dxe:ListBoxEditItem ContentTemplate="{StaticResource RecentHelpItemViewModel}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:EventToCommand EventName="MouseLeftButtonUp" Command="{Binding DataContext.NavigateToContactsCommand}"/>
+                        </dxmvvm:Interaction.Behaviors>
+                        <local:RecentItemViewModel Caption="Contact Us" Description="Let us know if you need help or how we can make our components better" Glyph="../../../Images/Contact_Us.png"  />
+                    </dxe:ListBoxEditItem>
+                </dxe:ListBoxEdit>
+            </StackPanel>
+            <ContentControl Grid.Column="1" Template="{StaticResource VerticalSeparatorTemplate}" />
+            <StackPanel Grid.Column="2" Margin="4" HorizontalAlignment="Stretch">
+                <Image Source="../../../Images/DXRibbon.png" Margin="0,15,0,15" Stretch="None" HorizontalAlignment="Left" />
+                <ContentControl Template="{StaticResource HeaderTemplate}" Content="About RibbonSimplePad" SnapsToDevicePixels="True" />
+                <local:ThemedContentControl Content="{Binding DXVersion}" Margin="15,0,0,0" />
+                <local:ThemedContentControl Content="Serial number: DEBUG_VERSION" Margin="15,0,0,0" />
+                <StackPanel Orientation="Horizontal" Margin="15,0,0,0">
+                    <local:ThemedContentControl Content="Visit us online at " />
+                    <dxr:BackstageButtonItem Command="{Binding NavigateToHomeSiteCommand}" Cursor="Hand" FontStretch="Condensed" Margin="4,0,0,0">
+                        <dxr:BackstageButtonItem.Template>
+                            <ControlTemplate TargetType="{x:Type dxr:BackstageButtonItem}">
+                                <local:ThemedContentControl LightThemeNormalForeground="Blue" DarkThemeNormalForeground="Orange" Content="www.devexpress.com" />
+                            </ControlTemplate>
+                        </dxr:BackstageButtonItem.Template>
+                    </dxr:BackstageButtonItem>
+                </StackPanel>
+                <local:ThemedContentControl Content="{Binding DXCopyright}" Margin="15,0,0,0" />
+            </StackPanel>
+        </Grid>
+    </ControlTemplate>
+    <ObjectDataProvider x:Key="ribbonStyle" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="dxr:RibbonStyle"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="ribbonTitleBarVisibilitySource" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="dxr:RibbonTitleBarVisibility"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ControlTemplate x:Key="OptionsControlPaneTemplate" TargetType="{x:Type ContentControl}">
+        <local:ThemedContentControl>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="1" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Margin="27,15,27,0">
+                    <ContentControl Template="{StaticResource HeaderTemplate}" Content="Title bar visibility" />
+                    <dxe:ListBoxEdit Style="{StaticResource ListBoxEditStyle}" SelectedIndex="{Binding NewOptions.TitleBarVisibility, Converter={StaticResource EnumToIndexConverter}, Mode=TwoWay}">
+                        <dxe:ListBoxEditItem DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Template="{StaticResource ListBoxEditItemTemplate}">
+                            <RadioButton Content="Auto" IsChecked="{Binding IsSelected, Mode=TwoWay}" ClickMode="Press" />
+                        </dxe:ListBoxEditItem>
+                        <dxe:ListBoxEditItem DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Template="{StaticResource ListBoxEditItemTemplate}" Margin="8,0,0,0">
+                            <RadioButton Content="Collapsed" IsChecked="{Binding IsSelected, Mode=TwoWay}" ClickMode="Press" />
+                        </dxe:ListBoxEditItem>
+                        <dxe:ListBoxEditItem DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Template="{StaticResource ListBoxEditItemTemplate}" Margin="8,0,0,0">
+                            <RadioButton Content="Visible" IsChecked="{Binding IsSelected, Mode=TwoWay}" ClickMode="Press" />
+                        </dxe:ListBoxEditItem>
+                    </dxe:ListBoxEdit>
+
+                    <ContentControl Template="{StaticResource HeaderTemplate}" Content="Ribbon Toolbar Show Mode" Margin="0,8,0,0" />
+                    <dxe:ListBoxEdit Style="{StaticResource ListBoxEditStyle}" SelectedIndex="{Binding NewOptions.ToolbarShowMode, Converter={StaticResource EnumToIndexConverter}, Mode=TwoWay}" BorderThickness="0"
+                         >
+                        <dxe:ListBoxEditItem DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Template="{StaticResource ListBoxEditItemTemplate}">
+                            <RadioButton Content="Show above" IsChecked="{Binding IsSelected, Mode=TwoWay}" ClickMode="Press" />
+                        </dxe:ListBoxEditItem>
+                        <dxe:ListBoxEditItem DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Template="{StaticResource ListBoxEditItemTemplate}" Margin="8,0,0,0">
+                            <RadioButton Content="Show below" IsChecked="{Binding IsSelected, Mode=TwoWay}" ClickMode="Press" />
+                        </dxe:ListBoxEditItem>
+                        <dxe:ListBoxEditItem DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Template="{StaticResource ListBoxEditItemTemplate}" Margin="8,0,0,0">
+                            <RadioButton Content="Hidden" IsChecked="{Binding IsSelected, Mode=TwoWay}" ClickMode="Press" />
+                        </dxe:ListBoxEditItem>
+                    </dxe:ListBoxEdit>
+                    <ContentControl Template="{StaticResource HeaderTemplate}" Content="Page Category Alignment" Margin="0,8,0,0" />
+                    <dxe:ListBoxEdit Style="{StaticResource ListBoxEditStyle}" SelectedIndex="{Binding NewOptions.PageCategoryAlignment, Converter={StaticResource EnumToIndexConverter}, Mode=TwoWay}" BorderThickness="0"
+                         >
+                        <dxe:ListBoxEditItem DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Template="{StaticResource ListBoxEditItemTemplate}">
+                            <RadioButton Content="Left" IsChecked="{Binding IsSelected, Mode=TwoWay}" ClickMode="Press" />
+                        </dxe:ListBoxEditItem>
+                        <dxe:ListBoxEditItem DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Margin="8,0,0,0" Template="{StaticResource ListBoxEditItemTemplate}">
+                            <RadioButton Content="Right" IsChecked="{Binding IsSelected, Mode=TwoWay}" ClickMode="Press" />
+                        </dxe:ListBoxEditItem>
+                    </dxe:ListBoxEdit>
+                    <ContentControl Template="{StaticResource HeaderTemplate}" Content="Page Category Color" Margin="0,8,0,4" />
+                    <dxe:ListBoxEdit Style="{StaticResource ListBoxEditStyle}"  ItemTemplate="{StaticResource BackstageColorItemTemplate}"
+                         SelectedItem="{Binding NewOptions.PageCategoryColor, Mode=TwoWay}"
+                         BorderThickness="0"
+                         ItemsSource="{Binding PageCategoryColors}"
+                         >
+                    </dxe:ListBoxEdit>
+                    <ContentControl Template="{StaticResource HeaderTemplate}" Content="Ribbon Style" Margin="0,8,0,0" />
+                    <dxe:ListBoxEdit Style="{StaticResource ListBoxEditStyle}" SelectedIndex="{Binding NewOptions.RibbonStyle, Converter={StaticResource EnumToIndexConverter}, Mode=TwoWay}" BorderThickness="0"
+                         >
+                        <dxe:ListBoxEditItem DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Template="{StaticResource ListBoxEditItemTemplate}">
+                            <RadioButton Content="Office 2007" IsChecked="{Binding IsSelected, Mode=TwoWay}" ClickMode="Press" />
+                        </dxe:ListBoxEditItem>
+                        <dxe:ListBoxEditItem DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Template="{StaticResource ListBoxEditItemTemplate}" Margin="8,0,0,0">
+                            <RadioButton Content="Office 2010" IsChecked="{Binding IsSelected, Mode=TwoWay}" ClickMode="Press" />
+                        </dxe:ListBoxEditItem>
+                        <dxe:ListBoxEditItem DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Template="{StaticResource ListBoxEditItemTemplate}" Margin="8,0,0,0">
+                            <RadioButton Content="Tablet Office" IsChecked="{Binding IsSelected, Mode=TwoWay}" ClickMode="Press" />
+                        </dxe:ListBoxEditItem>
+                        <dxe:ListBoxEditItem DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Template="{StaticResource ListBoxEditItemTemplate}" Margin="8,0,0,0">
+                            <RadioButton Content="Office Slim" IsChecked="{Binding IsSelected, Mode=TwoWay}" ClickMode="Press" />
+                        </dxe:ListBoxEditItem>
+                    </dxe:ListBoxEdit>
+                    <Button Content="Apply" Command="{Binding ApplyOptionsCommand}" HorizontalAlignment="Right" Margin="0,16,0,0" />
+                </StackPanel>
+                <ContentControl Grid.Column="1" Template="{StaticResource VerticalSeparatorTemplate}" />
+                <Grid Margin="27,15,27,0" Grid.Column="2" IsHitTestVisible="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ContentControl Template="{StaticResource HeaderTemplate}" Content="Preview" SnapsToDevicePixels="True" />
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="4" CornerRadius="5" VerticalAlignment="Top" SnapsToDevicePixels="True">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <dxr:RibbonControl SelectedPageName="selectedPage"
+                                                   AllowKeyTips="False"
+                                                   RibbonTitleBarVisibility="{Binding NewOptions.TitleBarVisibility}"
+                                                   ToolbarShowMode="{Binding NewOptions.ToolbarShowMode}"
+                                                   PageCategoryAlignment="{Binding NewOptions.PageCategoryAlignment}"
+                                                   RibbonStyle="{Binding NewOptions.RibbonStyle}">
+                                <dxr:RibbonControl.ToolbarItemLinks>
+                                    <dxb:BarButtonItemLink BarItemName="bSampleButtonNewItem" />
+                                    <dxb:BarButtonItemLink BarItemName="bSampleButtonSaveItem" />
+                                </dxr:RibbonControl.ToolbarItemLinks>
+                                <dxr:RibbonDefaultPageCategory>
+                                    <dxr:RibbonPage Caption="Page 1" />
+                                    <dxr:RibbonPage Caption="Page 2" />
+                                </dxr:RibbonDefaultPageCategory>
+                                <dxr:RibbonPageCategory Caption="Sample category" Color="{Binding NewOptions.PageCategoryColor, Mode=TwoWay}">
+                                    <dxr:RibbonPage x:Name="selectedPage" Caption="Page 3">
+                                        <dxr:RibbonPageGroup Caption="Group 1">
+                                            <dxb:BarButtonItem Name="bSampleButtonNewItem" Content="New Item" Glyph="/RibbonDemo;component/Images/Icons/new-16x16.png" LargeGlyph="/RibbonDemo;component/Images/Icons/new-32x32.png" />
+                                            <dxb:BarButtonItem Name="bSampleButtonSaveItem" Content="New Item" Glyph="/RibbonDemo;component/Images/Icons/save-16x16.png" LargeGlyph="/RibbonDemo;component/Images/Icons/save-32x32.png" />
+                                        </dxr:RibbonPageGroup>
+                                        <dxr:RibbonPageGroup Caption="Group 2">
+                                            <dxb:BarButtonItem Content="New Item" Glyph="/RibbonDemo;component/Images/Icons/new-16x16.png" LargeGlyph="/RibbonDemo;component/Images/Icons/new-32x32.png" />
+                                            <dxb:BarButtonItem Content="New Item" Glyph="/RibbonDemo;component/Images/Icons/save-16x16.png" LargeGlyph="/RibbonDemo;component/Images/Icons/save-32x32.png" />
+                                        </dxr:RibbonPageGroup>
+                                    </dxr:RibbonPage>
+                                    <dxr:RibbonPage Caption="Page 4" />
+                                </dxr:RibbonPageCategory>
+                            </dxr:RibbonControl>
+                            <Border Background="White" Grid.Row="1" MinHeight="100" />
+                            <dxr:RibbonStatusBarControl Grid.Row="2">
+                                <dxr:RibbonStatusBarControl.LeftItems>
+                                    <dxb:BarButtonItem Content="New Item" Glyph="/RibbonDemo;component/Images/Icons/new-16x16.png" LargeGlyph="/RibbonDemo;component/Images/Icons/new-32x32.png" />
+                                    <dxb:BarButtonItem Content="New Item" Glyph="/RibbonDemo;component/Images/Icons/save-16x16.png" LargeGlyph="/RibbonDemo;component/Images/Icons/save-32x32.png" />
+                                </dxr:RibbonStatusBarControl.LeftItems>
+                                <dxr:RibbonStatusBarControl.RightItems>
+                                    <dxb:BarButtonItem Content="New Item" Glyph="/RibbonDemo;component/Images/Icons/new-16x16.png" LargeGlyph="/RibbonDemo;component/Images/Icons/new-32x32.png" />
+                                    <dxb:BarButtonItem Content="New Item" Glyph="/RibbonDemo;component/Images/Icons/save-16x16.png" LargeGlyph="/RibbonDemo;component/Images/Icons/save-32x32.png" />
+                                </dxr:RibbonStatusBarControl.RightItems>
+                            </dxr:RibbonStatusBarControl>
+                            <Border BorderBrush="White" BorderThickness="1" SnapsToDevicePixels="True" CornerRadius="5" />
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+        </local:ThemedContentControl>
+    </ControlTemplate>
+</ResourceDictionary>
